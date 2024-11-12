@@ -1,0 +1,49 @@
+# https://pre-commit.com/hooks.html
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-yaml
+      - id: check-json
+      - id: check-xml
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-docstring-first
+      - id: check-case-conflict
+      - id: forbid-submodules
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.90.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_docs
+        args:
+          - --hook-config=--path-to-file=README.md
+          - --hook-config=--add-to-existing-file=true
+          - --hook-config=--create-file-if-not-exist=true
+          - --hook-config=--use-standard-markers=true
+        #  - --args=markdown terraform
+      - id: terraform_validate
+      - id: terraform_trivy
+        files: ^terraform/
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.12.0
+    hooks:
+      - id: markdownlint
+        args:
+          - '-r ~MD013'
+  - repo: https://github.com/digitalpulp/pre-commit-php
+    rev: 1.4.0
+    hooks:
+      - id: php-lint-all
+      - id: php-cs-fixer
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 3.0.5
+    hooks:
+      - id: sqlfluff-lint
+  - repo: https://github.com/hija/clean-dotenv
+    rev: v0.0.7
+    hooks:
+      - id: clean-dotenv

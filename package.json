@@ -1,0 +1,57 @@
+{
+  "name": "oauth2-cli",
+  "version": "0.0.0",
+  "description": "",
+  "author": {
+    "name": "Seth Battis",
+    "url": "https://github.com/battis"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "oauth2": "./dist/bin/oauth2.js"
+  },
+  "scripts": {
+    "clean": "del ./dist",
+    "build": "run-s build:*",
+    "build:clean": "run-s clean",
+    "build:compile": "tsc",
+    "release": "run-s release:*",
+    "release:changeset": "changeset version",
+    "release:publish": "pnpm publish -r --otp $(op item get npm --otp)"
+  },
+  "prettier": "@battis/prettier-config",
+  "eslintConfig": {
+    "extends": "@battis/eslint-config"
+  },
+  "dependencies": {
+    "@battis/qui-cli": "^0.6.3",
+    "del-cli": "^6.0.0",
+    "express": "^4.21.1",
+    "open": "^10.1.0"
+  },
+  "devDependencies": {
+    "@battis/eslint-config": "latest",
+    "@battis/prettier-config": "latest",
+    "@changesets/cli": "^2.27.9",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "ejs": "*"
+  },
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+  "peerDependencyMeta": {
+    "ejs": {
+      "optional": true
+    }
+  },
+  "repo": {
+    "type": "git",
+    "url": "https://github.com/battis/oauth2-cli.git"
+  }
+}
