@@ -1,33 +1,36 @@
 import cli from '@battis/qui-cli';
-import ejs from 'ejs';
 import express from 'express';
 import crypto from 'node:crypto';
 import path from 'node:path';
 import open from 'open';
-import { authorizationUrl, tokenUrl } from './URLs.js';
+import { Options } from '../OAuth2.js';
+import { Credentials } from './Credentials.js';
 import {
+  ServerError,
   StorableToken,
-  TokenError,
   TokenResponse,
-  isTokenError
-} from './tokens.js';
+  isServerError
+} from './StorableToken.js';
 
-export type Credentials = {
-  client_id: string;
-  client_secret: string;
-  'Bb-api-subscription-key': string;
-  redirect_uri: string;
-};
-
-export async function authorize({
-  client_id,
-  client_secret,
-  redirect_uri,
-  ...subscriptionHeader
-}: Credentials): Promise<StorableToken> {
-  return new Promise((resolve, reject) => {
+export async function authorize(
+  { client_id, client_secret, redirect_uri }: Credentials,
+  { authorizationUrl, tokenUrl, headers }: Options
+): Promise<StorableToken> {
+  return new Promise(async (resolve, reject) => {
     const spinner = cli.spinner();
-    spinner.start('Please authorize this app in your web browser');
+    if (!authorizationUrl) {
+      throw new Error('Authorization URL must be defined');
+    }
+    const state = crypto.randomUUID();
+    const url = `${authorizationUrl}?${new URLSearchParams({
+      client_id,
+      response_type: 'code',
+      state,
+      redirect_uri
+    })}`;
+    spinner.start(
+      `Please authorize this app in your web browser: ${cli.colors.url(url)}`
+    );
     const redirectUri = new URL(redirect_uri);
     if (
       redirectUri.hostname !== 'localhost' &&
@@ -40,13 +43,12 @@ export async function authorize({
       );
     }
 
-    const state = crypto.randomUUID();
-
     const app = express();
-    const server = app.listen(redirectUri.port);
+    const server = app.listen(redirectUri.port || 80);
     const timestamp = Date.now();
     let rejection: unknown = undefined;
-    let response: TokenResponse | TokenError;
+    let response: TokenResponse | ServerError;
+    const ejs = await import('ejs');
 
     app.get(redirectUri.pathname, async (req, res) => {
       if (req.query.error) {
@@ -57,10 +59,10 @@ export async function authorize({
       }
       if (!rejection && req.query.code) {
         try {
-          response = await (
-            await fetch(tokenUrl, {
+          response = (await (
+            await fetch(tokenUrl || authorizationUrl, {
               method: 'POST',
-              headers: subscriptionHeader,
+              headers,
               // sending as form data
               body: new URLSearchParams({
                 client_id,
@@ -70,8 +72,8 @@ export async function authorize({
                 grant_type: 'authorization_code'
               })
             })
-          ).json();
-          if (isTokenError(response)) {
+          ).json()) as TokenResponse | ServerError;
+          if (isServerError(response)) {
             rejection = response;
           }
         } catch (error) {
@@ -81,13 +83,17 @@ export async function authorize({
         rejection = 'No code present';
       }
       res.send(
-        await ejs.renderFile(
-          path.join(
-            import.meta.dirname,
-            rejection ? 'views/error.ejs' : 'views/close.ejs'
-          ),
-          { rejection }
-        )
+        ejs
+          ? await ejs.renderFile(
+              path.join(
+                import.meta.dirname,
+                rejection ? 'views/error.ejs' : 'views/close.ejs'
+              ),
+              { rejection }
+            )
+          : rejection
+            ? rejection
+            : 'Authorization complete. You may close this window.'
       );
       server.close();
       if (rejection) {
@@ -101,13 +107,6 @@ export async function authorize({
       res.status(404).send();
     });
 
-    open(
-      `${authorizationUrl}?${new URLSearchParams({
-        client_id,
-        response_type: 'code',
-        state,
-        redirect_uri
-      })}`
-    );
+    open(url);
   });
 }

@@ -1,0 +1,9 @@
+{
+  "actions" : {
+    "run" : {
+      "enabled" : true,
+      "script" : "source .env\ntsx src\/bin\/oauth2.ts -H\"Bb-api-subscription-key:$SUBSCRIPTION_KEY\" -a\"$AUTHORIZATION_URL\" -t\"$TOKEN_URL\" -p.\/var\/skyapi.json"
+    }
+  },
+  "openLogOnRun" : "start"
+}
