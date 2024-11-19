@@ -1,0 +1,9 @@
+{
+  "actions" : {
+    "run" : {
+      "enabled" : true,
+      "script" : "pnpm run pre-changeset"
+    }
+  },
+  "openLogOnRun" : "start"
+}

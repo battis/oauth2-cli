@@ -1,7 +1,7 @@
+import * as Configuration from '@battis/oauth2-configure';
 import express from 'express';
 import path from 'node:path';
 import * as client from 'openid-client';
-import * as Configuration from './Configuration.js';
 
 type Options = Configuration.Options & {
   redirect_uri: string;

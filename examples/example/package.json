@@ -1,0 +1,17 @@
+{
+  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/example#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/battis/oauth-cli.git",
+    "directory": "examples/example"
+  },
+  "author": {
+    "name": "Seth Battis",
+    "url": "https://github.com/battis"
+  },
+  "type": "module",
+  "dependencies": {
+    "@battis/qui-cli": "^0.7.0",
+    "oauth2-cli": "workspace:*"
+  }
+}
