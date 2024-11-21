@@ -1,0 +1,14 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "pnpm -F example run build"
+    },
+    "run" : {
+      "enabled" : true,
+      "script" : "cd examples\/get-token\nsource .env\nnode dist\/index.js --clientId=\"$CLIENT_ID\" --clientSecret=\"$CLIENT_SECRET\" --redirectUri=\"$REDIRECT_URI\" --authorizationEndpoint=\"$AUTHORIZATION_ENDPOINT\" --tokenEndpoint=\"$TOKEN_ENDPOINT\" --header=\"Bb-Api-Subscription-Key:$SUBSCRIPTION_KEY\" .\/var\/token.json"
+    }
+  },
+  "buildBeforeRunning" : true,
+  "openLogOnRun" : "start"
+}

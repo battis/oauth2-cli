@@ -16,7 +16,9 @@ export class FileStorage implements TokenStorage {
     return await this.fileLock.runExclusive(
       (async () => {
         if (fs.existsSync(this.filePath)) {
-          return JSON.parse(fs.readFileSync(this.filePath).toString());
+          return Token.fromResponse(
+            JSON.parse(fs.readFileSync(this.filePath).toString())
+          );
         }
         return undefined;
       }).bind(this)

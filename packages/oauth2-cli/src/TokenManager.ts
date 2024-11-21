@@ -91,6 +91,10 @@ export class TokenManager {
 
       await Localhost.redirectServer({
         ...this.options,
+        authorization_url: client.buildAuthorizationUrl(
+          configuration,
+          parameters
+        ).href,
         code_verifier,
         state,
         resolve: (async (response: client.TokenEndpointResponse) => {
@@ -102,13 +106,6 @@ export class TokenManager {
         }).bind(this),
         reject
       });
-
-      const authorizationUrl = client.buildAuthorizationUrl(
-        configuration,
-        parameters
-      );
-      console.log(`Open ${authorizationUrl.href} in a browser to authorize`);
-      open(authorizationUrl.href);
     });
   }
 }
