@@ -1,10 +1,10 @@
 {
-  "name": "get-token",
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/get-token#readme",
+  "name": "async-tokens",
+  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/async-tokens#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/oauth-cli.git",
-    "directory": "examples/get-token"
+    "directory": "examples/async-tokens"
   },
   "author": {
     "name": "Seth Battis",

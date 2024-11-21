@@ -100,7 +100,7 @@ export class TokenManager {
         resolve: (async (response: client.TokenEndpointResponse) => {
           const token = Token.fromResponse(response);
           if (token && this.store) {
-            this.store.save(token);
+            await this.store.save(token);
           }
           resolve(token);
         }).bind(this),

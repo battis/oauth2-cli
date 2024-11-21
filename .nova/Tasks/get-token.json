@@ -2,7 +2,7 @@
   "actions" : {
     "build" : {
       "enabled" : true,
-      "script" : "pnpm -F example run build"
+      "script" : "pnpm run build"
     },
     "run" : {
       "enabled" : true,
