@@ -49,7 +49,7 @@ export async function redirectServer(options: Options) {
     }
     if (ejs) {
       res.send(
-        await ejs.renderFile(path.join(import.meta.dirname, 'views', view), {
+        await ejs.renderFile(path.join(import.meta.dirname, '../views', view), {
           tokens,
           error
         })

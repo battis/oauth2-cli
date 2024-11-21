@@ -27,29 +27,31 @@ export class TokenManager {
   }
 
   public async getToken() {
-    return await this.tokenMutex.runExclusive(async () => {
-      let tokens: StorableToken | undefined = undefined;
-      let refreshed = true;
-      if (this.store) {
-        tokens = await this.store.load();
-        if (
-          tokens &&
-          tokens.expires_in &&
-          this.hasExpired(tokens.timestamp, tokens.expires_in)
-        ) {
-          tokens = await this.refreshToken(tokens);
-        } else {
-          refreshed = false;
+    return await this.tokenMutex.runExclusive(
+      (async () => {
+        let tokens: StorableToken | undefined = undefined;
+        let refreshed = true;
+        if (this.store) {
+          tokens = await this.store.load();
+          if (
+            tokens &&
+            tokens.expires_in &&
+            this.hasExpired(tokens.timestamp, tokens.expires_in)
+          ) {
+            tokens = await this.refreshToken(tokens);
+          } else {
+            refreshed = false;
+          }
         }
-      } else {
-        tokens = await this.authorize();
-      }
-
-      if (refreshed && tokens && this.store) {
-        await this.store.save(tokens);
-      }
-      return tokens;
-    });
+        if (!tokens) {
+          tokens = await this.authorize();
+        }
+        if (refreshed && tokens && this.store) {
+          await this.store.save(tokens);
+        }
+        return tokens;
+      }).bind(this)
+    );
   }
 
   private hasExpired(timestamp: number, expires_in: number) {
@@ -104,7 +106,7 @@ export class TokenManager {
         ...additionalParameters,
         redirect_uri,
         code_challenge,
-        code_challenge_method: 'S256'
+        code_challenge_method: 'S256' // TODO make code challenge method configurable?
       };
 
       if (scope) {
@@ -131,6 +133,7 @@ export class TokenManager {
       if (open) {
         open(authorizationUrl.href);
       }
+      // TODO use winston for logging
       console.log(
         `Please authorize this app in your web browser: ${authorizationUrl}`
       );
