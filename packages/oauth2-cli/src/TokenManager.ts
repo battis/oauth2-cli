@@ -1,20 +1,22 @@
 import * as Configuration from '@battis/oauth2-configure';
 import { Mutex } from 'async-mutex';
+import open from 'open';
 import * as client from 'openid-client';
 import { FileStorage } from './FileStorage.js';
 import * as Localhost from './Localhost.js';
-import { StorableToken, Storage } from './Storage.js';
+import { Token } from './Token.js';
+import { TokenStorage } from './TokenStorage.js';
 
 export type Options = Configuration.Options & {
   scope?: string;
   headers?: Record<string, string>;
   parameters?: Record<string, string>;
-  store?: Storage | string;
+  store?: TokenStorage | string;
 };
 
 export class TokenManager {
   private tokenMutex = new Mutex();
-  private store?: Storage;
+  private store?: TokenStorage;
 
   public constructor(private options: Options) {
     if (this.options.store) {
@@ -29,67 +31,37 @@ export class TokenManager {
   public async getToken() {
     return await this.tokenMutex.runExclusive(
       (async () => {
-        let tokens: StorableToken | undefined = undefined;
-        let refreshed = true;
-        if (this.store) {
-          tokens = await this.store.load();
-          if (
-            tokens &&
-            tokens.expires_in &&
-            this.hasExpired(tokens.timestamp, tokens.expires_in)
-          ) {
-            tokens = await this.refreshToken(tokens);
-          } else {
-            refreshed = false;
-          }
+        let token = await this.store?.load();
+        if (token?.hasExpired()) {
+          token = await this.refreshToken(token);
         }
-        if (!tokens) {
-          tokens = await this.authorize();
-        }
-        if (refreshed && tokens && this.store) {
-          await this.store.save(tokens);
-        }
-        return tokens;
+        return token || (await this.authorize());
       }).bind(this)
     );
   }
 
-  private hasExpired(timestamp: number, expires_in: number) {
-    return Date.now() > timestamp + expires_in;
-  }
-
-  private async refreshToken(tokens: StorableToken): Promise<StorableToken> {
-    if (!tokens.refresh_token) {
-      throw new Error('No refresh token available.');
-    }
-    if (
-      tokens.refresh_token_expires_in &&
-      typeof tokens.refresh_token_expires_in === 'number' &&
-      !this.hasExpired(tokens.timestamp, tokens.refresh_token_expires_in)
-    ) {
-      const { refresh_token } = tokens;
+  private async refreshToken(token: Token): Promise<Token | undefined> {
+    if (token.refresh_token) {
       const { headers, parameters } = this.options;
-      const freshTokens = await client.refreshTokenGrant(
-        await Configuration.acquire(this.options),
-        refresh_token,
-        parameters,
-        // @ts-ignore FIXME undocumented arg pass-through to oauth4webapi
-        { headers }
-      );
-      if (!freshTokens) {
-        throw new Error('Refresh failed to deliver fresh tokens');
-      }
-      if (refresh_token) {
-        return {
-          timestamp: Date.now(),
-          ...(freshTokens as client.TokenEndpointResponse)
-        };
+      let freshTokens;
+      if (
+        (freshTokens = Token.fromResponse(
+          await client.refreshTokenGrant(
+            await Configuration.acquire(this.options),
+            token.refresh_token,
+            parameters,
+            // @ts-ignore FIXME undocumented arg pass-through to oauth4webapi
+            { headers }
+          )
+        ))
+      ) {
+        return this.store?.save(freshTokens) || freshTokens;
       }
     }
     return this.authorize();
   }
 
-  private async authorize(): Promise<StorableToken> {
+  private async authorize(): Promise<Token | undefined> {
     const {
       scope,
       redirect_uri,
@@ -121,7 +93,13 @@ export class TokenManager {
         ...this.options,
         code_verifier,
         state,
-        resolve,
+        resolve: (async (response: client.TokenEndpointResponse) => {
+          const token = Token.fromResponse(response);
+          if (token && this.store) {
+            this.store.save(token);
+          }
+          resolve(token);
+        }).bind(this),
         reject
       });
 
@@ -129,14 +107,8 @@ export class TokenManager {
         configuration,
         parameters
       );
-      const { default: open } = await import('open');
-      if (open) {
-        open(authorizationUrl.href);
-      }
-      // TODO use winston for logging
-      console.log(
-        `Please authorize this app in your web browser: ${authorizationUrl}`
-      );
+      console.log(`Open ${authorizationUrl.href} in a browser to authorize`);
+      open(authorizationUrl.href);
     });
   }
 }

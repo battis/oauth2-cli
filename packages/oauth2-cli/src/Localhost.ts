@@ -21,9 +21,8 @@ export async function redirectServer(options: Options) {
 
   const app = express();
   const server = app.listen(redirectUrl.port !== '' ? redirectUrl.port : 80);
-  const timestamp = Date.now();
   const ejs = await import('ejs');
-  let view = 'close.ejs';
+  let view = 'complete.ejs';
   let tokens: client.TokenEndpointResponse | undefined = undefined;
   let error: any = undefined;
 
@@ -61,7 +60,7 @@ export async function redirectServer(options: Options) {
     if (error) {
       reject(error);
     } else {
-      resolve({ timestamp, ...tokens! });
+      resolve(tokens);
     }
   });
   app.get('*', (_, res) => {

@@ -1,5 +1,6 @@
 import cli from '@battis/qui-cli';
 import * as oauth2 from 'oauth2-cli';
+import { splitOptList } from './splitOptList.js';
 
 const {
   positionals: [tokenPath],
@@ -13,6 +14,7 @@ const {
     ...values
   }
 } = cli.init({
+  env: { root: process.cwd() },
   args: {
     requirePositionals: 1,
     options: {
@@ -33,23 +35,6 @@ const {
     }
   }
 });
-
-function splitOptList(
-  delimiter: string,
-  optList?: string[] | string
-): Record<string, string> {
-  const regex = new RegExp(`^([^${delimiter}]+)${delimiter}(.*)$`);
-  if (typeof optList === 'string') {
-    optList = [optList];
-  }
-  return (optList || []).reduce((obj: Record<string, string>, raw: string) => {
-    const [, parameter, value] = (raw.match(regex) || [])?.map((p) => p.trim());
-    if (parameter && value) {
-      obj[parameter] = value;
-    }
-    return obj;
-  }, {});
-}
 
 const tokenManager = new oauth2.TokenManager({
   issuer,
