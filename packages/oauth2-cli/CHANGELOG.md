@@ -1,5 +1,11 @@
 # oauth2-cli
 
+## 0.1.1
+
+### Patch Changes
+
+- b6001cc: fix open dep
+
 ## 0.1.0
 
 ### Minor Changes
