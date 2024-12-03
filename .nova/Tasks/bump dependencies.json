@@ -1,0 +1,9 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "pnpm up -r"
+    }
+  },
+  "openLogOnRun" : "start"
+}
