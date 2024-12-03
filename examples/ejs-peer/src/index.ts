@@ -19,10 +19,10 @@ const {
     requirePositionals: 1,
     options: {
       issuer: {},
-      clientId: {},
-      clientSecret: {},
-      redirectUri: {},
-      authorizationEndpoint: {},
+      clientId: { description: 'Required' },
+      clientSecret: { description: 'Required' },
+      redirectUri: { description: 'Required' },
+      authorizationEndpoint: { description: 'Required' },
       tokenEndpoint: {}
     },
     optList: {
@@ -35,6 +35,10 @@ const {
     }
   }
 });
+
+if (!client_id || !client_secret || !redirect_uri || !authorization_endpoint) {
+  throw new Error('Missing required argument');
+}
 
 const tokenManager = new oauth2.TokenManager({
   issuer,

@@ -1,10 +1,10 @@
 {
-  "name": "ejs-peer",
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/ejs-peer#readme",
+  "name": "sky-api",
+  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/sky-api#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/oauth-cli.git",
-    "directory": "examples/ejs-peer"
+    "directory": "examples/sky-api"
   },
   "author": {
     "name": "Seth Battis",
@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "@battis/qui-cli": "^0.8.4",
-    "ejs": "^3.1.10",
-    "oauth2-cli": "workspace:*"
+    "sky-oauth2-cli": "workspace:*"
   },
   "devDependencies": {
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }

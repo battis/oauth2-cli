@@ -1,6 +1,5 @@
 import * as Configuration from '@battis/oauth2-configure';
 import { Mutex } from 'async-mutex';
-import open from 'open';
 import * as client from 'openid-client';
 import { FileStorage } from './FileStorage.js';
 import * as Localhost from './Localhost.js';

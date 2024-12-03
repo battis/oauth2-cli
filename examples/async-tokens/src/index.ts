@@ -3,7 +3,7 @@ import * as oauth2 from 'oauth2-cli';
 import { splitOptList } from './splitOptList.js';
 
 const {
-  positionals: [tokenPath, numTokens],
+  positionals: [tokenPath, numTokens = '10'],
   values: {
     issuer,
     clientId: client_id,
@@ -19,10 +19,10 @@ const {
     requirePositionals: 1,
     options: {
       issuer: {},
-      clientId: {},
-      clientSecret: {},
-      redirectUri: {},
-      authorizationEndpoint: {},
+      clientId: { description: 'Required' },
+      clientSecret: { description: 'Required' },
+      redirectUri: { description: 'Required' },
+      authorizationEndpoint: { description: 'Required' },
       tokenEndpoint: {}
     },
     optList: {
@@ -36,6 +36,9 @@ const {
   }
 });
 
+if (!client_id || !client_secret || !redirect_uri || !authorization_endpoint) {
+  throw new Error('Missing required argument');
+}
 const tokenManager = new oauth2.TokenManager({
   issuer,
   client_id,
