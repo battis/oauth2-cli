@@ -33,4 +33,4 @@ const sky = new SkyAPI({
   redirect_uri,
   store: tokenPath
 });
-console.log(await sky.fetch('school/v1/events/calendar'));
+cli.log.info((await sky.fetch('school/v1/events/calendar')) || 'no response');
