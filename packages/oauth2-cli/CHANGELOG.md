@@ -1,5 +1,11 @@
 # oauth2-cli
 
+## 0.1.2
+
+### Patch Changes
+
+- 6e6a22a: sky-api, bump deps
+
 ## 0.1.1
 
 ### Patch Changes
