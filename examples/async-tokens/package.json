@@ -1,5 +1,6 @@
 {
   "name": "async-tokens",
+  "private": true,
   "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/async-tokens#readme",
   "repository": {
     "type": "git",

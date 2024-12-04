@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import { SkyAPI } from 'sky-oauth2-cli';
+import { SkyAPI } from '@oauth2-cli/sky-api';
 
 const {
   positionals: [tokenPath],

@@ -1,5 +1,5 @@
 {
-  "name": "sky-oauth2-cli",
+  "name": "@oauth2-cli/sky-api",
   "version": "0.0.0",
   "keywords": [
     "blackbaud",
@@ -8,11 +8,11 @@
     "oauth",
     "cli"
   ],
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/packages/sky-oauth2-cli#readme",
+  "homepage": "https://github.com/battis/oauth-cli/tree/main/packages/sky-api#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/oauth-cli.git",
-    "directory": "packages/sky-oauth2-cli"
+    "directory": "packages/sky-api"
   },
   "author": {
     "name": "Seth Battis",

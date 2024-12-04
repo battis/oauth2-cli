@@ -1,5 +1,6 @@
 {
   "name": "sky-api",
+  "private": true,
   "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/sky-api#readme",
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   },
   "dependencies": {
     "@battis/qui-cli": "^0.8.4",
-    "sky-oauth2-cli": "workspace:*"
+    "@oauth2-cli/sky-api": "workspace:*"
   },
   "devDependencies": {
     "del-cli": "^6.0.0",

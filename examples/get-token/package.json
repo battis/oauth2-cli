@@ -1,5 +1,6 @@
 {
   "name": "get-token",
+  "private": true,
   "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/get-token#readme",
   "repository": {
     "type": "git",
