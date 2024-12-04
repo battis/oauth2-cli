@@ -19,7 +19,7 @@
     "pre-changeset:build": "run-s build",
     "release": "run-s release:*",
     "release:changeset": "changeset version",
-    "release:publish": "pnpm publish -r --otp $(op item get npm --otp)"
+    "release:publish": "pnpm publish -r --otp $(op item get npm --otp) --access public"
   },
   "prettier": "@battis/prettier-config",
   "eslintConfig": {
