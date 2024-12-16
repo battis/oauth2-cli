@@ -26,7 +26,7 @@ importers:
     devDependencies:
       '@battis/eslint-config':
         specifier: ^2.0.0
-        version: 2.0.0(@eslint/js@9.14.0)(eslint-config-prettier@9.1.0(eslint@9.14.0))(eslint-plugin-html@8.1.2)(eslint-plugin-markdown@5.1.0(eslint@9.14.0))(eslint@9.14.0)(globals@14.0.0)(typescript-eslint@8.17.0(eslint@9.14.0)(typescript@5.7.2))(typescript@5.7.2)
+        version: 2.0.1(@eslint/js@9.14.0)(eslint-config-prettier@9.1.0(eslint@9.14.0))(eslint-plugin-html@8.1.2)(eslint-plugin-markdown@5.1.0(eslint@9.14.0))(eslint@9.14.0)(globals@14.0.0)(typescript-eslint@8.17.0(eslint@9.14.0)(typescript@5.7.2))(typescript@5.7.2)
       '@battis/prettier-config':
         specifier: ^1.5.5
         version: 1.5.5(typescript@5.7.2)
@@ -290,8 +290,8 @@ packages:
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
 
-  '@battis/eslint-config@2.0.0':
-    resolution: {integrity: sha512-3I6Chcez3V3dTltWzj9YwHcCD1RBPWoOGGw6hDfxXH2HbtjBzoquBrHNYNCo6+te2/mX4ovDBSDYewcE49GWMw==}
+  '@battis/eslint-config@2.0.1':
+    resolution: {integrity: sha512-P2uG6nuX5+nhm85t30jhTdy2ZuSAOIbw8aCiD+YvdMtAO5VAd7mSu0TL24gDTB3U/q+B26h7OH8HJUFNVOZ4XQ==}
     peerDependencies:
       '@eslint/js': '*'
       eslint: '*'
@@ -4346,7 +4346,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@battis/eslint-config@2.0.0(@eslint/js@9.14.0)(eslint-config-prettier@9.1.0(eslint@9.14.0))(eslint-plugin-html@8.1.2)(eslint-plugin-markdown@5.1.0(eslint@9.14.0))(eslint@9.14.0)(globals@14.0.0)(typescript-eslint@8.17.0(eslint@9.14.0)(typescript@5.7.2))(typescript@5.7.2)':
+  '@battis/eslint-config@2.0.1(@eslint/js@9.14.0)(eslint-config-prettier@9.1.0(eslint@9.14.0))(eslint-plugin-html@8.1.2)(eslint-plugin-markdown@5.1.0(eslint@9.14.0))(eslint@9.14.0)(globals@14.0.0)(typescript-eslint@8.17.0(eslint@9.14.0)(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:
       '@eslint/js': 9.14.0
       eslint: 9.14.0
