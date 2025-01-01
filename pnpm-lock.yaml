@@ -29,7 +29,7 @@ importers:
         version: 2.0.1(@eslint/js@9.14.0)(eslint-config-prettier@9.1.0(eslint@9.14.0))(eslint-plugin-html@8.1.2)(eslint-plugin-markdown@5.1.0(eslint@9.14.0))(eslint@9.14.0)(globals@14.0.0)(typescript-eslint@8.17.0(eslint@9.14.0)(typescript@5.7.2))(typescript@5.7.2)
       '@battis/prettier-config':
         specifier: ^1.5.5
-        version: 1.5.5(typescript@5.7.2)
+        version: 1.5.6(typescript@5.7.2)
       '@changesets/cli':
         specifier: ^2.27.10
         version: 2.27.11
@@ -305,8 +305,8 @@ packages:
   '@battis/import-package-json@0.1.5':
     resolution: {integrity: sha512-grPpd2FE/ory60gmB1TuWn/aWHrB1jYZzpg9rNzf7J+d//gTGeydvdHs0n5l3EF2jd+Xkbi49rY8BffrMyafhQ==}
 
-  '@battis/prettier-config@1.5.5':
-    resolution: {integrity: sha512-g+1W+5Tjmeo0U7vWu0JCl8EYsuUV8StaUSkby66bN6VzWv21HpZYtSzV4MgzLSiRvXEuKAGGUN98kh1MXSjwGQ==}
+  '@battis/prettier-config@1.5.6':
+    resolution: {integrity: sha512-YplRYmOlg49D50kCIO3AemjEmtLif1YZcM01TH0Skgp46IggDcUGZr4BkllUvMFRIlgVPOSPm3po/b/z3ohiuA==}
     engines: {node: '>=12.17'}
 
   '@battis/qui-cli.colors@0.8.2':
@@ -4274,7 +4274,7 @@ snapshots:
 
   '@babel/generator@7.17.7':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.26.3
       jsesc: 2.5.2
       source-map: 0.5.7
 
@@ -4362,7 +4362,7 @@ snapshots:
       node-fetch: 3.3.2
       semver: 7.6.3
 
-  '@battis/prettier-config@1.5.5(typescript@5.7.2)':
+  '@battis/prettier-config@1.5.6(typescript@5.7.2)':
     dependencies:
       '@prettier/plugin-xml': 2.2.0
       '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.4.2)
