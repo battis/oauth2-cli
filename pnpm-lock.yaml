@@ -50,7 +50,7 @@ importers:
         version: 8.1.9(encoding@0.1.13)
       monorepo-package-paths:
         specifier: ^0.3.4
-        version: 0.3.4(prettier@3.4.2)
+        version: 0.3.8(prettier@3.4.2)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -302,8 +302,8 @@ packages:
       typescript: '*'
       typescript-eslint: '*'
 
-  '@battis/import-package-json@0.1.5':
-    resolution: {integrity: sha512-grPpd2FE/ory60gmB1TuWn/aWHrB1jYZzpg9rNzf7J+d//gTGeydvdHs0n5l3EF2jd+Xkbi49rY8BffrMyafhQ==}
+  '@battis/import-package-json@0.1.7':
+    resolution: {integrity: sha512-fDefeLqvjimxCcO3EvZbJg7WpZ6CqJLqFKIIbUEDC1Y//EaiK8hT6dwiYnn/nKCngeLIUw7lAw/LhNgWXZhvQA==}
 
   '@battis/prettier-config@1.5.6':
     resolution: {integrity: sha512-YplRYmOlg49D50kCIO3AemjEmtLif1YZcM01TH0Skgp46IggDcUGZr4BkllUvMFRIlgVPOSPm3po/b/z3ohiuA==}
@@ -330,15 +330,18 @@ packages:
   '@battis/qui-cli.shell@0.8.2':
     resolution: {integrity: sha512-6B7d4OBMWPGy9pMzfJ5gle97peunQcChtfYt3ul3VtFYCF931rCTLiriGW5X4ruzgBPKhVl4LLrUR49NxvLOCg==}
 
+  '@battis/qui-cli.shell@0.8.3':
+    resolution: {integrity: sha512-jB4vbFn0AZHE9JD5TlQ91lKl4ULkbfHbmSMApeix5lqrPNwrCtdct+70iuT0lVrAck05M+ITJs7E6xq8SAGVRw==}
+
   '@battis/qui-cli.validators@0.8.2':
     resolution: {integrity: sha512-KI+qLAyxMvMN9niB8i5o/DfhuOxENX3Wwalc11nep++1FMzSLUVVMmNptIvOde2ca2lhC7E3DGX8/TuZo1UlOQ==}
 
-  '@battis/qui-cli@0.4.2':
-    resolution: {integrity: sha512-IiSLPNjSQ7HH8+kQwjEOTWhzJpXpiU4mxc1Jn5Prko/RUyzR5Gcahe/Y2sGy/N9TRXjNHjiQtErOaypw6OAMQw==}
-    engines: {node: '>=12.17'}
-
   '@battis/qui-cli@0.8.4':
     resolution: {integrity: sha512-VKDugEnm17NHwWn593T/nknEZWXb14AsFEblERsBTb3zCiNmr5zgmqv+cfin0rJwLoMsuJBwImnd/CRSGwAWiQ==}
+    engines: {node: '>=12.17'}
+
+  '@battis/qui-cli@0.8.5':
+    resolution: {integrity: sha512-wlVdp50i1meO6CIigHc+nLPNQyxn5sGE7h3J+tbQj3mUm8F6psJGHT3q1g78+ep+G9YmiUYMrm9kWmTlEs94sQ==}
     engines: {node: '>=12.17'}
 
   '@changesets/apply-release-plan@7.0.7':
@@ -2403,9 +2406,6 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
 
-  is-domain-valid@1.2.0:
-    resolution: {integrity: sha512-O55Z9E0C8FwK1xp98Oghe+qtKhD14rYH0tyrBWDmMS7Jc06nsTjtQb0A27HhS7YqlctB+jdN8AOzcd0bV3ldow==}
-
   is-extglob@1.0.0:
     resolution: {integrity: sha512-7Q+VbVafe6x2T+Tu6NcOf6sRklazEPmBoB3IWk3WdGZM2iGUwU/Oe3Wtq5lSEkDTTlpp8yx+5t4pzO/i9Ty1ww==}
     engines: {node: '>=0.10.0'}
@@ -2961,8 +2961,8 @@ packages:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
 
-  monorepo-package-paths@0.3.4:
-    resolution: {integrity: sha512-Cr610UVtV/QkwiqrT5i8bNBiI08j2oJB6QfeC1j9BzPqBuPEAtK3jdtyiTFQXeboC5sIm8SciPmTAM3PzpbJUw==}
+  monorepo-package-paths@0.3.8:
+    resolution: {integrity: sha512-pXxpBYPBwP43R0+bM9QC9LyBgMnwBIF8HIxVSxHEnlotm+KsJehm8fqzWqjBKynUgl1Iy5iY5BsKgqoB3IPENw==}
     hasBin: true
     peerDependencies:
       prettier: ^3.0
@@ -4235,8 +4235,8 @@ packages:
   yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
-  yaml@2.6.1:
-    resolution: {integrity: sha512-7r0XPzioN/Q9kXBro/XPnA6kznR73DHq+GXh5ON7ZozRO6aMjbmiBuKste2wslTFkC5d1dw0GooOCepZXJ2SAg==}
+  yaml@2.7.0:
+    resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
     engines: {node: '>= 14'}
     hasBin: true
 
@@ -4357,7 +4357,7 @@ snapshots:
       typescript: 5.7.2
       typescript-eslint: 8.17.0(eslint@9.14.0)(typescript@5.7.2)
 
-  '@battis/import-package-json@0.1.5':
+  '@battis/import-package-json@0.1.7':
     dependencies:
       node-fetch: 3.3.2
       semver: 7.6.3
@@ -4418,6 +4418,14 @@ snapshots:
       ora: 6.3.1
       shelljs: 0.8.5
 
+  '@battis/qui-cli.shell@0.8.3':
+    dependencies:
+      '@battis/qui-cli.colors': 0.8.2
+      '@battis/qui-cli.log': 0.8.2
+      '@battis/qui-cli.plugin': 0.1.2
+      ora: 6.3.1
+      shelljs: 0.8.5
+
   '@battis/qui-cli.validators@0.8.2':
     dependencies:
       '@battis/qui-cli.plugin': 0.1.2
@@ -4426,22 +4434,6 @@ snapshots:
       cron-validate: 1.4.5
       email-validator: 2.0.4
       is-valid-path: 0.1.1
-
-  '@battis/qui-cli@0.4.2':
-    dependencies:
-      '@inquirer/prompts': 2.3.1
-      app-root-path: 3.1.0
-      chalk: 4.1.2
-      cron-validate: 1.4.5
-      dotenv: 16.4.7
-      email-validator: 2.0.4
-      is-domain-valid: 1.2.0
-      is-valid-path: 0.1.1
-      jackspeak: 2.3.6
-      ora: 6.3.1
-      shelljs: 0.8.5
-      strip-ansi: 7.1.0
-      winston: 3.17.0
 
   '@battis/qui-cli@0.8.4':
     dependencies:
@@ -4452,6 +4444,19 @@ snapshots:
       '@battis/qui-cli.plugin': 0.1.2
       '@battis/qui-cli.root': 0.8.2
       '@battis/qui-cli.shell': 0.8.2
+      '@battis/qui-cli.validators': 0.8.2
+      '@inquirer/prompts': 2.3.1
+      ora: 6.3.1
+
+  '@battis/qui-cli@0.8.5':
+    dependencies:
+      '@battis/qui-cli.colors': 0.8.2
+      '@battis/qui-cli.core': 0.8.4
+      '@battis/qui-cli.env': 0.8.2
+      '@battis/qui-cli.log': 0.8.2
+      '@battis/qui-cli.plugin': 0.1.2
+      '@battis/qui-cli.root': 0.8.2
+      '@battis/qui-cli.shell': 0.8.3
       '@battis/qui-cli.validators': 0.8.2
       '@inquirer/prompts': 2.3.1
       ora: 6.3.1
@@ -6936,8 +6941,6 @@ snapshots:
 
   is-docker@3.0.0: {}
 
-  is-domain-valid@1.2.0: {}
-
   is-extglob@1.0.0: {}
 
   is-extglob@2.1.1: {}
@@ -7543,13 +7546,13 @@ snapshots:
 
   modify-values@1.0.1: {}
 
-  monorepo-package-paths@0.3.4(prettier@3.4.2):
+  monorepo-package-paths@0.3.8(prettier@3.4.2):
     dependencies:
-      '@battis/import-package-json': 0.1.5
-      '@battis/qui-cli': 0.4.2
+      '@battis/import-package-json': 0.1.7
+      '@battis/qui-cli': 0.8.5
       glob: 11.0.0
       package-json-type: 1.0.3
-      yaml: 2.6.1
+      yaml: 2.7.0
     optionalDependencies:
       prettier: 3.4.2
 
@@ -7740,7 +7743,7 @@ snapshots:
       tmp: 0.2.3
       tsconfig-paths: 4.2.0
       tslib: 2.8.1
-      yaml: 2.6.1
+      yaml: 2.7.0
       yargs: 17.7.2
       yargs-parser: 21.1.1
     optionalDependencies:
@@ -8937,7 +8940,7 @@ snapshots:
 
   yallist@4.0.0: {}
 
-  yaml@2.6.1: {}
+  yaml@2.7.0: {}
 
   yargs-parser@20.2.9: {}
 
