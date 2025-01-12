@@ -25,7 +25,8 @@
     "clean": "del ./dist",
     "build": "run-s build:*",
     "build:clean": "run-s clean",
-    "build:compile": "tsc"
+    "build:compile": "tsc",
+    "release": "commit-and-tag-version"
   },
   "dependencies": {
     "node-fetch": "^3.3.2",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
+    "commit-and-tag-version": "^12.5.0",
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.7.2"
