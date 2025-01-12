@@ -14,20 +14,6 @@ repos:
       - id: check-docstring-first
       - id: check-case-conflict
       - id: forbid-submodules
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.90.0
-    hooks:
-      - id: terraform_fmt
-      - id: terraform_docs
-        args:
-          - --hook-config=--path-to-file=README.md
-          - --hook-config=--add-to-existing-file=true
-          - --hook-config=--create-file-if-not-exist=true
-          - --hook-config=--use-standard-markers=true
-        #  - --args=markdown terraform
-      - id: terraform_validate
-      - id: terraform_trivy
-        files: ^terraform/
   - repo: https://github.com/markdownlint/markdownlint
     rev: v0.12.0
     hooks:
@@ -47,3 +33,10 @@ repos:
     rev: v0.0.7
     hooks:
       - id: clean-dotenv
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.20.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies:
+          ['@commitlint/config-conventional', '@commitlint/config-pnpm-scopes']

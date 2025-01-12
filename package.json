@@ -28,6 +28,9 @@
   "devDependencies": {
     "@battis/eslint-config": "^2.0.0",
     "@battis/prettier-config": "^1.5.5",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/config-pnpm-scopes": "^19.5.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.0",
