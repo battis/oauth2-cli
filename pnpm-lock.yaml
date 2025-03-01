@@ -22,7 +22,7 @@ importers:
         version: 10.1.0
       openid-client:
         specifier: ^6.1.7
-        version: 6.1.7
+        version: 6.3.3
     devDependencies:
       '@battis/eslint-config':
         specifier: ^2.0.0
@@ -168,7 +168,7 @@ importers:
         version: 10.1.0
       openid-client:
         specifier: ^6.1.7
-        version: 6.1.7
+        version: 6.3.3
     devDependencies:
       '@tsconfig/node20':
         specifier: ^20.1.4
@@ -199,7 +199,7 @@ importers:
         version: 0.5.0
       openid-client:
         specifier: ^6.1.7
-        version: 6.1.7
+        version: 6.3.3
     devDependencies:
       '@tsconfig/node20':
         specifier: ^20.1.4
@@ -2851,8 +2851,8 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
-  jose@5.9.6:
-    resolution: {integrity: sha512-AMlnetc9+CV9asI19zHmrgS/WYsWUwCn2R7RzlbJWD7F9eWYUTGyBmU9o6PxngtLGOiDGPRu+Uc4fhKzbpteZQ==}
+  jose@6.0.8:
+    resolution: {integrity: sha512-EyUPtOKyTYq+iMOszO42eobQllaIjJnwkZ2U93aJzNyPibCy7CEvT9UQnaCVB51IAd49gbNdCew1c0LcLTCB2g==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -3384,8 +3384,8 @@ packages:
       '@swc/core':
         optional: true
 
-  oauth4webapi@3.1.4:
-    resolution: {integrity: sha512-eVfN3nZNbok2s/ROifO0UAc5G8nRoLSbrcKJ09OqmucgnhXEfdIQOR4gq1eJH1rN3gV7rNw62bDEgftsgFtBEg==}
+  oauth4webapi@3.3.0:
+    resolution: {integrity: sha512-ZlozhPlFfobzh3hB72gnBFLjXpugl/dljz1fJSRdqaV2r3D5dmi5lg2QWI0LmUYuazmE+b5exsloEv6toUtw9g==}
 
   object-inspect@1.13.3:
     resolution: {integrity: sha512-kDCGIbxkDSXE3euJZZXzc6to7fCrKHNI/hSRQnRuQ+BWjFNzZwiFF8fj/6o2t2G9/jTj8PSIYTfCLelLZEeRpA==}
@@ -3421,8 +3421,8 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
-  openid-client@6.1.7:
-    resolution: {integrity: sha512-JfY/KvQgOutmG2P+oVNKInE7zIh+im1MQOaO7g5CtNnTWMociA563WweiEMKfR9ry9XG3K2HGvj9wEqhCQkPMg==}
+  openid-client@6.3.3:
+    resolution: {integrity: sha512-lTK8AV8SjqCM4qznLX0asVESAwzV39XTVdfMAM185ekuaZCnkWdPzcxMTXNlsm9tsUAMa1Q30MBmKAykdT1LWw==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -7674,7 +7674,7 @@ snapshots:
 
   jiti@2.4.2: {}
 
-  jose@5.9.6: {}
+  jose@6.0.8: {}
 
   js-tokens@4.0.0: {}
 
@@ -8364,7 +8364,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  oauth4webapi@3.1.4: {}
+  oauth4webapi@3.3.0: {}
 
   object-inspect@1.13.3: {}
 
@@ -8406,10 +8406,10 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openid-client@6.1.7:
+  openid-client@6.3.3:
     dependencies:
-      jose: 5.9.6
-      oauth4webapi: 3.1.4
+      jose: 6.0.8
+      oauth4webapi: 3.3.0
 
   optionator@0.9.4:
     dependencies:
