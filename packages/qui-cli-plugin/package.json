@@ -1,0 +1,36 @@
+{
+  "name": "@oauth2-cli/qui-cli-plugin",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "del ./dist",
+    "build": "run-s build:*",
+    "build:clean": "run-s clean",
+    "build:compile": "tsc",
+    "release": "commit-and-tag-version"
+  },
+  "dependencies": {
+    "oauth2-cli": "workspace:*",
+    "openid-client": "^6.3.3"
+  },
+  "devDependencies": {
+    "@battis/descriptive-types": "^0.1.0",
+    "@battis/qui-cli.colors": "^2.0.1",
+    "@battis/qui-cli.env": "^2.0.3",
+    "@battis/qui-cli.plugin": "^2.2.0",
+    "@battis/qui-cli.root": "^2.0.2",
+    "@tsconfig/node20": "^20.1.4",
+    "commit-and-tag-version": "^12.5.0",
+    "del-cli": "^6.0.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.2"
+  },
+  "peerDependencies": {
+    "@battis/qui-cli.colors": "^2.0",
+    "@battis/qui-cli.env": "^2.0",
+    "@battis/qui-cli.plugin": "^2.2",
+    "@battis/qui-cli.root": "^2.0"
+  }
+}

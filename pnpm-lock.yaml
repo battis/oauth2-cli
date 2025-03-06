@@ -127,6 +127,25 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
 
+  examples/qui-cli-plugin:
+    dependencies:
+      '@battis/qui-cli':
+        specifier: ^2.1.1
+        version: 2.1.1
+      '@oauth2-cli/qui-cli-plugin':
+        specifier: workspace:*
+        version: link:../../packages/qui-cli-plugin
+    devDependencies:
+      del-cli:
+        specifier: ^6.0.0
+        version: 6.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
   examples/sky-api:
     dependencies:
       '@battis/qui-cli':
@@ -217,6 +236,46 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
 
+  packages/qui-cli-plugin:
+    dependencies:
+      oauth2-cli:
+        specifier: workspace:*
+        version: link:../oauth2-cli
+      openid-client:
+        specifier: ^6.3.3
+        version: 6.3.3
+    devDependencies:
+      '@battis/descriptive-types':
+        specifier: ^0.1.0
+        version: 0.1.0
+      '@battis/qui-cli.colors':
+        specifier: ^2.0.1
+        version: 2.0.1(@battis/qui-cli.plugin@2.2.0)
+      '@battis/qui-cli.env':
+        specifier: ^2.0.3
+        version: 2.0.3(@battis/qui-cli.plugin@2.2.0)(@battis/qui-cli.root@2.0.2(@battis/qui-cli.plugin@2.2.0))
+      '@battis/qui-cli.plugin':
+        specifier: ^2.2.0
+        version: 2.2.0
+      '@battis/qui-cli.root':
+        specifier: ^2.0.2
+        version: 2.0.2(@battis/qui-cli.plugin@2.2.0)
+      '@tsconfig/node20':
+        specifier: ^20.1.4
+        version: 20.1.4
+      commit-and-tag-version:
+        specifier: ^12.5.0
+        version: 12.5.0
+      del-cli:
+        specifier: ^6.0.0
+        version: 6.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
   packages/sky-api:
     dependencies:
       node-fetch:
@@ -283,6 +342,9 @@ packages:
   '@babel/types@7.26.9':
     resolution: {integrity: sha512-Y3IR1cRnOxOCDvMmNiym7XpXQ93iGDDPHx+Zj+NM+rg0fBaShfQLkg+hKPaZCEvg5N/LeCo4+Rj/i3FuJsIQaw==}
     engines: {node: '>=6.9.0'}
+
+  '@battis/descriptive-types@0.1.0':
+    resolution: {integrity: sha512-2M/tHqcrv1k2IFxFvwKuNT5K3WdXOsVYOXv3Vm+mO2DkUe9HURCqPpbOMUQgWq2rNN0tWINDMmaC3s1hETnKug==}
 
   '@battis/eslint-config@2.0.3':
     resolution: {integrity: sha512-O8HsLPplEj1li1eot7EgmG+LkIcnf/kwfJMR8WrV9MCEfiNAsreEi45AtQaVij57rs8SAvH33NWTg3G4j1YeJA==}
@@ -4790,6 +4852,8 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
+  '@battis/descriptive-types@0.1.0': {}
+
   '@battis/eslint-config@2.0.3(@eslint/js@9.14.0)(eslint-config-prettier@9.1.0(eslint@9.14.0(jiti@2.4.2)))(eslint-plugin-html@8.1.2)(eslint-plugin-markdown@5.1.0(eslint@9.14.0(jiti@2.4.2)))(eslint@9.14.0(jiti@2.4.2))(globals@14.0.0)(typescript-eslint@8.17.0(eslint@9.14.0(jiti@2.4.2))(typescript@5.8.2))(typescript@5.8.2)':
     dependencies:
       '@eslint/js': 9.14.0
@@ -8050,7 +8114,7 @@ snapshots:
 
   log-symbols@4.1.0:
     dependencies:
-      chalk: 4.1.2
+      chalk: 4.1.0
       is-unicode-supported: 0.1.0
 
   log-symbols@5.1.0:
