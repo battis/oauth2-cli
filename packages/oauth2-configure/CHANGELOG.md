@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.1.1](https://github.com/battis/oauth2-cli/compare/oauth2-configure/0.1.0...oauth2-configure/0.1.1) (2025-03-06)
 
-### Minor Changes
+### Patch Changes
 
 - efd09f9: docs: fix broken package paths
 
