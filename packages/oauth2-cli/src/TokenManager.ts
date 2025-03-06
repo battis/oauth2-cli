@@ -49,7 +49,7 @@ export class TokenManager {
             await Configuration.acquire(this.options),
             token.refresh_token,
             parameters,
-            // @ts-ignore FIXME undocumented arg pass-through to oauth4webapi
+            // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
             { headers }
           )
         ))
@@ -96,7 +96,7 @@ export class TokenManager {
         ).href,
         code_verifier,
         state,
-        resolve: (async (response: client.TokenEndpointResponse) => {
+        resolve: (async (response?: client.TokenEndpointResponse) => {
           const token = Token.fromResponse(response);
           if (token && this.store) {
             await this.store.save(token);

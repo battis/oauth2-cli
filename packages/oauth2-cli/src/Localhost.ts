@@ -11,8 +11,8 @@ type Options = Configuration.Options & {
   headers?: Record<string, string>;
   code_verifier?: string;
   state?: string;
-  resolve: Function;
-  reject: Function;
+  resolve: (tokens?: client.TokenEndpointResponse) => void;
+  reject: (error: unknown) => void;
   views?: string;
 };
 
@@ -37,10 +37,10 @@ export async function redirectServer(options: Options) {
   const ejs = await import('ejs');
   let view = 'complete.ejs';
   let tokens: client.TokenEndpointResponse | undefined = undefined;
-  let error: any = undefined;
+  let error: unknown = undefined;
 
   app.get('/authorize', async (req, res) => {
-    let viewPath = path.resolve(import.meta.dirname, views, 'authorize');
+    const viewPath = path.resolve(import.meta.dirname, views, 'authorize');
     if (ejs && fs.existsSync(viewPath)) {
       res.send(await ejs.renderFile(viewPath));
     } else {
@@ -57,7 +57,7 @@ export async function redirectServer(options: Options) {
           pkceCodeVerifier: code_verifier,
           expectedState: state
         },
-        // @ts-ignore FIXME undocumented arg pass-through to oauth4webapi
+        // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
         { headers }
       );
     } catch (e) {
