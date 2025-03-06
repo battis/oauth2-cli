@@ -60,13 +60,6 @@ export class Client {
     return this.authorize();
   }
 
-  private async getConfiguration() {
-    if (!this.config) {
-      this.config = await Configuration.acquire(this.options);
-    }
-    return this.config;
-  }
-
   private async authorize(): Promise<Token | undefined> {
     const {
       scope,
@@ -75,6 +68,7 @@ export class Client {
     } = this.options;
 
     return new Promise(async (resolve, reject) => {
+      const configuration = await Configuration.acquire(this.options);
       const code_verifier = OpenIDClient.randomPKCECodeVerifier();
       const code_challenge =
         await OpenIDClient.calculatePKCECodeChallenge(code_verifier);
@@ -89,7 +83,7 @@ export class Client {
       if (scope) {
         parameters.scope = scope;
       }
-      if (!(await this.getConfiguration()).serverMetadata().supportsPKCE()) {
+      if (!configuration.serverMetadata().supportsPKCE()) {
         state = OpenIDClient.randomState();
         parameters.state = state;
       }
@@ -97,17 +91,17 @@ export class Client {
       await Localhost.redirectServer({
         ...this.options,
         authorization_url: OpenIDClient.buildAuthorizationUrl(
-          await this.getConfiguration(),
+          configuration,
           parameters
         ).href,
         code_verifier,
         state,
         resolve: (async (response?: OpenIDClient.TokenEndpointResponse) => {
-          this.token = Token.fromResponse(response);
-          if (this.token && this.store) {
-            await this.store.save(this.token);
+          const token = Token.fromResponse(response);
+          if (token && this.store) {
+            await this.store.save(token);
           }
-          resolve(this.token);
+          resolve(token);
         }).bind(this),
         reject
       });
