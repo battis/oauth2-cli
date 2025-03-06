@@ -1,6 +1,8 @@
 import cli from '@battis/qui-cli';
 import { SkyAPI } from '@oauth2-cli/sky-api';
 
+await cli.configure({ core: { requirePositionals: 1 } });
+
 const {
   positionals: [tokenPath],
   values: {
@@ -9,16 +11,12 @@ const {
     subscriptionKey: subscription_key = process.env.SUBSCRIPTION_KEY,
     redirectUri: redirect_uri = process.env.REDIRECT_URI
   }
-} = cli.init({
-  env: { root: process.cwd() },
-  args: {
-    requirePositionals: 1,
-    options: {
-      clientId: { description: 'Required' },
-      clientSecret: { description: 'Required' },
-      subscriptionKey: { description: 'Required' },
-      redirectUri: { description: 'Required' }
-    }
+} = await cli.init({
+  opt: {
+    clientId: { description: 'Required' },
+    clientSecret: { description: 'Required' },
+    subscriptionKey: { description: 'Required' },
+    redirectUri: { description: 'Required' }
   }
 });
 
