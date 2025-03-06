@@ -1,6 +1,6 @@
 import * as Configuration from '@battis/oauth2-configure';
 import { Mutex } from 'async-mutex';
-import * as client from 'openid-client';
+import * as OpenIDClient from 'openid-client';
 import { FileStorage } from './FileStorage.js';
 import * as Localhost from './Localhost.js';
 import { Token } from './Token.js';
@@ -13,7 +13,7 @@ export type Options = Configuration.Options & {
   store?: TokenStorage | string;
 };
 
-export class TokenManager {
+export class Client {
   private tokenMutex = new Mutex();
   private store?: TokenStorage;
 
@@ -45,7 +45,7 @@ export class TokenManager {
       let freshTokens;
       if (
         (freshTokens = Token.fromResponse(
-          await client.refreshTokenGrant(
+          await OpenIDClient.refreshTokenGrant(
             await Configuration.acquire(this.options),
             token.refresh_token,
             parameters,
@@ -60,6 +60,13 @@ export class TokenManager {
     return this.authorize();
   }
 
+  private async getConfiguration() {
+    if (!this.config) {
+      this.config = await Configuration.acquire(this.options);
+    }
+    return this.config;
+  }
+
   private async authorize(): Promise<Token | undefined> {
     const {
       scope,
@@ -68,10 +75,9 @@ export class TokenManager {
     } = this.options;
 
     return new Promise(async (resolve, reject) => {
-      const configuration = await Configuration.acquire(this.options);
-      const code_verifier = client.randomPKCECodeVerifier();
+      const code_verifier = OpenIDClient.randomPKCECodeVerifier();
       const code_challenge =
-        await client.calculatePKCECodeChallenge(code_verifier);
+        await OpenIDClient.calculatePKCECodeChallenge(code_verifier);
       let state: string | undefined = undefined;
       const parameters: Record<string, string> = {
         ...additionalParameters,
@@ -83,25 +89,25 @@ export class TokenManager {
       if (scope) {
         parameters.scope = scope;
       }
-      if (!configuration.serverMetadata().supportsPKCE()) {
-        state = client.randomState();
+      if (!(await this.getConfiguration()).serverMetadata().supportsPKCE()) {
+        state = OpenIDClient.randomState();
         parameters.state = state;
       }
 
       await Localhost.redirectServer({
         ...this.options,
-        authorization_url: client.buildAuthorizationUrl(
-          configuration,
+        authorization_url: OpenIDClient.buildAuthorizationUrl(
+          await this.getConfiguration(),
           parameters
         ).href,
         code_verifier,
         state,
-        resolve: (async (response?: client.TokenEndpointResponse) => {
-          const token = Token.fromResponse(response);
-          if (token && this.store) {
-            await this.store.save(token);
+        resolve: (async (response?: OpenIDClient.TokenEndpointResponse) => {
+          this.token = Token.fromResponse(response);
+          if (this.token && this.store) {
+            await this.store.save(this.token);
           }
-          resolve(token);
+          resolve(this.token);
         }).bind(this),
         reject
       });

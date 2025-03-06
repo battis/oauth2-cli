@@ -1,6 +1,6 @@
-import * as client from 'openid-client';
+import * as OpenIDClient from 'openid-client';
 
-interface TokenResponse extends client.TokenEndpointResponse {
+interface TokenResponse extends OpenIDClient.TokenEndpointResponse {
   [key: string]: any;
 }
 
@@ -14,14 +14,14 @@ export class Token implements TokenResponse {
   public readonly id_token?: string;
   public readonly expires_in?: number;
 
-  private constructor(response: client.TokenEndpointResponse) {
+  private constructor(response: OpenIDClient.TokenEndpointResponse) {
     this.access_token = response.access_token;
     this.token_type = response.token_type;
     this.timestamp = response.timestamp;
     Object.assign(this, response);
   }
 
-  public static fromResponse(response?: client.TokenEndpointResponse) {
+  public static fromResponse(response?: OpenIDClient.TokenEndpointResponse) {
     if (response) {
       return new Token({ timestamp: Date.now(), ...response });
     }

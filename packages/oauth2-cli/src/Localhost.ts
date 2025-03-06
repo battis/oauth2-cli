@@ -3,7 +3,7 @@ import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import open from 'open';
-import * as client from 'openid-client';
+import * as OpenIDClient from 'openid-client';
 
 type Options = Configuration.Options & {
   authorization_url: string;
@@ -11,7 +11,7 @@ type Options = Configuration.Options & {
   headers?: Record<string, string>;
   code_verifier?: string;
   state?: string;
-  resolve: (tokens?: client.TokenEndpointResponse) => void;
+  resolve: (tokens?: OpenIDClient.TokenEndpointResponse) => void;
   reject: (error: unknown) => void;
   views?: string;
 };
@@ -36,7 +36,7 @@ export async function redirectServer(options: Options) {
   const server = app.listen(port);
   const ejs = await import('ejs');
   let view = 'complete.ejs';
-  let tokens: client.TokenEndpointResponse | undefined = undefined;
+  let tokens: OpenIDClient.TokenEndpointResponse | undefined = undefined;
   let error: unknown = undefined;
 
   app.get('/authorize', async (req, res) => {
@@ -50,7 +50,7 @@ export async function redirectServer(options: Options) {
   app.get(redirectUrl.pathname, async (req, res) => {
     try {
       const currentUrl = new URL(req.originalUrl, redirect_uri);
-      tokens = await client.authorizationCodeGrant(
+      tokens = await OpenIDClient.authorizationCodeGrant(
         configuration,
         currentUrl,
         {
