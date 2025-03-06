@@ -26,10 +26,12 @@ const {
   },
   optList: {
     header: {
-      description: `Format: ${cli.colors.quotedValue('"Header:value"')}`
+      description: `Format: ${cli.colors.quotedValue('"Header:value"')}`,
+      hint: 'name:value'
     },
     parameter: {
-      description: `Format: ${cli.colors.quotedValue('"parameter=value"')}`
+      description: `Format: ${cli.colors.quotedValue('"parameter=value"')}`,
+      hint: 'name=value'
     }
   }
 });
