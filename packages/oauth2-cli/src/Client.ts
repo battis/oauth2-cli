@@ -15,6 +15,7 @@ export type Options = Configuration.Options & {
 
 export class Client {
   private tokenMutex = new Mutex();
+  private token?: Token;
   private store?: TokenStorage;
 
   public constructor(private options: Options) {
@@ -30,11 +31,16 @@ export class Client {
   public async getToken() {
     return await this.tokenMutex.runExclusive(
       (async () => {
-        let token = await this.store?.load();
-        if (token?.hasExpired()) {
-          token = await this.refreshToken(token);
+        if (!this.token) {
+          this.token = await this.store?.load();
         }
-        return token || (await this.authorize());
+        if (this.token?.hasExpired()) {
+          this.token = await this.refreshToken(this.token);
+        }
+        if (!this.token) {
+          this.token = await this.authorize();
+        }
+        return this.token;
       }).bind(this)
     );
   }
