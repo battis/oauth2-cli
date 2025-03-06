@@ -1,8 +1,8 @@
 {
-  "homepage": "https://github.com/battis/oauth-cli#readme",
+  "homepage": "https://github.com/battis/oauth2-cli#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battis/oauth-cli.git"
+    "url": "git+https://github.com/battis/oauth2-cli.git"
   },
   "license": "GPL-3.0",
   "author": {
@@ -14,10 +14,10 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "lerna run build",
-    "pre-changeset": "run-s pre-changeset:*",
-    "pre-changeset:monorepo-package-paths": "npx monorepo-package-paths -w --author --homepage --repository",
-    "pre-changeset:build": "run-s build",
-    "release": "pnpm publish -r --otp $(op item get npm --otp) --access public"
+    "release": "run-s release:*",
+    "release:paths": "npx monorepo-package-paths -w --author --homepage --repository",
+    "release:build": "run-s build",
+    "release:publish": "pnpm publish -r --otp $(op item get npm --otp) --access public"
   },
   "prettier": "@battis/prettier-config",
   "dependencies": {

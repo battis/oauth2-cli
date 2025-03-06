@@ -1,10 +1,10 @@
 {
   "name": "ejs-peer",
   "private": true,
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/ejs-peer#readme",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/ejs-peer#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battis/oauth-cli.git",
+    "url": "git+https://github.com/battis/oauth2-cli.git",
     "directory": "examples/ejs-peer"
   },
   "author": {

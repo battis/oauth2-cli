@@ -1,10 +1,10 @@
 {
   "name": "get-token",
   "private": true,
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/examples/get-token#readme",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/get-token#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battis/oauth-cli.git",
+    "url": "git+https://github.com/battis/oauth2-cli.git",
     "directory": "examples/get-token"
   },
   "author": {

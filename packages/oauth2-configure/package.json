@@ -2,10 +2,10 @@
   "name": "@battis/oauth2-configure",
   "version": "0.1.0",
   "description": "Acquire openid-client configuration by discovery if possible, construction if necessary",
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/packages/oauth2-configure#readme",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/oauth2-configure#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battis/oauth-cli.git",
+    "url": "git+https://github.com/battis/oauth2-cli.git",
     "directory": "packages/oauth2-configure"
   },
   "author": {

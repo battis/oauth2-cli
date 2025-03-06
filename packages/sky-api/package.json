@@ -8,10 +8,10 @@
     "oauth",
     "cli"
   ],
-  "homepage": "https://github.com/battis/oauth-cli/tree/main/packages/sky-api#readme",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/sky-api#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battis/oauth-cli.git",
+    "url": "git+https://github.com/battis/oauth2-cli.git",
     "directory": "packages/sky-api"
   },
   "author": {
