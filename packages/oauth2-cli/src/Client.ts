@@ -15,6 +15,7 @@ export type Options = Configuration.Options & {
 
 export class Client {
   private tokenMutex = new Mutex();
+  private config?: OpenIDClient.Configuration;
   private token?: Token;
   private store?: TokenStorage;
 
@@ -66,6 +67,13 @@ export class Client {
     return this.authorize();
   }
 
+  private async getConfiguration() {
+    if (!this.config) {
+      this.config = await Configuration.acquire(this.options);
+    }
+    return this.config;
+  }
+
   private async authorize(): Promise<Token | undefined> {
     const {
       scope,
@@ -74,7 +82,6 @@ export class Client {
     } = this.options;
 
     return new Promise(async (resolve, reject) => {
-      const configuration = await Configuration.acquire(this.options);
       const code_verifier = OpenIDClient.randomPKCECodeVerifier();
       const code_challenge =
         await OpenIDClient.calculatePKCECodeChallenge(code_verifier);
@@ -89,7 +96,7 @@ export class Client {
       if (scope) {
         parameters.scope = scope;
       }
-      if (!configuration.serverMetadata().supportsPKCE()) {
+      if (!(await this.getConfiguration()).serverMetadata().supportsPKCE()) {
         state = OpenIDClient.randomState();
         parameters.state = state;
       }
@@ -97,20 +104,50 @@ export class Client {
       await Localhost.redirectServer({
         ...this.options,
         authorization_url: OpenIDClient.buildAuthorizationUrl(
-          configuration,
+          await this.getConfiguration(),
           parameters
         ).href,
         code_verifier,
         state,
         resolve: (async (response?: OpenIDClient.TokenEndpointResponse) => {
-          const token = Token.fromResponse(response);
-          if (token && this.store) {
-            await this.store.save(token);
+          this.token = Token.fromResponse(response);
+          if (this.token && this.store) {
+            await this.store.save(this.token);
           }
-          resolve(token);
+          resolve(this.token);
         }).bind(this),
         reject
       });
     });
+  }
+
+  public async request(
+    url: URL | string,
+    method: string = 'GET',
+    body?: OpenIDClient.FetchBody,
+    headers?: Record<string, string>,
+    options?: OpenIDClient.DPoPOptions
+  ) {
+    return await OpenIDClient.fetchProtectedResource(
+      await this.getConfiguration(),
+      (await this.getToken())!.access_token,
+      new URL(url),
+      method,
+      body,
+      new Headers({ ...this.options.headers, ...headers }),
+      options
+    );
+  }
+
+  public async requestJSON(
+    url: URL | string,
+    method: string = 'GET',
+    body?: OpenIDClient.FetchBody,
+    headers?: Record<string, string>,
+    options?: OpenIDClient.DPoPOptions
+  ) {
+    return await (
+      await this.request(url, method, body, headers, options)
+    ).json();
   }
 }
