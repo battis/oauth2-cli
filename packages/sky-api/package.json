@@ -37,6 +37,6 @@
     "commit-and-tag-version": "^12.5.0",
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }
