@@ -21,9 +21,12 @@ export class Token implements TokenResponse {
     Object.assign(this, response);
   }
 
-  public static fromResponse(response?: OpenIDClient.TokenEndpointResponse) {
+  public static fromResponse(
+    response?: OpenIDClient.TokenEndpointResponse,
+    refresh_token?: string
+  ) {
     if (response) {
-      return new Token({ timestamp: Date.now(), ...response });
+      return new Token({ refresh_token, timestamp: Date.now(), ...response });
     }
     return undefined;
   }

@@ -58,7 +58,8 @@ export class Client {
             parameters,
             // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
             { headers }
-          )
+          ),
+          token.refresh_token
         ))
       ) {
         return this.store?.save(freshTokens) || freshTokens;
