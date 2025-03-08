@@ -1,31 +1,27 @@
 // TODO replace node-fetch dependency with native fetch when bumping to node@>=21
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
-import * as oauth from 'oauth2-cli';
+import * as OAuth2 from 'oauth2-cli';
 
-export type SkyAPICredentials = {
-  client_id: string;
-  client_secret: string;
+export type Credentials = Omit<
+  OAuth2.Credentials,
+  'authorization_endpoint' | 'token_endpoint'
+> & {
   subscription_key: string;
-  redirect_uri: string;
-  store?: oauth.TokenStorage | string;
 };
 
 const SUBSCRIPTION_HEADER = 'Bb-Api-Subscription-Key';
 
 export class SkyAPI {
-  private client: oauth.Client;
-  private token?: oauth.Token;
+  private client: OAuth2.Client;
+  private token?: OAuth2.Token;
   private subscription_key: string;
 
-  public constructor(credentials: SkyAPICredentials) {
-    this.client = new oauth.Client({
-      client_id: credentials.client_id,
-      client_secret: credentials.client_secret,
-      redirect_uri: credentials.redirect_uri,
+  public constructor(credentials: Credentials) {
+    this.client = new OAuth2.Client({
+      ...credentials,
       authorization_endpoint: 'https://app.blackbaud.com/oauth/authorize',
       token_endpoint: 'https://oauth2.sky.blackbaud.com/token',
-      headers: { [SUBSCRIPTION_HEADER]: credentials.subscription_key },
-      store: credentials.store
+      headers: { [SUBSCRIPTION_HEADER]: credentials.subscription_key }
     });
     this.subscription_key = credentials.subscription_key;
   }
