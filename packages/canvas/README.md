@@ -1,29 +1,29 @@
-# sky-oauth2-cli
+# @oauth2-cli/canvas
 
-Acquire SKY API access tokens via OAuth 2.0 within CLI tools
+Acquire Instructure Canvas access tokens via OAuth 2.0 within CLI tools
 
 ## Install
 
 ```sh
-npm i sky-oauth2-cli
+npm i @oauth2-cli/canvas
 ```
 
 ## Usage
 
-Configure your SKY API app credentials somewhere relatively secure (e.g. your environment) and then...
+Configure your Canvas app credentials somewhere relatively secure (e.g. your environment) and then...
 
 ```ts
 import dotenv from 'dotenv';
-import { SkyAPI } from 'sky-oauth2-cli';
+import { Canvas } from '@oauth2-cli/canvas';
 
 (async () => {
   dotenv.config();
-  const sky = new SkyAPI({
+  const canvas = new Canvas({
+    instance_url: 'https://example.instructure.com',
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
-    subscription_key: process.env.SUBSCRIPTION_KEY,
     redirect_uri: process.env.REDIRECT_URI
   });
-  const calendar = await sky.fetch('school/v1/events/calendar');
+  const me = await canvas.fetch('/users/self');
 })();
 ```
