@@ -127,6 +127,31 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
 
+  examples/multiple-clients:
+    dependencies:
+      '@battis/qui-cli':
+        specifier: ^2.1.1
+        version: 2.1.1
+      '@oauth2-cli/canvas':
+        specifier: workspace:*
+        version: link:../../packages/canvas
+      '@oauth2-cli/sky-api':
+        specifier: workspace:*
+        version: link:../../packages/sky-api
+    devDependencies:
+      del-cli:
+        specifier: ^6.0.0
+        version: 6.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      tsx:
+        specifier: ^4.19.3
+        version: 4.19.3
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
   examples/qui-cli-plugin:
     dependencies:
       '@battis/qui-cli':
@@ -142,28 +167,6 @@ importers:
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
-
-  examples/sky-api:
-    dependencies:
-      '@battis/qui-cli':
-        specifier: ^2.1.1
-        version: 2.1.1
-      '@oauth2-cli/sky-api':
-        specifier: workspace:*
-        version: link:../../packages/sky-api
-    devDependencies:
-      del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      tsx:
-        specifier: ^4.19.3
-        version: 4.19.3
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
