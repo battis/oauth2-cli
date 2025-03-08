@@ -10,8 +10,6 @@ export type Options = {
   token_endpoint?: string;
 };
 
-let configuration: OpenIDClient.Configuration | undefined = undefined;
-
 const configMutex = new Mutex();
 
 export async function acquire({
@@ -23,27 +21,25 @@ export async function acquire({
   token_endpoint
 }: Options): Promise<OpenIDClient.Configuration> {
   return await configMutex.runExclusive(async () => {
-    if (configuration) {
-      return configuration;
-    } else {
-      if (issuer) {
-        configuration = await OpenIDClient.discovery(
-          new URL(issuer),
-          client_id,
-          client_secret
-        );
-      } else {
-        configuration = new OpenIDClient.Configuration(
-          {
-            issuer: `https://${new URL(authorization_endpoint).hostname}`, // TODO is there a better way to fake this?
-            authorization_endpoint,
-            token_endpoint: token_endpoint || authorization_endpoint
-          },
-          client_id,
-          { client_secret, redirect_uri }
-        );
-      }
-      return configuration;
+    let configuration: OpenIDClient.Configuration | undefined = undefined;
+    if (issuer) {
+      configuration = await OpenIDClient.discovery(
+        new URL(issuer),
+        client_id,
+        client_secret
+      );
     }
+    if (!configuration) {
+      configuration = new OpenIDClient.Configuration(
+        {
+          issuer: `https://${new URL(authorization_endpoint).hostname}`, // TODO is there a better way to fake this?
+          authorization_endpoint,
+          token_endpoint: token_endpoint || authorization_endpoint
+        },
+        client_id,
+        { client_secret, redirect_uri }
+      );
+    }
+    return configuration;
   });
 }
