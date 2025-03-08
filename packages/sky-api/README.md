@@ -1,11 +1,11 @@
-# sky-oauth2-cli
+# @oauth2-cli/sky-api
 
 Acquire SKY API access tokens via OAuth 2.0 within CLI tools
 
 ## Install
 
 ```sh
-npm i sky-oauth2-cli
+npm i @oauth2-cli/sky-api
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ Configure your SKY API app credentials somewhere relatively secure (e.g. your en
 
 ```ts
 import dotenv from 'dotenv';
-import { SkyAPI } from 'sky-oauth2-cli';
+import { SkyAPI } from '@oauth2-cli/sky-api';
 
 (async () => {
   dotenv.config();
