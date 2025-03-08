@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.6](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.5...oauth2-cli/0.1.6) (2025-03-08)
+
+
+### Features
+
+* **oauth2-cli:** export Credentials type for convenience ([f000b56](https://github.com/battis/oauth2-cli/commit/f000b56a587c021d64a294ff33d42fa3966afd38))
+
 ## [0.1.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.4...oauth2-cli/0.1.5) (2025-03-07)
 
 
