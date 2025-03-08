@@ -168,6 +168,31 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
 
+  packages/canvas:
+    dependencies:
+      node-fetch:
+        specifier: ^3.3.2
+        version: 3.3.2
+      oauth2-cli:
+        specifier: workspace:*
+        version: link:../oauth2-cli
+    devDependencies:
+      '@tsconfig/node20':
+        specifier: ^20.1.4
+        version: 20.1.4
+      commit-and-tag-version:
+        specifier: ^12.5.0
+        version: 12.5.0
+      del-cli:
+        specifier: ^6.0.0
+        version: 6.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+
   packages/oauth2-cli:
     dependencies:
       '@battis/oauth2-configure':
