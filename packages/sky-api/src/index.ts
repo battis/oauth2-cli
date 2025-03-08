@@ -16,14 +16,14 @@ export class SkyAPI {
   private token?: OAuth2.Token;
   private subscription_key: string;
 
-  public constructor(credentials: Credentials) {
+  public constructor({ subscription_key, ...credentials }: Credentials) {
+    this.subscription_key = subscription_key;
     this.client = new OAuth2.Client({
       ...credentials,
       authorization_endpoint: 'https://app.blackbaud.com/oauth/authorize',
       token_endpoint: 'https://oauth2.sky.blackbaud.com/token',
-      headers: { [SUBSCRIPTION_HEADER]: credentials.subscription_key }
+      headers: { [SUBSCRIPTION_HEADER]: this.subscription_key }
     });
-    this.subscription_key = credentials.subscription_key;
   }
 
   public async getToken() {
