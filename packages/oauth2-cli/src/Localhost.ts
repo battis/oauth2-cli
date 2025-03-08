@@ -5,6 +5,8 @@ import path from 'node:path';
 import open from 'open';
 import * as OpenIDClient from 'openid-client';
 
+const ejs = await import('ejs');
+
 type Options = Configuration.Options & {
   authorization_url: string;
   redirect_uri: string;
@@ -34,7 +36,6 @@ export async function redirectServer(options: Options) {
   const app = express();
   const port = redirectUrl.port !== '' ? redirectUrl.port : 80;
   const server = app.listen(port);
-  const ejs = await import('ejs');
   let view = 'complete.ejs';
   let tokens: OpenIDClient.TokenEndpointResponse | undefined = undefined;
   let error: unknown = undefined;
