@@ -13,12 +13,12 @@ export type SkyAPICredentials = {
 const SUBSCRIPTION_HEADER = 'Bb-Api-Subscription-Key';
 
 export class SkyAPI {
-  private tokenManager: oauth.TokenManager;
+  private client: oauth.Client;
   private token?: oauth.Token;
   private subscription_key: string;
 
   public constructor(credentials: SkyAPICredentials) {
-    this.tokenManager = new oauth.TokenManager({
+    this.client = new oauth.Client({
       client_id: credentials.client_id,
       client_secret: credentials.client_secret,
       redirect_uri: credentials.redirect_uri,
@@ -31,7 +31,7 @@ export class SkyAPI {
   }
 
   public async getToken() {
-    this.token = await this.tokenManager.getToken();
+    this.token = await this.client.getToken();
     return this.token;
   }
 
