@@ -2,33 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [0.1.6](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.5...oauth2-cli/0.1.6) (2025-03-08)
-
-
-### Features
-
-* **oauth2-cli:** export Credentials type for convenience ([f000b56](https://github.com/battis/oauth2-cli/commit/f000b56a587c021d64a294ff33d42fa3966afd38))
-
-## [0.1.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.4...oauth2-cli/0.1.5) (2025-03-07)
-
+## [0.2.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.6...oauth2-cli/0.2.0) (2025-03-09)
 
 ### Features
 
-* **oauth2-cli:** attempt to reuse refresh_token if none returned ([8210698](https://github.com/battis/oauth2-cli/commit/82106982e508c1f5f54a16590594daa47f80d57d))
-
-## [0.1.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.3...oauth2-cli/0.1.4) (2025-03-06)
-
-
-### Features
-
-* **oauth2-cli:** cache token in memory ([68ac632](https://github.com/battis/oauth2-cli/commit/68ac6323031cbcaa0dd7b444dcd6da62b4f9a48d))
-* **oauth2-cli:** Client.request() and Client.requestJSON() ([50c1198](https://github.com/battis/oauth2-cli/commit/50c11985c0ae8f135932d05bae2bf74ff1cd29df))
-* **oauth2-cli:** deprecate TokenManager (replaced by Client) ([991ac42](https://github.com/battis/oauth2-cli/commit/991ac42eb2cc83b4b31e60856faf192233cd35f3))
-
+- **oauth2-cli:** detect and warn about reused localhost ports ([3431d84](https://github.com/battis/oauth2-cli/commit/3431d84d47251dd9fba47b23bbfd3dcf653fc7d3))
 
 ### Bug Fixes
 
-* **oauth2-cli:** improve error window title ([97a4c1c](https://github.com/battis/oauth2-cli/commit/97a4c1c9f98aaacf7ce63fb05a64cfee5f4dd0ce))
+- **oauth2-configure:** remove redundant caching ([7294e6a](https://github.com/battis/oauth2-cli/commit/7294e6a7aec373f72abc7c9e7c2ce4c659e3cba5))
+
+## [0.1.6](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.5...oauth2-cli/0.1.6) (2025-03-08)
+
+### Features
+
+- **oauth2-cli:** export Credentials type for convenience ([f000b56](https://github.com/battis/oauth2-cli/commit/f000b56a587c021d64a294ff33d42fa3966afd38))
+
+## [0.1.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.4...oauth2-cli/0.1.5) (2025-03-07)
+
+### Features
+
+- **oauth2-cli:** attempt to reuse refresh_token if none returned ([8210698](https://github.com/battis/oauth2-cli/commit/82106982e508c1f5f54a16590594daa47f80d57d))
+
+## [0.1.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.3...oauth2-cli/0.1.4) (2025-03-06)
+
+### Features
+
+- **oauth2-cli:** cache token in memory ([68ac632](https://github.com/battis/oauth2-cli/commit/68ac6323031cbcaa0dd7b444dcd6da62b4f9a48d))
+- **oauth2-cli:** Client.request() and Client.requestJSON() ([50c1198](https://github.com/battis/oauth2-cli/commit/50c11985c0ae8f135932d05bae2bf74ff1cd29df))
+- **oauth2-cli:** deprecate TokenManager (replaced by Client) ([991ac42](https://github.com/battis/oauth2-cli/commit/991ac42eb2cc83b4b31e60856faf192233cd35f3))
+
+### Bug Fixes
+
+- **oauth2-cli:** improve error window title ([97a4c1c](https://github.com/battis/oauth2-cli/commit/97a4c1c9f98aaacf7ce63fb05a64cfee5f4dd0ce))
 
 ## [0.1.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.1.2...oauth2-cli/0.1.3) (2025-03-06)
 
