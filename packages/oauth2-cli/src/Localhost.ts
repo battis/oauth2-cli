@@ -7,6 +7,8 @@ import * as OpenIDClient from 'openid-client';
 
 const ejs = await import('ejs');
 
+const portRegistry: (number | string)[] = [];
+
 type Options = Configuration.Options & {
   authorization_url: string;
   redirect_uri: string;
@@ -39,6 +41,30 @@ export async function redirectServer(options: Options) {
   let view = 'complete.ejs';
   let tokens: OpenIDClient.TokenEndpointResponse | undefined = undefined;
   let error: unknown = undefined;
+
+  /*
+   * FIXME Multiple clients with `redirect_uri` on the same localhost port
+   *   This seems to be some sort of an issue with Express (or node http?) in
+   *   which, despite a fresh invocation of express() for each redirect
+   *   listener, every listener subsequent to the first _on the same port_
+   *   retains the original routing stack of the first listener on that port.
+   *   I have tried:
+   *     - Setting a manual delay (up to 10 seconds) between the receipt of
+   *       the token and resolving it to allow the server to close.
+   *     - Using a mutex semaphore to ensure that no two instances of
+   *       Localhost are running simultaneously
+   *     - Separating the routing into a separate Router middleware
+   *     - Manually removing the routing stack (which does, at least, break
+   *       the routing of the subsequent instances, supporting the idea that
+   *       the app is getting reused by Express)
+   */
+  if (portRegistry.includes(port)) {
+    throw new Error(
+      `Multiple OAuth clients are attempting to redirect to port ${port}. This will result in failure. Please reconfigure your credentials so that each client is redirecting to a distinct port on http://localhost (e.g. 3000, 3001, 3002)`
+    );
+  } else {
+    portRegistry.push(port);
+  }
 
   app.get('/authorize', async (req, res) => {
     const viewPath = path.resolve(import.meta.dirname, views, 'authorize');
