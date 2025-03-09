@@ -1,11 +1,11 @@
 {
   "name": "multiple-clients",
   "private": true,
-  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/sky-api#readme",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/multiple-clients#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/oauth2-cli.git",
-    "directory": "examples/sky-api"
+    "directory": "examples/multiple-clients"
   },
   "author": {
     "name": "Seth Battis",
