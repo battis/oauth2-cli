@@ -1,5 +1,0 @@
-{
-  "path": ".",
-  "tag-prefix": "canvas/",
-  "releaseCommitMessageFormat": "chore(canvas): @oauth2-cli/canvas@{{currentTag}}"
-}
