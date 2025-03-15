@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.1](https://github.com/battis/oauth2-cli/compare/sky-api/0.2.0...sky-api/0.2.1) (2025-03-15)
+
+
+### Features
+
+* **sky-api:** add (some) type support for Sky API responses ([de20cf2](https://github.com/battis/oauth2-cli/commit/de20cf24c5d4de71b6e30a89a5812d8e80af44db))
+
 ## [0.2.0](https://github.com/battis/oauth2-cli/compare/sky-api/0.1.2...sky-api/0.2.0) (2025-03-09)
 
 ### Features
