@@ -313,6 +313,9 @@ importers:
         specifier: workspace:*
         version: link:../oauth2-cli
     devDependencies:
+      '@battis/descriptive-types':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4

@@ -33,6 +33,7 @@
     "oauth2-cli": "workspace:*"
   },
   "devDependencies": {
+    "@battis/descriptive-types": "^0.1.0",
     "@tsconfig/node20": "^20.1.4",
     "commit-and-tag-version": "^12.5.0",
     "del-cli": "^6.0.0",
