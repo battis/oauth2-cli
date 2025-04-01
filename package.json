@@ -22,7 +22,7 @@
   "prettier": "@battis/prettier-config",
   "dependencies": {
     "async-mutex": "^0.5.0",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "openid-client": "^6.3.3"
   },
   "devDependencies": {

@@ -25,7 +25,7 @@
   "dependencies": {
     "@battis/oauth2-configure": "workspace:*",
     "async-mutex": "^0.5.0",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "open": "^10.1.0",
     "openid-client": "^6.3.3"
   },
