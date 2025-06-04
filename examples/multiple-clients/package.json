@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@battis/qui-cli": "^2.1.2",
-    "@oauth2-cli/canvas": "^0.2.0",
+    "@oauth2-cli/canvas": "^0.3.2",
     "@oauth2-cli/sky-api": "workspace:*"
   },
   "devDependencies": {
