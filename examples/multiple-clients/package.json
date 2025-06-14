@@ -20,14 +20,14 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@battis/qui-cli": "^2.1.2",
+    "@battis/qui-cli": "^2.1.3",
     "@oauth2-cli/canvas": "^0.3.2",
     "@oauth2-cli/sky-api": "workspace:*"
   },
   "devDependencies": {
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }

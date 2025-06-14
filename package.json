@@ -19,27 +19,26 @@
     "release:build": "run-s build",
     "release:publish": "pnpm publish -r --otp $(op item get npm --otp) --access public"
   },
-  "prettier": "@battis/prettier-config",
   "dependencies": {
     "async-mutex": "^0.5.0",
     "express": "^4.21.2",
-    "openid-client": "^6.3.3"
+    "openid-client": "^6.5.1"
   },
   "devDependencies": {
     "@battis/eslint-config": "^2.0.3",
-    "@battis/prettier-config": "^1.5.7",
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "@commitlint/config-pnpm-scopes": "^19.5.0",
-    "@tsconfig/node20": "^20.1.4",
+    "@battis/prettier-config": "^1.6.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/config-pnpm-scopes": "^19.8.1",
+    "@tsconfig/node20": "^20.1.6",
     "@types/ejs": "^3.1.5",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.3",
     "del-cli": "^6.0.0",
-    "lerna": "^8.2.1",
+    "lerna": "^8.2.2",
     "monorepo-package-paths": "^0.3.10",
     "npm-run-all": "^4.1.5",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "ejs": "*",
