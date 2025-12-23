@@ -217,12 +217,18 @@ export async function request(
   return await getClient().request(url, method, body, headers, options);
 }
 
-export async function requestJSON(
+export async function requestJSON<T = unknown>(
   url: URL | string,
   method: string = 'GET',
   body?: OpenIDClient.FetchBody,
   headers?: Record<string, string>,
   options?: OpenIDClient.DPoPOptions
 ) {
-  return await getClient().requestJSON(url, method, body, headers, options);
+  return (await getClient().requestJSON(
+    url,
+    method,
+    body,
+    headers,
+    options
+  )) as T;
 }
