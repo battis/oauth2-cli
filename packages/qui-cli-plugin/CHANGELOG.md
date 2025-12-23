@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.1...qui-cli-plugin/0.2.2) (2025-12-23)
+
+
+### Features
+
+* add optional typing to requestJSON() ([5f7cf39](https://github.com/battis/oauth2-cli/commit/5f7cf39d8dc0ca86cbe3df7e8493d3273e630573))
+* configurable options and usage ([aadbc4b](https://github.com/battis/oauth2-cli/commit/aadbc4bffc9eda241763ecd9f134963517250e5f))
+* default suppress token path storage ([9df7f4f](https://github.com/battis/oauth2-cli/commit/9df7f4f6312713e2086366350f0c546a975b2c31))
+* provide EnvironmentStorage implementation ([55fc676](https://github.com/battis/oauth2-cli/commit/55fc676716fa1e4830a6a890b6d0bf5cecf0f57f))
+
+
+### Bug Fixes
+
+* update to current [@qui-cli](https://github.com/qui-cli) versions ([d54c521](https://github.com/battis/oauth2-cli/commit/d54c5210e55586ed688afa42840ec2b9e1cffeb0))
+
 ## [0.2.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.0...qui-cli-plugin/0.2.1) (2025-09-11)
 
 
