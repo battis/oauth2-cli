@@ -1,8 +1,8 @@
 import { PathString, URLString } from '@battis/descriptive-types';
-import { Colors } from '@battis/qui-cli.colors';
-import '@battis/qui-cli.env';
-import * as Plugin from '@battis/qui-cli.plugin';
-import { Root } from '@battis/qui-cli.root';
+import { Colors } from '@qui-cli/colors';
+import '@qui-cli/env-1password';
+import * as Plugin from '@qui-cli/plugin';
+import { Root } from '@qui-cli/root';
 import path from 'node:path';
 import * as OAuth2 from 'oauth2-cli';
 import * as OpenIDClient from 'openid-client';
@@ -18,29 +18,18 @@ export type Configuration = Plugin.Configuration & {
 };
 
 export const name = '@oauth2-cli/qui-cli-plugin';
-export const src = import.meta.dirname;
 
-let client_id: string | undefined = undefined;
-let client_secret: string | undefined = undefined;
-let redirect_uri: URLString | undefined = undefined;
-let authorization_endpoint: URLString | undefined = undefined;
-let token_endpoint: URLString | undefined = undefined;
-let store: OAuth2.TokenStorage | undefined = undefined;
+const config: Configuration = {};
 let client: OAuth2.Client | undefined = undefined;
 
-export function configure(config: Configuration = {}) {
-  client_id = Plugin.hydrate(config.client_id, client_id);
-  client_secret = Plugin.hydrate(config.client_secret, client_secret);
-  redirect_uri = Plugin.hydrate(config.redirect_uri, redirect_uri);
-  authorization_endpoint = Plugin.hydrate(
-    config.authorization_endpoint,
-    authorization_endpoint
-  );
-  token_endpoint = Plugin.hydrate(config.token_endpoint, token_endpoint);
-  if (config.store) {
-    store = config.store;
-  } else if (config.token_path) {
-    store = new OAuth2.FileStorage(
+export function configure(proposal: Configuration = {}) {
+  for (const key in proposal) {
+    if (proposal[key] !== undefined) {
+      config[key] = proposal[key];
+    }
+  }
+  if (!config.store && config.token_path) {
+    config.store = new OAuth2.FileStorage(
       path.resolve(Root.path(), config.token_path)
     );
   }
@@ -50,22 +39,30 @@ export function options(): Plugin.Options {
   return {
     opt: {
       clientId: {
-        description: `OAuth 2.0 client ID (defaults to environment variable ${Colors.value('CLIENT_ID')})`
+        description: `OAuth 2.0 client ID (defaults to environment variable ${Colors.value('CLIENT_ID')})`,
+        secret: true,
+        default: config.client_id
       },
       clientSecret: {
-        description: `OAuth 2.0 client secret (defaults to environment variable ${Colors.value('CLIENT_SECRET')}`
+        description: `OAuth 2.0 client secret (defaults to environment variable ${Colors.value('CLIENT_SECRET')}`,
+        secret: true,
+        default: config.client_secret
       },
       redirectUri: {
-        description: `OAuth 2.0 redirect URI (must be to host ${Colors.url('localhost')}, e.g. ${Colors.quotedValue(`"http://localhost:3000/oauth2/redirect"`)}, defaults to environment variables ${Colors.value('REDIRECT_URI')})`
+        description: `OAuth 2.0 redirect URI (must be to host ${Colors.url('localhost')}, e.g. ${Colors.quotedValue(`"http://localhost:3000/oauth2/redirect"`)}, defaults to environment variables ${Colors.value('REDIRECT_URI')})`,
+        default: config.redirect_uri
       },
       authorizationEndpoint: {
-        description: `OAuth 2.0 authorization endpoint (defaults to environment variable ${Colors.value('AUTHORIZATION_ENDPOINT')}`
+        description: `OAuth 2.0 authorization endpoint (defaults to environment variable ${Colors.value('AUTHORIZATION_ENDPOINT')}`,
+        default: config.authorization_endpoint
       },
       tokenEndpoint: {
-        description: `OAuth 2.0 token endpoint (will fall back to authorization endpoint if not provided, defaults to environment variable ${Colors.value('TOKEN_ENDPOINT')}`
+        description: `OAuth 2.0 token endpoint (will fall back to authorization endpoint if not provided, defaults to environment variable ${Colors.value('TOKEN_ENDPOINT')}`,
+        default: config.token_endpoint
       },
       tokenPath: {
-        description: `Path to token storage JSON file (defaults to environent variable ${Colors.value('TOKEN_PATH')}`
+        description: `Path to token storage JSON file (defaults to environent variable ${Colors.value('TOKEN_PATH')}`,
+        default: config.token_path
       }
     }
   };
@@ -95,6 +92,14 @@ export function init(args: Plugin.ExpectedArguments<typeof options>) {
 
 function getClient() {
   if (!client) {
+    const {
+      client_id,
+      client_secret,
+      redirect_uri,
+      authorization_endpoint,
+      token_endpoint,
+      store
+    } = config;
     if (!client_id) {
       throw new Error('OAuth 2.0 client ID not defined');
     }
