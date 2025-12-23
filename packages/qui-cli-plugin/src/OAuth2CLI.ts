@@ -37,6 +37,7 @@ export type Configuration = Plugin.Configuration & {
   client_id?: string;
   client_secret?: string;
   redirect_uri?: URLString;
+  headers?: Record<string, string>;
   authorization_endpoint?: URLString;
   token_endpoint?: URLString;
 
@@ -194,6 +195,7 @@ function getClient() {
       redirect_uri,
       authorization_endpoint,
       token_endpoint,
+      headers,
       store
     } = config;
     if (!client_id) {
@@ -214,6 +216,7 @@ function getClient() {
       redirect_uri,
       authorization_endpoint,
       token_endpoint,
+      headers,
       store
     });
   }
