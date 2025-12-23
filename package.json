@@ -17,8 +17,9 @@
     "build:paths": "monorepo-package-paths -w --author --homepage --repository",
     "build:compile": "lerna run build",
     "release": "run-s release:*",
+    "release:git": "git push --follow-tags",
     "release:build": "run-s build",
-    "release:publish": "pnpm publish -r --otp $(op item get npm --otp) --access public"
+    "release:publish": "pnpm publish -r --access public"
   },
   "dependencies": {
     "async-mutex": "^0.5.0",
