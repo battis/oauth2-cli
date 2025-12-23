@@ -71,7 +71,12 @@ const config: Configuration = {
 };
 let client: OAuth2.Client | undefined = undefined;
 
-export function configure(proposal: Partial<Configuration> = {}) {
+export function configure(
+  proposal: Partial<Configuration> & {
+    env?: Partial<EnvironmentVars>;
+    suppress?: Partial<OptionSuppression>;
+  } = {}
+) {
   for (const key in proposal) {
     if (proposal[key] !== undefined) {
       config[key] = proposal[key];
