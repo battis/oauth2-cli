@@ -5,7 +5,12 @@ export class EnvironmentStorage implements TokenStorage {
   public constructor(private tokenEnvVar = 'ACCESS_TOKEN') {}
 
   public async load(): Promise<Token | undefined> {
-    return JSON.parse(await Env.get({ key: this.tokenEnvVar })) as Token;
+    try {
+      return JSON.parse(await Env.get({ key: this.tokenEnvVar })) as Token;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
+      return undefined;
+    }
   }
   public async save(tokens: Token): Promise<Token> {
     await Env.set({ key: this.tokenEnvVar, value: JSON.stringify(tokens) });
