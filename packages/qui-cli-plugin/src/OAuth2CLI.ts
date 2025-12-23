@@ -52,8 +52,6 @@ export type Configuration = Plugin.Configuration & {
 export const name = '@oauth2-cli/qui-cli-plugin';
 
 const config: Configuration = {
-  redirect_uri: 'http://localhost:3000/redirect',
-
   env: {
     client_id: 'CLIENT_ID',
     client_secret: 'CLIENT_SECRET',
@@ -124,7 +122,9 @@ export function options(): Plugin.Options {
         : {
             redirectUri: {
               description: `OAuth 2.0 redirect URI (must be to host ${Colors.url('localhost')}, defaults to environment variables ${Colors.value(config.env.redirect_uri)})`,
-              hint: Colors.quotedValue(`"${config.redirect_uri}"`),
+              hint: Colors.quotedValue(
+                `"http://localhost:XXXX/path/to/redirect"`
+              ),
               default: config.redirect_uri
             }
           }),
