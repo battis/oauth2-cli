@@ -72,7 +72,7 @@ const config: Configuration = {
 let client: OAuth2.Client | undefined = undefined;
 
 export function configure(
-  proposal: Partial<Configuration> & {
+  proposal: Partial<Omit<Configuration, 'env' | 'suppress'>> & {
     env?: Partial<EnvironmentVars>;
     suppress?: Partial<OptionSuppression>;
   } = {}
