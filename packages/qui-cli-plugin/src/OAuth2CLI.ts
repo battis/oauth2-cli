@@ -63,6 +63,9 @@ const config: Configuration = {
   },
   man: {
     heading: 'OAuth 2.0 client options'
+  },
+  suppress: {
+    tokenPath: true
   }
 };
 let client: OAuth2.Client | undefined = undefined;
