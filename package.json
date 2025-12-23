@@ -30,7 +30,7 @@
     "@battis/prettier-config": "^1.6.4",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@commitlint/config-pnpm-scopes": "^19.9.1",
+    "@commitlint/config-pnpm-scopes": "^20.1.0",
     "@tsconfig/node20": "^20.1.6",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.3",
