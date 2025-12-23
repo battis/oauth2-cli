@@ -6,7 +6,9 @@ export class EnvironmentStorage implements TokenStorage {
 
   public async load(): Promise<Token | undefined> {
     try {
-      return JSON.parse(await Env.get({ key: this.tokenEnvVar })) as Token;
+      return Token.fromResponse(
+        JSON.parse(await Env.get({ key: this.tokenEnvVar }))
+      );
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
       return undefined;
