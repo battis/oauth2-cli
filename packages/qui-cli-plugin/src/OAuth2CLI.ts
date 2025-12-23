@@ -1,6 +1,7 @@
 import { PathString, URLString } from '@battis/descriptive-types';
 import { Colors } from '@qui-cli/colors';
 import '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env-1password';
 import * as Plugin from '@qui-cli/plugin';
 import { Root } from '@qui-cli/root';
 import path from 'node:path';
@@ -149,17 +150,25 @@ export function options(): Plugin.Options {
   };
 }
 
-export function init(args: Plugin.ExpectedArguments<typeof options>) {
+export async function init(args: Plugin.ExpectedArguments<typeof options>) {
   const {
     values: {
-      clientId: client_id = process.env[config.env.client_id],
-      clientSecret: client_secret = process.env[config.env.client_secret],
-      redirectUri: redirect_uri = process.env[config.env.redirect_uri],
-      authorizationEndpoint: authorization_endpoint = process.env[
-        config.env.authorization_endpoint
-      ],
-      tokenEndpoint: token_endpoint = process.env[config.env.token_endpoint],
-      tokenPath: token_path = process.env[config.env.token_path]
+      clientId: client_id = await Env.get({
+        key: config.env.client_id
+      }),
+      clientSecret: client_secret = await Env.get({
+        key: config.env.client_secret
+      }),
+      redirectUri: redirect_uri = await Env.get({
+        key: config.env.redirect_uri
+      }),
+      authorizationEndpoint: authorization_endpoint = await Env.get({
+        key: config.env.authorization_endpoint
+      }),
+      tokenEndpoint: token_endpoint = await Env.get({
+        key: config.env.token_endpoint
+      }),
+      tokenPath: token_path = await Env.get({ key: config.env.token_path })
     }
   } = args;
   configure({
