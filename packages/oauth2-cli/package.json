@@ -1,6 +1,6 @@
 {
   "name": "oauth2-cli",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Acquire API access tokens via OAuth 2.0 within CLI tools",
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/oauth2-cli#readme",
   "repository": {

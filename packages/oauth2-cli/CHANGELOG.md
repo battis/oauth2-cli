@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.2.2...oauth2-cli/0.2.3) (2025-12-23)
+
+
+### Bug Fixes
+
+* add wildcard param name ([97b2e58](https://github.com/battis/oauth2-cli/commit/97b2e58835941797fce564c736d8c4bd6e3ce97f))
+
 ## [0.2.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.2.1...oauth2-cli/0.2.2) (2025-12-23)
 
 ## [0.2.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.2.0...oauth2-cli/0.2.1) (2025-09-11)
