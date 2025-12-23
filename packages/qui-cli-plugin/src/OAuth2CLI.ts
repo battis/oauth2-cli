@@ -6,6 +6,7 @@ import { Root } from '@qui-cli/root';
 import path from 'node:path';
 import * as OAuth2 from 'oauth2-cli';
 import * as OpenIDClient from 'openid-client';
+import { EnvironmentStorage } from './EnvironmentStorage.js';
 
 type EnvironmentVars = {
   client_id: string;
@@ -77,6 +78,8 @@ export function configure(proposal: Partial<Configuration> = {}) {
       config.store = new OAuth2.FileStorage(
         path.resolve(Root.path(), config.token_path)
       );
+    } else {
+      config.store = new EnvironmentStorage(config.env.access_token);
     }
   }
 }
