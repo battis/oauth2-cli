@@ -1,5 +1,0 @@
-{
-  "path": ".",
-  "tag-prefix": "sky-api/",
-  "releaseCommitMessageFormat": "chore(sky-api): @oauth2-cli/sky-api@{{currentTag}}"
-}

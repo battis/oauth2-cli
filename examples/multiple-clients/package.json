@@ -22,7 +22,7 @@
   "dependencies": {
     "@battis/qui-cli": "^2.1.6",
     "@oauth2-cli/canvas": "^0.3.2",
-    "@oauth2-cli/sky-api": "workspace:*"
+    "@oauth2-cli/sky-api": "^0.2.2"
   },
   "devDependencies": {
     "del-cli": "^6.0.0",
