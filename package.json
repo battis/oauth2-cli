@@ -14,7 +14,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
-    "build:paths": "npx monorepo-package-paths -w --author --homepage --repository",
+    "build:paths": "monorepo-package-paths -w --author --homepage --repository",
     "build:compile": "lerna run build",
     "release": "run-s release:*",
     "release:build": "run-s build",
