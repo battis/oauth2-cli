@@ -7,7 +7,7 @@ export function splitOptList(
     optList = [optList];
   }
   return (optList || []).reduce((obj: Record<string, string>, raw: string) => {
-    const [, parameter, value] = (raw.match(regex) || [])?.map((p) => p.trim());
+    const [, parameter, value] = (raw.match(regex) || []).map((p) => p.trim());
     if (parameter && value) {
       obj[parameter] = value;
     }

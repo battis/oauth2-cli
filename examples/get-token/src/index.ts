@@ -1,8 +1,8 @@
-import cli from '@battis/qui-cli';
+import CLI from '@qui-cli/qui-cli';
 import * as oauth2 from 'oauth2-cli';
 import { splitOptList } from './splitOptList.js';
 
-await cli.configure({ core: { requirePositionals: 1 } });
+await CLI.configure({ core: { requirePositionals: 1 } });
 
 const {
   positionals: [tokenPath],
@@ -15,7 +15,7 @@ const {
     tokenEndpoint: token_endpoint,
     ...values
   }
-} = await cli.init({
+} = await CLI.init({
   opt: {
     issuer: {},
     clientId: { description: 'Required' },
@@ -26,11 +26,11 @@ const {
   },
   optList: {
     header: {
-      description: `Format: ${cli.colors.quotedValue('"Header:value"')}`,
+      description: `Format: ${CLI.colors.quotedValue('"Header:value"')}`,
       hint: 'name:value'
     },
     parameter: {
-      description: `Format: ${cli.colors.quotedValue('"parameter=value"')}`,
+      description: `Format: ${CLI.colors.quotedValue('"parameter=value"')}`,
       hint: 'name=value'
     }
   }

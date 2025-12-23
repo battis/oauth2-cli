@@ -1,10 +1,10 @@
-import cli from '@battis/qui-cli';
 import { Canvas } from '@oauth2-cli/canvas';
 import { SkyAPI } from '@oauth2-cli/sky-api';
+import CLI from '@qui-cli/qui-cli';
 import path from 'node:path';
 
-await cli.configure({ root: { root: path.dirname(import.meta.dirname) } });
-await cli.init();
+await CLI.configure({ root: { root: path.dirname(import.meta.dirname) } });
+await CLI.init();
 
 const sky = new SkyAPI({
   client_id: process.env.SKY_CLIENT_ID!,
@@ -22,7 +22,7 @@ const canvas = new Canvas({
   store: './var/canvas.json'
 });
 
-cli.log.info(
+CLI.log.info(
   (await canvas.fetch('/api/v1/users/self')) || 'no Canvas response'
 );
-cli.log.info((await sky.fetch('school/v1/users/me')) || 'no SKY API response');
+CLI.log.info((await sky.fetch('school/v1/users/me')) || 'no SKY API response');
