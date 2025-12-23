@@ -111,7 +111,7 @@ export async function redirectServer(options: Options) {
       resolve(tokens);
     }
   });
-  app.get('*', (_, res) => {
+  app.get('*path', (_, res) => {
     res.status(404).send();
   });
 
