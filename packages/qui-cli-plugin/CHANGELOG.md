@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.7](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.6...qui-cli-plugin/0.2.7) (2025-12-23)
+
+
+### Bug Fixes
+
+* remove overriding default redirect_uri ([2268428](https://github.com/battis/oauth2-cli/commit/2268428bf461b3b92301dde9767558ba3ab5f2f5))
+
 ## [0.2.6](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.5...qui-cli-plugin/0.2.6) (2025-12-23)
 
 ## [0.2.5](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.4...qui-cli-plugin/0.2.5) (2025-12-23)
