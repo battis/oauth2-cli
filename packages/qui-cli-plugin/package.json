@@ -1,6 +1,6 @@
 {
   "name": "@oauth2-cli/qui-cli-plugin",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "description": "@battis/qui-cli.plugin wrapper for oauth2-cli",
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/qui-cli-plugin#readme",
   "repository": {

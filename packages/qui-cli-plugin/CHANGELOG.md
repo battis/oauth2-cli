@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.7...qui-cli-plugin/0.3.0) (2025-12-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* resolve 1Password secret references successfully
+
+### Bug Fixes
+
+* resolve 1Password secret references successfully ([c4446e1](https://github.com/battis/oauth2-cli/commit/c4446e197a66271dac3ea8d58ff44725cc6be1db))
+
 ## [0.2.7](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.2.6...qui-cli-plugin/0.2.7) (2025-12-23)
 
 
