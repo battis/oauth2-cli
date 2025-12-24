@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.2.3...oauth2-cli/0.3.0) (2025-12-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* resolve 1Password secret references successfully
+
+### Bug Fixes
+
+* resolve 1Password secret references successfully ([c4446e1](https://github.com/battis/oauth2-cli/commit/c4446e197a66271dac3ea8d58ff44725cc6be1db))
+
 ## [0.2.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.2.2...oauth2-cli/0.2.3) (2025-12-23)
 
 
