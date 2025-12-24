@@ -19,8 +19,8 @@ export class EnvironmentStorage implements TokenStorage {
       return undefined;
     }
   }
-  public async save(tokens: Token): Promise<Token> {
+
+  public async save(tokens: Token): Promise<void> {
     await Env.set({ key: this.tokenEnvVar, value: JSON.stringify(tokens) });
-    return tokens;
   }
 }

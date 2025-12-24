@@ -35,6 +35,5 @@ export class FileStorage implements TokenStorage {
         fs.writeFileSync(this.filePath, JSON.stringify(tokens));
       }).bind(this)
     );
-    return tokens;
   }
 }

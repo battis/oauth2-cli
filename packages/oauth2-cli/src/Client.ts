@@ -62,7 +62,10 @@ export class Client {
           token.refresh_token
         ))
       ) {
-        return this.store?.save(freshTokens) || freshTokens;
+        if (this.store) {
+          await this.store.save(freshTokens);
+        }
+        return freshTokens;
       }
     }
     return this.authorize();
@@ -82,43 +85,47 @@ export class Client {
       parameters: additionalParameters
     } = this.options;
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const code_verifier = OpenIDClient.randomPKCECodeVerifier();
-      const code_challenge =
-        await OpenIDClient.calculatePKCECodeChallenge(code_verifier);
-      let state: string | undefined = undefined;
-      const parameters: Record<string, string> = {
-        ...additionalParameters,
-        redirect_uri,
-        code_challenge,
-        code_challenge_method: 'S256' // TODO make code challenge method configurable?
-      };
+      OpenIDClient.calculatePKCECodeChallenge(code_verifier).then(
+        async (code_challenge) => {
+          let state: string | undefined = undefined;
+          const parameters: Record<string, string> = {
+            ...additionalParameters,
+            redirect_uri,
+            code_challenge,
+            code_challenge_method: 'S256' // TODO make code challenge method configurable?
+          };
 
-      if (scope) {
-        parameters.scope = scope;
-      }
-      if (!(await this.getConfiguration()).serverMetadata().supportsPKCE()) {
-        state = OpenIDClient.randomState();
-        parameters.state = state;
-      }
-
-      await Localhost.redirectServer({
-        ...this.options,
-        authorization_url: OpenIDClient.buildAuthorizationUrl(
-          await this.getConfiguration(),
-          parameters
-        ).href,
-        code_verifier,
-        state,
-        resolve: (async (response?: OpenIDClient.TokenEndpointResponse) => {
-          this.token = Token.fromResponse(response);
-          if (this.token && this.store) {
-            await this.store.save(this.token);
+          if (scope) {
+            parameters.scope = scope;
           }
-          resolve(this.token);
-        }).bind(this),
-        reject
-      });
+          if (
+            !(await this.getConfiguration()).serverMetadata().supportsPKCE()
+          ) {
+            state = OpenIDClient.randomState();
+            parameters.state = state;
+          }
+
+          await Localhost.redirectServer({
+            ...this.options,
+            authorization_url: OpenIDClient.buildAuthorizationUrl(
+              await this.getConfiguration(),
+              parameters
+            ).href,
+            code_verifier,
+            state,
+            resolve: (async (response?: OpenIDClient.TokenEndpointResponse) => {
+              this.token = Token.fromResponse(response);
+              if (this.token && this.store) {
+                await this.store.save(this.token);
+              }
+              resolve(this.token);
+            }).bind(this),
+            reject
+          });
+        }
+      );
     });
   }
 
