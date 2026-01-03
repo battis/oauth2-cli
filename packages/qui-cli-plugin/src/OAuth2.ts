@@ -10,6 +10,8 @@ import * as OAuth2CLI from 'oauth2-cli';
 import * as OpenIDClient from 'openid-client';
 import { EnvironmentStorage } from './EnvironmentStorage.js';
 
+export { Credentials } from 'oauth2-cli';
+
 type EnvironmentVars = {
   client_id: string;
   client_secret: string;
