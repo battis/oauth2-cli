@@ -52,6 +52,14 @@ export type Configuration = Plugin.Configuration & {
   suppress?: OptionSuppression;
 };
 
+export type ConfigurationProposal = Partial<
+  Omit<Configuration, 'env' | 'man' | 'suppress'>
+> & {
+  env?: Partial<EnvironmentVars>;
+  man?: Partial<Usage>;
+  suppress?: Partial<OptionSuppression>;
+};
+
 export type RequestURL = URL | string;
 export type RequestMethod = string;
 export type RequestBody = undefined | OpenIDClient.FetchBody;
@@ -91,12 +99,7 @@ export class OAuth2 {
   };
   private client: OAuth2CLI.Client | undefined = undefined;
 
-  public configure(
-    proposal: Partial<Omit<Configuration, 'env' | 'suppress'>> & {
-      env?: Partial<EnvironmentVars>;
-      suppress?: Partial<OptionSuppression>;
-    } = {}
-  ) {
+  public configure(proposal: ConfigurationProposal = {}) {
     for (const key in proposal) {
       if (proposal[key] !== undefined) {
         this.config[key] = proposal[key];
