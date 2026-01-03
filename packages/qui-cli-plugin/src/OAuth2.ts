@@ -52,6 +52,12 @@ export type Configuration = Plugin.Configuration & {
   suppress?: OptionSuppression;
 };
 
+export type RequestURL = URL | string;
+export type RequestMethod = string;
+export type RequestBody = undefined | OpenIDClient.FetchBody;
+export type RequestHeaders = Record<string, string>;
+export type RequestOptions = undefined | OpenIDClient.DPoPOptions;
+
 export class OAuth2 {
   [key: string]: unknown;
 
@@ -278,11 +284,11 @@ export class OAuth2 {
   }
 
   public async request(
-    url: URL | string,
-    method: string = 'GET',
-    body?: OpenIDClient.FetchBody,
-    headers?: Record<string, string>,
-    options?: OpenIDClient.DPoPOptions
+    url: RequestURL,
+    method: RequestMethod = 'GET',
+    body?: RequestBody,
+    headers?: RequestHeaders,
+    options?: RequestOptions
   ) {
     return await this.getClient().request(url, method, body, headers, options);
   }
