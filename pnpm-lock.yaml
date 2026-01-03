@@ -62,7 +62,7 @@ importers:
     dependencies:
       '@qui-cli/qui-cli':
         specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
       oauth2-cli:
         specifier: workspace:*
         version: link:../../packages/oauth2-cli
@@ -81,7 +81,7 @@ importers:
     dependencies:
       '@qui-cli/qui-cli':
         specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
       ejs:
         specifier: ^3.1.10
         version: 3.1.10
@@ -103,7 +103,7 @@ importers:
     dependencies:
       '@qui-cli/qui-cli':
         specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
       oauth2-cli:
         specifier: workspace:*
         version: link:../../packages/oauth2-cli
@@ -128,7 +128,7 @@ importers:
         version: 0.2.2(ejs@3.1.10)
       '@qui-cli/qui-cli':
         specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
     devDependencies:
       del-cli:
         specifier: ^6.0.0
@@ -147,7 +147,7 @@ importers:
         version: link:../../packages/qui-cli-plugin
       '@qui-cli/qui-cli':
         specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
     devDependencies:
       del-cli:
         specifier: ^6.0.0
@@ -229,6 +229,9 @@ importers:
 
   packages/qui-cli-plugin:
     dependencies:
+      '@qui-cli/log':
+        specifier: ^4.0.2
+        version: 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
       oauth2-cli:
         specifier: workspace:*
         version: link:../oauth2-cli
@@ -996,11 +999,11 @@ packages:
       '@qui-cli/plugin': 4.x
       '@qui-cli/root': 3.x
 
-  '@qui-cli/log@4.0.1':
-    resolution: {integrity: sha512-K58Mu7iKCapBqe1h5cl1e74uvp6Mn4q7M+J9KFtCIlQSZlVEkT7ex8dCZGXBOCP2znTgTQgVKsKNm8z+jwY9gA==}
+  '@qui-cli/log@4.0.2':
+    resolution: {integrity: sha512-/ALHH5PdtW4N2iCSy9dA0+xqkYH34oJPkkGb65vXWfrjHJbP2ufUerrcO1eOmH1rEP/Pd77o868qSIgs/SoLZA==}
     peerDependencies:
-      '@qui-cli/plugin': 4.x
-      '@qui-cli/root': 3.x
+      '@qui-cli/plugin': '>=3'
+      '@qui-cli/root': '>=3'
 
   '@qui-cli/plugin@4.0.0':
     resolution: {integrity: sha512-B1ZMFRTO/ggyngUNiRgrKxP5H54V64Ka21eCAbttJrNpDjbkwIRofIXb0VTc/7cad7h1xcO6LdmDyvfbkl1ZmA==}
@@ -5739,9 +5742,9 @@ snapshots:
       '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
       dotenv: 17.2.3
 
-  '@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))':
+  '@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))':
     dependencies:
-      '@qui-cli/colors': 3.1.0
+      '@qui-cli/colors': 3.2.1
       '@qui-cli/plugin': 4.0.0
       '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
       ora: 8.2.0
@@ -5760,17 +5763,17 @@ snapshots:
       chalk: 5.6.2
       cli-progress: 3.12.0
 
-  '@qui-cli/qui-cli@5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))':
+  '@qui-cli/qui-cli@5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))':
     dependencies:
       '@inquirer/prompts': 7.10.1(@types/node@25.0.3)
       '@qui-cli/colors': 3.2.1
       '@qui-cli/core': 5.0.0(@qui-cli/plugin@4.0.0)
       '@qui-cli/env': 5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
-      '@qui-cli/log': 4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/log': 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
       '@qui-cli/plugin': 4.0.0
       '@qui-cli/progress': 3.0.4(@qui-cli/plugin@4.0.0)
       '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
-      '@qui-cli/shell': 3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)
+      '@qui-cli/shell': 3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)
       '@qui-cli/validators': 3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
 
   '@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)':
@@ -5778,10 +5781,10 @@ snapshots:
       '@qui-cli/plugin': 4.0.0
       app-root-path: 3.1.0
 
-  '@qui-cli/shell@3.0.3(@qui-cli/log@4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)':
+  '@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)':
     dependencies:
       '@qui-cli/colors': 3.1.0
-      '@qui-cli/log': 4.0.1(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/log': 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
       '@qui-cli/plugin': 4.0.0
       ora: 8.2.0
       shelljs: 0.10.0
@@ -8043,7 +8046,7 @@ snapshots:
 
   log-symbols@4.1.0:
     dependencies:
-      chalk: 4.1.0
+      chalk: 4.1.2
       is-unicode-supported: 0.1.0
 
   log-symbols@6.0.0:
@@ -8911,9 +8914,9 @@ snapshots:
   ora@5.3.0:
     dependencies:
       bl: 4.1.0
-      chalk: 4.1.0
+      chalk: 4.1.2
       cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
+      cli-spinners: 2.9.2
       is-interactive: 1.0.0
       log-symbols: 4.1.0
       strip-ansi: 6.0.1

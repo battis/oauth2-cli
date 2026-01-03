@@ -23,6 +23,7 @@
     "release": "commit-and-tag-version"
   },
   "dependencies": {
+    "@qui-cli/log": "^4.0.2",
     "oauth2-cli": "workspace:*",
     "openid-client": "^6.8.1"
   },
