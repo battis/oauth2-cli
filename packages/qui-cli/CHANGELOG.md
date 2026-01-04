@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.4.1...qui-cli-plugin/0.4.2) (2026-01-04)
+
+
+### Bug Fixes
+
+* typo in fetchJSON name ([a19ba97](https://github.com/battis/oauth2-cli/commit/a19ba9700e32a69f7714a428b3c5c60739a11c16))
+
 ## [0.4.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.4.0...qui-cli-plugin/0.4.1) (2026-01-04)
 
 ## [0.4.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.3.4...qui-cli-plugin/0.4.0) (2026-01-04)
