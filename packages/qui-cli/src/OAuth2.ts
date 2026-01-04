@@ -287,7 +287,7 @@ export class OAuth2 {
   public requestJSON = <T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client['requestJSON']>
   ) => this.getClient().requestJSON<T>(...args);
-  public fetchJson = <T extends JSONValue>(
+  public fetchJSON = <T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client['fetchJSON']>
   ) => this.getClient().fetchJSON<T>(...args);
 }
