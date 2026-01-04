@@ -60,9 +60,15 @@ importers:
 
   examples/async-tokens:
     dependencies:
-      '@qui-cli/qui-cli':
-        specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+      '@qui-cli/colors':
+        specifier: ^3.2.1
+        version: 3.2.1
+      '@qui-cli/core':
+        specifier: ^5.0.2
+        version: 5.0.2(@qui-cli/plugin@4.0.0)
+      '@qui-cli/log':
+        specifier: ^4.0.2
+        version: 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
       oauth2-cli:
         specifier: workspace:*
         version: link:../../packages/oauth2-cli
@@ -79,9 +85,15 @@ importers:
 
   examples/ejs-peer:
     dependencies:
-      '@qui-cli/qui-cli':
-        specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+      '@qui-cli/colors':
+        specifier: ^3.2.1
+        version: 3.2.1
+      '@qui-cli/core':
+        specifier: ^5.0.2
+        version: 5.0.2(@qui-cli/plugin@4.0.0)
+      '@qui-cli/log':
+        specifier: ^4.0.2
+        version: 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
       ejs:
         specifier: ^3.1.10
         version: 3.1.10
@@ -101,9 +113,15 @@ importers:
 
   examples/get-token:
     dependencies:
-      '@qui-cli/qui-cli':
-        specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+      '@qui-cli/colors':
+        specifier: ^3.2.1
+        version: 3.2.1
+      '@qui-cli/core':
+        specifier: ^5.0.2
+        version: 5.0.2(@qui-cli/plugin@4.0.0)
+      '@qui-cli/log':
+        specifier: ^4.0.2
+        version: 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
       oauth2-cli:
         specifier: workspace:*
         version: link:../../packages/oauth2-cli
@@ -126,9 +144,15 @@ importers:
       '@oauth2-cli/sky-api':
         specifier: ^0.2.2
         version: 0.2.2(ejs@3.1.10)
-      '@qui-cli/qui-cli':
-        specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+      '@qui-cli/core':
+        specifier: ^5.0.2
+        version: 5.0.2(@qui-cli/plugin@4.0.0)
+      '@qui-cli/log':
+        specifier: ^4.0.2
+        version: 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/root':
+        specifier: ^3.0.6
+        version: 3.0.6(@qui-cli/plugin@4.0.0)
     devDependencies:
       del-cli:
         specifier: ^6.0.0
@@ -142,12 +166,18 @@ importers:
 
   examples/qui-cli-plugin:
     dependencies:
-      '@oauth2-cli/qui-cli-plugin':
+      '@oauth2-cli/qui-cli':
         specifier: workspace:*
-        version: link:../../packages/qui-cli-plugin
-      '@qui-cli/qui-cli':
-        specifier: ^5.0.3
-        version: 5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))
+        version: link:../../packages/qui-cli
+      '@qui-cli/core':
+        specifier: ^5.0.2
+        version: 5.0.2(@qui-cli/plugin@4.0.0)
+      '@qui-cli/log':
+        specifier: ^4.0.2
+        version: 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/root':
+        specifier: ^3.0.6
+        version: 3.0.6(@qui-cli/plugin@4.0.0)
     devDependencies:
       del-cli:
         specifier: ^6.0.0
@@ -180,6 +210,9 @@ importers:
         specifier: ^6.8.1
         version: 6.8.1
     devDependencies:
+      '@battis/typescript-tricks':
+        specifier: ^0.7.6
+        version: 0.7.6
       '@tsconfig/node20':
         specifier: ^20.1.8
         version: 20.1.8
@@ -227,7 +260,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/qui-cli-plugin:
+  packages/qui-cli:
     dependencies:
       '@qui-cli/log':
         specifier: ^4.0.2
@@ -242,6 +275,9 @@ importers:
       '@battis/descriptive-types':
         specifier: ^0.2.6
         version: 0.2.6
+      '@battis/typescript-tricks':
+        specifier: ^0.7.6
+        version: 0.7.6
       '@qui-cli/colors':
         specifier: ^3.2.1
         version: 3.2.1
@@ -379,6 +415,9 @@ packages:
       '@battis/qui-cli.plugin': ^2.4
       '@battis/qui-cli.root': 2.x
 
+  '@battis/typescript-tricks@0.7.6':
+    resolution: {integrity: sha512-rX6kvsHjaBY+ltN2uL/dWTN5JVUOoa26njtj3rQiktD77D70xQQ8t40AlP6DSZoEQHLqqmBUxQE3SNXH6N8hbg==}
+
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
     engines: {node: '>=0.1.90'}
@@ -459,11 +498,11 @@ packages:
   '@dabh/diagnostics@2.0.8':
     resolution: {integrity: sha512-R4MSXTVnuMzGD7bzHdW2ZhhdPC/igELENcq5IjEverBvq5hn1SXCWcsi6eSsdWP0/Ur+SItRRjAktmdoX/8R/Q==}
 
-  '@emnapi/core@1.7.1':
-    resolution: {integrity: sha512-o1uhUASyo921r2XtHYOHy7gdkGLge8ghBEQHMWmyJFoXlpU58kIrhhN3w26lpQb6dspetweapMn2CSNwQ8I4wg==}
+  '@emnapi/core@1.8.1':
+    resolution: {integrity: sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg==}
 
-  '@emnapi/runtime@1.7.1':
-    resolution: {integrity: sha512-PVtJr5CmLwYAU9PZDMITZoR5iAOShYREoR45EyyLrbntV50mdePTgUn4AmOw90Ifcj+x2kRjdzr1HP3RrNiHGA==}
+  '@emnapi/runtime@1.8.1':
+    resolution: {integrity: sha512-mehfKSMWjjNol8659Z8KxEMrdSJDDot5SXMq00dM8BN4o+CLNXQ0xH2V7EchNHV4RmbZLmmPdEaXZc5H2FXmDg==}
 
   '@emnapi/wasi-threads@1.1.0':
     resolution: {integrity: sha512-WI0DdZ8xFSbgMjR1sFsKABJ/C5OnRrjT06JXbZKexJGrDuPTzZdDYfFlsgcCXCyf+suG5QU2e/y1Wo2V/OapLQ==}
@@ -981,10 +1020,10 @@ packages:
   '@qui-cli/colors@3.2.1':
     resolution: {integrity: sha512-o36sLf1JBr7so/eLeL5cZY1cg6LMD3+784OhRvKg2oqmlWPn8UuMFyPXiWxFc+p39rBq3wlj7nSlVg89FGpspA==}
 
-  '@qui-cli/core@5.0.0':
-    resolution: {integrity: sha512-pe0bMKeSYsHFEtfa3FwYPK+pPY4JO6w35wW8a7OOZstizxT6oAKAn96RofAzJp16KfTp3139d5bnACnYf85x2w==}
+  '@qui-cli/core@5.0.2':
+    resolution: {integrity: sha512-4W2UFynBSTZjFh19rOldpUoFw8DZM0lXiei/zv/s2WvYlv+Euc4If6619+KQslqBqTBe3fW7za9njrZUURVPng==}
     peerDependencies:
-      '@qui-cli/plugin': 4.x
+      '@qui-cli/plugin': '>=3'
 
   '@qui-cli/env-1password@1.2.5':
     resolution: {integrity: sha512-d+w9y2OHO0rK1MtvjlLrTMyGnf0mFoaJ3864CWVpndpdf8JhvFnCnPny4AabPbz3+0EeJ+X7D4poLa5wptR96g==}
@@ -1008,40 +1047,10 @@ packages:
   '@qui-cli/plugin@4.0.0':
     resolution: {integrity: sha512-B1ZMFRTO/ggyngUNiRgrKxP5H54V64Ka21eCAbttJrNpDjbkwIRofIXb0VTc/7cad7h1xcO6LdmDyvfbkl1ZmA==}
 
-  '@qui-cli/progress@3.0.4':
-    resolution: {integrity: sha512-E6BOCEyNG/qSsYjnbVg2sP4Sfp5GlMMvftSXBEt+6LIpNHWLYjcqO3p6eP57yYjq+g+RT/kzZhjt+3AoVMJ4ag==}
-    peerDependencies:
-      '@qui-cli/plugin': 4.x
-
-  '@qui-cli/qui-cli@5.0.3':
-    resolution: {integrity: sha512-BPo4uzncpmb0d8HldL0vI9guye6AHnnuPRedqLnl8Bm6mgcGmXIqPuSzuKntrh+wRg9em2H5+pLfbpdEtgteWQ==}
-    engines: {node: '>=12.17'}
-    peerDependencies:
-      '@inquirer/prompts': ^7.x
-      '@qui-cli/core': 5.0.2
-      '@qui-cli/env': 5.0.3
-      '@qui-cli/log': 4.0.2
-      '@qui-cli/plugin': 4.0.0
-      '@qui-cli/progress': 3.0.5
-      '@qui-cli/root': 3.0.6
-      '@qui-cli/shell': 3.1.1
-      '@qui-cli/validators': 3.0.3
-
   '@qui-cli/root@3.0.6':
     resolution: {integrity: sha512-rwdz2Wje9bCViR+YCbBKVQ+rC88vRMWrmlgowv9H5bNhGWlzgN319L3rN6epM4ULsrdoDTdxJ/b9z21W2YLb8Q==}
     peerDependencies:
       '@qui-cli/plugin': '>=3'
-
-  '@qui-cli/shell@3.0.3':
-    resolution: {integrity: sha512-sR/nlLSm1v6eF8VOioD4Iy1PiVNRmEpldBCCGmCF+AaAAiL/ckjPS8XwEYS2ad1V0fO4mGAljwjC6RSR58Hntg==}
-    peerDependencies:
-      '@qui-cli/log': 4.x
-      '@qui-cli/plugin': 4.x
-
-  '@qui-cli/validators@3.0.2':
-    resolution: {integrity: sha512-L8FxxFRX7jgyHIG8cjdsHoRuorHkhzgtRa5xZhkzFkxe2uz8WZAoEDHP4lr9Lr4M1UelpXUPXMAnBpcpaLqoXg==}
-    peerDependencies:
-      '@qui-cli/root': 3.x
 
   '@sigstore/bundle@4.0.0':
     resolution: {integrity: sha512-NwCl5Y0V6Di0NexvkTqdoVfmjTaQwoLM236r89KEojGmq/jMls8S+zb7yOwAPdXvbwfKDlP+lmXgAL4vKSQT+A==}
@@ -1529,10 +1538,6 @@ packages:
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
     engines: {node: '>=18'}
-
-  cli-progress@3.12.0:
-    resolution: {integrity: sha512-tRkV3HJ1ASwm19THiiLIXLO7Im7wlTuKnvkYaTkyoAPefqjNg7W7DHKUlGRxy9vxDvbyCYQkQozvptuMkGCg8A==}
-    engines: {node: '>=4'}
 
   cli-spinners@2.6.1:
     resolution: {integrity: sha512-x/5fWmGMnbKQAaNwN+UZlV79qBLM9JFnJuJ03gIi5whrob0xV0ofNVHy9DhwGdsMJQc2OKv0oGmLzvaqvAVv+g==}
@@ -2133,10 +2138,6 @@ packages:
     resolution: {integrity: sha512-ov6w/2LCiuyO4RLYGdpFGjkcs0wMTgGE8PrkTHikeUy5iJekXyPIKUjifk5CsE0pt7sMCrMZ3YNqoCj6idQOnQ==}
     engines: {node: '>=10'}
 
-  execa@5.1.1:
-    resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
-    engines: {node: '>=10'}
-
   exponential-backoff@3.1.3:
     resolution: {integrity: sha512-ZgEeZXj30q+I0EN+CbSSpIyPaJ5HVQD18Z1m+u1FXbAeT94mr1zw50q4q6jiiC447Nl/YTcIYSAftiGqetwXCA==}
 
@@ -2350,10 +2351,6 @@ packages:
 
   get-stream@6.0.0:
     resolution: {integrity: sha512-A1B3Bh1UmL0bidM/YX2NsCOTnGJePL9rO/M+Mw3m9f2gUpfokS0hi5Eah0WSUEWZdZhIZtMjkIYS7mDfOqNHbg==}
-    engines: {node: '>=10'}
-
-  get-stream@6.0.1:
-    resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
 
   get-symbol-description@1.1.0:
@@ -4159,10 +4156,6 @@ packages:
     resolution: {integrity: sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw==}
     engines: {node: '>= 0.4'}
 
-  shelljs@0.10.0:
-    resolution: {integrity: sha512-Jex+xw5Mg2qMZL3qnzXIfaxEtBaC4n7xifqaqtrZDdlheR70OGkydrPJWT0V1cA1k3nanC86x9FwAmQl6w3Klw==}
-    engines: {node: '>=18'}
-
   side-channel-list@1.0.0:
     resolution: {integrity: sha512-FCLHtRD/gnpCiCHEiJLOwdmFP+wzCmDEkc9y7NsYxeF4u7Btsn1ZuwgwJGxImImHicJArLP4R0yX4c2KCrMrTA==}
     engines: {node: '>= 0.4'}
@@ -4903,6 +4896,8 @@ snapshots:
       email-validator: 2.0.4
       is-valid-path: 0.1.1
 
+  '@battis/typescript-tricks@0.7.6': {}
+
   '@colors/colors@1.6.0': {}
 
   '@commitlint/cli@20.3.0(@types/node@25.0.3)(typescript@5.9.3)':
@@ -5027,12 +5022,12 @@ snapshots:
       enabled: 2.0.0
       kuler: 2.0.0
 
-  '@emnapi/core@1.7.1':
+  '@emnapi/core@1.8.1':
     dependencies:
       '@emnapi/wasi-threads': 1.1.0
       tslib: 2.8.1
 
-  '@emnapi/runtime@1.7.1':
+  '@emnapi/runtime@1.8.1':
     dependencies:
       tslib: 2.8.1
 
@@ -5363,8 +5358,8 @@ snapshots:
 
   '@napi-rs/wasm-runtime@0.2.4':
     dependencies:
-      '@emnapi/core': 1.7.1
-      '@emnapi/runtime': 1.7.1
+      '@emnapi/core': 1.8.1
+      '@emnapi/runtime': 1.8.1
       '@tybys/wasm-util': 0.9.0
 
   '@nodelib/fs.scandir@2.1.5':
@@ -5718,9 +5713,9 @@ snapshots:
     dependencies:
       chalk: 5.6.2
 
-  '@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0)':
+  '@qui-cli/core@5.0.2(@qui-cli/plugin@4.0.0)':
     dependencies:
-      '@qui-cli/colors': 3.1.0
+      '@qui-cli/colors': 3.2.1
       '@qui-cli/plugin': 4.0.0
       jackspeak: 4.1.1
       wrap-ansi: 9.0.2
@@ -5756,46 +5751,10 @@ snapshots:
       '@qui-cli/colors': 3.1.0
       jackspeak: 4.1.1
 
-  '@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0)':
-    dependencies:
-      '@qui-cli/colors': 3.1.0
-      '@qui-cli/plugin': 4.0.0
-      chalk: 5.6.2
-      cli-progress: 3.12.0
-
-  '@qui-cli/qui-cli@5.0.3(@inquirer/prompts@7.10.1(@types/node@25.0.3))(@qui-cli/core@5.0.0(@qui-cli/plugin@4.0.0))(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/progress@3.0.4(@qui-cli/plugin@4.0.0))(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))(@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))':
-    dependencies:
-      '@inquirer/prompts': 7.10.1(@types/node@25.0.3)
-      '@qui-cli/colors': 3.2.1
-      '@qui-cli/core': 5.0.0(@qui-cli/plugin@4.0.0)
-      '@qui-cli/env': 5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
-      '@qui-cli/log': 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
-      '@qui-cli/plugin': 4.0.0
-      '@qui-cli/progress': 3.0.4(@qui-cli/plugin@4.0.0)
-      '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
-      '@qui-cli/shell': 3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)
-      '@qui-cli/validators': 3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
-
   '@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)':
     dependencies:
       '@qui-cli/plugin': 4.0.0
       app-root-path: 3.1.0
-
-  '@qui-cli/shell@3.0.3(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)':
-    dependencies:
-      '@qui-cli/colors': 3.1.0
-      '@qui-cli/log': 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
-      '@qui-cli/plugin': 4.0.0
-      ora: 8.2.0
-      shelljs: 0.10.0
-
-  '@qui-cli/validators@3.0.2(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))':
-    dependencies:
-      '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
-      '@tahul/is-valid-domain': 1.0.5
-      cron-validate: 1.5.3
-      email-validator: 2.0.4
-      is-valid-path: 0.1.1
 
   '@sigstore/bundle@4.0.0':
     dependencies:
@@ -6351,10 +6310,6 @@ snapshots:
   cli-cursor@5.0.0:
     dependencies:
       restore-cursor: 5.1.0
-
-  cli-progress@3.12.0:
-    dependencies:
-      string-width: 4.2.3
 
   cli-spinners@2.6.1: {}
 
@@ -7010,18 +6965,6 @@ snapshots:
       signal-exit: 3.0.7
       strip-final-newline: 2.0.0
 
-  execa@5.1.1:
-    dependencies:
-      cross-spawn: 7.0.6
-      get-stream: 6.0.1
-      human-signals: 2.1.0
-      is-stream: 2.0.1
-      merge-stream: 2.0.0
-      npm-run-path: 4.0.1
-      onetime: 5.1.2
-      signal-exit: 3.0.7
-      strip-final-newline: 2.0.0
-
   exponential-backoff@3.1.3: {}
 
   express@4.22.1:
@@ -7306,8 +7249,6 @@ snapshots:
       es-object-atoms: 1.1.1
 
   get-stream@6.0.0: {}
-
-  get-stream@6.0.1: {}
 
   get-symbol-description@1.1.0:
     dependencies:
@@ -8046,7 +7987,7 @@ snapshots:
 
   log-symbols@4.1.0:
     dependencies:
-      chalk: 4.1.2
+      chalk: 4.1.0
       is-unicode-supported: 0.1.0
 
   log-symbols@6.0.0:
@@ -8914,9 +8855,9 @@ snapshots:
   ora@5.3.0:
     dependencies:
       bl: 4.1.0
-      chalk: 4.1.2
+      chalk: 4.1.0
       cli-cursor: 3.1.0
-      cli-spinners: 2.9.2
+      cli-spinners: 2.6.1
       is-interactive: 1.0.0
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
@@ -9509,11 +9450,6 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   shell-quote@1.8.3: {}
-
-  shelljs@0.10.0:
-    dependencies:
-      execa: 5.1.1
-      fast-glob: 3.3.3
 
   side-channel-list@1.0.0:
     dependencies:
