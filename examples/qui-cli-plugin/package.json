@@ -20,8 +20,10 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@oauth2-cli/qui-cli-plugin": "workspace:*",
-    "@qui-cli/qui-cli": "^5.0.3"
+    "@oauth2-cli/qui-cli": "workspace:*",
+    "@qui-cli/core": "^5.0.2",
+    "@qui-cli/log": "^4.0.2",
+    "@qui-cli/root": "^3.0.6"
   },
   "devDependencies": {
     "del-cli": "^6.0.0",

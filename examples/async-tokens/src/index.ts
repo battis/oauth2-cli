@@ -1,11 +1,15 @@
-import CLI from '@qui-cli/qui-cli';
-import * as oauth2 from 'oauth2-cli';
+import { Colors } from '@qui-cli/colors';
+import { Core, Positionals } from '@qui-cli/core';
+import { Log } from '@qui-cli/log';
+import * as OAuth2CLI from 'oauth2-cli';
 import { splitOptList } from './splitOptList.js';
 
-await CLI.configure({ core: { requirePositionals: true } });
+Positionals.require({
+  tokenPath: {},
+  numTokens: {}
+});
 
 const {
-  positionals: [tokenPath, numTokens = '10'],
   values: {
     issuer,
     clientId: client_id,
@@ -15,7 +19,7 @@ const {
     tokenEndpoint: token_endpoint,
     ...values
   }
-} = await CLI.init({
+} = await Core.init({
   opt: {
     issuer: {},
     clientId: { description: 'Required' },
@@ -26,18 +30,20 @@ const {
   },
   optList: {
     header: {
-      description: `Format: ${CLI.colors.quotedValue('"Header:value"')}`
+      description: `Format: ${Colors.quotedValue('"Header:value"')}`
     },
     parameter: {
-      description: `Format: ${CLI.colors.quotedValue('"parameter=value"')}`
+      description: `Format: ${Colors.quotedValue('"parameter=value"')}`
     }
   }
 });
+const tokenPath = Positionals.get('tokenPath');
+const numTokens = Positionals.get('numTokens') || '10';
 
 if (!client_id || !client_secret || !redirect_uri || !authorization_endpoint) {
   throw new Error('Missing required argument');
 }
-const tokenManager = new oauth2.TokenManager({
+const client = new OAuth2CLI.Client({
   issuer,
   client_id,
   client_secret,
@@ -51,6 +57,6 @@ const tokenManager = new oauth2.TokenManager({
 
 const tokens = [];
 for (let i = 0; i < parseInt(numTokens); i++) {
-  tokens.push(tokenManager.getToken());
+  tokens.push(client.getToken());
 }
-console.log(await Promise.all(tokens));
+Log.info(await Promise.all(tokens));
