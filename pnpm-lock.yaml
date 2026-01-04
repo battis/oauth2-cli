@@ -139,8 +139,8 @@ importers:
   examples/multiple-clients:
     dependencies:
       '@oauth2-cli/canvas':
-        specifier: ^0.3.2
-        version: 0.3.2(ejs@3.1.10)
+        specifier: ^0.4.0
+        version: 0.4.0(ejs@3.1.10)
       '@oauth2-cli/sky-api':
         specifier: ^0.2.2
         version: 0.2.2(ejs@3.1.10)
@@ -912,8 +912,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oauth2-cli/canvas@0.3.2':
-    resolution: {integrity: sha512-qAGVT0XLG+x1uhA5pusvCKSombKa/wQex6+JSDJiJvC1eeSj1es0FHn+0yfsjx3MNgLSZefBlIbv7CMrhfskHg==}
+  '@oauth2-cli/canvas@0.4.0':
+    resolution: {integrity: sha512-FHe8owL1zU61odP4Jv1w6Dufhfr+UTfDWO/7Rw9mUWjW6m6Me4nWzUUJOSjmJlw4JB1Jl0JTkKU2QW58msZGmw==}
+    engines: {node: '>=21'}
 
   '@oauth2-cli/sky-api@0.2.2':
     resolution: {integrity: sha512-I5nt5CXXx9HYhFuRefnnlrzJHv1ZdXKl/0NQlqrB3sCJHlZHQqrKZSw1JGbU1OALAJl44s8SvaGZWhq9Uw3GHw==}
@@ -5573,9 +5574,8 @@ snapshots:
   '@nx/nx-win32-x64-msvc@22.3.3':
     optional: true
 
-  '@oauth2-cli/canvas@0.3.2(ejs@3.1.10)':
+  '@oauth2-cli/canvas@0.4.0(ejs@3.1.10)':
     dependencies:
-      node-fetch: 3.3.2
       oauth2-cli: 0.2.3(ejs@3.1.10)
     transitivePeerDependencies:
       - ejs
