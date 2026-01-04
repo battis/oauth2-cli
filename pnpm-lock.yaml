@@ -142,8 +142,8 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2(ejs@3.1.10)
       '@oauth2-cli/sky-api':
-        specifier: ^0.2.2
-        version: 0.2.2(ejs@3.1.10)
+        specifier: ^0.3.1
+        version: 0.3.1(@oauth2-cli/qui-cli-plugin@0.3.4(@qui-cli/colors@3.2.1)(@qui-cli/env-1password@1.2.5(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@3.1.10))(@qui-cli/plugin@4.0.0)(ejs@3.1.10)
       '@qui-cli/core':
         specifier: ^5.0.2
         version: 5.0.2(@qui-cli/plugin@4.0.0)
@@ -915,8 +915,19 @@ packages:
   '@oauth2-cli/canvas@0.3.2':
     resolution: {integrity: sha512-qAGVT0XLG+x1uhA5pusvCKSombKa/wQex6+JSDJiJvC1eeSj1es0FHn+0yfsjx3MNgLSZefBlIbv7CMrhfskHg==}
 
-  '@oauth2-cli/sky-api@0.2.2':
-    resolution: {integrity: sha512-I5nt5CXXx9HYhFuRefnnlrzJHv1ZdXKl/0NQlqrB3sCJHlZHQqrKZSw1JGbU1OALAJl44s8SvaGZWhq9Uw3GHw==}
+  '@oauth2-cli/qui-cli-plugin@0.3.4':
+    resolution: {integrity: sha512-KGxbUIdDO78CXjOlYnOXWa5Hshw81IXnekceEOdkoddo/fyImDALOFiFQgE9WmfTL21/mMiI8fCqsa5SymcAYQ==}
+    peerDependencies:
+      '@qui-cli/colors': 3.x
+      '@qui-cli/env-1password': 1.x
+      '@qui-cli/plugin': 4.x
+      '@qui-cli/root': 3.x
+
+  '@oauth2-cli/sky-api@0.3.1':
+    resolution: {integrity: sha512-osDNj2YHw/46ridoV9vQQ0rxIOecJS2yEo+x6ZWG2co2vyHWKauA+qC+Weyym3RUAHQ0P1Thqf1wVa9FMluwIA==}
+    peerDependencies:
+      '@oauth2-cli/qui-cli-plugin': 0.x
+      '@qui-cli/plugin': 4.x
 
   '@octokit/auth-token@4.0.0':
     resolution: {integrity: sha512-tY/msAuJo6ARbK6SPIxZrPBms3xPbfwBrulZe0Wtr/DIY9lje2HeV1uoebShn6mx7SjCHif6EjMvoREj+gZ+SA==}
@@ -3534,13 +3545,13 @@ packages:
       '@swc/core':
         optional: true
 
-  oauth2-cli@0.2.1:
-    resolution: {integrity: sha512-rQWAmmjlvLbYKz2ZNntCIP6PLKz1RfeYIg/WM+J7H9u179Eo+TZuCidPQwe0pdE3g995oyYsLEi0yISDy52pOw==}
+  oauth2-cli@0.2.3:
+    resolution: {integrity: sha512-1p996eHNkh+K4ZLXDgKWMB+GXSIekLKB2cUFeHdQ42NAUkU5KFKhEnfVAywumOr+iGHJijsjc+SVAz4by5EHGg==}
     peerDependencies:
       ejs: '*'
 
-  oauth2-cli@0.2.3:
-    resolution: {integrity: sha512-1p996eHNkh+K4ZLXDgKWMB+GXSIekLKB2cUFeHdQ42NAUkU5KFKhEnfVAywumOr+iGHJijsjc+SVAz4by5EHGg==}
+  oauth2-cli@0.3.0:
+    resolution: {integrity: sha512-dQzSIYggD/Mi2dcMEQ4zyk+qoqjkZQkVu1WKl90a8FmeJkR9p9o+PFh0lwXT+gMoQVv2tfH2tY3sJIa7tCoXRQ==}
     peerDependencies:
       ejs: '*'
 
@@ -3575,10 +3586,6 @@ packages:
 
   onetime@7.0.0:
     resolution: {integrity: sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ==}
-    engines: {node: '>=18'}
-
-  open@10.2.0:
-    resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
 
   open@11.0.0:
@@ -4708,10 +4715,6 @@ packages:
     resolution: {integrity: sha512-FdNA4RyH1L43TlvGG8qOMIfcEczwA5ij+zLXUy3Z83CjxhLvcV7/Q/8pk22wnCgYw7PJhtK+7lhO+qqyT4NdvQ==}
     engines: {node: '>=16.14'}
 
-  wsl-utils@0.1.0:
-    resolution: {integrity: sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==}
-    engines: {node: '>=18'}
-
   wsl-utils@0.3.1:
     resolution: {integrity: sha512-g/eziiSUNBSsdDJtCLB8bdYEUMj4jR7AGeUo96p/3dTafgjHhpF4RiCFPiRILwjQoDXx5MqkBr4fwWtR3Ky4Wg==}
     engines: {node: '>=20'}
@@ -5581,10 +5584,25 @@ snapshots:
       - ejs
       - supports-color
 
-  '@oauth2-cli/sky-api@0.2.2(ejs@3.1.10)':
+  '@oauth2-cli/qui-cli-plugin@0.3.4(@qui-cli/colors@3.2.1)(@qui-cli/env-1password@1.2.5(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@3.1.10)':
     dependencies:
+      '@qui-cli/colors': 3.2.1
+      '@qui-cli/env-1password': 1.2.5(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/log': 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/plugin': 4.0.0
+      '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
+      oauth2-cli: 0.3.0(ejs@3.1.10)
+      openid-client: 6.8.1
+    transitivePeerDependencies:
+      - ejs
+      - supports-color
+
+  '@oauth2-cli/sky-api@0.3.1(@oauth2-cli/qui-cli-plugin@0.3.4(@qui-cli/colors@3.2.1)(@qui-cli/env-1password@1.2.5(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@3.1.10))(@qui-cli/plugin@4.0.0)(ejs@3.1.10)':
+    dependencies:
+      '@oauth2-cli/qui-cli-plugin': 0.3.4(@qui-cli/colors@3.2.1)(@qui-cli/env-1password@1.2.5(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@3.1.10)
+      '@qui-cli/plugin': 4.0.0
       node-fetch: 3.3.2
-      oauth2-cli: 0.2.1(ejs@3.1.10)
+      oauth2-cli: 0.2.3(ejs@3.1.10)
     transitivePeerDependencies:
       - ejs
       - supports-color
@@ -8759,18 +8777,18 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  oauth2-cli@0.2.1(ejs@3.1.10):
+  oauth2-cli@0.2.3(ejs@3.1.10):
     dependencies:
       '@battis/oauth2-configure': 0.1.3
       async-mutex: 0.5.0
       ejs: 3.1.10
-      express: 4.22.1
-      open: 10.2.0
+      express: 5.2.1
+      open: 11.0.0
       openid-client: 6.8.1
     transitivePeerDependencies:
       - supports-color
 
-  oauth2-cli@0.2.3(ejs@3.1.10):
+  oauth2-cli@0.3.0(ejs@3.1.10):
     dependencies:
       '@battis/oauth2-configure': 0.1.3
       async-mutex: 0.5.0
@@ -8815,13 +8833,6 @@ snapshots:
   onetime@7.0.0:
     dependencies:
       mimic-function: 5.0.1
-
-  open@10.2.0:
-    dependencies:
-      default-browser: 5.4.0
-      define-lazy-prop: 3.0.0
-      is-inside-container: 1.0.0
-      wsl-utils: 0.1.0
 
   open@11.0.0:
     dependencies:
@@ -10071,10 +10082,6 @@ snapshots:
     dependencies:
       js-yaml: 4.1.1
       write-file-atomic: 5.0.1
-
-  wsl-utils@0.1.0:
-    dependencies:
-      is-wsl: 3.1.0
 
   wsl-utils@0.3.1:
     dependencies:
