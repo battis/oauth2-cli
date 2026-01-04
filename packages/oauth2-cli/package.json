@@ -30,6 +30,7 @@
     "openid-client": "^6.8.1"
   },
   "devDependencies": {
+    "@battis/typescript-tricks": "^0.7.6",
     "@tsconfig/node20": "^20.1.8",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.6",
