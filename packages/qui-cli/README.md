@@ -1,14 +1,14 @@
-# @oauth2-cli/qui-cli-plugin
+# @oauth2-cli/qui-cli
 
-@battis/qui-cli.plugin wrapper for oauth2-cli
+@qui-cli/plugin wrapper for oauth2-cli
 
-[![npm version](https://badge.fury.io/js/@oauth2-cli%2Fqui-cli-plugin.svg)](https://badge.fury.io/js/@oauth2-cli%2Fqui-cli-plugin)
+[![npm version](https://badge.fury.io/js/@oauth2-cli%2Fqui-cli.svg)](https://badge.fury.io/js/@oauth2-cli%2Fqui-cli)
 [![Module type: ESM](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://nodejs.org/api/esm.html)
 
 ## Install
 
 ```sh
-npm install @qui-cli/core @oauth2-cli/qui-cli-plugin
+npm install @qui-cli/core @oauth2-cli/qui-cli
 ```
 
 ## Usage
