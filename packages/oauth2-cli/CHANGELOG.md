@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.3.0...oauth2-cli/0.4.0) (2026-01-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove deprecated TokenManager
+
+### Features
+
+* provide fetch() and fetchJSON() methods to translate to openid-client requests ([3fe454f](https://github.com/battis/oauth2-cli/commit/3fe454f28497d704041ea4e599a4ad5b2b08b469))
+
+
+### Bug Fixes
+
+* remove deprecated TokenManager ([2dde67e](https://github.com/battis/oauth2-cli/commit/2dde67edd70b151bd1bab6de3845839a06957e65))
+
 ## [0.3.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.2.3...oauth2-cli/0.3.0) (2025-12-24)
 
 
