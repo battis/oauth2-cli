@@ -31,8 +31,7 @@
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",
     "@battis/typescript-tricks": "^0.7.6",
-    "@qui-cli/colors": "^3.2.1",
-    "@qui-cli/env-1password": "^1.2.5",
+    "@qui-cli/env-1password": "^1.2.6",
     "@qui-cli/plugin": "^4.0.0",
     "@qui-cli/root": "^3.0.6",
     "@tsconfig/node20": "^20.1.8",
