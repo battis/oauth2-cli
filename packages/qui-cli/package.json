@@ -23,6 +23,7 @@
     "release": "commit-and-tag-version"
   },
   "dependencies": {
+    "@qui-cli/colors": "^3.2.1",
     "@qui-cli/log": "^4.0.2",
     "oauth2-cli": "workspace:*",
     "openid-client": "^6.8.1"
@@ -41,9 +42,8 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@qui-cli/colors": "3.x",
-    "@qui-cli/env-1password": "1.x",
-    "@qui-cli/plugin": "4.x",
-    "@qui-cli/root": "3.x"
+    "@qui-cli/env-1password": ">=1",
+    "@qui-cli/plugin": ">=3",
+    "@qui-cli/root": ">=3"
   }
 }
