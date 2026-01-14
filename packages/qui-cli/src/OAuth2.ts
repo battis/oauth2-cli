@@ -1,7 +1,6 @@
 import { PathString, URLString } from '@battis/descriptive-types';
 import { JSONValue } from '@battis/typescript-tricks';
 import { Colors } from '@qui-cli/colors';
-import '@qui-cli/env-1password';
 import { Env } from '@qui-cli/env-1password';
 import { Log } from '@qui-cli/log';
 import * as Plugin from '@qui-cli/plugin';
@@ -23,6 +22,7 @@ type ParamNames =
 
 type EnvironmentVars = Record<ParamNames, string>;
 type SupportUrls = Record<ParamNames, URLString>;
+type Hints = Record<ParamNames, string>;
 type OptionNames = Record<ParamNames, string>;
 type OptionSuppression = Record<ParamNames, boolean>;
 
@@ -44,6 +44,7 @@ export type Configuration = Plugin.Configuration & {
 
   opt: OptionNames;
   url?: Partial<SupportUrls>;
+  hint?: Partial<Hints>;
   env: EnvironmentVars;
   man: Usage;
   suppress?: Partial<OptionSuppression>;
@@ -63,7 +64,7 @@ export class OAuth2 {
   private static names: string[] = [];
   private static ports: Record<string, string> = {};
 
-  public constructor(public readonly name = '@oauth2-cli/qui-cli-plugin') {
+  public constructor(public readonly name = '@oauth2-cli/qui-cli') {
     if (OAuth2.names.includes(name)) {
       throw new Error(
         `A @qui-cli/plugin named ${Colors.value(name)} has already been instantiated.`
@@ -80,6 +81,9 @@ export class OAuth2 {
       tokenEndpoint: 'tokenEndpoint',
       tokenPath: 'tokenPath',
       accessToken: 'accessToken'
+    },
+    hint: {
+      redirectUri: Colors.quotedValue(`"https://localhost:3000/redirect"`)
     },
     env: {
       clientId: 'CLIENT_ID',
@@ -164,15 +168,15 @@ export class OAuth2 {
         `${Colors.value(this.cliConfig.env.clientSecret)}, if present.`,
       redirectUri:
         `OAuth 2.0 redirect URI, must be to host ${Colors.url('localhost')}. ` +
-        `Defaults to environment variables ` +
+        `Defaults to environment variable ` +
         `${Colors.value(this.cliConfig.env.redirectUri)}, if present.`,
       authorizationEndpoint:
         `OAuth 2.0 authorization endpoint. Defaults to environment variable ` +
         `${Colors.value(this.cliConfig.env.authorizationEndpoint)}, if present.`,
       tokenEndpoint:
         `OAuth 2.0 token endpoint, will fall back to ` +
-        `${Colors.optionArg(this.cliConfig.opt['authorizationEndpoint'])} if ` +
-        `not provided. Dfaults to environment ariable ` +
+        `${Colors.optionArg(`--${this.cliConfig.opt['authorizationEndpoint']}`)} if ` +
+        `not provided. Defaults to environment ariable ` +
         `${Colors.value(this.cliConfig.env.tokenEndpoint)}, if present.`,
       tokenPath:
         `Path to token storage JSON file. Defaults to environent variable ` +
@@ -183,16 +187,19 @@ export class OAuth2 {
     };
 
     const opt: Plugin.Options['opt'] = {};
-    let paramName: ParamNames;
-    for (paramName in descriptions) {
+    for (const paramName of Object.keys(descriptions) as ParamNames[]) {
       if (!this.cliConfig.suppress || !this.cliConfig.suppress[paramName]) {
         const option: {
           description: string;
+          hint?: string;
           secret?: boolean;
           default?: string;
         } = { description: descriptions[paramName] };
         if (this.cliConfig.url && this.cliConfig.url[paramName]) {
           option.description = `${option.description} See ${Colors.url(this.cliConfig.url[paramName])} for more information.`;
+        }
+        if (this.cliConfig.hint && this.cliConfig.hint[paramName]) {
+          option.hint = this.cliConfig.hint[paramName];
         }
         switch (paramName) {
           case 'clientId':
@@ -206,7 +213,6 @@ export class OAuth2 {
         }
         opt[this.cliConfig.opt[paramName]] = option;
       }
-      return opt;
     }
 
     return {
@@ -221,7 +227,7 @@ export class OAuth2 {
   public async init({ values }: Plugin.ExpectedArguments<typeof this.options>) {
     const proposal: ConfigurationProposal = {};
     let paramName: ParamNames;
-    for (paramName in this.cliConfig.opt) {
+    for (paramName of Object.keys(this.cliConfig.opt) as ParamNames[]) {
       proposal[paramName] =
         values[this.cliConfig.opt[paramName]] ||
         this.cliConfig[paramName] ||
