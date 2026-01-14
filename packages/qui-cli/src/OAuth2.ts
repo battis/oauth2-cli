@@ -12,33 +12,19 @@ import { EnvironmentStorage } from './EnvironmentStorage.js';
 
 export { Credentials } from 'oauth2-cli';
 
-type EnvironmentVars = {
-  client_id: string;
-  client_secret: string;
-  redirect_uri: string;
-  authorization_endpoint: string;
-  token_endpoint: string;
-  token_path: string;
-  access_token: string;
-};
+type ParamNames =
+  | 'clientId'
+  | 'clientSecret'
+  | 'redirectUri'
+  | 'authorizationEndpoint'
+  | 'tokenEndpoint'
+  | 'tokenPath'
+  | 'accessToken';
 
-type OptionNames = {
-  clientId: string;
-  clientSecret: string;
-  redirectUri: string;
-  authorizationEndpoint: string;
-  tokenEndpoint: string;
-  tokenPath: string;
-};
-
-type OptionSuppression = {
-  clientId?: boolean;
-  clientSecret?: boolean;
-  redirectUri?: boolean;
-  authorizationEndpoint?: boolean;
-  tokenEndpoint?: boolean;
-  tokenPath?: boolean;
-};
+type EnvironmentVars = Record<ParamNames, string>;
+type SupportUrls = Record<ParamNames, URLString>;
+type OptionNames = Record<ParamNames, string>;
+type OptionSuppression = Record<ParamNames, boolean>;
 
 type Usage = {
   heading: string;
@@ -46,29 +32,29 @@ type Usage = {
 };
 
 export type Configuration = Plugin.Configuration & {
-  client_id?: string;
-  client_secret?: string;
-  redirect_uri?: URLString;
+  clientId?: string;
+  clientSecret?: string;
+  redirectUri?: URLString;
   headers?: Record<string, string>;
-  authorization_endpoint?: URLString;
-  token_endpoint?: URLString;
+  authorizationEndpoint?: URLString;
+  tokenEndpoint?: URLString;
 
   store?: OAuth2CLI.TokenStorage;
-  token_path?: PathString;
+  tokenPath?: PathString;
 
   opt: OptionNames;
+  url?: Partial<SupportUrls>;
   env: EnvironmentVars;
   man: Usage;
-  suppress?: OptionSuppression;
+  suppress?: Partial<OptionSuppression>;
 };
 
 export type ConfigurationProposal = Partial<
-  Omit<Configuration, 'opt' | 'env' | 'man' | 'suppress'>
+  Omit<Configuration, 'opt' | 'env' | 'man'>
 > & {
   opt?: Partial<OptionNames>;
   env?: Partial<EnvironmentVars>;
   man?: Partial<Usage>;
-  suppress?: Partial<OptionSuppression>;
 };
 
 export class OAuth2 {
@@ -92,22 +78,24 @@ export class OAuth2 {
       redirectUri: 'redirectUri',
       authorizationEndpoint: 'authorizationEndpoint',
       tokenEndpoint: 'tokenEndpoint',
-      tokenPath: 'tokenPath'
+      tokenPath: 'tokenPath',
+      accessToken: 'accessToken'
     },
     env: {
-      client_id: 'CLIENT_ID',
-      client_secret: 'CLIENT_SECRET',
-      redirect_uri: 'REDIRECT_URI',
-      authorization_endpoint: 'AUTHORIZATION_ENDPOINT',
-      token_endpoint: 'TOKEN_ENDPOINT',
-      token_path: 'TOKEN_PATH',
-      access_token: 'ACCESS_TOKEN'
+      clientId: 'CLIENT_ID',
+      clientSecret: 'CLIENT_SECRET',
+      redirectUri: 'REDIRECT_URI',
+      authorizationEndpoint: 'AUTHORIZATION_ENDPOINT',
+      tokenEndpoint: 'TOKEN_ENDPOINT',
+      tokenPath: 'TOKEN_PATH',
+      accessToken: 'ACCESS_TOKEN'
     },
     man: {
       heading: 'OAuth 2.0 client options'
     },
     suppress: {
-      tokenPath: true
+      tokenPath: true,
+      accessToken: true
     }
   };
   private client: OAuth2CLI.Client | undefined = undefined;
@@ -119,19 +107,19 @@ export class OAuth2 {
       }
     }
     if (!this.cliConfig.store) {
-      if (this.cliConfig.token_path) {
+      if (this.cliConfig.tokenPath) {
         this.cliConfig.store = new OAuth2CLI.FileStorage(
-          path.resolve(Root.path(), this.cliConfig.token_path)
+          path.resolve(Root.path(), this.cliConfig.tokenPath)
         );
       } else {
         this.cliConfig.store = new EnvironmentStorage(
-          this.cliConfig.env.access_token
+          this.cliConfig.env.accessToken
         );
       }
     }
 
-    if (this.cliConfig.redirect_uri) {
-      const url = new URL(this.cliConfig.redirect_uri);
+    if (this.cliConfig.redirectUri) {
+      const url = new URL(this.cliConfig.redirectUri);
       if (url.hostname !== 'localhost') {
         Log.warning(
           `The ${Colors.varName('redirect_uri')} value ${Colors.url(
@@ -167,57 +155,58 @@ export class OAuth2 {
   }
 
   public options(): Plugin.Options {
-    const opt: Plugin.Options['opt'] = {
-      [this.cliConfig.opt.clientId]: {
-        description:
-          `OAuth 2.0 client ID (defaults to environment variable ` +
-          `${Colors.value(this.cliConfig.env.client_id)})`,
-        secret: true,
-        default: this.cliConfig.client_id
-      },
-      [this.cliConfig.opt.clientSecret]: {
-        description:
-          `OAuth 2.0 client secret (defaults to environment ` +
-          `variable ${Colors.value(this.cliConfig.env.client_secret)}`,
-        secret: true,
-        default: this.cliConfig.client_secret
-      },
-      [this.cliConfig.opt.redirectUri]: {
-        description:
-          `OAuth 2.0 redirect URI (must be to host ` +
-          `${Colors.url('localhost')}, defaults to environment variables ` +
-          `${Colors.value(this.cliConfig.env.redirect_uri)})`,
-        hint: Colors.quotedValue(`"http://localhost:XXXX/path/to/redirect"`),
-        default: this.cliConfig.redirect_uri
-      },
-      [this.cliConfig.opt.authorizationEndpoint]: {
-        description:
-          `OAuth 2.0 authorization endpoint (defaults to ` +
-          `environment variable ${Colors.value(this.cliConfig.env.authorization_endpoint)}`,
-        default: this.cliConfig.authorization_endpoint
-      },
-      [this.cliConfig.opt.tokenEndpoint]: {
-        description:
-          `OAuth 2.0 token endpoint (will fall back to ` +
-          `authorization endpoint if not provided, defaults to environment ` +
-          `variable ${Colors.value(this.cliConfig.env.token_endpoint)}`,
-        default: this.cliConfig.token_endpoint
-      },
-      [this.cliConfig.opt.tokenPath]: {
-        description:
-          `Path to token storage JSON file (defaults to environent ` +
-          `variable ${Colors.value(this.cliConfig.env.token_path)}`,
-        default: this.cliConfig.token_path
-      }
+    const descriptions: Record<ParamNames, string> = {
+      clientId:
+        `OAuth 2.0 client ID. Defaults to environment variable ` +
+        `${Colors.value(this.cliConfig.env.clientId)}, if present.`,
+      clientSecret:
+        `OAuth 2.0 client secret. Defaults to environment variable ` +
+        `${Colors.value(this.cliConfig.env.clientSecret)}, if present.`,
+      redirectUri:
+        `OAuth 2.0 redirect URI, must be to host ${Colors.url('localhost')}. ` +
+        `Defaults to environment variables ` +
+        `${Colors.value(this.cliConfig.env.redirectUri)}, if present.`,
+      authorizationEndpoint:
+        `OAuth 2.0 authorization endpoint. Defaults to environment variable ` +
+        `${Colors.value(this.cliConfig.env.authorizationEndpoint)}, if present.`,
+      tokenEndpoint:
+        `OAuth 2.0 token endpoint, will fall back to ` +
+        `${Colors.optionArg(this.cliConfig.opt['authorizationEndpoint'])} if ` +
+        `not provided. Dfaults to environment ariable ` +
+        `${Colors.value(this.cliConfig.env.tokenEndpoint)}, if present.`,
+      tokenPath:
+        `Path to token storage JSON file. Defaults to environent variable ` +
+        `${Colors.value(this.cliConfig.env.tokenPath)}, if present.`,
+      accessToken:
+        `Access token JSON object value. Defaults to environment variable ` +
+        `${Colors.value(this.cliConfig.env.accessToken)}, if present.`
     };
 
-    if (this.cliConfig.suppress) {
-      let option: string & keyof OptionSuppression;
-      for (option in this.cliConfig.suppress) {
-        if (this.cliConfig.suppress[option]) {
-          delete opt[option];
+    const opt: Plugin.Options['opt'] = {};
+    let paramName: ParamNames;
+    for (paramName in descriptions) {
+      if (!this.cliConfig.suppress || !this.cliConfig.suppress[paramName]) {
+        const option: {
+          description: string;
+          secret?: boolean;
+          default?: string;
+        } = { description: descriptions[paramName] };
+        if (this.cliConfig.url && this.cliConfig.url[paramName]) {
+          option.description = `${option.description} See ${Colors.url(this.cliConfig.url[paramName])} for more information.`;
         }
+        switch (paramName) {
+          case 'clientId':
+          case 'clientSecret':
+          case 'accessToken':
+            option.secret = true;
+        }
+        const param = this.cliConfig[paramName];
+        if (typeof param === 'string') {
+          option.default = param;
+        }
+        opt[this.cliConfig.opt[paramName]] = option;
       }
+      return opt;
     }
 
     return {
@@ -230,60 +219,25 @@ export class OAuth2 {
   }
 
   public async init({ values }: Plugin.ExpectedArguments<typeof this.options>) {
-    const client_id =
-      values[this.cliConfig.opt.clientId] ||
-      this.cliConfig.client_id ||
-      (await Env.get({
-        key: this.cliConfig.env.client_id
-      }));
-    const client_secret =
-      values[this.cliConfig.opt.clientSecret] ||
-      this.cliConfig.client_secret ||
-      (await Env.get({
-        key: this.cliConfig.env.client_secret
-      }));
-    const redirect_uri =
-      values[this.cliConfig.opt.redirectUri] ||
-      this.cliConfig.redirect_uri ||
-      (await Env.get({
-        key: this.cliConfig.env.redirect_uri
-      }));
-    const authorization_endpoint =
-      values[this.cliConfig.opt.authorizationEndpoint] ||
-      this.cliConfig.authorization_endpoint ||
-      (await Env.get({
-        key: this.cliConfig.env.authorization_endpoint
-      }));
-    const token_endpoint =
-      values[this.cliConfig.opt.tokenEndpoint] ||
-      this.cliConfig.token_endpoint ||
-      (await Env.get({
-        key: this.cliConfig.env.token_endpoint
-      }));
-    const token_path =
-      values[this.cliConfig.opt.tokenPath] ||
-      this.cliConfig.token_path ||
-      (await Env.get({
-        key: this.cliConfig.env.token_path
-      }));
-    this.configure({
-      client_id,
-      client_secret,
-      redirect_uri,
-      authorization_endpoint,
-      token_endpoint,
-      token_path
-    });
+    const proposal: ConfigurationProposal = {};
+    let paramName: ParamNames;
+    for (paramName in this.cliConfig.opt) {
+      proposal[paramName] =
+        values[this.cliConfig.opt[paramName]] ||
+        this.cliConfig[paramName] ||
+        (await Env.get({ key: this.cliConfig.env[paramName] }));
+    }
+    this.configure(proposal);
   }
 
   public getClient() {
     if (!this.client) {
       const {
-        client_id,
-        client_secret,
-        redirect_uri,
-        authorization_endpoint,
-        token_endpoint,
+        clientId: client_id,
+        clientSecret: client_secret,
+        redirectUri: redirect_uri,
+        authorizationEndpoint: authorization_endpoint,
+        tokenEndpoint: token_endpoint,
         headers,
         store
       } = this.cliConfig;
