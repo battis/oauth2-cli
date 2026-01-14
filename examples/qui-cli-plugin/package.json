@@ -22,10 +22,12 @@
   "dependencies": {
     "@oauth2-cli/qui-cli": "workspace:*",
     "@qui-cli/core": "^5.0.2",
+    "@qui-cli/env-1password": "^1.2.6",
     "@qui-cli/log": "^4.0.2",
     "@qui-cli/root": "^3.0.6"
   },
   "devDependencies": {
+    "@tsconfig/node24": "^24.0.3",
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3"
