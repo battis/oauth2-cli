@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.4.3...qui-cli-plugin/0.5.0) (2026-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* move to currently active Node.js v24
+* consistent parameter names and URL support links
+
+### Features
+
+* add configurable hints for CLI option parameters ([b78ab2b](https://github.com/battis/oauth2-cli/commit/b78ab2b894a7807e2fced4531930c648fe275304))
+* configurable opt names to avoid collision with multiple APIs ([d147e3e](https://github.com/battis/oauth2-cli/commit/d147e3e9dfce1f0f4629d5a0e7f649258b7e9487))
+* consistent parameter names and URL support links ([671c371](https://github.com/battis/oauth2-cli/commit/671c3715c7218ab3b92e84a6da69835c5148462a))
+
+
+### Bug Fixes
+
+* export pre-registered plugin as an EJS module ([19b232e](https://github.com/battis/oauth2-cli/commit/19b232e5c65de4fd43fa604c8a3c38718d4a7ab9))
+* move to currently active Node.js v24 ([a651159](https://github.com/battis/oauth2-cli/commit/a6511594460c7fbc9f59e8a86c6b2f17bfb3564e))
+
 ## [0.4.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.4.2...qui-cli-plugin/0.4.3) (2026-01-12)
 
 
