@@ -1,5 +1,5 @@
 {
-  "name": "get-token",
+  "name": "@examples/get-token",
   "private": true,
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/get-token#readme",
   "repository": {

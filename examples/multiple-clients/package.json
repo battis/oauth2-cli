@@ -1,5 +1,5 @@
 {
-  "name": "multiple-clients",
+  "name": "@examples/multiple-clients",
   "private": true,
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/multiple-clients#readme",
   "repository": {
