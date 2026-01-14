@@ -1,7 +1,7 @@
 import { register } from '@qui-cli/plugin';
-import { OAuth2 as Plugin } from './OAuth2.js';
+import * as OAuth2 from './Module.js';
 
 export * from './EnvironmentStorage.js';
-export const OAuth2 = new Plugin();
+export { OAuth2 };
 
 await register(OAuth2);
