@@ -19,7 +19,7 @@
     "release": "run-s release:*",
     "release:git": "git push --follow-tags",
     "release:build": "run-s build",
-    "release:login": "npm login",
+    "release:login": "pnpm login",
     "release:publish": "pnpm publish -r --access public"
   },
   "dependencies": {
