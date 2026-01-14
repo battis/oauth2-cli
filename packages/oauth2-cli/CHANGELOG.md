@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.4.0...oauth2-cli/0.5.0) (2026-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* move to Node.js v24 support
+
+### Features
+
+* move to Node.js v24 support ([03d5cf4](https://github.com/battis/oauth2-cli/commit/03d5cf455e38f7beb2fbf93f1612acb906c5f5a0))
+
 ## [0.4.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.3.0...oauth2-cli/0.4.0) (2026-01-04)
 
 
