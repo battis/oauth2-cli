@@ -1,6 +1,5 @@
 import { OAuth2Plugin } from './OAuth2.js';
 
-export * from './EnvironmentStorage.js';
 export * from './OAuth2.js';
 
 const oauth2 = new OAuth2Plugin();

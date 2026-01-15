@@ -10,6 +10,7 @@ import * as OAuth2CLI from 'oauth2-cli';
 import { EnvironmentStorage } from './EnvironmentStorage.js';
 
 export * from 'oauth2-cli';
+export * from './EnvironmentStorage.js';
 
 type ParamNames =
   | 'clientId'
