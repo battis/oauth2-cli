@@ -20,7 +20,7 @@
     "build": "run-s build:*",
     "build:clean": "run-s clean",
     "build:compile": "tsc",
-    "release": "commit-and-tag-version"
+    "version": "commit-and-tag-version"
   },
   "dependencies": {
     "@battis/oauth2-configure": "workspace:*",
