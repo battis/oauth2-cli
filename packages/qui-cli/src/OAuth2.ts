@@ -272,15 +272,27 @@ export class OAuth2 {
     return this.client;
   }
 
-  public getToken = () => this.getClient().getToken();
-  public request = (...args: Parameters<OAuth2CLI.Client['request']>) =>
-    this.getClient().request(...args);
-  public fetch = (...args: Parameters<OAuth2CLI.Client['fetch']>) =>
-    this.getClient().fetch(...args);
-  public requestJSON = <T extends JSONValue>(
+  public getToken() {
+    return this.getClient().getToken();
+  }
+
+  public request(...args: Parameters<OAuth2CLI.Client['request']>) {
+    return this.getClient().request(...args);
+  }
+
+  public requestJSON<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client['requestJSON']>
-  ) => this.getClient().requestJSON<T>(...args);
-  public fetchJSON = <T extends JSONValue>(
+  ) {
+    return this.getClient().requestJSON<T>(...args);
+  }
+
+  public fetch(...args: Parameters<OAuth2CLI.Client['fetch']>) {
+    return this.getClient().fetch(...args);
+  }
+
+  public fetchJSON<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client['fetchJSON']>
-  ) => this.getClient().fetchJSON<T>(...args);
+  ) {
+    return this.getClient().fetchJSON<T>(...args);
+  }
 }
