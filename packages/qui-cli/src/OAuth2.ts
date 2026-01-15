@@ -241,8 +241,8 @@ export class OAuth2Plugin {
 
   protected instantiateClient(
     ...args: ConstructorParameters<typeof OAuth2CLI.Client>
-  ) {
-    this.client = new OAuth2CLI.Client(...args);
+  ): OAuth2CLI.Client {
+    return new OAuth2CLI.Client(...args);
   }
 
   public getClient(): OAuth2CLI.Client {
@@ -268,7 +268,7 @@ export class OAuth2Plugin {
       if (!authorization_endpoint) {
         throw new Error('OAuth 2.0 authorization endpoint not defined');
       }
-      this.instantiateClient({
+      this.client = this.instantiateClient({
         client_id,
         client_secret,
         redirect_uri,
@@ -277,9 +277,6 @@ export class OAuth2Plugin {
         headers,
         store
       });
-    }
-    if (!this.client) {
-      throw new Error('Failed to instantiate oauth2-cli Client.');
     }
     return this.client;
   }
