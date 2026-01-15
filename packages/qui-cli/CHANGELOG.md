@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.1...qui-cli-plugin/0.5.2) (2026-01-15)
+
+
+### Features
+
+* allow injection of custom oauth2-cli Client implementations via instantiateClient() ([cb1b94f](https://github.com/battis/oauth2-cli/commit/cb1b94fb1891343f00b5793fd6f7db33e6489c14))
+* re-export all of oauth2-cli under the plugin module/class namespaces ([0cbdafc](https://github.com/battis/oauth2-cli/commit/0cbdafc84853f4a904e33640b65e4f0300f00b4a))
+
 ## [0.5.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.0...qui-cli-plugin/0.5.1) (2026-01-15)
 
 
