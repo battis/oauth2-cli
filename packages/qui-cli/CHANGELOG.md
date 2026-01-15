@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.5](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.4...qui-cli-plugin/0.5.5) (2026-01-15)
+
+
+### Bug Fixes
+
+* getClient() should return the type instantiated by instiateClient() ([46a4507](https://github.com/battis/oauth2-cli/commit/46a450707954917e1f55595fb3e35f0a62f475fc))
+
 ## [0.5.4](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.3...qui-cli-plugin/0.5.4) (2026-01-15)
 
 
