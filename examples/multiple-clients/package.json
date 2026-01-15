@@ -20,8 +20,8 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@oauth2-cli/canvas": "^0.3.2",
-    "@oauth2-cli/sky-api": "^0.2.2",
+    "@oauth2-cli/canvas": "^0.4.2",
+    "@oauth2-cli/sky-api": "^0.4.0",
     "@qui-cli/core": "^5.0.2",
     "@qui-cli/log": "^4.0.2",
     "@qui-cli/root": "^3.0.6"

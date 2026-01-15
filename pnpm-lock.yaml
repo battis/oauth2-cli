@@ -139,11 +139,11 @@ importers:
   examples/multiple-clients:
     dependencies:
       '@oauth2-cli/canvas':
-        specifier: ^0.3.2
-        version: 0.3.2(ejs@3.1.10)
+        specifier: ^0.4.2
+        version: 0.4.2(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1)
       '@oauth2-cli/sky-api':
-        specifier: ^0.2.2
-        version: 0.2.2(ejs@3.1.10)
+        specifier: ^0.4.0
+        version: 0.4.0(@oauth2-cli/qui-cli@0.5.0(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1))(@qui-cli/plugin@4.0.0)(ejs@4.0.1)
       '@qui-cli/core':
         specifier: ^5.0.2
         version: 5.0.2(@qui-cli/plugin@4.0.0)
@@ -205,7 +205,7 @@ importers:
         version: 0.5.0
       ejs:
         specifier: '*'
-        version: 3.1.10
+        version: 4.0.1
       express:
         specifier: ^5.2.1
         version: 5.2.1
@@ -232,8 +232,8 @@ importers:
         specifier: ^12.6.1
         version: 12.6.1
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -257,8 +257,8 @@ importers:
         specifier: ^12.6.1
         version: 12.6.1
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -303,8 +303,8 @@ importers:
         specifier: ^12.6.1
         version: 12.6.1
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -376,6 +376,9 @@ packages:
 
   '@battis/oauth2-configure@0.1.3':
     resolution: {integrity: sha512-ErIl5Yc645K2RCis9M1prW/n9wVM52Iy0X5u+IQbF0slnvlXXTFcRUH603AtELaHNiNBFayNNVCM/ODwHkhMhA==}
+
+  '@battis/oauth2-configure@0.1.4':
+    resolution: {integrity: sha512-wdrxkEbrDwfKrX/osnuuOsDXVcXeSzOVTDZM29Mo/I/PHRdKdp4wIGeDP9nA51dZ3MD+d67GaVe9bqsF8ny3Cw==}
 
   '@battis/prettier-config@1.7.3':
     resolution: {integrity: sha512-rkYTPfUgxpTRK1qDYCEmqr7ptq5rsIVbmdxfMV2aNAcKcH1c89842oeYxm8aeN0SDJ+EExEWtP8T9xDIx5p2iw==}
@@ -554,6 +557,15 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@groton/canvas-api.client.base@0.3.0':
+    resolution: {integrity: sha512-KRs3eAI859yfECp5n2EUcHHhqXEOuJBSvMa3lNuDu7scRTbf6TEWPF/6AG3m8IeH5ZTK/+0Jks++KpeA07qvYQ==}
+
+  '@groton/canvas-api.utilities@0.2.1':
+    resolution: {integrity: sha512-1AM/Q2We2U76Mc7imYg06hZ2I0xPjP1l3YN118Kxo2WRhgrrEOLZoxizeNJPEYlVwI9fTeAJuF2psfinXlc5RA==}
+
+  '@groton/canvas-api@0.3.6':
+    resolution: {integrity: sha512-jkNvia+XvxZW4TZVj879fQv+u/ebk8Bid/06D0p0hkvURTBeUec7vkhjWa6DAeZLGj2cp2XCR7I6qlOgky3TlA==}
 
   '@gwhitney/detect-indent@7.0.1':
     resolution: {integrity: sha512-7bQW+gkKa2kKZPeJf6+c6gFK9ARxQfn+FKy9ScTBppyKRWH2KzsmweXUoklqeEiHiNVWaeP5csIdsNq6w7QhzA==}
@@ -918,11 +930,24 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oauth2-cli/canvas@0.3.2':
-    resolution: {integrity: sha512-qAGVT0XLG+x1uhA5pusvCKSombKa/wQex6+JSDJiJvC1eeSj1es0FHn+0yfsjx3MNgLSZefBlIbv7CMrhfskHg==}
+  '@oauth2-cli/canvas@0.4.2':
+    resolution: {integrity: sha512-bdxH6aL+8EC1lPsz5tGHwv8GrMwbE8IvZtk8DF5+33Q0OFHEAQqPEHgsGotRBncqzOFkVo9YB+luclamsR3SoA==}
+    engines: {node: '>=21'}
+    peerDependencies:
+      '@qui-cli/plugin': '>=3'
 
-  '@oauth2-cli/sky-api@0.2.2':
-    resolution: {integrity: sha512-I5nt5CXXx9HYhFuRefnnlrzJHv1ZdXKl/0NQlqrB3sCJHlZHQqrKZSw1JGbU1OALAJl44s8SvaGZWhq9Uw3GHw==}
+  '@oauth2-cli/qui-cli@0.5.0':
+    resolution: {integrity: sha512-cfgRoK0CS0pPqpZ59HpKjsj8TRD4HrhIhCxiv+rZZlVz6JWZzKOVXQ+oRaTTOtxJA3s7Op3XuofG6Zryft48WA==}
+    peerDependencies:
+      '@qui-cli/env-1password': '>=1'
+      '@qui-cli/plugin': '>=3'
+      '@qui-cli/root': '>=3'
+
+  '@oauth2-cli/sky-api@0.4.0':
+    resolution: {integrity: sha512-8/WYCodG9ivKdPYr2zmLkmyJJ1+fKgYnYeVo8b/KNl3LxdEoAcjLsW32D8NWNbnjmQp2Jwj2Q1IIBn40s3OVBQ==}
+    peerDependencies:
+      '@oauth2-cli/qui-cli': '>=0.5'
+      '@qui-cli/plugin': '>=3'
 
   '@octokit/auth-token@4.0.0':
     resolution: {integrity: sha512-tY/msAuJo6ARbK6SPIxZrPBms3xPbfwBrulZe0Wtr/DIY9lje2HeV1uoebShn6mx7SjCHif6EjMvoREj+gZ+SA==}
@@ -1897,6 +1922,11 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  del-cli@7.0.0:
+    resolution: {integrity: sha512-fRl4pWJYu9WFQH8jXdQUYvcD0IMtij9WEc7qmB7xOyJEweNJNuE7iKmqNeoOT1DbBUjtRjxlw8Y63qKBI/NQ1g==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   del@8.0.1:
     resolution: {integrity: sha512-gPqh0mKTPvaUZGAuHbrBUYKZWBNAeHG7TU3QH5EhVwPMyKvmfJaNXhcD2jTcXsJRRcffuho4vaYweu80dRrMGA==}
     engines: {node: '>=18'}
@@ -1989,6 +2019,11 @@ packages:
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
     engines: {node: '>=0.10.0'}
+    hasBin: true
+
+  ejs@4.0.1:
+    resolution: {integrity: sha512-krvQtxc0btwSm/nvnt1UpnaFDFVJpJ0fdckmALpCgShsr/iGYHTnJiUliZTgmzq/UxTX33TtOQVKaNigMQp/6Q==}
+    engines: {node: '>=0.12.18'}
     hasBin: true
 
   email-validator@2.0.4:
@@ -3185,6 +3220,10 @@ packages:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
     engines: {node: '>=18'}
 
+  meow@14.0.0:
+    resolution: {integrity: sha512-JhC3R1f6dbspVtmF3vKjAWz1EVIvwFrGGPLSdU6rK79xBwHWTuHoLnRX/t1/zHS1Ch1Y2UtIrih7DAHuH9JFJA==}
+    engines: {node: '>=20'}
+
   meow@8.1.2:
     resolution: {integrity: sha512-r85E3NdZ+mpYk1C6RjPFEMSE+s1iZMuHtsHAqY0DT3jZczl0diWUZ8g6oU7h0M9cD2EL+PzaYghhCLzR0ZNn5Q==}
     engines: {node: '>=10'}
@@ -3559,13 +3598,13 @@ packages:
       '@swc/core':
         optional: true
 
-  oauth2-cli@0.2.1:
-    resolution: {integrity: sha512-rQWAmmjlvLbYKz2ZNntCIP6PLKz1RfeYIg/WM+J7H9u179Eo+TZuCidPQwe0pdE3g995oyYsLEi0yISDy52pOw==}
+  oauth2-cli@0.2.3:
+    resolution: {integrity: sha512-1p996eHNkh+K4ZLXDgKWMB+GXSIekLKB2cUFeHdQ42NAUkU5KFKhEnfVAywumOr+iGHJijsjc+SVAz4by5EHGg==}
     peerDependencies:
       ejs: '*'
 
-  oauth2-cli@0.2.3:
-    resolution: {integrity: sha512-1p996eHNkh+K4ZLXDgKWMB+GXSIekLKB2cUFeHdQ42NAUkU5KFKhEnfVAywumOr+iGHJijsjc+SVAz4by5EHGg==}
+  oauth2-cli@0.5.0:
+    resolution: {integrity: sha512-KWAc7d1r9O3pbO8xbMDqr8JlQ4IEEaA43L2ZTvg4LsYJYUVpMGour+sIPDY1ySli+XlFx/cH2khg2eG47+VoLg==}
     peerDependencies:
       ejs: '*'
 
@@ -3600,10 +3639,6 @@ packages:
 
   onetime@7.0.0:
     resolution: {integrity: sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ==}
-    engines: {node: '>=18'}
-
-  open@10.2.0:
-    resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
 
   open@11.0.0:
@@ -4654,8 +4689,8 @@ packages:
     resolution: {integrity: sha512-K4jVyjnBdgvc86Y6BkaLZEN933SwYOuBFkdmBu9ZfkcAbdVbpITnDmjvZ/aQjRXQrv5EPkTnD1s39GiiqbngCw==}
     engines: {node: '>= 0.4'}
 
-  which-typed-array@1.1.19:
-    resolution: {integrity: sha512-rEvr90Bck4WZt9HHFC4DJMsjvu7x+r6bImz0/BrbWb7A2djJ8hnZMrWnHo9F8ssv0OMErasDhftrfROTyqSDrw==}
+  which-typed-array@1.1.20:
+    resolution: {integrity: sha512-LYfpUkmqwl0h9A2HL09Mms427Q1RZWuOHsukfVcKRq9q95iQxdw0ix1JQrqbcDR9PH1QDwf5Qo8OZb5lksZ8Xg==}
     engines: {node: '>= 0.4'}
 
   which@1.3.1:
@@ -4736,10 +4771,6 @@ packages:
   write-yaml-file@5.0.0:
     resolution: {integrity: sha512-FdNA4RyH1L43TlvGG8qOMIfcEczwA5ij+zLXUy3Z83CjxhLvcV7/Q/8pk22wnCgYw7PJhtK+7lhO+qqyT4NdvQ==}
     engines: {node: '>=16.14'}
-
-  wsl-utils@0.1.0:
-    resolution: {integrity: sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==}
-    engines: {node: '>=18'}
 
   wsl-utils@0.3.1:
     resolution: {integrity: sha512-g/eziiSUNBSsdDJtCLB8bdYEUMj4jR7AGeUo96p/3dTafgjHhpF4RiCFPiRILwjQoDXx5MqkBr4fwWtR3Ky4Wg==}
@@ -4872,6 +4903,11 @@ snapshots:
       semver: 7.7.3
 
   '@battis/oauth2-configure@0.1.3':
+    dependencies:
+      async-mutex: 0.5.0
+      openid-client: 6.8.1
+
+  '@battis/oauth2-configure@0.1.4':
     dependencies:
       async-mutex: 0.5.0
       openid-client: 6.8.1
@@ -5123,6 +5159,17 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
+
+  '@groton/canvas-api.client.base@0.3.0':
+    dependencies:
+      '@groton/canvas-api.utilities': 0.2.1
+
+  '@groton/canvas-api.utilities@0.2.1': {}
+
+  '@groton/canvas-api@0.3.6':
+    dependencies:
+      '@groton/canvas-api.client.base': 0.3.0
+      '@groton/canvas-api.utilities': 0.2.1
 
   '@gwhitney/detect-indent@7.0.1': {}
 
@@ -5602,18 +5649,39 @@ snapshots:
   '@nx/nx-win32-x64-msvc@22.3.3':
     optional: true
 
-  '@oauth2-cli/canvas@0.3.2(ejs@3.1.10)':
+  '@oauth2-cli/canvas@0.4.2(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1)':
     dependencies:
-      node-fetch: 3.3.2
-      oauth2-cli: 0.2.3(ejs@3.1.10)
+      '@groton/canvas-api': 0.3.6
+      '@groton/canvas-api.client.base': 0.3.0
+      '@groton/canvas-api.utilities': 0.2.1
+      '@oauth2-cli/qui-cli': 0.5.0(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1)
+      '@qui-cli/colors': 3.2.1
+      '@qui-cli/plugin': 4.0.0
+    transitivePeerDependencies:
+      - '@qui-cli/env-1password'
+      - '@qui-cli/root'
+      - ejs
+      - supports-color
+
+  '@oauth2-cli/qui-cli@0.5.0(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1)':
+    dependencies:
+      '@qui-cli/colors': 3.2.1
+      '@qui-cli/env-1password': 1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0))
+      '@qui-cli/log': 4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))
+      '@qui-cli/plugin': 4.0.0
+      '@qui-cli/root': 3.0.6(@qui-cli/plugin@4.0.0)
+      oauth2-cli: 0.5.0(ejs@4.0.1)
+      openid-client: 6.8.1
     transitivePeerDependencies:
       - ejs
       - supports-color
 
-  '@oauth2-cli/sky-api@0.2.2(ejs@3.1.10)':
+  '@oauth2-cli/sky-api@0.4.0(@oauth2-cli/qui-cli@0.5.0(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1))(@qui-cli/plugin@4.0.0)(ejs@4.0.1)':
     dependencies:
+      '@oauth2-cli/qui-cli': 0.5.0(@qui-cli/env-1password@1.2.6(@qui-cli/env@5.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(@qui-cli/shell@3.1.1(@qui-cli/log@4.0.2(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)))(@qui-cli/plugin@4.0.0)(@qui-cli/root@3.0.6(@qui-cli/plugin@4.0.0))(ejs@4.0.1)
+      '@qui-cli/plugin': 4.0.0
       node-fetch: 3.3.2
-      oauth2-cli: 0.2.1(ejs@3.1.10)
+      oauth2-cli: 0.2.3(ejs@4.0.1)
     transitivePeerDependencies:
       - ejs
       - supports-color
@@ -6703,6 +6771,12 @@ snapshots:
       del: 8.0.1
       meow: 13.2.0
 
+  del-cli@7.0.0:
+    dependencies:
+      del: 8.0.1
+      meow: 14.0.0
+      presentable-error: 0.0.1
+
   del@8.0.1:
     dependencies:
       globby: 14.1.0
@@ -6783,6 +6857,10 @@ snapshots:
   ee-first@1.1.1: {}
 
   ejs@3.1.10:
+    dependencies:
+      jake: 10.9.4
+
+  ejs@4.0.1:
     dependencies:
       jake: 10.9.4
 
@@ -6880,7 +6958,7 @@ snapshots:
       typed-array-byte-offset: 1.0.4
       typed-array-length: 1.0.7
       unbox-primitive: 1.1.0
-      which-typed-array: 1.1.19
+      which-typed-array: 1.1.20
 
   es-define-property@1.0.1: {}
 
@@ -7738,7 +7816,7 @@ snapshots:
 
   is-typed-array@1.1.15:
     dependencies:
-      which-typed-array: 1.1.19
+      which-typed-array: 1.1.20
 
   is-unicode-supported@0.1.0: {}
 
@@ -8257,6 +8335,8 @@ snapshots:
   meow@12.1.1: {}
 
   meow@13.2.0: {}
+
+  meow@14.0.0: {}
 
   meow@8.1.2:
     dependencies:
@@ -8815,22 +8895,22 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  oauth2-cli@0.2.1(ejs@3.1.10):
+  oauth2-cli@0.2.3(ejs@4.0.1):
     dependencies:
       '@battis/oauth2-configure': 0.1.3
       async-mutex: 0.5.0
-      ejs: 3.1.10
-      express: 4.22.1
-      open: 10.2.0
+      ejs: 4.0.1
+      express: 5.2.1
+      open: 11.0.0
       openid-client: 6.8.1
     transitivePeerDependencies:
       - supports-color
 
-  oauth2-cli@0.2.3(ejs@3.1.10):
+  oauth2-cli@0.5.0(ejs@4.0.1):
     dependencies:
-      '@battis/oauth2-configure': 0.1.3
+      '@battis/oauth2-configure': 0.1.4
       async-mutex: 0.5.0
-      ejs: 3.1.10
+      ejs: 4.0.1
       express: 5.2.1
       open: 11.0.0
       openid-client: 6.8.1
@@ -8871,13 +8951,6 @@ snapshots:
   onetime@7.0.0:
     dependencies:
       mimic-function: 5.0.1
-
-  open@10.2.0:
-    dependencies:
-      default-browser: 5.4.0
-      define-lazy-prop: 3.0.0
-      is-inside-container: 1.0.0
-      wsl-utils: 0.1.0
 
   open@11.0.0:
     dependencies:
@@ -10008,7 +10081,7 @@ snapshots:
       isarray: 2.0.5
       which-boxed-primitive: 1.1.1
       which-collection: 1.0.2
-      which-typed-array: 1.1.19
+      which-typed-array: 1.1.20
 
   which-collection@1.0.2:
     dependencies:
@@ -10017,7 +10090,7 @@ snapshots:
       is-weakmap: 2.0.2
       is-weakset: 2.0.4
 
-  which-typed-array@1.1.19:
+  which-typed-array@1.1.20:
     dependencies:
       available-typed-arrays: 1.0.7
       call-bind: 1.0.8
@@ -10132,10 +10205,6 @@ snapshots:
     dependencies:
       js-yaml: 4.1.1
       write-file-atomic: 5.0.1
-
-  wsl-utils@0.1.0:
-    dependencies:
-      is-wsl: 3.1.0
 
   wsl-utils@0.3.1:
     dependencies:

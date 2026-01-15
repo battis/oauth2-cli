@@ -8,21 +8,12 @@ import path from 'node:path';
 Root.configure({ root: path.dirname(import.meta.dirname) });
 await Core.run();
 
-const sky = new SkyAPI({
-  client_id: process.env.SKY_CLIENT_ID!,
-  client_secret: process.env.SKY_CLIENT_SECRET!,
-  subscription_key: process.env.SKY_SUBSCRIPTION_KEY!,
-  redirect_uri: process.env.SKY_REDIRECT_URI!,
-  store: './var/sky-api.json'
-});
-
-const canvas = new Canvas({
-  instance_url: process.env.CANVAS_INSTANCE_URL!,
-  client_id: process.env.CANVAS_CLIENT_ID!,
-  client_secret: process.env.CANVAS_CLIENT_SECRET!,
-  redirect_uri: process.env.CANVAS_REDIRECT_URI!,
-  store: './var/canvas.json'
-});
-
-Log.info((await canvas.fetch('/api/v1/users/self')) || 'no Canvas response');
-Log.info((await sky.fetch('school/v1/users/me')) || 'no SKY API response');
+Log.info(
+  (await Canvas.v1.Users.Profile.get({ pathParams: { user_id: 'self' } })) ||
+    'no Canvas response'
+);
+Log.info(
+  ((await SkyAPI.fetchJSON(
+    'https://api.sky.blackbaud.com/school/v1/users/me'
+  )) as object) || 'no SKY API response'
+);
