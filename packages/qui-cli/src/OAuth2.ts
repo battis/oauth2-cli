@@ -246,7 +246,7 @@ export class OAuth2Plugin {
     return new OAuth2CLI.Client(...args);
   }
 
-  public getClient(): OAuth2CLI.Client {
+  public getClient(): ReturnType<typeof this.instantiateClient> {
     if (!this.client) {
       const {
         clientId: client_id,
