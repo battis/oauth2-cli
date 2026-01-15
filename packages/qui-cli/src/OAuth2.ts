@@ -59,7 +59,7 @@ export type ConfigurationProposal = Partial<
   man?: Partial<Usage>;
 };
 
-export class OAuth2Plugin {
+export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
   [key: string]: unknown;
 
   private static names: string[] = [];
@@ -103,7 +103,7 @@ export class OAuth2Plugin {
       accessToken: true
     }
   };
-  private client: OAuth2CLI.Client | undefined = undefined;
+  private client: C | undefined = undefined;
 
   public configure(proposal: ConfigurationProposal = {}) {
     for (const key in proposal) {
@@ -242,11 +242,11 @@ export class OAuth2Plugin {
 
   protected instantiateClient(
     ...args: ConstructorParameters<typeof OAuth2CLI.Client>
-  ): OAuth2CLI.Client {
-    return new OAuth2CLI.Client(...args);
+  ): C {
+    return new OAuth2CLI.Client(...args) as C;
   }
 
-  public getClient(): ReturnType<typeof this.instantiateClient> {
+  public getClient(): C {
     if (!this.client) {
       const {
         clientId: client_id,
