@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.4](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.3...qui-cli-plugin/0.5.4) (2026-01-15)
+
+
+### Bug Fixes
+
+* export EnvironmentStorage from class as well as module ([01cb4ea](https://github.com/battis/oauth2-cli/commit/01cb4eaf54beebd16870adbb1b2664b4e585b14f))
+
 ## [0.5.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.2...qui-cli-plugin/0.5.3) (2026-01-15)
 
 
