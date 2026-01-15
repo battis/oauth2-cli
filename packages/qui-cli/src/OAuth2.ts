@@ -9,7 +9,7 @@ import path from 'node:path';
 import * as OAuth2CLI from 'oauth2-cli';
 import { EnvironmentStorage } from './EnvironmentStorage.js';
 
-export { Credentials } from 'oauth2-cli';
+export * from 'oauth2-cli';
 
 type ParamNames =
   | 'clientId'
@@ -58,14 +58,14 @@ export type ConfigurationProposal = Partial<
   man?: Partial<Usage>;
 };
 
-export class OAuth2 {
+export class OAuth2Plugin {
   [key: string]: unknown;
 
   private static names: string[] = [];
   private static ports: Record<string, string> = {};
 
   public constructor(public readonly name = '@oauth2-cli/qui-cli') {
-    if (OAuth2.names.includes(name)) {
+    if (OAuth2Plugin.names.includes(name)) {
       throw new Error(
         `A @qui-cli/plugin named ${Colors.value(name)} has already been instantiated.`
       );
@@ -143,13 +143,16 @@ export class OAuth2 {
             )}`
         );
       }
-      if (OAuth2.ports[url.port] && OAuth2.ports[url.port] !== this.name) {
+      if (
+        OAuth2Plugin.ports[url.port] &&
+        OAuth2Plugin.ports[url.port] !== this.name
+      ) {
         Log.warning(
           `The port ${Colors.value(
             url.port
           )} has already been registered to another instance of this plugin ` +
             `named ${Colors.value(
-              OAuth2.ports[url.port]
+              OAuth2Plugin.ports[url.port]
             )}. This will likely cause a failure if both instances of the ` +
             `plugin are listening for redirects at relatively proximate ` +
             `moments in time.`

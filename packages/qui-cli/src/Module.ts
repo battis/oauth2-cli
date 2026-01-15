@@ -1,17 +1,18 @@
-import { OAuth2 } from './OAuth2.js';
+import { OAuth2Plugin } from './OAuth2.js';
 
+export * from './EnvironmentStorage.js';
 export * from './OAuth2.js';
 
-const plugin = new OAuth2();
+const oauth2 = new OAuth2Plugin();
 
-export const name = plugin.name;
-export const configure = plugin.configure.bind(plugin);
-export const options = plugin.options.bind(plugin);
-export const init = plugin.init.bind(plugin);
+export const name = oauth2.name;
+export const configure = oauth2.configure.bind(oauth2);
+export const options = oauth2.options.bind(oauth2);
+export const init = oauth2.init.bind(oauth2);
 
-export const getToken = plugin.getToken.bind(plugin);
-export const getClient = plugin.getClient.bind(plugin);
-export const request = plugin.request.bind(plugin);
-export const requestJSON = plugin.requestJSON.bind(plugin);
-export const fetch = plugin.fetch.bind(plugin);
-export const fetchJSON = plugin.fetchJSON.bind(plugin);
+export const getToken = oauth2.getToken.bind(oauth2);
+export const getClient = oauth2.getClient.bind(oauth2);
+export const request = oauth2.request.bind(oauth2);
+export const requestJSON = oauth2.requestJSON.bind(oauth2);
+export const fetch = oauth2.fetch.bind(oauth2);
+export const fetchJSON = oauth2.fetchJSON.bind(oauth2);
