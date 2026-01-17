@@ -296,13 +296,17 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
   }
 
   public request(...args: Parameters<OAuth2CLI.Client['request']>) {
+    const [url, method, body, headers, dPoPOptions] = args;
+    Log.debug({ request: { method, url, headers, body, dPoPOptions } });
     return this.getClient().request(...args);
   }
 
   public requestJSON<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client['requestJSON']>
   ) {
-    return this.getClient().requestJSON<T>(...args);
+    const response = this.getClient().requestJSON<T>(...args);
+    Log.debug({ response });
+    return response;
   }
 
   public fetch(...args: Parameters<OAuth2CLI.Client['fetch']>) {
