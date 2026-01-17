@@ -7,9 +7,11 @@ import * as Plugin from '@qui-cli/plugin';
 import { Root } from '@qui-cli/root';
 import path from 'node:path';
 import * as OAuth2CLI from 'oauth2-cli';
+import { Client } from './Client.js';
 import { EnvironmentStorage } from './EnvironmentStorage.js';
 
-export * from 'oauth2-cli';
+export { Credentials, FileStorage, Token, TokenStorage } from 'oauth2-cli';
+export * from './Client.js';
 export * from './EnvironmentStorage.js';
 
 type ParamNames =
@@ -61,7 +63,7 @@ export type ConfigurationProposal = Partial<
   man?: Partial<Usage>;
 };
 
-export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
+export class OAuth2Plugin<C extends Client = Client> {
   [key: string]: unknown;
 
   private static names: string[] = [];
@@ -296,17 +298,13 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
   }
 
   public request(...args: Parameters<OAuth2CLI.Client['request']>) {
-    const [url, method, body, headers, dPoPOptions] = args;
-    Log.debug({ request: { method, url, headers, body, dPoPOptions } });
     return this.getClient().request(...args);
   }
 
   public requestJSON<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client['requestJSON']>
   ) {
-    const response = this.getClient().requestJSON<T>(...args);
-    Log.debug({ response });
-    return response;
+    return this.getClient().requestJSON<T>(...args);
   }
 
   public fetch(...args: Parameters<OAuth2CLI.Client['fetch']>) {
