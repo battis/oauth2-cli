@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.9](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.8...qui-cli-plugin/0.5.9) (2026-01-17)
+
+
+### Bug Fixes
+
+* debug request/response/JSON from Client rather than plugin ([2ed73e1](https://github.com/battis/oauth2-cli/commit/2ed73e18089ffed4fe75d717d523fc86e2ae7f91))
+
 ## [0.5.8](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.7...qui-cli-plugin/0.5.8) (2026-01-17)
 
 
