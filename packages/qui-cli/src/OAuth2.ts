@@ -15,6 +15,7 @@ export * from './EnvironmentStorage.js';
 type ParamNames =
   | 'clientId'
   | 'clientSecret'
+  | 'scope'
   | 'redirectUri'
   | 'authorizationEndpoint'
   | 'tokenEndpoint'
@@ -35,6 +36,7 @@ type Usage = {
 export type Configuration = Plugin.Configuration & {
   clientId?: string;
   clientSecret?: string;
+  scope?: string;
   redirectUri?: URLString;
   headers?: Record<string, string>;
   authorizationEndpoint?: URLString;
@@ -77,6 +79,7 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
     opt: {
       clientId: 'clientId',
       clientSecret: 'clientSecret',
+      scope: 'scope',
       redirectUri: 'redirectUri',
       authorizationEndpoint: 'authorizationEndpoint',
       tokenEndpoint: 'tokenEndpoint',
@@ -89,6 +92,7 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
     env: {
       clientId: 'CLIENT_ID',
       clientSecret: 'CLIENT_SECRET',
+      scope: 'SCOPE',
       redirectUri: 'REDIRECT_URI',
       authorizationEndpoint: 'AUTHORIZATION_ENDPOINT',
       tokenEndpoint: 'TOKEN_ENDPOINT',
@@ -170,6 +174,9 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
       clientSecret:
         `OAuth 2.0 client secret. Defaults to environment variable ` +
         `${Colors.value(this.cliConfig.env.clientSecret)}, if present.`,
+      scope:
+        `OAuth 2.0 scope. Defaults to environment variable ` +
+        `${Colors.varName(this.cliConfig.env.scope)}, if present.`,
       redirectUri:
         `OAuth 2.0 redirect URI, must be to host ${Colors.url('localhost')}. ` +
         `Defaults to environment variable ` +
@@ -251,6 +258,7 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
       const {
         clientId: client_id,
         clientSecret: client_secret,
+        scope,
         redirectUri: redirect_uri,
         authorizationEndpoint: authorization_endpoint,
         tokenEndpoint: token_endpoint,
@@ -272,6 +280,7 @@ export class OAuth2Plugin<C extends OAuth2CLI.Client = OAuth2CLI.Client> {
       this.client = this.instantiateClient({
         client_id,
         client_secret,
+        scope,
         redirect_uri,
         authorization_endpoint,
         token_endpoint,
