@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.5.10](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.9...qui-cli-plugin/0.5.10) (2026-01-18)
+
+
+### Bug Fixes
+
+* include @qui-cli/log as peer ([422eb25](https://github.com/battis/oauth2-cli/commit/422eb252fb778e8e12c9fe2ecc0d889ed8e82a0a))
+
 ## [0.5.9](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.8...qui-cli-plugin/0.5.9) (2026-01-17)
 
 
