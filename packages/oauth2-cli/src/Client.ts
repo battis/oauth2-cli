@@ -50,7 +50,7 @@ export class Client {
   }
 
   /** Refresh Token Grant */
-  private async refreshToken(token: Token): Promise<Token | undefined> {
+  protected async refreshToken(token: Token): Promise<Token | undefined> {
     if (token.refresh_token) {
       const { headers, parameters } = this.credentials;
       let freshTokens;
@@ -76,7 +76,7 @@ export class Client {
   }
 
   /** Acquire a valid OpenID configuration. */
-  private async getConfiguration() {
+  protected async getConfiguration() {
     if (!this.config) {
       this.config = await Configuration.acquire(this.credentials);
     }
@@ -84,7 +84,7 @@ export class Client {
   }
 
   /** Authorization Code Grant */
-  private async authorize(): Promise<Token | undefined> {
+  protected async authorize(): Promise<Token | undefined> {
     const {
       scope,
       redirect_uri,
