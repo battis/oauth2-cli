@@ -1,5 +1,5 @@
 {
   "path": ".",
   "tag-prefix": "oauth2-cli/",
-  "releaseCommitMessageFormat": "chore(oauth2-cli): oauth2-cli@{{currentTag}}"
+  "releaseCommitMessageFormat": "chore: oauth2-cli@{{currentTag}}"
 }
