@@ -23,18 +23,18 @@
     "version": "commit-and-tag-version"
   },
   "dependencies": {
-    "@qui-cli/colors": "^3.2.1",
+    "@qui-cli/colors": "^3.2.3",
     "oauth2-cli": "workspace:*",
     "openid-client": "^6.8.1"
   },
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",
     "@battis/typescript-tricks": "^0.7.6",
-    "@qui-cli/env-1password": "^1.2.6",
-    "@qui-cli/log": "^4.0.2",
-    "@qui-cli/plugin": "^4.0.0",
-    "@qui-cli/root": "^3.0.6",
-    "@tsconfig/node24": "^24.0.3",
+    "@qui-cli/env-1password": "^1.2.10",
+    "@qui-cli/log": "^4.0.3",
+    "@qui-cli/plugin": "^4.1.0",
+    "@qui-cli/root": "^3.1.0",
+    "@tsconfig/node24": "^24.0.4",
     "commit-and-tag-version": "^12.6.1",
     "del-cli": "^7.0.0",
     "npm-run-all": "^4.1.5",
