@@ -20,14 +20,14 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@oauth2-cli/canvas": "^0.4.2",
-    "@oauth2-cli/sky-api": "^0.4.0",
-    "@qui-cli/core": "^5.0.2",
-    "@qui-cli/log": "^4.0.2",
-    "@qui-cli/root": "^3.0.6"
+    "@oauth2-cli/canvas": "^0.4.4",
+    "@oauth2-cli/sky-api": "^0.4.2",
+    "@qui-cli/core": "^5.0.3",
+    "@qui-cli/log": "^4.0.3",
+    "@qui-cli/root": "^3.1.0"
   },
   "devDependencies": {
-    "del-cli": "^6.0.0",
+    "del-cli": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3"
   }
