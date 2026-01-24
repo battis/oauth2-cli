@@ -43,8 +43,8 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       lerna:
         specifier: ^9.0.3
         version: 9.0.3(@types/node@25.0.10)
@@ -102,8 +102,8 @@ importers:
         version: link:../../packages/oauth2-cli
     devDependencies:
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -127,8 +127,8 @@ importers:
         version: link:../../packages/oauth2-cli
     devDependencies:
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -155,8 +155,8 @@ importers:
         version: 3.1.0(@qui-cli/plugin@4.1.0)
     devDependencies:
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -186,8 +186,8 @@ importers:
         specifier: ^24.0.4
         version: 24.0.4
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -1920,11 +1920,6 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
 
-  del-cli@6.0.0:
-    resolution: {integrity: sha512-9nitGV2W6KLFyya4qYt4+9AKQFL+c0Ehj5K7V7IwlxTc6RMCfQUGY9E9pLG6e8TQjtwXpuiWIGGZb3mfVxyZkw==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   del-cli@7.0.0:
     resolution: {integrity: sha512-fRl4pWJYu9WFQH8jXdQUYvcD0IMtij9WEc7qmB7xOyJEweNJNuE7iKmqNeoOT1DbBUjtRjxlw8Y63qKBI/NQ1g==}
     engines: {node: '>=18'}
@@ -3218,10 +3213,6 @@ packages:
   meow@12.1.1:
     resolution: {integrity: sha512-BhXM0Au22RwUneMPwSCnyhTOizdWoIEPU9sp0Aqa1PnDMR5Wv2FGXYDjuzJEIX+Eo2Rb8xuYe5jrnm5QowQFkw==}
     engines: {node: '>=16.10'}
-
-  meow@13.2.0:
-    resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
-    engines: {node: '>=18'}
 
   meow@14.0.0:
     resolution: {integrity: sha512-JhC3R1f6dbspVtmF3vKjAWz1EVIvwFrGGPLSdU6rK79xBwHWTuHoLnRX/t1/zHS1Ch1Y2UtIrih7DAHuH9JFJA==}
@@ -6769,11 +6760,6 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
-  del-cli@6.0.0:
-    dependencies:
-      del: 8.0.1
-      meow: 13.2.0
-
   del-cli@7.0.0:
     dependencies:
       del: 8.0.1
@@ -8336,8 +8322,6 @@ snapshots:
   memorystream@0.3.1: {}
 
   meow@12.1.1: {}
-
-  meow@13.2.0: {}
 
   meow@14.0.0: {}
 
