@@ -28,7 +28,7 @@
     "openid-client": "^6.8.1"
   },
   "devDependencies": {
-    "@battis/eslint-config": "^2.0.9",
+    "@battis/eslint-config": "^2.1.0",
     "@battis/prettier-config": "^1.7.3",
     "@commitlint/cli": "^20.3.1",
     "@commitlint/config-conventional": "^20.3.1",

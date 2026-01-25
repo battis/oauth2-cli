@@ -19,8 +19,8 @@ importers:
         version: 6.8.1
     devDependencies:
       '@battis/eslint-config':
-        specifier: ^2.0.9
-        version: 2.0.9(@eslint/js@9.39.2)(@eslint/markdown@7.5.1)(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-html@8.1.3)(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))
+        specifier: ^2.1.0
+        version: 2.1.0(@eslint/js@9.39.2)(@eslint/markdown@7.5.1)(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-html@8.1.3)(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))
       '@battis/prettier-config':
         specifier: ^1.7.3
         version: 1.7.3(@prettier/plugin-xml@3.4.2(prettier@3.7.4))(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.7.4))(prettier-plugin-ejs@1.0.3(prettier@3.7.4))(prettier-plugin-jsdoc@1.8.0(prettier@3.7.4))(prettier-plugin-organize-imports@4.3.0(prettier@3.7.4)(typescript@5.9.3))(prettier-plugin-packagejson@2.5.20(prettier@3.7.4))(prettier@3.7.4)
@@ -215,7 +215,13 @@ importers:
       openid-client:
         specifier: ^6.8.1
         version: 6.8.1
+      ora:
+        specifier: ^9.1.0
+        version: 9.1.0
     devDependencies:
+      '@battis/descriptive-types':
+        specifier: ^0.2.6
+        version: 0.2.6
       '@battis/typescript-tricks':
         specifier: ^0.7.6
         version: 0.7.6
@@ -360,8 +366,8 @@ packages:
   '@battis/descriptive-types@0.2.6':
     resolution: {integrity: sha512-tgJ1OoOVlshBRdDrwhy5+cQM4s8xKVRlBDYDos7VuOh+1dF11+F6y/KZnBIhPeHitGiI3BRUXHW7sCF8zMvBsg==}
 
-  '@battis/eslint-config@2.0.9':
-    resolution: {integrity: sha512-7iyjwWWtCBY8aKUDiDNNySwrRILdIOn1cBV+ARF90o5u210+pjA3+A/Hwgb5gCH8lkKEMyAq6jFQSauc3QRTtw==}
+  '@battis/eslint-config@2.1.0':
+    resolution: {integrity: sha512-i1cKmepllo6EtRrw7zvDBNtxdoxrpXJ+t+0SlPb14ovKmPj6VBnHSeB6vLb9ZAPMt/CBEdmz8pa+Ert43ruDWg==}
     peerDependencies:
       '@eslint/js': 9.x
       '@eslint/markdown': 7.x
@@ -1438,8 +1444,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axios@1.13.2:
-    resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
+  axios@1.13.3:
+    resolution: {integrity: sha512-ERT8kdX7DZjtUm7IitEyV7InTHAF42iJuMArIiDIV5YtPanJkgw4hw5Dyg9fh0mihdWNn1GKaeIWErfe56UQ1g==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -1591,6 +1597,10 @@ packages:
   cli-spinners@2.9.2:
     resolution: {integrity: sha512-ywqV+5MmyL4E7ybXgKys4DugZbX0FC6LnwrhjuykIjnK9k8OQacQ7axGKnjDXWNhns0xot3bZI5h55H8yo9cJg==}
     engines: {node: '>=6'}
+
+  cli-spinners@3.4.0:
+    resolution: {integrity: sha512-bXfOC4QcT1tKXGorxL3wbJm6XJPDqEnij2gQ2m7ESQuE+/z9YFIWnl/5RpTiKWbMq3EVKR4fRLJGn6DVfu0mpw==}
+    engines: {node: '>=18.20'}
 
   cli-width@4.1.0:
     resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
@@ -3114,6 +3124,10 @@ packages:
     resolution: {integrity: sha512-i24m8rpwhmPIS4zscNzK6MSEhk0DUWa/8iYQWxhffV8jkI4Phvs3F+quL5xvS0gdQR0FyTCMMH33Y78dDTzzIw==}
     engines: {node: '>=18'}
 
+  log-symbols@7.0.1:
+    resolution: {integrity: sha512-ja1E3yCr9i/0hmBVaM0bfwDjnGy8I/s6PP4DFp+yP+a+mrHO4Rm7DtmnqROTUkHIkqffC84YY7AeqX6oFk0WFg==}
+    engines: {node: '>=18'}
+
   logform@2.7.0:
     resolution: {integrity: sha512-TFYA4jnP7PVbmlBIfhlSe+WKxs9dklXMTEGcBCIvLhE/Tn3H6Gk1norupVW7m5Cnd4bLcr08AytbyV/xj7f/kQ==}
     engines: {node: '>= 12.0.0'}
@@ -3662,6 +3676,10 @@ packages:
   ora@8.2.0:
     resolution: {integrity: sha512-weP+BZ8MVNnlCm8c0Qdc1WSWq4Qn7I+9CJGm7Qali6g44e/PUzbjNqJX5NJ9ljlNMosfJvg1fKEGILklK9cwnw==}
     engines: {node: '>=18'}
+
+  ora@9.1.0:
+    resolution: {integrity: sha512-53uuLsXHOAJl5zLrUrzY9/kE+uIFEx7iaH4g2BIJQK4LZjY4LpCCYZVKDWIkL+F01wAaCg93duQ1whnK/AmY1A==}
+    engines: {node: '>=20'}
 
   own-keys@1.0.1:
     resolution: {integrity: sha512-qFOyK5PjiWZd+QQIh+1jhdb9LpxTF0qs7Pm8o5QHYZ0M3vKqSqzsZaEB6oWlxZ+q2sJBMI/Ktgd2N5ZwQoRHfg==}
@@ -4346,6 +4364,10 @@ packages:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
     engines: {node: '>=18'}
 
+  string-width@8.1.0:
+    resolution: {integrity: sha512-Kxl3KJGb/gxkaUMOjRsQ8IrXiGW75O4E3RPjFIINOVH8AMl2SQ/yWdTzWwF3FevIX9LcMAjJW+GRwAlAbTSXdg==}
+    engines: {node: '>=20'}
+
   string.prototype.padend@3.1.6:
     resolution: {integrity: sha512-XZpspuSB7vJWhvJc9DLSlrXl1mcA2BdoY5jjnS135ydXqLoqhs96JjDtCkjJEQHvfqZIp9hBuBMgI589peyx9Q==}
     engines: {node: '>= 0.4'}
@@ -4824,6 +4846,10 @@ packages:
     resolution: {integrity: sha512-U/PBtDf35ff0D8X8D0jfdzHYEPFxAI7jJlxZXwCSez5M3190m+QobIfh+sWDWSHMCWWJN2AWamkegn6vr6YBTw==}
     engines: {node: '>=18'}
 
+  yoctocolors@2.1.2:
+    resolution: {integrity: sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==}
+    engines: {node: '>=18'}
+
   yup@1.7.1:
     resolution: {integrity: sha512-GKHFX2nXul2/4Dtfxhozv701jLQHdf6J34YDh2cEkpqoo8le5Mg6/LrdseVLrFarmFygZTlfIhHx/QKfb/QWXw==}
 
@@ -4887,7 +4913,7 @@ snapshots:
 
   '@battis/descriptive-types@0.2.6': {}
 
-  '@battis/eslint-config@2.0.9(@eslint/js@9.39.2)(@eslint/markdown@7.5.1)(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-html@8.1.3)(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))':
+  '@battis/eslint-config@2.1.0(@eslint/js@9.39.2)(@eslint/markdown@7.5.1)(eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-html@8.1.3)(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))':
     dependencies:
       '@eslint/js': 9.39.2
       '@eslint/markdown': 7.5.1
@@ -6233,7 +6259,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  axios@1.13.2:
+  axios@1.13.3:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
@@ -6427,6 +6453,8 @@ snapshots:
   cli-spinners@2.6.1: {}
 
   cli-spinners@2.9.2: {}
+
+  cli-spinners@3.4.0: {}
 
   cli-width@4.1.0: {}
 
@@ -8132,6 +8160,11 @@ snapshots:
       chalk: 5.6.2
       is-unicode-supported: 1.3.0
 
+  log-symbols@7.0.1:
+    dependencies:
+      is-unicode-supported: 2.1.0
+      yoctocolors: 2.1.2
+
   logform@2.7.0:
     dependencies:
       '@colors/colors': 1.6.0
@@ -8849,7 +8882,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.13.2
+      axios: 1.13.3
       chalk: 4.1.0
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -9002,6 +9035,17 @@ snapshots:
       stdin-discarder: 0.2.2
       string-width: 7.2.0
       strip-ansi: 7.1.2
+
+  ora@9.1.0:
+    dependencies:
+      chalk: 5.6.2
+      cli-cursor: 5.0.0
+      cli-spinners: 3.4.0
+      is-interactive: 2.0.0
+      is-unicode-supported: 2.1.0
+      log-symbols: 7.0.1
+      stdin-discarder: 0.2.2
+      string-width: 8.1.0
 
   own-keys@1.0.1:
     dependencies:
@@ -9731,6 +9775,11 @@ snapshots:
       get-east-asian-width: 1.4.0
       strip-ansi: 7.1.2
 
+  string-width@8.1.0:
+    dependencies:
+      get-east-asian-width: 1.4.0
+      strip-ansi: 7.1.2
+
   string.prototype.padend@3.1.6:
     dependencies:
       call-bind: 1.0.8
@@ -10249,6 +10298,8 @@ snapshots:
   yocto-queue@1.2.2: {}
 
   yoctocolors-cjs@2.1.3: {}
+
+  yoctocolors@2.1.2: {}
 
   yup@1.7.1:
     dependencies:
