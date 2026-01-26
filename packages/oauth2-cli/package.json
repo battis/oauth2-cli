@@ -23,13 +23,14 @@
     "version": "commit-and-tag-version"
   },
   "dependencies": {
-    "@battis/oauth2-configure": "workspace:*",
     "async-mutex": "^0.5.0",
     "express": "^5.2.1",
+    "oauth4webapi": "^3.8.3",
     "open": "^11.0.0",
     "openid-client": "^6.8.1"
   },
   "devDependencies": {
+    "@battis/descriptive-types": "^0.2.6",
     "@battis/typescript-tricks": "^0.7.6",
     "@tsconfig/node24": "^24.0.4",
     "@types/ejs": "^3.1.5",
