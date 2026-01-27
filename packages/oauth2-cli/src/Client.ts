@@ -23,7 +23,7 @@ type ConstructorOptions = {
   /** Credentials for server access */
   credentials: Credentials.Combined;
   /**
-   * Optional path to EJS view templates directory, see
+   * Optional absolute path to EJS view templates directory, see
    * {@link WebServer.setViews}
    */
   views?: PathString;
@@ -106,7 +106,8 @@ export class Client extends EventEmitter {
     views,
     search,
     headers,
-    body
+    body,
+    storage
   }: ConstructorOptions) {
     super();
     this.credentials = credentials;
@@ -114,6 +115,7 @@ export class Client extends EventEmitter {
     this.search = search;
     this.headers = headers;
     this.body = body;
+    this.storage = storage;
   }
 
   public get redirect_uri() {
