@@ -1,8 +1,5 @@
 {
   "targetDefaults": {
-    "clean": {
-      "dependsOn": []
-    },
     "build": {
       "cache": true,
       "dependsOn": [
@@ -11,15 +8,6 @@
       "outputs": [
         "{projectRoot}/dist"
       ]
-    },
-    "build:clean": {
-      "dependsOn": []
-    },
-    "build:compile": {
-      "dependsOn": []
-    },
-    "release": {
-      "dependsOn": []
     }
   }
 }
