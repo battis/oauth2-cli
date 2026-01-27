@@ -24,7 +24,7 @@ type ConstructorOptions = {
   credentials: Credentials.Combined;
   /**
    * Optional absolute path to EJS view templates directory, see
-   * {@link WebServer.setViews}
+   * [WebServer.setViews()](./Webserver.ts)
    */
   views?: PathString;
   /** Optional {@link TokenStorage} implementation to manage tokens */
