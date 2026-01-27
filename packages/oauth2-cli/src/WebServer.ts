@@ -29,6 +29,7 @@ export class WebServer {
 
   protected readonly session: Session;
   private views: PathString;
+  private viewsFallback = '../views';
   protected readonly port: string;
   private server;
 
@@ -60,6 +61,10 @@ export class WebServer {
    * - `error.ejs` presented to user upon receipt of an error from the server,
    *   includes `error` as data
    *
+   * `complete.ejs` and `error.ejs` are included with oauth2-cli and those
+   * templates will be used if `ejs` is imported but no replacement templates
+   * are found.
+   *
    * @param views Should be an absolute path
    */
   public setViews(views: PathString) {
@@ -71,14 +76,20 @@ export class WebServer {
     template: string,
     data: Record<string, unknown> = {}
   ) {
-    if (ejs) {
-      const viewPath = path.resolve(import.meta.dirname, this.views, template);
-      if (fs.existsSync(viewPath)) {
-        res.send(await ejs.renderFile(viewPath, data));
-        return true;
+    async function renderIfExists(views: PathString) {
+      if (ejs) {
+        const viewPath = path.resolve(import.meta.dirname, views, template);
+        if (fs.existsSync(viewPath)) {
+          res.send(await ejs.renderFile(viewPath, data));
+          return true;
+        }
       }
+      return false;
     }
-    return false;
+    return (
+      (await renderIfExists(this.views)) ||
+      (await renderIfExists(this.viewsFallback))
+    );
   }
 
   /** Handles request to `/authorize` */
