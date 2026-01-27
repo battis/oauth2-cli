@@ -66,20 +66,16 @@ export class WebServer {
     this.views = views;
   }
 
-  protected render(
+  protected async render(
     res: Response,
     template: string,
-    data?: Record<string, unknown>
+    data: Record<string, unknown> = {}
   ) {
     if (ejs) {
       const viewPath = path.resolve(import.meta.dirname, this.views, template);
       if (fs.existsSync(viewPath)) {
-        try {
-          res.send(ejs.renderFile(viewPath, data));
-          return true;
-        } catch (_) {
-          // ignore
-        }
+        res.send(await ejs.renderFile(viewPath, data));
+        return true;
       }
     }
     return false;
@@ -88,7 +84,7 @@ export class WebServer {
   /** Handles request to `/authorize` */
   protected async authorize(req: Request, res: Response) {
     const authorization_url = await this.session.getAuthorizationUrl();
-    if (!this.render(res, 'authorize.ejs', { authorization_url })) {
+    if (!(await this.render(res, 'authorize.ejs', { authorization_url }))) {
       res.redirect(authorization_url);
     }
   }
@@ -97,11 +93,11 @@ export class WebServer {
   protected async redirect(req: Request, res: Response) {
     try {
       await this.session.handleRedirect(req);
-      if (!this.render(res, 'complete.ejs')) {
+      if (!(await this.render(res, 'complete.ejs'))) {
         res.send('You may close this window.');
       }
     } catch (error) {
-      if (!this.render(res, 'error.ejs', { error })) {
+      if (!(await this.render(res, 'error.ejs', { error }))) {
         res.send(
           JSON.stringify(
             'I think something bad happened, but have no idea what it was!'
