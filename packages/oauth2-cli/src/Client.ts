@@ -22,6 +22,8 @@ export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
 type ConstructorOptions = {
   /** Credentials for server access */
   credentials: Credentials.Combined;
+  /** Optional path to EJS view templates directory, see {@link WebServer.setViews} */
+  views?: PathString
   /** Optional {@link TokenStorage} implementation to manage tokens */
   storage?: Token.TokenStorage;
   /**
@@ -87,6 +89,7 @@ export class Client extends EventEmitter {
 
   private credentials: Credentials.Combined;
   private config?: OpenIDClient.Configuration;
+  private views?: PathString
   private token?: Token.Response;
 
   private search?: Req.Query.ish;
@@ -97,12 +100,14 @@ export class Client extends EventEmitter {
 
   public constructor({
     credentials,
+    views,
     search,
     headers,
     body
   }: ConstructorOptions) {
     super();
     this.credentials = credentials;
+    this.views = views;
     this.search = search;
     this.headers = headers;
     this.body = body;
@@ -171,7 +176,7 @@ export class Client extends EventEmitter {
     const session = new Session({
       client: this,
       request,
-      views
+      views: views || this.views
     });
     const token = await this.save(await session.requestAuthorizationCode());
     return token;
