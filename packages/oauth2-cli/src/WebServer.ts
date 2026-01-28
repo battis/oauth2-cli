@@ -121,11 +121,7 @@ export class WebServer implements WebServerInterface {
       }
     } catch (error) {
       if (!(await this.render(res, 'error.ejs', { error }))) {
-        res.send(
-          JSON.stringify(
-            'I think something bad happened, but have no idea what it was!'
-          )
-        );
+        res.send(error);
       }
     } finally {
       this.close();
