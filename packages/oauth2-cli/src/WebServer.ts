@@ -11,7 +11,7 @@ export type Options = {
   /** See {@link WebServer.setViews setViews()} */
   views?: PathString;
   /**
-   * Local web server authorization endpoint
+   * Local web server authorize endpoint
    *
    * This is separate and distinct from the OpenID/OAuth server's authorization
    * endpoint. This endpoint is the first path that the user is directed to in
