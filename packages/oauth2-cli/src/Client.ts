@@ -1,4 +1,5 @@
 import { PathString } from '@battis/descriptive-types';
+import { Mutex } from 'async-mutex';
 import { Request } from 'express';
 import { EventEmitter } from 'node:events';
 import * as OpenIDClient from 'openid-client';
@@ -93,7 +94,9 @@ export class Client extends EventEmitter {
   private credentials: Credentials.Combined;
   private config?: OpenIDClient.Configuration;
   private views?: PathString;
+
   private token?: Token.Response;
+  private tokenLock = new Mutex();
 
   private search?: Req.Query.ish;
   private headers?: Req.Headers.ish;
@@ -238,25 +241,27 @@ export class Client extends EventEmitter {
    * this may require interactive authorization
    */
   public async getToken({ token, request }: GetTokenOptions = {}) {
-    token = token || this.token;
-    if (!token && this.storage) {
-      this.token = await this.storage.load();
-    }
-    const expiresIn = this.token?.expiresIn();
-    if (!expiresIn) {
-      try {
-        this.token = await this.refreshTokenGrant({ request });
-      } catch (_) {
-        // ignore error
+    return await this.tokenLock.runExclusive(async () => {
+      token = token || this.token;
+      if (!token && this.storage) {
+        this.token = await this.storage.load();
       }
-    }
-    if (!this.token) {
-      this.token = await this.authorize({ request });
-    }
-    return this.token;
+      const expiresIn = this.token?.expiresIn();
+      if (!expiresIn) {
+        try {
+          this.token = await this.refreshTokenGrant({ request });
+        } catch (_) {
+          // ignore error
+        }
+      }
+      if (!this.token) {
+        this.token = await this.authorize({ request });
+      }
+      return this.token;
+    });
   }
 
-  /** @throws MissingAccessToken if response does not include `token` */
+  /** @throws MissingAccessToken If response does not include `token` */
   protected async save(token: Token.Response) {
     this.token = token;
     if (!this.token) {
