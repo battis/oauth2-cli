@@ -6,7 +6,7 @@ import * as OpenIDClient from 'openid-client';
 import * as Credentials from './Credentials/index.js';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
-import { Session, SessionInterface } from './Session.js';
+import * as Session from './Session.js';
 import * as Token from './Token/index.js';
 
 /**
@@ -15,7 +15,7 @@ import * as Token from './Token/index.js';
  */
 export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
 
-type ConstructorOptions = {
+export type Options = {
   /** Credentials for server access */
   credentials: Credentials.Combined;
   /**
@@ -42,13 +42,6 @@ type ConstructorOptions = {
   body?: Req.Body.ish;
 };
 
-type AuthorizationOptions = {
-  /** {@link Localhost.setViews see Localhost.setViews()} */
-  views?: PathString;
-  /** Additional request configuration for authorization code grant flow */
-  request?: Req.Injection;
-};
-
 type RefreshOptions = {
   /**
    * Optional refresh token
@@ -57,7 +50,7 @@ type RefreshOptions = {
    * access token and does not need to be separately managed and stored
    */
   refresh_token?: string;
-  /** Additional request configuration for refresh grant flow */
+  /** Additional request injection for refresh grant flow */
   request?: Req.Injection;
 };
 
@@ -70,7 +63,7 @@ type GetTokenOptions = {
    */
   token?: Token.Response;
   /**
-   * Additional request confguration for authorization code grant and/or refresh
+   * Additional request injection for authorization code grant and/or refresh
    * grant flows
    */
   request?: Req.Injection;
@@ -78,12 +71,14 @@ type GetTokenOptions = {
 
 export interface ClientInterface {
   readonly redirect_uri: Req.URL.ish;
-  getAuthorizationUrl(session: SessionInterface): URL | Promise<URL>;
+  getAuthorizationUrl(session: Session.SessionInterface): URL | Promise<URL>;
   handleRedirect(
     request: Request,
-    session: SessionInterface
+    session: Session.SessionInterface
   ): void | Promise<void>;
-  instantiateSession(options: AuthorizationOptions): SessionInterface;
+  createSession(
+    options: Omit<Session.Options, 'client'>
+  ): Session.SessionInterface;
 }
 
 /**
@@ -116,7 +111,7 @@ export class Client extends EventEmitter implements ClientInterface {
     headers,
     body,
     storage
-  }: ConstructorOptions) {
+  }: Options) {
     super();
     this.credentials = credentials;
     this.views = views;
@@ -164,7 +159,7 @@ export class Client extends EventEmitter implements ClientInterface {
     return this.config;
   }
 
-  protected async getParameters(session: SessionInterface) {
+  protected async getParameters(session: Session.SessionInterface) {
     const params =
       Req.URLSearchParams.merge(this.search, session.request?.search) ||
       new URLSearchParams();
@@ -178,27 +173,31 @@ export class Client extends EventEmitter implements ClientInterface {
     return params;
   }
 
-  public async getAuthorizationUrl(session: SessionInterface) {
+  public async getAuthorizationUrl(session: Session.SessionInterface) {
     return OpenIDClient.buildAuthorizationUrl(
       await this.getConfiguration(),
       await this.getParameters(session)
     );
   }
 
-  public instantiateSession({
-    request,
-    views
-  }: AuthorizationOptions): SessionInterface {
-    return new Session({ client: this, request, views: views || this.views });
+  public createSession({
+    views,
+    ...options
+  }: Omit<Session.Options, 'client'>): Session.SessionInterface {
+    return new Session.Session({
+      client: this,
+      views: views || this.views,
+      ...options
+    });
   }
 
-  public async authorize({ views, request }: AuthorizationOptions = {}) {
-    const session = this.instantiateSession({ views, request });
+  public async authorize(options: Omit<Session.Options, 'client'> = {}) {
+    const session = this.createSession(options);
     const token = await this.save(await session.requestAuthorizationCode());
     return token;
   }
 
-  public async handleRedirect(req: Request, session: SessionInterface) {
+  public async handleRedirect(req: Request, session: Session.SessionInterface) {
     try {
       const response = await OpenIDClient.authorizationCodeGrant(
         await this.getConfiguration(),
@@ -209,9 +208,9 @@ export class Client extends EventEmitter implements ClientInterface {
         },
         this.search ? Req.URLSearchParams.from(this.search) : undefined
       );
-      await session.callback(response);
+      await session.resolve(response);
     } catch (error) {
-      await session.callback(undefined, error as Error);
+      await session.resolve(undefined, error as Error);
     }
   }
 

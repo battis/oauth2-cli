@@ -6,7 +6,7 @@ import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import { Session } from './Session.js';
 
-type Options = {
+export type Options = {
   session: Session;
   /** {@link WebServer.setViews see setViews()} */
   views?: PathString;

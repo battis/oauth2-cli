@@ -6,11 +6,13 @@ import { ClientInterface } from './Client.js';
 import { MissingAccessToken } from './Errors/MissingAccessToken.js';
 import * as Req from './Request/index.js';
 import * as Token from './Token/index.js';
-import { WebServer, WebServerInterface } from './WebServer.js';
+import * as WebServer from './WebServer.js';
 
-type Options = {
+export type Options = {
   client: ClientInterface;
+  /** See {@link WebServer.setViews Webserver.setViews()} */
   views?: PathString;
+  /** Additional request injection for authorization code grant flow */
   request?: Req.Injection;
 };
 
@@ -18,20 +20,22 @@ export interface SessionInterface {
   readonly code_verifier: string;
   readonly state: string;
   readonly request?: Req.Injection;
-  callback(response?: Token.Response, error?: Error): void | Promise<void>;
+  resolve(response?: Token.Response, error?: Error): void | Promise<void>;
   requestAuthorizationCode(): Promise<Token.Response>;
-  instantiateWebServer(options: { views?: PathString }): WebServerInterface;
+  createWebServer(
+    options: Omit<WebServer.Options, 'session'>
+  ): WebServer.WebServerInterface;
 }
 
 export class Session implements SessionInterface {
   private readonly client: ClientInterface;
-  private readonly server: WebServerInterface;
+  private readonly server: WebServer.WebServerInterface;
   public readonly state = OpenIDClient.randomState();
   public readonly code_verifier = OpenIDClient.randomPKCECodeVerifier();
   public readonly request?: Req.Injection;
 
-  private _callback?: SessionInterface['callback'];
-  public get callback() {
+  private _callback?: SessionInterface['resolve'];
+  public get resolve() {
     if (!this._callback) {
       throw new Error('callback is missing');
     }
@@ -41,15 +45,13 @@ export class Session implements SessionInterface {
   public constructor({ client, views, request }: Options) {
     this.client = client;
     this.request = request;
-    this.server = this.instantiateWebServer({ views });
+    this.server = this.createWebServer({ views });
   }
 
-  public instantiateWebServer({
-    views
-  }: {
-    views?: PathString;
-  }): WebServerInterface {
-    return new WebServer({ session: this, views });
+  public createWebServer(
+    options: Omit<WebServer.Options, 'session'>
+  ): WebServer.WebServerInterface {
+    return new WebServer.WebServer({ session: this, ...options });
   }
 
   public requestAuthorizationCode() {
