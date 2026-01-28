@@ -2,7 +2,7 @@ import { PathString } from '@battis/descriptive-types';
 import express, { Request, Response } from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
-import { PortCollision } from './Errors/PortCollision.js';
+import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import { Session } from './Session.js';
 
@@ -51,7 +51,7 @@ export class WebServer implements WebServerInterface {
     const url = Req.URL.toURL(this.session.redirect_uri);
     this.port = url.port;
     if (WebServer.ports.includes(this.port)) {
-      throw new PortCollision(url.port);
+      throw new Errors.PortCollision(url.port);
     }
     WebServer.ports.push(this.port);
     const app = express();

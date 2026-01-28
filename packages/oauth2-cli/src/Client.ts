@@ -4,12 +4,7 @@ import { Request } from 'express';
 import { EventEmitter } from 'node:events';
 import * as OpenIDClient from 'openid-client';
 import * as Credentials from './Credentials/index.js';
-import { BadResponse } from './Errors/BadResponse.js';
-import {
-  IndeterminateConfiguration,
-  MissingAccessToken,
-  MissingRefreshToken
-} from './Errors/index.js';
+import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import { Session, SessionInterface } from './Session.js';
 import * as Token from './Token/index.js';
@@ -164,7 +159,7 @@ export class Client extends EventEmitter implements ClientInterface {
       );
     }
     if (!this.config) {
-      throw new IndeterminateConfiguration();
+      throw new Errors.IndeterminateConfiguration();
     }
     return this.config;
   }
@@ -233,7 +228,7 @@ export class Client extends EventEmitter implements ClientInterface {
     }
     refresh_token = refresh_token || this.token?.refresh_token;
     if (!refresh_token) {
-      throw new MissingRefreshToken();
+      throw new Errors.MissingRefreshToken();
     }
     const response = await OpenIDClient.refreshTokenGrant(
       await this.getConfiguration(),
@@ -278,7 +273,7 @@ export class Client extends EventEmitter implements ClientInterface {
   protected async save(token: Token.Response) {
     this.token = token;
     if (!this.token) {
-      throw new MissingAccessToken();
+      throw new Errors.MissingAccessToken();
     }
     if (this.storage) {
       await this.storage.save(this.token);
@@ -324,7 +319,7 @@ export class Client extends EventEmitter implements ClientInterface {
     if (response.ok) {
       return (await response.json()) as T;
     } else {
-      throw new BadResponse(response);
+      throw new Errors.BadResponse(response);
     }
   }
 }
