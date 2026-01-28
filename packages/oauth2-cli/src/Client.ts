@@ -6,7 +6,7 @@ import * as OpenIDClient from 'openid-client';
 import * as Credentials from './Credentials/index.js';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
-import * as Session from './Session.js';
+import { Session, SessionOptions } from './Session.js';
 import * as Token from './Token/index.js';
 
 /**
@@ -15,7 +15,7 @@ import * as Token from './Token/index.js';
  */
 export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
 
-export type Options = {
+export type ClientOptions = {
   /** Credentials for server access */
   credentials: Credentials.Combined;
   /**
@@ -69,18 +69,6 @@ type GetTokenOptions = {
   inject?: Req.Injection;
 };
 
-export interface ClientInterface {
-  readonly redirect_uri: Req.URL.ish;
-  getAuthorizationUrl(session: Session.SessionInterface): URL | Promise<URL>;
-  handleAuthorizationCodeRedirect(
-    request: Request,
-    session: Session.SessionInterface
-  ): void | Promise<void>;
-  createSession(
-    options: Omit<Session.Options, 'client'>
-  ): Session.SessionInterface;
-}
-
 /**
  * Wrap {@link https://www.npmjs.com/package/openid-client openid-client} in a
  * class instance specific to a particular OAuth/OpenID server credential-set,
@@ -88,11 +76,12 @@ export interface ClientInterface {
  *
  * Emits {@link Client.TokenEvent} whenever a new access token is received
  */
-export class Client extends EventEmitter implements ClientInterface {
+export class Client extends EventEmitter {
   public static readonly TokenEvent = 'token';
 
   private credentials: Credentials.Combined;
   private config?: OpenIDClient.Configuration;
+
   private views?: PathString;
 
   private token?: Token.Response;
@@ -111,7 +100,7 @@ export class Client extends EventEmitter implements ClientInterface {
     headers,
     body,
     storage
-  }: Options) {
+  }: ClientOptions) {
     super();
     this.credentials = credentials;
     this.views = views;
@@ -159,7 +148,7 @@ export class Client extends EventEmitter implements ClientInterface {
     return this.config;
   }
 
-  protected async getParameters(session: Session.SessionInterface) {
+  protected async getParameters(session: Session) {
     const params =
       Req.URLSearchParams.merge(this.search, session.inject?.search) ||
       new URLSearchParams();
@@ -173,7 +162,7 @@ export class Client extends EventEmitter implements ClientInterface {
     return params;
   }
 
-  public async getAuthorizationUrl(session: Session.SessionInterface) {
+  public async getAuthorizationUrl(session: Session) {
     return OpenIDClient.buildAuthorizationUrl(
       await this.getConfiguration(),
       await this.getParameters(session)
@@ -183,24 +172,21 @@ export class Client extends EventEmitter implements ClientInterface {
   public createSession({
     views,
     ...options
-  }: Omit<Session.Options, 'client'>): Session.SessionInterface {
-    return new Session.Session({
+  }: Omit<SessionOptions, 'client'>): Session {
+    return new Session({
       client: this,
       views: views || this.views,
       ...options
     });
   }
 
-  public async authorize(options: Omit<Session.Options, 'client'> = {}) {
+  public async authorize(options: Omit<SessionOptions, 'client'> = {}) {
     const session = this.createSession(options);
     const token = await this.save(await session.authorizationCodeGrant());
     return token;
   }
 
-  public async handleAuthorizationCodeRedirect(
-    req: Request,
-    session: Session.SessionInterface
-  ) {
+  public async handleAuthorizationCodeRedirect(req: Request, session: Session) {
     try {
       const response = await OpenIDClient.authorizationCodeGrant(
         await this.getConfiguration(),

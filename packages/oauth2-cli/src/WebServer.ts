@@ -4,10 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
-import { SessionInterface } from './Session.js';
+import { Session } from './Session.js';
 
-export type Options = {
-  session: SessionInterface;
+export type WebServerOptions = {
+  session: Session;
   /** See {@link WebServer.setViews setViews()} */
   views?: PathString;
   /**
@@ -33,7 +33,7 @@ try {
 export const DEFAULT_AUTHORIZE_ENDPOINT = '/oauth2-cli/authorize';
 
 export interface WebServerInterface {
-  /** See {@link Options} */
+  /** See {@link WebServerOptions} */
   readonly authorization_endpoint: PathString;
 }
 
@@ -44,7 +44,7 @@ export interface WebServerInterface {
 export class WebServer implements WebServerInterface {
   private static activePorts: string[] = [];
 
-  protected readonly session: SessionInterface;
+  protected readonly session: Session;
   private views?: PathString;
   private packageViews = '../views';
   protected readonly port: string;
@@ -55,7 +55,7 @@ export class WebServer implements WebServerInterface {
     session,
     views,
     authorize_endpoint = DEFAULT_AUTHORIZE_ENDPOINT
-  }: Options) {
+  }: WebServerOptions) {
     this.session = session;
     this.authorization_endpoint = authorize_endpoint;
     this.views = views;

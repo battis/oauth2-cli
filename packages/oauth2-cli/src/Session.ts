@@ -1,74 +1,45 @@
-import { PathString, URLString } from '@battis/descriptive-types';
+import { PathString } from '@battis/descriptive-types';
 import { Request } from 'express';
 import open from 'open';
 import * as OpenIDClient from 'openid-client';
-import { ClientInterface } from './Client.js';
+import { Client } from './Client.js';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import * as Token from './Token/index.js';
 import * as WebServer from './WebServer.js';
 
-export type Options = {
-  client: ClientInterface;
+export type SessionOptions = {
+  client: Client;
   /** See {@link WebServer.setViews Webserver.setViews()} */
   views?: PathString;
   /** Additional request injection for authorization code grant flow */
   inject?: Req.Injection;
 };
 
-export interface SessionInterface {
+export type Resolver = (
+  response?: Token.Response,
+  error?: Error
+) => void | Promise<void>;
+
+export class Session {
+  private readonly client: Client;
+  private readonly outOfBandRedirectServer: WebServer.WebServerInterface;
+
   /** PKCE code_verifier */
-  readonly code_verifier: string;
+  public readonly code_verifier = OpenIDClient.randomPKCECodeVerifier();
 
   /** OAuth 2.0 state (if PKCE is not supported) */
-  readonly state: string;
+  public readonly state = OpenIDClient.randomState();
 
   /** Additional request injection for Authorization Code Grant request */
-  readonly inject?: Req.Injection;
+  public readonly inject?: Req.Injection;
 
-  /** OAuth 2.0 redirect_uri that this session is handling */
-  readonly redirect_uri: ClientInterface['redirect_uri'];
-
-  /**
-   * Trigger the start of the Authorization Code Grant flow, returnig a Promise
-   * that will resolve into the eventual token
-   */
-  authorizationCodeGrant(): Promise<Token.Response>;
+  private _resolve?: Resolver;
 
   /**
    * Method that resolves or rejects the promise returned from the
    * {@link authorizationCodeGrant}
    */
-  resolve(response?: Token.Response, error?: Error): void | Promise<void>;
-
-  /**
-   * The authorization URL (as a string) populated by this session's
-   * Authorization Code Grant flow parameters
-   */
-  getAuthorizationUrl(): Promise<URLString>;
-
-  /**
-   * Express RequestHandler for the out-of-band redirect in the Authorization
-   * Code Grant flow
-   */
-  handleAuthorizationCodeRedirect(
-    req: Request
-  ): ReturnType<ClientInterface['handleAuthorizationCodeRedirect']>;
-
-  /** Instantiate the web server that will listen for the out-of-band redirect */
-  createWebServer(
-    options: Omit<WebServer.Options, 'session'>
-  ): WebServer.WebServerInterface;
-}
-
-export class Session implements SessionInterface {
-  private readonly client: ClientInterface;
-  private readonly outOfBandRedirectServer: WebServer.WebServerInterface;
-  public readonly state = OpenIDClient.randomState();
-  public readonly code_verifier = OpenIDClient.randomPKCECodeVerifier();
-  public readonly inject?: Req.Injection;
-
-  private _resolve?: SessionInterface['resolve'];
   public get resolve() {
     if (!this._resolve) {
       throw new Error('callback is missing');
@@ -76,18 +47,23 @@ export class Session implements SessionInterface {
     return this._resolve;
   }
 
-  public constructor({ client, views, inject: request }: Options) {
+  public constructor({ client, views, inject: request }: SessionOptions) {
     this.client = client;
     this.inject = request;
     this.outOfBandRedirectServer = this.createWebServer({ views });
   }
 
+  /** Instantiate the web server that will listen for the out-of-band redirect */
   public createWebServer(
-    options: Omit<WebServer.Options, 'session'>
+    options: Omit<WebServer.WebServerOptions, 'session'>
   ): WebServer.WebServerInterface {
     return new WebServer.WebServer({ session: this, ...options });
   }
 
+  /**
+   * Trigger the start of the Authorization Code Grant flow, returnig a Promise
+   * that will resolve into the eventual token
+   */
   public authorizationCodeGrant() {
     return new Promise<Token.Response>((resolve, reject) => {
       this._resolve = async (response, error) => {
@@ -109,6 +85,7 @@ export class Session implements SessionInterface {
     });
   }
 
+  /** OAuth 2.0 redirect_uri that this session is handling */
   public get redirect_uri() {
     return this.client.redirect_uri;
   }
@@ -117,6 +94,10 @@ export class Session implements SessionInterface {
     return (await this.client.getAuthorizationUrl(this)).toString();
   }
 
+  /**
+   * Express RequestHandler for the out-of-band redirect in the Authorization
+   * Code Grant flow
+   */
   public async handleAuthorizationCodeRedirect(req: Request) {
     return await this.client.handleAuthorizationCodeRedirect(req, this);
   }
