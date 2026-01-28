@@ -21,7 +21,7 @@ export interface SessionInterface {
   readonly state: string;
   readonly request?: Req.Injection;
   resolve(response?: Token.Response, error?: Error): void | Promise<void>;
-  requestAuthorizationCode(): Promise<Token.Response>;
+  authorizationCodeGrant(): Promise<Token.Response>;
   createWebServer(
     options: Omit<WebServer.Options, 'session'>
   ): WebServer.WebServerInterface;
@@ -54,7 +54,7 @@ export class Session implements SessionInterface {
     return new WebServer.WebServer({ session: this, ...options });
   }
 
-  public requestAuthorizationCode() {
+  public authorizationCodeGrant() {
     return new Promise<Token.Response>((resolve, reject) => {
       this._callback = async (response, error) => {
         if (error) {

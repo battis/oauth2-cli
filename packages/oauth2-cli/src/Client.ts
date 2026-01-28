@@ -193,7 +193,7 @@ export class Client extends EventEmitter implements ClientInterface {
 
   public async authorize(options: Omit<Session.Options, 'client'> = {}) {
     const session = this.createSession(options);
-    const token = await this.save(await session.requestAuthorizationCode());
+    const token = await this.save(await session.authorizationCodeGrant());
     return token;
   }
 
