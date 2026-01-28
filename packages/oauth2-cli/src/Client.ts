@@ -269,10 +269,10 @@ export class Client extends EventEmitter implements ClientInterface {
     });
   }
 
-  /** @throws MissingAccessToken If response does not include `token` */
+  /** @throws MissingAccessToken If response does not include `access_token` */
   protected async save(token: Token.Response) {
     this.token = token;
-    if (!this.token) {
+    if (!token.access_token) {
       throw new Errors.MissingAccessToken();
     }
     if (this.storage) {
