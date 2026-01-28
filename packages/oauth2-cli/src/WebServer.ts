@@ -129,7 +129,7 @@ export class WebServer implements WebServerInterface {
   /** Handles request to `redirect_uri` */
   protected async handleRedirect(req: Request, res: Response) {
     try {
-      await this.session.handleRedirect(req);
+      await this.session.handleAuthorizationCodeRedirect(req);
       if (!(await this.render(res, 'complete.ejs'))) {
         res.send('You may close this window.');
       }

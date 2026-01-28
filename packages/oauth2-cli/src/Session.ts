@@ -24,7 +24,9 @@ export interface SessionInterface {
   resolve(response?: Token.Response, error?: Error): void | Promise<void>;
   authorizationCodeGrant(): Promise<Token.Response>;
   getAuthorizationUrl(): Promise<URLString>;
-  handleRedirect(req: Request): ReturnType<ClientInterface['handleRedirect']>;
+  handleAuthorizationCodeRedirect(
+    req: Request
+  ): ReturnType<ClientInterface['handleAuthorizationCodeRedirect']>;
   createWebServer(
     options: Omit<WebServer.Options, 'session'>
   ): WebServer.WebServerInterface;
@@ -86,7 +88,7 @@ export class Session implements SessionInterface {
     return (await this.client.getAuthorizationUrl(this)).toString();
   }
 
-  public async handleRedirect(req: Request) {
-    return await this.client.handleRedirect(req, this);
+  public async handleAuthorizationCodeRedirect(req: Request) {
+    return await this.client.handleAuthorizationCodeRedirect(req, this);
   }
 }

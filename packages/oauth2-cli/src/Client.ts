@@ -72,7 +72,7 @@ type GetTokenOptions = {
 export interface ClientInterface {
   readonly redirect_uri: Req.URL.ish;
   getAuthorizationUrl(session: Session.SessionInterface): URL | Promise<URL>;
-  handleRedirect(
+  handleAuthorizationCodeRedirect(
     request: Request,
     session: Session.SessionInterface
   ): void | Promise<void>;
@@ -197,7 +197,10 @@ export class Client extends EventEmitter implements ClientInterface {
     return token;
   }
 
-  public async handleRedirect(req: Request, session: Session.SessionInterface) {
+  public async handleAuthorizationCodeRedirect(
+    req: Request,
+    session: Session.SessionInterface
+  ) {
     try {
       const response = await OpenIDClient.authorizationCodeGrant(
         await this.getConfiguration(),
