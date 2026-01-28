@@ -10,6 +10,7 @@ type Options = {
   session: Session;
   /** {@link WebServer.setViews see setViews()} */
   views?: PathString;
+  authorize_endpoint?: PathString;
 };
 
 let ejs: MinimalEJS | undefined = undefined;
@@ -19,22 +20,33 @@ try {
   // ignore error
 }
 
+export const DEFAULT_AUTHORIZE_ENDPOINT = '/oauth2-cli/authorize';
+
+export interface WebServerInterface {
+  readonly authorization_endpoint: PathString;
+}
+
 /**
  * Minimal HTTP server running on localhost to handle the redirect step of
  * OpenID/OAuth flows
  */
-export class WebServer {
-  public static readonly AUTHORIZE_ENDPOINT = '/oauth2-cli/authorize';
+export class WebServer implements WebServerInterface {
   private static ports: string[] = [];
 
   protected readonly session: Session;
   private views: PathString;
   private viewsFallback = '../views';
   protected readonly port: string;
+  public readonly authorization_endpoint: PathString;
   private server;
 
-  public constructor({ session, views = '../views' }: Options) {
+  public constructor({
+    session,
+    views = '../views',
+    authorize_endpoint = DEFAULT_AUTHORIZE_ENDPOINT
+  }: Options) {
     this.session = session;
+    this.authorization_endpoint = authorize_endpoint;
     this.views = views;
     const url = Req.URL.toURL(this.session.redirect_uri);
     this.port = url.port;
@@ -43,7 +55,7 @@ export class WebServer {
     }
     WebServer.ports.push(this.port);
     const app = express();
-    app.get(WebServer.AUTHORIZE_ENDPOINT, this.authorize.bind(this));
+    app.get(this.authorization_endpoint, this.authorize.bind(this));
     app.get(url.pathname, this.redirect.bind(this));
     this.server = app.listen(url.port);
   }

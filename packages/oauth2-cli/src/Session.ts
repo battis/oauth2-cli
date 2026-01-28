@@ -2,31 +2,35 @@ import { PathString } from '@battis/descriptive-types';
 import { Request } from 'express';
 import open from 'open';
 import * as OpenIDClient from 'openid-client';
-import { Client } from './Client.js';
+import { ClientInterface } from './Client.js';
 import { MissingAccessToken } from './Errors/MissingAccessToken.js';
 import * as Req from './Request/index.js';
 import * as Token from './Token/index.js';
-import { WebServer } from './WebServer.js';
-
-type AuthorizationCodeGrantCallback = (
-  response?: Token.Response,
-  error?: Error
-) => void | Promise<void>;
+import { WebServer, WebServerInterface } from './WebServer.js';
 
 type Options = {
-  client: Client;
+  client: ClientInterface;
   views?: PathString;
   request?: Req.AddOns;
 };
 
-export class Session {
-  private readonly client: Client;
-  private readonly server: WebServer;
+export interface SessionInterface {
+  readonly code_verifier: string;
+  readonly state: string;
+  readonly request?: Req.AddOns;
+  callback(response?: Token.Response, error?: Error): void | Promise<void>;
+  requestAuthorizationCode(): Promise<Token.Response>;
+  instantiateWebServer(options: { views?: PathString }): WebServerInterface;
+}
+
+export class Session implements SessionInterface {
+  private readonly client: ClientInterface;
+  private readonly server: WebServerInterface;
   public readonly state = OpenIDClient.randomState();
   public readonly code_verifier = OpenIDClient.randomPKCECodeVerifier();
   public readonly request?: Req.AddOns;
 
-  private _callback?: AuthorizationCodeGrantCallback;
+  private _callback?: SessionInterface['callback'];
   public get callback() {
     if (!this._callback) {
       throw new Error('callback is missing');
@@ -37,7 +41,15 @@ export class Session {
   public constructor({ client, views, request }: Options) {
     this.client = client;
     this.request = request;
-    this.server = new WebServer({ session: this, views });
+    this.server = this.instantiateWebServer({ views });
+  }
+
+  public instantiateWebServer({
+    views
+  }: {
+    views?: PathString;
+  }): WebServerInterface {
+    return new WebServer({ session: this, views });
   }
 
   public requestAuthorizationCode() {
@@ -53,9 +65,10 @@ export class Session {
         }
       };
       open(
-        Req.URL.toString(
-          new URL(WebServer.AUTHORIZE_ENDPOINT, this.client.redirect_uri)
-        )
+        new URL(
+          this.server.authorization_endpoint,
+          this.client.redirect_uri
+        ).toString()
       );
     });
   }
