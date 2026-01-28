@@ -2,7 +2,7 @@ import { ish as URLish } from './URL.js';
 
 export type ish = URLSearchParams | Record<string, string>;
 
-export function toURLSearchParams(search: ish): URLSearchParams {
+export function from(search: ish): URLSearchParams {
   if (search instanceof URLSearchParams) {
     return search;
   }
@@ -10,21 +10,21 @@ export function toURLSearchParams(search: ish): URLSearchParams {
 }
 
 export function toString(search: ish): string {
-  const query = toURLSearchParams(search).toString();
+  const query = from(search).toString();
   if (query.length) {
     return `?${query}`;
   }
   return '';
 }
 
-export function mergeSearch(a?: ish, b?: ish): URLSearchParams | undefined {
+export function merge(a?: ish, b?: ish): URLSearchParams | undefined {
   if (a && !b) {
-    return toURLSearchParams(a);
+    return from(a);
   } else if (!a && b) {
-    return toURLSearchParams(b);
+    return from(b);
   } else if (a && b) {
-    const search = toURLSearchParams(a);
-    toURLSearchParams(b).forEach((value, key) => search.set(key, value));
+    const search = from(a);
+    from(b).forEach((value, key) => search.set(key, value));
     return search;
   }
   return undefined;

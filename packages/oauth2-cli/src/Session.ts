@@ -11,13 +11,13 @@ import { WebServer, WebServerInterface } from './WebServer.js';
 type Options = {
   client: ClientInterface;
   views?: PathString;
-  request?: Req.AddOns;
+  request?: Req.Injection;
 };
 
 export interface SessionInterface {
   readonly code_verifier: string;
   readonly state: string;
-  readonly request?: Req.AddOns;
+  readonly request?: Req.Injection;
   callback(response?: Token.Response, error?: Error): void | Promise<void>;
   requestAuthorizationCode(): Promise<Token.Response>;
   instantiateWebServer(options: { views?: PathString }): WebServerInterface;
@@ -28,7 +28,7 @@ export class Session implements SessionInterface {
   private readonly server: WebServerInterface;
   public readonly state = OpenIDClient.randomState();
   public readonly code_verifier = OpenIDClient.randomPKCECodeVerifier();
-  public readonly request?: Req.AddOns;
+  public readonly request?: Req.Injection;
 
   private _callback?: SessionInterface['callback'];
   public get callback() {

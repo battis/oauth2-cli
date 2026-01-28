@@ -29,7 +29,7 @@ type ConstructorOptions = {
    * Optional search query parameters to include in all server requests (see
    * {@link RequestAddons.search})
    */
-  search?: Req.Query.ish;
+  search?: Req.URLSearchParams.ish;
   /**
    * Optional headers to include in all server requests (see
    * {@link RequestAddons.headers})
@@ -46,7 +46,7 @@ type AuthorizationOptions = {
   /** {@link Localhost.setViews see Localhost.setViews()} */
   views?: PathString;
   /** Additional request configuration for authorization code grant flow */
-  request?: Req.AddOns;
+  request?: Req.Injection;
 };
 
 type RefreshOptions = {
@@ -58,7 +58,7 @@ type RefreshOptions = {
    */
   refresh_token?: string;
   /** Additional request configuration for refresh grant flow */
-  request?: Req.AddOns;
+  request?: Req.Injection;
 };
 
 type GetTokenOptions = {
@@ -73,7 +73,7 @@ type GetTokenOptions = {
    * Additional request confguration for authorization code grant and/or refresh
    * grant flows
    */
-  request?: Req.AddOns;
+  request?: Req.Injection;
 };
 
 export interface ClientInterface {
@@ -103,7 +103,7 @@ export class Client extends EventEmitter implements ClientInterface {
   private token?: Token.Response;
   private tokenLock = new Mutex();
 
-  private search?: Req.Query.ish;
+  private search?: Req.URLSearchParams.ish;
   private headers?: Req.Headers.ish;
   private body?: Req.Body.ish;
 
@@ -137,7 +137,7 @@ export class Client extends EventEmitter implements ClientInterface {
   public async getConfiguration() {
     if (!this.config && this.credentials?.issuer) {
       this.config = await OpenIDClient.discovery(
-        Req.URL.toURL(this.credentials.issuer),
+        Req.URL.from(this.credentials.issuer),
         this.credentials.client_id,
         { client_secret: this.credentials.client_secret }
       );
@@ -145,7 +145,7 @@ export class Client extends EventEmitter implements ClientInterface {
     if (!this.config && this.credentials?.authorization_endpoint) {
       this.config = new OpenIDClient.Configuration(
         {
-          issuer: `https://${Req.URL.toURL(this.credentials.authorization_endpoint).hostname}`,
+          issuer: `https://${Req.URL.from(this.credentials.authorization_endpoint).hostname}`,
           authorization_endpoint: Req.URL.toString(
             this.credentials.authorization_endpoint
           ),
@@ -166,7 +166,7 @@ export class Client extends EventEmitter implements ClientInterface {
 
   protected async getParameters(session: SessionInterface) {
     const params =
-      Req.Query.mergeSearch(this.search, session.request?.search) ||
+      Req.URLSearchParams.merge(this.search, session.request?.search) ||
       new URLSearchParams();
     params.set('redirect_uri', Req.URL.toString(this.credentials.redirect_uri));
     params.set(
@@ -207,7 +207,7 @@ export class Client extends EventEmitter implements ClientInterface {
           pkceCodeVerifier: session.code_verifier,
           expectedState: session.state
         },
-        this.search ? Req.Query.toURLSearchParams(this.search) : undefined
+        this.search ? Req.URLSearchParams.from(this.search) : undefined
       );
       await session.callback(response);
     } catch (error) {
@@ -233,7 +233,7 @@ export class Client extends EventEmitter implements ClientInterface {
     const response = await OpenIDClient.refreshTokenGrant(
       await this.getConfiguration(),
       refresh_token,
-      this.search ? Req.Query.toURLSearchParams(this.search) : undefined,
+      this.search ? Req.URLSearchParams.from(this.search) : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
         headers: Utilities.Request.mergeHeaders(this.headers, request?.headers)
@@ -292,10 +292,10 @@ export class Client extends EventEmitter implements ClientInterface {
     return await OpenIDClient.fetchProtectedResource(
       await this.getConfiguration(),
       (await this.getToken()).access_token,
-      Req.URL.toURL(Req.Query.appendTo(url, this.search || {})),
+      Req.URL.from(Req.URLSearchParams.appendTo(url, this.search || {})),
       method,
       body,
-      Req.Headers.mergeHeaders(this.headers, headers),
+      Req.Headers.merge(this.headers, headers),
       dPoPOptions
     );
   }

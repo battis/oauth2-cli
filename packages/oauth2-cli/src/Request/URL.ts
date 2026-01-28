@@ -2,7 +2,7 @@ import { URLString } from '@battis/descriptive-types';
 
 export type ish = URL | URLString;
 
-export function toURL(url: ish): URL {
+export function from(url: ish): URL {
   if (url instanceof URL) {
     return url;
   }

@@ -1,20 +1,20 @@
 export type ish = Headers | Record<string, string>;
 
-export function toHeaders(headers: ish): Headers {
+export function from(headers: ish): Headers {
   if (headers instanceof Headers) {
     return headers;
   }
   return new Headers(headers);
 }
 
-export function mergeHeaders(a?: ish, b?: ish): Headers | undefined {
+export function merge(a?: ish, b?: ish): Headers | undefined {
   if (a && !b) {
-    return toHeaders(a);
+    return from(a);
   } else if (!a && b) {
-    return toHeaders(b);
+    return from(b);
   } else if (a && b) {
-    const headers = toHeaders(a);
-    toHeaders(b).forEach((value, key) => headers.set(key, value));
+    const headers = from(a);
+    from(b).forEach((value, key) => headers.set(key, value));
     return headers;
   }
   return undefined;

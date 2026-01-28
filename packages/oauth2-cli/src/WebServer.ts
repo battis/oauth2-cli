@@ -48,7 +48,7 @@ export class WebServer implements WebServerInterface {
     this.session = session;
     this.authorization_endpoint = authorize_endpoint;
     this.views = views;
-    const url = Req.URL.toURL(this.session.redirect_uri);
+    const url = Req.URL.from(this.session.redirect_uri);
     this.port = url.port;
     if (WebServer.ports.includes(this.port)) {
       throw new Errors.PortCollision(url.port);
