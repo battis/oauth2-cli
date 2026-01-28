@@ -4,12 +4,22 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
-import { Session } from './Session.js';
+import { SessionInterface } from './Session.js';
 
 export type Options = {
-  session: Session;
-  /** {@link WebServer.setViews see setViews()} */
+  session: SessionInterface;
+  /** See {@link WebServer.setViews setViews()} */
   views?: PathString;
+  /**
+   * Local web server authorization endpoint
+   *
+   * This is separate and distinct from the OpenID/OAuth server's authorization
+   * endpoint. This endpoint is the first path that the user is directed to in
+   * their browser. It can present an explanation of what is being authorized
+   * and why. By default it redirects to the OpenID/OAuth server's authorization
+   * URL, the first step in the Authorization Code Grant flow.
+   */
+
   authorize_endpoint?: PathString;
 };
 
@@ -23,6 +33,7 @@ try {
 export const DEFAULT_AUTHORIZE_ENDPOINT = '/oauth2-cli/authorize';
 
 export interface WebServerInterface {
+  /** See {@link Options} */
   readonly authorization_endpoint: PathString;
 }
 
@@ -31,18 +42,18 @@ export interface WebServerInterface {
  * OpenID/OAuth flows
  */
 export class WebServer implements WebServerInterface {
-  private static ports: string[] = [];
+  private static activePorts: string[] = [];
 
-  protected readonly session: Session;
-  private views: PathString;
-  private viewsFallback = '../views';
+  protected readonly session: SessionInterface;
+  private views?: PathString;
+  private packageViews = '../views';
   protected readonly port: string;
   public readonly authorization_endpoint: PathString;
   private server;
 
   public constructor({
     session,
-    views = '../views',
+    views,
     authorize_endpoint = DEFAULT_AUTHORIZE_ENDPOINT
   }: Options) {
     this.session = session;
@@ -50,13 +61,16 @@ export class WebServer implements WebServerInterface {
     this.views = views;
     const url = Req.URL.from(this.session.redirect_uri);
     this.port = url.port;
-    if (WebServer.ports.includes(this.port)) {
+    if (WebServer.activePorts.includes(this.port)) {
       throw new Errors.PortCollision(url.port);
     }
-    WebServer.ports.push(this.port);
+    WebServer.activePorts.push(this.port);
     const app = express();
-    app.get(this.authorization_endpoint, this.authorize.bind(this));
-    app.get(url.pathname, this.redirect.bind(this));
+    app.get(
+      this.authorization_endpoint,
+      this.handleAuthorizationEndpoint.bind(this)
+    );
+    app.get(url.pathname, this.handleRedirect.bind(this));
     this.server = app.listen(url.port);
   }
 
@@ -88,8 +102,8 @@ export class WebServer implements WebServerInterface {
     template: string,
     data: Record<string, unknown> = {}
   ) {
-    async function renderIfExists(views: PathString) {
-      if (ejs) {
+    async function attemptToRender(views?: PathString) {
+      if (ejs && views) {
         const viewPath = path.resolve(import.meta.dirname, views, template);
         if (fs.existsSync(viewPath)) {
           res.send(await ejs.renderFile(viewPath, data));
@@ -99,13 +113,13 @@ export class WebServer implements WebServerInterface {
       return false;
     }
     return (
-      (await renderIfExists(this.views)) ||
-      (await renderIfExists(this.viewsFallback))
+      (await attemptToRender(this.views)) ||
+      (await attemptToRender(this.packageViews))
     );
   }
 
   /** Handles request to `/authorize` */
-  protected async authorize(req: Request, res: Response) {
+  protected async handleAuthorizationEndpoint(req: Request, res: Response) {
     const authorization_url = await this.session.getAuthorizationUrl();
     if (!(await this.render(res, 'authorize.ejs', { authorization_url }))) {
       res.redirect(authorization_url);
@@ -113,7 +127,7 @@ export class WebServer implements WebServerInterface {
   }
 
   /** Handles request to `redirect_uri` */
-  protected async redirect(req: Request, res: Response) {
+  protected async handleRedirect(req: Request, res: Response) {
     try {
       await this.session.handleRedirect(req);
       if (!(await this.render(res, 'complete.ejs'))) {
@@ -135,7 +149,10 @@ export class WebServer implements WebServerInterface {
         if (err) {
           reject(err);
         } else {
-          WebServer.ports.splice(WebServer.ports.indexOf(this.port), 1);
+          WebServer.activePorts.splice(
+            WebServer.activePorts.indexOf(this.port),
+            1
+          );
           resolve();
         }
       });

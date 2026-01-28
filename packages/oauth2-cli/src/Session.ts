@@ -1,4 +1,4 @@
-import { PathString } from '@battis/descriptive-types';
+import { PathString, URLString } from '@battis/descriptive-types';
 import { Request } from 'express';
 import open from 'open';
 import * as OpenIDClient from 'openid-client';
@@ -20,8 +20,11 @@ export interface SessionInterface {
   readonly code_verifier: string;
   readonly state: string;
   readonly request?: Req.Injection;
+  readonly redirect_uri: Req.URL.ish;
   resolve(response?: Token.Response, error?: Error): void | Promise<void>;
   authorizationCodeGrant(): Promise<Token.Response>;
+  getAuthorizationUrl(): Promise<URLString>;
+  handleRedirect(req: Request): ReturnType<ClientInterface['handleRedirect']>;
   createWebServer(
     options: Omit<WebServer.Options, 'session'>
   ): WebServer.WebServerInterface;
