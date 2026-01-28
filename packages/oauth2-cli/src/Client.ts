@@ -51,7 +51,7 @@ type RefreshOptions = {
    */
   refresh_token?: string;
   /** Additional request injection for refresh grant flow */
-  request?: Req.Injection;
+  inject?: Req.Injection;
 };
 
 type GetTokenOptions = {
@@ -66,7 +66,7 @@ type GetTokenOptions = {
    * Additional request injection for authorization code grant and/or refresh
    * grant flows
    */
-  request?: Req.Injection;
+  inject?: Req.Injection;
 };
 
 export interface ClientInterface {
@@ -161,7 +161,7 @@ export class Client extends EventEmitter implements ClientInterface {
 
   protected async getParameters(session: Session.SessionInterface) {
     const params =
-      Req.URLSearchParams.merge(this.search, session.request?.search) ||
+      Req.URLSearchParams.merge(this.search, session.inject?.search) ||
       new URLSearchParams();
     params.set('redirect_uri', Req.URL.toString(this.credentials.redirect_uri));
     params.set(
@@ -223,7 +223,7 @@ export class Client extends EventEmitter implements ClientInterface {
    */
   protected async refreshTokenGrant({
     refresh_token,
-    request
+    inject: request
   }: RefreshOptions) {
     if (!this.token && this.storage) {
       this.token = await this.storage.load();
@@ -250,7 +250,7 @@ export class Client extends EventEmitter implements ClientInterface {
    * Depending on provided and/or stored access token and refresh token values,
    * this may require interactive authorization
    */
-  public async getToken({ token, request }: GetTokenOptions = {}) {
+  public async getToken({ token, inject: request }: GetTokenOptions = {}) {
     return await this.tokenLock.runExclusive(async () => {
       token = token || this.token;
       if (!token && this.storage) {
@@ -259,13 +259,13 @@ export class Client extends EventEmitter implements ClientInterface {
       const expiresIn = this.token?.expiresIn();
       if (!expiresIn) {
         try {
-          this.token = await this.refreshTokenGrant({ request });
+          this.token = await this.refreshTokenGrant({ inject: request });
         } catch (_) {
           // ignore error
         }
       }
       if (!this.token) {
-        this.token = await this.authorize({ request });
+        this.token = await this.authorize({ inject: request });
       }
       return this.token;
     });
