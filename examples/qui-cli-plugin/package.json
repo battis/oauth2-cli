@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@oauth2-cli/qui-cli": "workspace:*",
-    "@qui-cli/core": "^5.0.3",
+    "@qui-cli/core": "^6.0.0",
     "@qui-cli/env-1password": "^1.2.10",
     "@qui-cli/log": "^4.0.3",
     "@qui-cli/root": "^3.1.0"

@@ -22,7 +22,7 @@
   "dependencies": {
     "@oauth2-cli/canvas": "^0.4.4",
     "@oauth2-cli/sky-api": "^0.4.2",
-    "@qui-cli/core": "^5.0.3",
+    "@qui-cli/core": "^6.0.0",
     "@qui-cli/log": "^4.0.3",
     "@qui-cli/root": "^3.1.0"
   },

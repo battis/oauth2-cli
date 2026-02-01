@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@qui-cli/colors": "^3.2.3",
-    "@qui-cli/core": "^5.0.3",
+    "@qui-cli/core": "^6.0.0",
     "@qui-cli/log": "^4.0.3",
     "ejs": "^3.1.10",
     "oauth2-cli": "workspace:*"
