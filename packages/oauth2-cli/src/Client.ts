@@ -247,7 +247,7 @@ export class Client extends EventEmitter {
         try {
           this.token = await this.refreshTokenGrant({ inject: request });
         } catch (_) {
-          // ignore error
+          this.token = undefined;
         }
       }
       if (!this.token) {
