@@ -1,0 +1,31 @@
+{
+  "name": "google-cloud-run-to-localhost",
+  "version": "0.0.0",
+  "private": true,
+  "description": "IAP-protected redirect to localhost running as a service on Google Cloud Run",
+  "license": "GPL-3.0",
+  "type": "module",
+  "scripts": {
+    "clean": "del ./build",
+    "build": "run-s build:*",
+    "build:clean": "run-s clean",
+    "build:compile": "tsc",
+    "deploy": "run-s deploy:*",
+    "deploy:build": "run-s build",
+    "deploy:deploy": "./scripts/deploy -v"
+  },
+  "devDependencies": {
+    "@battis/eslint-config": "^2.1.0",
+    "@battis/partly-gcloudy": "^3.2.0",
+    "@battis/prettier-config": "^1.7.3",
+    "@qui-cli/core": "^6.0.0",
+    "@qui-cli/shell": "^3.1.2",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^25.2.2",
+    "commit-and-tag-version": "^12.6.1",
+    "del-cli": "^7.0.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.29.1"
+}
