@@ -270,6 +270,14 @@ export class Client extends EventEmitter {
     return this.token;
   }
 
+  /**
+   * @param url If an `issuer` has been defined, `url` accepts paths relative to
+   *   the `issuer` URL as well as absolute URLs
+   * @param method Optional, defaults to `GET` unless otherwise specified
+   * @param body Optional
+   * @param headers Optional
+   * @param dPoPOptions Optional
+   */
   public async request(
     url: Req.URL.ish,
     method = 'GET',
@@ -277,6 +285,15 @@ export class Client extends EventEmitter {
     headers: Req.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
+    try {
+      url = Req.URL.from(url);
+    } catch (error) {
+      if ('issuer' in this.credentials) {
+        url = new URL(url, this.credentials.issuer);
+      } else {
+        throw error;
+      }
+    }
     return await OpenIDClient.fetchProtectedResource(
       await this.getConfiguration(),
       (await this.getToken()).access_token,
@@ -288,6 +305,10 @@ export class Client extends EventEmitter {
     );
   }
 
+  /**
+   * Returns the result of {@link request} as a parsed JSON object, optionally
+   * typed as `T`
+   */
   public async requestJSON<
     T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
   >(
