@@ -71,7 +71,7 @@ export class WebServer implements WebServerInterface {
       this.handleAuthorizationEndpoint.bind(this)
     );
     app.get(
-      url.pathname.replace(/^\/https?\/localhost(:\d+)\//, '/'),
+      url.pathname.replace(/^\/https?\/localhost(:\d+)?\//, '/'),
       this.handleRedirect.bind(this)
     );
     this.server = app.listen(url.port);
