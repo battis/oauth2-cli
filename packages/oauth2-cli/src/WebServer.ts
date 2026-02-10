@@ -70,7 +70,10 @@ export class WebServer implements WebServerInterface {
       this.authorization_endpoint,
       this.handleAuthorizationEndpoint.bind(this)
     );
-    app.get(url.pathname, this.handleRedirect.bind(this));
+    app.get(
+      url.pathname.replace(/^\/https?\/localhost(:\d+)\//, '/'),
+      this.handleRedirect.bind(this)
+    );
     this.server = app.listen(url.port);
   }
 
