@@ -3,7 +3,7 @@ import { Mutex } from 'async-mutex';
 import { Request } from 'express';
 import { EventEmitter } from 'node:events';
 import * as OpenIDClient from 'openid-client';
-import * as Credentials from './Credentials/index.js';
+import * as Credentials from './Credentials.js';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import { Session, SessionOptions } from './Session.js';
@@ -119,7 +119,7 @@ export class Client extends EventEmitter {
    *   OpenID discovery fail to generate a complete configuration
    */
   public async getConfiguration() {
-    if (!this.config && this.credentials?.issuer) {
+    if (!this.config && 'issuer' in this.credentials) {
       this.config = await OpenIDClient.discovery(
         Req.URL.from(this.credentials.issuer),
         this.credentials.client_id,
