@@ -42,3 +42,15 @@ export function port(url: URL | URLString): number {
   }
   return parseInt(port);
 }
+
+export function expand(path: PathString, url: URL | URLString) {
+  const { protocol, hostname } = parse(url);
+  if (protocol && hostname) {
+    return new URL(
+      `/${protocol}/${hostname}:${port(url)}/${path.replace(/^\//, '')}`,
+      url
+    );
+  } else {
+    return new URL(path, url);
+  }
+}
