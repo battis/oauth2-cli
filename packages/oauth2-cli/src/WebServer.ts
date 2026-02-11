@@ -1,5 +1,6 @@
 import { PathString } from '@battis/descriptive-types';
 import express, { Request, Response } from 'express';
+import * as gcrtl from 'gcrtl';
 import fs from 'node:fs';
 import path from 'node:path';
 import * as Errors from './Errors/index.js';
@@ -70,11 +71,8 @@ export class WebServer implements WebServerInterface {
       this.authorization_endpoint,
       this.handleAuthorizationEndpoint.bind(this)
     );
-    app.get(
-      url.pathname.replace(/^\/https?\/localhost(:\d+)?\//, '/'),
-      this.handleRedirect.bind(this)
-    );
-    this.server = app.listen(url.port);
+    app.get(gcrtl.path(url), this.handleRedirect.bind(this));
+    this.server = app.listen(gcrtl.port(url));
   }
 
   /**

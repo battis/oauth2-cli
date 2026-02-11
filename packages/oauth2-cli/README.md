@@ -45,7 +45,7 @@ In both cases, the token can be persisted by passing an implementation of [`Toke
 
 Since the `redirect_uri` is receiving the authorization code in the Authorization Code token flow, the Client needs to be able to "catch" that redirect. The easy way to do this is to register a localhost address with the API (e.g. `http://localhost:3000/my/redirect/path`). When such a redirect URI is given to the client, it stands up (briefly) a local web server to receive that request at the port and path provided.
 
-Not every API accepts a `localhost` redirect (it creates the possibility of CORS exploits that could lead to XSS vulnerabilities). For these APIs, using [@battis/google-cloud-rumn-to-localhost](https://github.com/battis/google-cloud-run-to-localhost#readme) or a similar system will work as well. (In the specific case of `google-cloud-run-to-localhost`, `oauth2-cli` will trim the leading `/http/localhost:<port>` from provided `redirect_uri` and expect the _remainder_ of the path.)
+Not every API accepts a `localhost` redirect (it creates the possibility of CORS exploits that could lead to XSS vulnerabilities). For these APIs, using [gcrtl](https://github.com/battis/google-cloud-run-to-localhost#readme) or a similar system will work as well. (In the specific case of `gcrtl`, `oauth2-cli` will trim the leading `/http/localhost:<port>` from provided `redirect_uri` and expect the _remainder_ of the path.)
 
 #### `http` protocol
 
