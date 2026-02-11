@@ -28,7 +28,7 @@
     "release:version": "commit-and-tag-version",
     "release:git": "git push --follow-tags",
     "release:login": "pnpm login",
-    "release:publish": "pnpm publish --acccess public"
+    "release:publish": "pnpm publish --access public"
   },
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",
