@@ -1,10 +1,10 @@
 {
-  "name": "@examples/token-storage",
-  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/05%20token-storage#readme",
+  "name": "@examples/qui-cli",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/06%20qui-cli#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/oauth2-cli.git",
-    "directory": "examples/05 token-storage"
+    "directory": "examples/06 qui-cli"
   },
   "author": {
     "name": "Seth Battis",
@@ -21,13 +21,14 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@inquirer/input": "^5.0.4",
-    "@types/node": "^24.10.13",
-    "dotenv": "^17.2.4",
-    "oauth2-cli": "workspace:*"
+    "@oauth2-cli/qui-cli": "workspace:*",
+    "@qui-cli/core": "^6.0.0",
+    "@qui-cli/env": "^5.1.1",
+    "@qui-cli/log": "^4.0.3"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^24.10.13",
     "del-cli": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3"
