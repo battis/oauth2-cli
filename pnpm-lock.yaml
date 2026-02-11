@@ -206,6 +206,9 @@ importers:
       '@qui-cli/log':
         specifier: ^4.0.3
         version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
     devDependencies:
       '@tsconfig/node24':
         specifier: ^24.0.4
@@ -234,6 +237,9 @@ importers:
       express:
         specifier: ^5.2.1
         version: 5.2.1
+      gcrtl:
+        specifier: ^0.1.6
+        version: 0.1.6
       oauth4webapi:
         specifier: ^3.8.4
         version: 3.8.4
@@ -2360,6 +2366,9 @@ packages:
 
   functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
+
+  gcrtl@0.1.6:
+    resolution: {integrity: sha512-Za/1XRlaEfNSghRsgj66z0cVz422BOAqTlzPrTJqfb6fnG83xxFo42H+VgJ2GEnrzzz2b0vVOlExj0Xi0kz4eg==}
 
   generator-function@2.0.1:
     resolution: {integrity: sha512-SFdFmIJi+ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg+kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn+43q3g==}
@@ -7194,6 +7203,8 @@ snapshots:
       is-callable: 1.2.7
 
   functions-have-names@1.2.3: {}
+
+  gcrtl@0.1.6: {}
 
   generator-function@2.0.1: {}
 

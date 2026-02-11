@@ -19,3 +19,7 @@ Rather than waiting for an API request to trigger authorization, add a specific 
 ## [05 token-storage](./05%20token-storage#readme)
 
 Persist tokens between runs by saving them to a JSON file.
+
+## [06 qui-cli](./06%20qui-cli#readme)
+
+Use the [qui-cli](https://www.npmjs.com/package/@oauth2-cli/qui-cli) plugin for easier command line app development.
