@@ -1,29 +1,29 @@
-import { JsonObject, JsonValue } from 'openid-client';
+import { isRecord } from '@battis/typescript-tricks';
+import { FetchBody } from 'openid-client';
 
-export type ish = FormData | Record<string, string>;
+export type ish =
+  | FetchBody
+  | FormData
+  | Record<string, string>
+  | RequestInit['body'];
 
-export function toFormData(body: ish): FormData {
-  if (body instanceof FormData) {
-    return body;
-  } else if (
-    typeof body === 'string' ||
-    typeof body === 'number' ||
-    typeof body === 'boolean' ||
-    Array.isArray(body)
-  ) {
-    throw new Error('Body cannot be converted to FormData');
-  } else {
-    const formData = new FormData();
-    for (const name in body) {
-      formData.append(name, body[name]);
-    }
-    return formData;
-  }
+function isString(obj: unknown): obj is string {
+  return typeof obj === 'string';
 }
 
-export function toJSON(body: ish): JsonValue {
-  if (body instanceof FormData) {
-    return Object.fromEntries(body.entries()) as JsonObject;
+export async function from(body: ish): Promise<FetchBody | undefined> {
+  if (
+    body === undefined ||
+    body === null ||
+    typeof body === 'string' ||
+    body instanceof ArrayBuffer ||
+    body instanceof ReadableStream ||
+    body instanceof Uint8Array ||
+    body instanceof URLSearchParams
+  ) {
+    return body;
+  } else if (isRecord<string, string>(body, isString, isString)) {
+    return new URLSearchParams(body);
   }
-  return body;
+  return new Response(body).arrayBuffer();
 }
