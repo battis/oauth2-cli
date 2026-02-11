@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@battis/descriptive-types':
+        specifier: ^0.2.6
+        version: 0.2.6
       '@battis/eslint-config':
         specifier: ^2.1.0
         version: 2.1.0(@eslint/js@9.39.2)(@eslint/markdown@7.5.1)(eslint-config-prettier@10.1.8(eslint@9.39.2))(eslint-plugin-html@8.1.4)(eslint@9.39.2)(globals@17.3.0)(typescript-eslint@8.54.0(eslint@9.39.2)(typescript@5.9.3))
@@ -17,6 +20,9 @@ importers:
       '@battis/prettier-config':
         specifier: ^1.7.3
         version: 1.7.3(@prettier/plugin-xml@3.4.2(prettier@3.8.1))(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.8.1))(prettier-plugin-ejs@1.0.3(prettier@3.8.1))(prettier-plugin-jsdoc@1.8.0(prettier@3.8.1))(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-packagejson@2.5.22(prettier@3.8.1))(prettier@3.8.1)
+      '@commitlint/config-conventional':
+        specifier: ^20.4.1
+        version: 20.4.1
       '@qui-cli/core':
         specifier: ^6.0.0
         version: 6.0.0(@qui-cli/plugin@4.1.0)
@@ -87,6 +93,9 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
+  '@battis/descriptive-types@0.2.6':
+    resolution: {integrity: sha512-tgJ1OoOVlshBRdDrwhy5+cQM4s8xKVRlBDYDos7VuOh+1dF11+F6y/KZnBIhPeHitGiI3BRUXHW7sCF8zMvBsg==}
+
   '@battis/eslint-config@2.1.0':
     resolution: {integrity: sha512-i1cKmepllo6EtRrw7zvDBNtxdoxrpXJ+t+0SlPb14ovKmPj6VBnHSeB6vLb9ZAPMt/CBEdmz8pa+Ert43ruDWg==}
     peerDependencies:
@@ -129,6 +138,14 @@ packages:
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
     engines: {node: '>=0.1.90'}
+
+  '@commitlint/config-conventional@20.4.1':
+    resolution: {integrity: sha512-0YUvIeBtpi86XriqrR+TCULVFiyYTIOEPjK7tTRMxjcBm1qlzb+kz7IF2WxL6Fq5DaundG8VO37BNgMkMTBwqA==}
+    engines: {node: '>=v18'}
+
+  '@commitlint/types@20.4.0':
+    resolution: {integrity: sha512-aO5l99BQJ0X34ft8b0h7QFkQlqxC6e7ZPVmBKz13xM9O8obDaM1Cld4sQlJDXXU/VFuUzQ30mVtHjVz74TuStw==}
+    engines: {node: '>=v18'}
 
   '@dabh/diagnostics@2.0.8':
     resolution: {integrity: sha512-R4MSXTVnuMzGD7bzHdW2ZhhdPC/igELENcq5IjEverBvq5hn1SXCWcsi6eSsdWP0/Ur+SItRRjAktmdoX/8R/Q==}
@@ -778,6 +795,10 @@ packages:
     resolution: {integrity: sha512-3cS3GEtR78zTfMzk0AizXKKIdN4OvSh7ibNz6/DPbhWWQu7LqE/8+/GqSodV+sywUR2gpJAdP/1JFf4XtN7Zpw==}
     engines: {node: '>=14'}
 
+  conventional-changelog-conventionalcommits@9.1.0:
+    resolution: {integrity: sha512-MnbEysR8wWa8dAEvbj5xcBgJKQlX/m0lhS8DsyAAWDHdfs2faDJxTgzRYlRYpXSe7UiKrIIlB4TrBKU9q9DgkA==}
+    engines: {node: '>=18'}
+
   conventional-changelog-core@5.0.2:
     resolution: {integrity: sha512-RhQOcDweXNWvlRwUDCpaqXzbZemKPKncCWZG50Alth72WITVd6nhVk9MJ6w1k9PFNBcZ3YwkdkChE+8+ZwtUug==}
     engines: {node: '>=14'}
@@ -822,6 +843,11 @@ packages:
   conventional-commits-parser@4.0.0:
     resolution: {integrity: sha512-WRv5j1FsVM5FISJkoYMR6tPk07fkKT0UodruX4je86V4owk451yjXAKzKAPOs9l7y59E2viHUS9eQ+dfUA9NSg==}
     engines: {node: '>=14'}
+    hasBin: true
+
+  conventional-commits-parser@6.2.1:
+    resolution: {integrity: sha512-20pyHgnO40rvfI0NGF/xiEoFMkXDtkF8FwHvk5BokoFoCuTQRI8vrNCNFWUOfuolKJMm1tPCHc8GgYEtr1XRNA==}
+    engines: {node: '>=18'}
     hasBin: true
 
   conventional-recommended-bump@7.0.1:
@@ -1684,6 +1710,10 @@ packages:
   memorystream@0.3.1:
     resolution: {integrity: sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==}
     engines: {node: '>= 0.10.0'}
+
+  meow@13.2.0:
+    resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
+    engines: {node: '>=18'}
 
   meow@14.0.0:
     resolution: {integrity: sha512-JhC3R1f6dbspVtmF3vKjAWz1EVIvwFrGGPLSdU6rK79xBwHWTuHoLnRX/t1/zHS1Ch1Y2UtIrih7DAHuH9JFJA==}
@@ -2653,6 +2683,8 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
+  '@battis/descriptive-types@0.2.6': {}
+
   '@battis/eslint-config@2.1.0(@eslint/js@9.39.2)(@eslint/markdown@7.5.1)(eslint-config-prettier@10.1.8(eslint@9.39.2))(eslint-plugin-html@8.1.4)(eslint@9.39.2)(globals@17.3.0)(typescript-eslint@8.54.0(eslint@9.39.2)(typescript@5.9.3))':
     dependencies:
       '@eslint/js': 9.39.2
@@ -2698,6 +2730,16 @@ snapshots:
       prettier-plugin-packagejson: 2.5.22(prettier@3.8.1)
 
   '@colors/colors@1.6.0': {}
+
+  '@commitlint/config-conventional@20.4.1':
+    dependencies:
+      '@commitlint/types': 20.4.0
+      conventional-changelog-conventionalcommits: 9.1.0
+
+  '@commitlint/types@20.4.0':
+    dependencies:
+      conventional-commits-parser: 6.2.1
+      picocolors: 1.1.1
 
   '@dabh/diagnostics@2.0.8':
     dependencies:
@@ -3390,6 +3432,10 @@ snapshots:
     dependencies:
       compare-func: 2.0.0
 
+  conventional-changelog-conventionalcommits@9.1.0:
+    dependencies:
+      compare-func: 2.0.0
+
   conventional-changelog-core@5.0.2:
     dependencies:
       add-stream: 1.0.0
@@ -3453,6 +3499,10 @@ snapshots:
       is-text-path: 1.0.1
       meow: 8.1.2
       split2: 3.2.2
+
+  conventional-commits-parser@6.2.1:
+    dependencies:
+      meow: 13.2.0
 
   conventional-recommended-bump@7.0.1:
     dependencies:
@@ -4434,6 +4484,8 @@ snapshots:
       '@types/mdast': 4.0.4
 
   memorystream@0.3.1: {}
+
+  meow@13.2.0: {}
 
   meow@14.0.0: {}
 

@@ -1,0 +1,7 @@
+.*
+/app/
+/dist/scripts/
+/eslint.config.mjs
+/scripts/
+/src/
+/tsconfig.json

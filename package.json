@@ -1,9 +1,17 @@
 {
-  "name": "google-cloud-run-to-localhost",
+  "name": "gcrtl",
   "version": "0.0.0",
-  "private": true,
   "description": "IAP-protected redirect to localhost running as a service on Google Cloud Run",
+  "homepage": "https://github.com/battis/google-cloud-run-to-localhost#readme",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/battis/google-cloud-run-to-localhost"
+  },
   "license": "GPL-3.0",
+  "author": {
+    "name": "Seth Battis",
+    "url": "https://github.com/battis"
+  },
   "type": "module",
   "scripts": {
     "clean": "del ./build",
@@ -12,12 +20,20 @@
     "build:compile": "tsc",
     "deploy": "run-s deploy:*",
     "deploy:build": "run-s build",
-    "deploy:deploy": "./scripts/deploy -v"
+    "deploy:deploy": "./scripts/deploy -v",
+    "release": "run-s release",
+    "release:build": "run-s build",
+    "release:version": "commit-and-tag-version",
+    "release:git": "git push --follow-tags",
+    "release:login": "pnpm login",
+    "release:publish": "pnpm publish --acccess public"
   },
   "devDependencies": {
+    "@battis/descriptive-types": "^0.2.6",
     "@battis/eslint-config": "^2.1.0",
     "@battis/partly-gcloudy": "^3.2.0",
     "@battis/prettier-config": "^1.7.3",
+    "@commitlint/config-conventional": "^20.4.1",
     "@qui-cli/core": "^6.0.0",
     "@qui-cli/shell": "^3.1.2",
     "@tsconfig/node24": "^24.0.4",

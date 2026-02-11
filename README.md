@@ -1,5 +1,8 @@
 # Google Cloud Run to `localhost`
 
+[![npm version](https://badge.fury.io/js/gcrtl.svg)](https://npmjs.com/package/gcrtl)
+[![Module type: ESM](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://nodejs.org/api/esm.html)
+
 IAP-protected redirect to localhost running as a service on Google Cloud Run
 
 ## Install
