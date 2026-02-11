@@ -5,4 +5,5 @@
 /jest.config.ts
 /scripts/
 /src/
+/tests/
 /tsconfig.json
