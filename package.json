@@ -13,6 +13,8 @@
     "url": "https://github.com/battis"
   },
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "del ./build",
     "build": "run-s build:*",
