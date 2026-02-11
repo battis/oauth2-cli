@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.4](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.3...v0.1.4) (2026-02-11)
+
+
+### Bug Fixes
+
+* revise tsconfig to build only src ([4fbe73e](https://github.com/battis/google-cloud-run-to-localhost/commit/4fbe73eccbc60b47b46fb22da3679978d0bf673c))
+
 ## [0.1.3](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.2...v0.1.3) (2026-02-11)
 
 
