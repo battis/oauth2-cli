@@ -4,17 +4,8 @@ export const pattern = /^\/(https?)\/((localhost)(:(\d+))?)(\/.*)$/;
 
 export function parse(url: URL | URLString) {
   const u = new URL(url);
-  let port: number;
-  const [, protocol, , hostname, , p, path] = u.pathname.match(pattern) || [];
-  if (p) {
-    port = parseInt(p);
-  } else if (protocol) {
-    port = protocol === 'https' ? 443 : 80;
-  } else if (u.port !== '') {
-    port = parseInt(p);
-  } else {
-    port = u.protocol === 'https' ? 443 : 80;
-  }
+  const [, protocol, , hostname, , port, path] =
+    u.pathname.match(pattern) || [];
   return {
     url: u,
     protocol,
@@ -30,5 +21,17 @@ export function path(url: URL | URLString): PathString {
 }
 
 export function port(url: URL | URLString): number {
-  return parse(url).port;
+  const { url: u, protocol, port } = parse(url);
+  if (port === undefined) {
+    if (protocol === undefined) {
+      if (u.port === '') {
+        return u.protocol === 'https:' ? 443 : 80;
+      } else {
+        return parseInt(u.port);
+      }
+    } else {
+      return protocol === 'https' ? 443 : 80;
+    }
+  }
+  return parseInt(port);
 }
