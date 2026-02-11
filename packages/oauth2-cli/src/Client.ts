@@ -331,18 +331,27 @@ export class Client extends EventEmitter {
     );
   }
 
-  public async fetch(input: Req.URL.ish, init?: RequestInit) {
+  public async fetch(
+    input: Req.URL.ish,
+    init?: RequestInit,
+    dPoPOptions?: OpenIDClient.DPoPOptions
+  ) {
     return await this.request(
       input,
       init?.method,
       await Req.Body.from(init?.body),
-      Req.Headers.from(init?.headers)
+      Req.Headers.from(init?.headers),
+      dPoPOptions
     );
   }
 
   public async fetchJSON<
     T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
-  >(input: Req.URL.ish, init?: RequestInit) {
-    return await this.toJSON<T>(await this.fetch(input, init));
+  >(
+    input: Req.URL.ish,
+    init?: RequestInit,
+    dPoPOptions?: OpenIDClient.DPoPOptions
+  ) {
+    return await this.toJSON<T>(await this.fetch(input, init, dPoPOptions));
   }
 }
