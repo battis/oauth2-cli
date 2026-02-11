@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.6](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.5...v0.1.6) (2026-02-11)
+
+
+### Features
+
+* expand() path to (possible) gcrtl url ([ff7888d](https://github.com/battis/google-cloud-run-to-localhost/commit/ff7888d54554cfa5bea9c625f97aaf9f1b0a81d4))
+
 ## [0.1.5](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.4...v0.1.5) (2026-02-11)
 
 ## [0.1.4](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.3...v0.1.4) (2026-02-11)
