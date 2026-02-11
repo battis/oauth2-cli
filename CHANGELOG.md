@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.2](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.1...v0.1.2) (2026-02-11)
+
+
+### Features
+
+* add unit tests ([cf941d6](https://github.com/battis/google-cloud-run-to-localhost/commit/cf941d6b0a5f0e86720fb1bddb24f637e5c428f2))
+
+
+### Bug Fixes
+
+* resolve problems identified by unit tests ([e60d907](https://github.com/battis/google-cloud-run-to-localhost/commit/e60d90783113c859eb179cc2909459a67cd26e7a))
+
 ## [0.1.1](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.0...v0.1.1) (2026-02-11)
 
 
