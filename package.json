@@ -1,6 +1,6 @@
 {
   "name": "gcrtl",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "IAP-protected redirect to localhost running as a service on Google Cloud Run",
   "homepage": "https://github.com/battis/google-cloud-run-to-localhost#readme",
   "repository": {
