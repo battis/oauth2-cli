@@ -2,6 +2,7 @@
 /app/
 /dist/scripts/
 /eslint.config.mjs
+/jest.config.ts
 /scripts/
 /src/
 /tsconfig.json
