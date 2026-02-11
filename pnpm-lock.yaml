@@ -272,31 +272,6 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/oauth2-configure:
-    dependencies:
-      async-mutex:
-        specifier: ^0.5.0
-        version: 0.5.0
-      openid-client:
-        specifier: ^6.8.2
-        version: 6.8.2
-    devDependencies:
-      '@tsconfig/node20':
-        specifier: ^20.1.9
-        version: 20.1.9
-      commit-and-tag-version:
-        specifier: ^12.6.1
-        version: 12.6.1
-      del-cli:
-        specifier: ^7.0.0
-        version: 7.0.0
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
   packages/qui-cli:
     dependencies:
       '@qui-cli/colors':

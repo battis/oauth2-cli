@@ -1,5 +1,0 @@
-{
-  "path": ".",
-  "tag-prefix": "oauth2-configure/",
-  "releaseCommitMessageFormat": "chore: @battis/oauth2-configure@{{currentTag}}"
-}
