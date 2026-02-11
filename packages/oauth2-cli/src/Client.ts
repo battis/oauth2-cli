@@ -294,15 +294,31 @@ export class Client extends EventEmitter {
         throw error;
       }
     }
-    return await OpenIDClient.fetchProtectedResource(
-      await this.getConfiguration(),
-      (await this.getToken()).access_token,
-      Req.URL.from(Req.URLSearchParams.appendTo(url, this.search || {})),
-      method,
-      body,
-      Req.Headers.merge(this.headers, headers),
-      dPoPOptions
-    );
+    const request = async () =>
+      await OpenIDClient.fetchProtectedResource(
+        await this.getConfiguration(),
+        (await this.getToken()).access_token,
+        Req.URL.from(Req.URLSearchParams.appendTo(url, this.search || {})),
+        method,
+        body,
+        Req.Headers.merge(this.headers, headers),
+        dPoPOptions
+      );
+    try {
+      return await request();
+    } catch (error) {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'status' in error &&
+        error.status === 401
+      ) {
+        await this.authorize();
+        return await request();
+      } else {
+        throw error;
+      }
+    }
   }
 
   private async toJSON<T extends OpenIDClient.JsonValue>(response: Response) {
