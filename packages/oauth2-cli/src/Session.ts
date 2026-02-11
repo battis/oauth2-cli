@@ -1,5 +1,6 @@
 import { PathString } from '@battis/descriptive-types';
 import { Request } from 'express';
+import * as gcrtl from 'gcrtl';
 import open from 'open';
 import * as OpenIDClient from 'openid-client';
 import { Client } from './Client.js';
@@ -77,10 +78,12 @@ export class Session {
         }
       };
       open(
-        new URL(
-          this.outOfBandRedirectServer.authorization_endpoint,
-          this.client.redirect_uri
-        ).toString()
+        gcrtl
+          .expand(
+            this.outOfBandRedirectServer.authorization_endpoint,
+            this.client.redirect_uri
+          )
+          .toString()
       );
     });
   }

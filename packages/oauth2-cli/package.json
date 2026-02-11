@@ -25,7 +25,7 @@
   "dependencies": {
     "async-mutex": "^0.5.0",
     "express": "^5.2.1",
-    "gcrtl": "^0.1.5",
+    "gcrtl": "^0.1.6",
     "oauth4webapi": "^3.8.4",
     "open": "^11.0.0",
     "openid-client": "^6.8.2"
