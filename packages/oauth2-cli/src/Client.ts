@@ -119,7 +119,7 @@ export class Client extends EventEmitter {
    *   OpenID discovery fail to generate a complete configuration
    */
   public async getConfiguration() {
-    if (!this.config && 'issuer' in this.credentials) {
+    if (!this.config && this.credentials.issuer) {
       this.config = await OpenIDClient.discovery(
         Req.URL.from(this.credentials.issuer),
         this.credentials.client_id,
@@ -288,7 +288,7 @@ export class Client extends EventEmitter {
     try {
       url = Req.URL.from(url);
     } catch (error) {
-      if ('issuer' in this.credentials) {
+      if (this.credentials.issuer) {
         url = new URL(url, this.credentials.issuer);
       } else {
         throw error;
