@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.3](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.2...v0.1.3) (2026-02-11)
+
+
+### Bug Fixes
+
+* stronger typing of parse() ([390a006](https://github.com/battis/google-cloud-run-to-localhost/commit/390a00626a077321485154917cf3406a7180d4ac))
+
 ## [0.1.2](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.1...v0.1.2) (2026-02-11)
 
 
