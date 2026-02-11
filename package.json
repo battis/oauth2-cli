@@ -23,7 +23,7 @@
     "deploy": "run-s deploy:*",
     "deploy:build": "run-s build",
     "deploy:deploy": "./scripts/deploy -v",
-    "release": "run-s release",
+    "release": "run-s release:*",
     "release:build": "run-s build",
     "release:version": "commit-and-tag-version",
     "release:git": "git push --follow-tags",
