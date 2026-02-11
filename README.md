@@ -5,7 +5,29 @@
 
 IAP-protected redirect to localhost running as a service on Google Cloud Run
 
-## Install
+## Integrating with `gcrtl` URLs
+
+### Usage
+
+```ts
+import * as gcrtl from 'gcrtl';
+
+console.log(gcrtl.path('http://localhost:3000/foo/bar')); // '/foo/bar'
+console.log(gcrtl.port('http://localhost:3000/foo/bar')); // 3000
+
+console.log(
+  gcrtl.path('https://<gcrtl identifier>.run.app/http/localhost:3000/foo/bar')
+); // '/foo/bar'
+console.log(
+  gcrtl.port('https://<gcrtl identifier>.run.app/http/localhost:3000/foo/bar')
+); // 3000
+```
+
+…and when ports are not included in the URL, it falls back to the relevant protocils to identify the expected port.
+
+## Running the app
+
+### Install
 
 Prerequisites: a Google Cloud account with billing enabled.
 
@@ -18,7 +40,7 @@ pnpm i -D
 pnpm run deploy
 ```
 
-# Configure
+## Configure
 
 The initial deploy will configure a `.env` file appropriately to eliminate the interactive wizard for future deployments.
 
@@ -29,6 +51,6 @@ cd path/to/project
 ./scripts/deploy --user user1@example.com --user user2@exampke.com
 ```
 
-# Use
+## Use
 
 The resulting `run.app` URL can be used, for example, as an OAuth redirect URL for use with, for example, [oauth2-cli](https://www.npmjs.com/package/oauth2-cli). Set the OAuth redirect URL on the server to `https://<Cloud Run service subdomain>.run.app/http/localhost:3000/path/to/redirect` and it will be redirect to `http://localhost:3000/path/to/redirect` upon receipt.
