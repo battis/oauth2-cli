@@ -18,15 +18,29 @@ test('test gcrtl http with port', () => {
     8080
   );
 });
+
 test('regular url https without port', () => {
-  expect(port('https://www.example.com/foo/bar/baz')).toBe(443);
+  expect(port('https://www.example.com/foo/bar/baz')).toEqual(443);
 });
 test('regular url http without port', () => {
-  expect(port('http://www.example/com/foo/bar/baz')).toBe(80);
+  expect(port('http://www.example/com/foo/bar/baz')).toEqual(80);
 });
 test('regular url https with port', () => {
-  expect(port('https://www.example.com:1337/foo/bar/baz')).toBe(1337);
+  expect(port('https://www.example.com:1337/foo/bar/baz')).toEqual(1337);
 });
 test('regular url http with port', () => {
-  expect(port('http://www.example.com:4000/foo/bar/baz')).toBe(4000);
+  expect(port('http://www.example.com:4000/foo/bar/baz')).toEqual(4000);
+});
+
+test('localhost https without port', () => {
+  expect(port('https://localhost/foo/bar/baz')).toEqual(443);
+});
+test('localhost http without port', () => {
+  expect(port('http://localhost/foo/bar/baz')).toEqual(80);
+});
+test('localhost https with port', () => {
+  expect(port('https://localhost:3001/foo/bar/baz')).toEqual(3001);
+});
+test('localhost http with port', () => {
+  expect(port('http://localhost:3002/foo/bar/baz')).toEqual(3002);
 });

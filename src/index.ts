@@ -4,8 +4,15 @@ export const pattern = /^\/(https?)\/((localhost)(:(\d+))?)(\/.*)$/;
 
 export function parse(url: URL | URLString) {
   const u = new URL(url);
-  const [, protocol, , hostname, , port, path] =
-    u.pathname.match(pattern) || [];
+  const [
+    ,
+    protocol = undefined,
+    ,
+    hostname = undefined,
+    ,
+    port = undefined,
+    path = undefined
+  ] = u.pathname.match(pattern) || [];
   return {
     url: u,
     protocol,
