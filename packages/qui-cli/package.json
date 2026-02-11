@@ -32,7 +32,6 @@
     "@qui-cli/env": "^5.1.1",
     "@qui-cli/log": "^4.0.3",
     "@qui-cli/plugin": "^4.1.0",
-    "@qui-cli/root": "^3.1.0",
     "@tsconfig/node24": "^24.0.4",
     "commit-and-tag-version": "^12.6.1",
     "del-cli": "^7.0.0",
@@ -43,7 +42,6 @@
   "peerDependencies": {
     "@qui-cli/env-1password": ">=1",
     "@qui-cli/log": ">=3",
-    "@qui-cli/plugin": ">=3",
-    "@qui-cli/root": ">=3"
+    "@qui-cli/plugin": ">=3"
   }
 }
