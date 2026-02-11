@@ -305,6 +305,14 @@ export class Client extends EventEmitter {
     );
   }
 
+  private async toJSON<T extends OpenIDClient.JsonValue>(response: Response) {
+    if (response.ok) {
+      return (await response.json()) as T;
+    } else {
+      throw new Errors.BadResponse(response);
+    }
+  }
+
   /**
    * Returns the result of {@link request} as a parsed JSON object, optionally
    * typed as `T`
@@ -318,17 +326,23 @@ export class Client extends EventEmitter {
     headers: Req.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    const response = await this.request(
-      url,
-      method,
-      body,
-      headers,
-      dPoPOptions
+    return await this.toJSON<T>(
+      await this.request(url, method, body, headers, dPoPOptions)
     );
-    if (response.ok) {
-      return (await response.json()) as T;
-    } else {
-      throw new Errors.BadResponse(response);
-    }
+  }
+
+  public async fetch(input: Req.URL.ish, init?: RequestInit) {
+    return await this.request(
+      input,
+      init?.method,
+      await Req.Body.from(init?.body),
+      Req.Headers.from(init?.headers)
+    );
+  }
+
+  public async fetchJSON<
+    T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
+  >(input: Req.URL.ish, init?: RequestInit) {
+    return await this.toJSON<T>(await this.fetch(input, init));
   }
 }
