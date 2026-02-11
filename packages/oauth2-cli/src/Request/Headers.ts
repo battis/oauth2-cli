@@ -1,6 +1,10 @@
-export type ish = Headers | Record<string, string>;
+export type ish =
+  | Headers
+  | NonNullable<RequestInit['headers']>
+  | Record<string, string>
+  | [string, string][];
 
-export function from(headers: ish): Headers {
+export function from(headers?: ish): Headers {
   if (headers instanceof Headers) {
     return headers;
   }
