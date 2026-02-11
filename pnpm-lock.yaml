@@ -226,6 +226,148 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  examples/07 custom-qui-cli:
+    dependencies:
+      '@oauth2-cli/qui-cli':
+        specifier: workspace:*
+        version: link:../../packages/qui-cli
+      '@qui-cli/core':
+        specifier: ^6.0.0
+        version: 6.0.0(@qui-cli/plugin@4.1.0)
+      '@qui-cli/env':
+        specifier: ^5.1.1
+        version: 5.1.1(@1password/sdk@0.3.1)(@qui-cli/colors@3.2.3)(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))(@qui-cli/shell@3.1.2(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0))
+      '@qui-cli/log':
+        specifier: ^4.0.3
+        version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
+    devDependencies:
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@types/node':
+        specifier: ^24.10.13
+        version: 24.10.13
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  examples/08 qui-cli-env:
+    dependencies:
+      '@oauth2-cli/qui-cli':
+        specifier: workspace:*
+        version: link:../../packages/qui-cli
+      '@qui-cli/core':
+        specifier: ^6.0.0
+        version: 6.0.0(@qui-cli/plugin@4.1.0)
+      '@qui-cli/env':
+        specifier: ^5.1.1
+        version: 5.1.1(@1password/sdk@0.3.1)(@qui-cli/colors@3.2.3)(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))(@qui-cli/shell@3.1.2(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0))
+      '@qui-cli/log':
+        specifier: ^4.0.3
+        version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
+    devDependencies:
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@types/node':
+        specifier: ^24.10.13
+        version: 24.10.13
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  examples/09 1password:
+    dependencies:
+      '@1password/sdk':
+        specifier: ^0.3.1
+        version: 0.3.1
+      '@oauth2-cli/qui-cli':
+        specifier: workspace:*
+        version: link:../../packages/qui-cli
+      '@qui-cli/core':
+        specifier: ^6.0.0
+        version: 6.0.0(@qui-cli/plugin@4.1.0)
+      '@qui-cli/env':
+        specifier: ^5.1.1
+        version: 5.1.1(@1password/sdk@0.3.1)(@qui-cli/colors@3.2.3)(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))(@qui-cli/shell@3.1.2(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0))
+      '@qui-cli/log':
+        specifier: ^4.0.3
+        version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
+    devDependencies:
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@types/node':
+        specifier: ^24.10.13
+        version: 24.10.13
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  examples/10 multiple-apis:
+    dependencies:
+      '@oauth2-cli/qui-cli':
+        specifier: workspace:*
+        version: link:../../packages/qui-cli
+      '@qui-cli/core':
+        specifier: ^6.0.0
+        version: 6.0.0(@qui-cli/plugin@4.1.0)
+      '@qui-cli/env':
+        specifier: ^5.1.1
+        version: 5.1.1(@1password/sdk@0.3.1)(@qui-cli/colors@3.2.3)(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))(@qui-cli/shell@3.1.2(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0))
+      '@qui-cli/log':
+        specifier: ^4.0.3
+        version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/plugin':
+        specifier: ^4.1.0
+        version: 4.1.0
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
+    devDependencies:
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@types/node':
+        specifier: ^24.10.13
+        version: 24.10.13
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/oauth2-cli:
     dependencies:
       async-mutex:

@@ -23,3 +23,19 @@ Persist tokens between runs by saving them to a JSON file.
 ## [06 qui-cli](./06%20qui-cli#readme)
 
 Use the [qui-cli](https://www.npmjs.com/package/@oauth2-cli/qui-cli) plugin for easier command line app development.
+
+## [07 custom-qui-cli](./07%20custom-qui-cli#readme)
+
+Customize the `qui-cli` plugin to use API-specific command line option names and environment variables.
+
+## [08 qui-cli-env](./08%20qui-cli-env#readme)
+
+Use the `EnvironmentStorage` to store access tokens in the environment.
+
+## [09 1password](./09%201password#readme)
+
+Use 1Password's vaults to securely store access tokens in the environment.
+
+## [10 multiple-apis](./10%20multiple-apis#readme)
+
+Configure multiple instances of the `OAuth2Plugin` to work with several different APIs simultaneously.
