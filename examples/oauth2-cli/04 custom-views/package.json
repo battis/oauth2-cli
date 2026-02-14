@@ -1,0 +1,34 @@
+{
+  "name": "@examples/oauth2-cli_custom-views",
+  "private": true,
+  "description": "With `ejs` installed, override default views with custom instructions in the browser during the Authorization Code flow.",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/oauth2-cli/04%20custom-views#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/battis/oauth2-cli.git",
+    "directory": "examples/oauth2-cli/04 custom-views"
+  },
+  "author": {
+    "name": "Seth Battis",
+    "url": "https://github.com/battis"
+  },
+  "type": "module",
+  "scripts": {
+    "clean": "del ./dist",
+    "build": "run-s build:*",
+    "build:clean": "run-s clean",
+    "build:compile": "tsc",
+    "op": "source .env; op run --env-file .env --account $OP_ACCOUNT -- node dist/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "ejs": "^4.0.1",
+    "oauth2-cli": "workspace:*"
+  },
+  "devDependencies": {
+    "@tsconfig/node24": "^24.0.4",
+    "del-cli": "^7.0.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3"
+  }
+}

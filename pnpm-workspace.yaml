@@ -1,6 +1,7 @@
 packages:
   - packages/*
-  - examples/*
+  - examples/oauth2-cli/*
+  - examples/qui-cli/*
 
 onlyBuiltDependencies:
   - esbuild
