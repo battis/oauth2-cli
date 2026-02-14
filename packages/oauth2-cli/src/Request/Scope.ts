@@ -1,6 +1,6 @@
 export type ish = string | string[];
 
-export function toString(scope: ish, separator: ' '): string {
+export function toString(scope: ish, separator = ' '): string {
   if (typeof scope === 'string') {
     return scope;
   }
