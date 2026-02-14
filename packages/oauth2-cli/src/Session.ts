@@ -1,8 +1,10 @@
 import { PathString } from '@battis/descriptive-types';
+import { Colors } from '@qui-cli/colors';
 import { Request } from 'express';
 import * as gcrtl from 'gcrtl';
 import open from 'open';
 import * as OpenIDClient from 'openid-client';
+import ora, { Ora } from 'ora';
 import { Client } from './Client.js';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
@@ -36,6 +38,8 @@ export class Session {
   public readonly inject?: Req.Injection;
 
   private _resolve?: Resolver;
+
+  private spinner?: Ora;
 
   /**
    * Method that resolves or rejects the promise returned from the
@@ -77,14 +81,16 @@ export class Session {
           reject(new Errors.MissingAccessToken());
         }
       };
-      open(
-        gcrtl
-          .expand(
-            this.outOfBandRedirectServer.authorization_endpoint,
-            this.client.redirect_uri
-          )
-          .toString()
-      );
+      const url = gcrtl
+        .expand(
+          this.outOfBandRedirectServer.authorization_endpoint,
+          this.client.redirect_uri
+        )
+        .toString();
+      this.spinner = ora(
+        `Waiting for interactive authorization at ${Colors.url(url)}`
+      ).start();
+      open(url);
     });
   }
 
@@ -102,6 +108,7 @@ export class Session {
    * Code Grant flow
    */
   public async handleAuthorizationCodeRedirect(req: Request) {
+    this.spinner?.succeed('Interactive authorization begun');
     return await this.client.handleAuthorizationCodeRedirect(req, this);
   }
 }
