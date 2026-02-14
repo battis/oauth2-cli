@@ -159,6 +159,9 @@ export class Client extends EventEmitter {
     );
     params.set('code_challenge_method', 'S256');
     params.set('state', session.state);
+    if (this.credentials.scope) {
+      params.set('scope', Req.Scope.toString(this.credentials.scope));
+    }
     return params;
   }
 
