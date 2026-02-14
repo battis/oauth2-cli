@@ -1,4 +1,5 @@
 {
+  "private": true,
   "homepage": "https://github.com/battis/oauth2-cli#readme",
   "repository": {
     "type": "git",
@@ -16,16 +17,14 @@
     "build": "run-s build:*",
     "build:paths": "monorepo-package-paths -w --author --homepage --repository",
     "build:compile": "lerna run build",
+    "build:scripts": "tsc",
+    "build:oauth2-cli-toc": "./scripts/examples-toc ./examples/oauth2-cli",
+    "build:qui-cli-toc": "./scripts/examples-toc ./examples/qui-cli",
     "release": "run-s release:*",
     "release:git": "git push --follow-tags",
     "release:build": "run-s build",
     "release:login": "pnpm login",
     "release:publish": "pnpm publish -r --access public"
-  },
-  "dependencies": {
-    "async-mutex": "^0.5.0",
-    "express": "^4.22.1",
-    "openid-client": "^6.8.2"
   },
   "devDependencies": {
     "@battis/eslint-config": "^2.1.0",
@@ -33,13 +32,19 @@
     "@commitlint/cli": "^20.4.1",
     "@commitlint/config-conventional": "^20.4.1",
     "@commitlint/config-pnpm-scopes": "^20.4.0",
+    "@qui-cli/colors": "^3.2.3",
+    "@qui-cli/core": "^6.0.0",
+    "@qui-cli/plugin": "^4.1.0",
+    "@qui-cli/root": "^3.1.0",
     "@tsconfig/node20": "^20.1.9",
+    "@tsconfig/node24": "^24.0.4",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.6",
     "del-cli": "^6.0.0",
     "lerna": "^9.0.4",
     "monorepo-package-paths": "^0.4.3",
     "npm-run-all": "^4.1.5",
+    "package-json-type": "^1.1.2",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa",
