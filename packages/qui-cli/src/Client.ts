@@ -19,9 +19,7 @@ export class Client extends OAuth2CLI.Client {
     return await super.authorize();
   }
 
-  protected async refreshTokenGrant(
-    token: OAuth2CLI.Token.Response
-  ): Promise<OAuth2CLI.Token.Response> {
+  protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
     Log.debug('Refreshing expired access token', { token });
     const refreshed = await super.refreshTokenGrant(token);
     Log.debug('Received refreshed access token', { token: refreshed });

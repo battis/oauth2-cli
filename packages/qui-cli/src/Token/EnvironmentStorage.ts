@@ -2,23 +2,13 @@ import { Env } from '@qui-cli/env';
 import { Token } from 'oauth2-cli';
 
 export class EnvironmentStorage implements Token.TokenStorage {
-  public constructor(private tokenEnvVar = 'ACCESS_TOKEN') {}
+  public constructor(private tokenEnvVar = 'REFRESH_TOKEN') {}
 
-  public async load(): Promise<Token.Response | undefined> {
-    try {
-      const response = Token.TokenResponseJSON.parse(
-        (await Env.get({ key: this.tokenEnvVar })) || ''
-      );
-      if (!response.access_token) {
-        throw new Error('No access token');
-      }
-      return response;
-    } catch (_) {
-      return undefined;
-    }
+  public async load(): Promise<string | undefined> {
+    return await Env.get({ key: this.tokenEnvVar });
   }
 
-  public async save(tokens: Token.Response): Promise<void> {
-    await Env.set({ key: this.tokenEnvVar, value: JSON.stringify(tokens) });
+  public async save(refresh_token: string): Promise<void> {
+    await Env.set({ key: this.tokenEnvVar, value: refresh_token });
   }
 }

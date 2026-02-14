@@ -206,20 +206,15 @@ export class Client extends EventEmitter {
     }
   }
 
-  /**
-   * @throws MissingRefreshToken if `refresh_token` not passed or found in
-   *   current token
-   */
   protected async refreshTokenGrant({
-    refresh_token,
+    refresh_token = this.token?.refresh_token,
     inject: request
-  }: RefreshOptions) {
-    if (!this.token && this.storage) {
-      this.token = await this.storage.load();
+  }: RefreshOptions = {}) {
+    if (!refresh_token && !this.token && this.storage) {
+      refresh_token = await this.storage.load();
     }
-    refresh_token = refresh_token || this.token?.refresh_token;
-    if (!refresh_token) {
-      throw new Errors.MissingRefreshToken();
+    if (!refresh_token || refresh_token === '') {
+      return undefined;
     }
     const response = await OpenIDClient.refreshTokenGrant(
       await this.getConfiguration(),
@@ -227,7 +222,7 @@ export class Client extends EventEmitter {
       this.search ? Req.URLSearchParams.from(this.search) : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
-        headers: Utilities.Request.mergeHeaders(this.headers, request?.headers)
+        headers: Req.Headers.merge(this.headers, request?.headers)
       }
     );
     return this.save(response);
@@ -242,16 +237,8 @@ export class Client extends EventEmitter {
   public async getToken({ token, inject: request }: GetTokenOptions = {}) {
     return await this.tokenLock.runExclusive(async () => {
       token = token || this.token;
-      if (!token && this.storage) {
-        this.token = await this.storage.load();
-      }
-      const expiresIn = this.token?.expiresIn();
-      if (!expiresIn) {
-        try {
-          this.token = await this.refreshTokenGrant({ inject: request });
-        } catch (_) {
-          this.token = undefined;
-        }
+      if (!this.token?.expiresIn() || (!token && this.storage)) {
+        this.token = await this.refreshTokenGrant({ inject: request });
       }
       if (!this.token) {
         this.token = await this.authorize({ inject: request });
@@ -266,8 +253,8 @@ export class Client extends EventEmitter {
     if (!token.access_token) {
       throw new Errors.MissingAccessToken();
     }
-    if (this.storage) {
-      await this.storage.save(this.token);
+    if (this.storage && this.token.refresh_token) {
+      await this.storage.save(this.token.refresh_token);
     }
     this.emit(Client.TokenEvent, this.token);
     return this.token;
