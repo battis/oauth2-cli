@@ -8,18 +8,27 @@ Use the qui-cli plugin to build a CLI app
 
 ## [02 configure-options](./02%20configure-options#readme)
 
-undefined
+Configure the `OAuth2` plugin to customize parameters and variables.
 
 ## [03 token-env-storage](./03%20token-env-storage#readme)
 
-undefined
+Store the `refresh_token` in the environment.
 
 ## [04 1password-integration](./04%201password-integration#readme)
 
-undefined
+Secure the local environment by using 1Password secret references.
 
 ## [05 multiple-apis](./05%20multiple-apis#readme)
 
-undefined
+Configure multiple instances of `OAuth2Plugin` to work with multiple APIs.
 
 <!-- end examples-toc -->
+
+## Structuring `qui-cli` apps
+
+Each of these examples is packaged as an installable, runnable app:
+
+- `directories` are defined in package.json (one could just define `bin`, but this way is more flexible).
+- `bin/<command-name>` is executable, has a shebang, and imports the compiled script.
+- [`@qui-cli`](https://www.npmjs.com/search?q=%40qui-cli) plugins are available for quick integration into the app.
+- `src/index.ts` includes a call to `await Core.run()` to initialize the `qui-cli` system before the script logic.

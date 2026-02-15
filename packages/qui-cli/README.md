@@ -13,8 +13,50 @@ npm install @qui-cli/core @oauth2-cli/qui-cli
 
 ## Usage
 
-See [@qui-cli](https://github.com/battis/qui-cli#readme) for more information about quickly building CLI apps.
+`index.ts`
 
-See [examples/qui-cli-plugin](../../examples/qui-cli-plugin) for a sample use of this plugin with an arbitrary API.
+```ts
+import { OAuth2 } from '@oauth2-cli/qui-cli';
+import { Core } from '@qui-cli/core';
 
-See [@oauth2-cli/canvas](https://github.com/groton-school/canvas-cli/tree/main/packages/oauth2-cli/canvas#readme) for an example of extending this plugin for a specific API.
+// initialize the `qui-cli` framework, ideally loading
+await Core.run();
+
+console.log(
+  await OAuth2.requestJSON('https://api.github.com/repos/battis/oauth2-cli')
+);
+```
+
+This assumes that the API credentials are stored in the environment, typically in `CLIENT_ID`, `CLIENT_SECRET`, and `REDIRECT_URI`. The request made to a path rather than a fully-qualified URL is possible if `ISSUER` is also defined. Optionally, an `ACCESS_TOKEN` can be stored in the environment for reuse on future calls.
+
+Once compiled, the plugin can be invoked as a command line app, for example getting the usage instructions (built by `qui-cli` automatically from installed plugins)
+
+```bash
+node dist/index.js -h
+```
+
+Alternatively, the credentials can be passed directly through the command line:
+
+```bash
+node dist/index.js --clientId <...> --clientSecret <...> --redirectUri http://localhost:3000/redirect --issuer https://example.com
+```
+
+Another option is to pass the credentials as part of the plugin configuraton, before the app runs:
+
+```ts
+import { OAuth2 } from '@oauth2-cli/qui-cli';
+import { Core } from '@qui-cli/core';
+
+OAuth2.confgure({
+  credentials: {
+    authorization_endpoint: 'https://github.com/login/oauth/authorize',
+    token_endpoint: 'https://github.com/login/oauth/access_token'
+  }
+});
+
+await Core.run();
+
+console.log(
+  await OAuth2.requestJSON('https://api.github.com/repos/battis/oauth2-cli')
+);
+```

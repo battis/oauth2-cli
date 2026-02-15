@@ -1,8 +1,6 @@
-# Configure multiple APIs at the same time
+# Configure multiple instances of `OAuth2Plugin` to work with multiple APIs
 
-This [script](./src/index.ts) is extends to the [custom-qui-ci](../071%20custom-qui-cli#readme), but rather than importing the default `OAuth2` plugin instance, it instantiates two new instances of `OAuth2Plugin`: `canvas` and `sky` (note that the default package import is also bypassed in this case, to avoid registering the default `OAuth2` instance too@). These are each registered and configured separately.
-
-_Due to timing issues inherent in starting up and shutting down the Express web server, it is advisable to make sure that the redirects for each API are hosted in *different* ports, as in the example._
+This [app](./src/index.ts) is identical to the [configure-options](../02%20configure-options#readme) app, with the addition of a second API configuration. Note that the `OAuth2Plugin` is imported directly from `'@oauth2-cli/qui-cli/dist/OAuth2Plugin.js'` to _avoid_ the default instance of the plugin also being registered. Each of the (unsuppressed) credential parameters needs to be uniquely named.
 
 ## Usage
 

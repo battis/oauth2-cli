@@ -1,6 +1,7 @@
 {
   "name": "@examples/qui-cli_configure-options",
   "private": true,
+  "description": "Configure the `OAuth2` plugin to customize parameters and variables.",
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/qui-cli/02%20configure-options#readme",
   "repository": {
     "type": "git",

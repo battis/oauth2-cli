@@ -30,7 +30,7 @@ Control when in the logic of your script the user is asked to authorize API acce
 
 ## [07 token-file-storage](./07%20token-file-storage#readme)
 
-Persist tokens between runs of your script to reduce the number of authorizations necessary (see [qui-cli/04 token-env-storage](../qui-cli/04%@0token-env-storage#readme) for a more secure option).
+Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-storage](../qui-cli/03%@0token-env-storage#readme) for a more secure option).
 
 <!-- end examples-toc -->
 

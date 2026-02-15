@@ -1,6 +1,6 @@
-# Use the qui-cli plugin customized
+# Store the `refresh_token` in the environment
 
-This [script](./src/index.ts) is identical to the [qui-ci](../061%20qui-cli#readme), except the command line options and environment variable names have been configured to be specific to a particular (Canvas) API.
+This [app](./src/index.ts) is identical to the [basic-use](../01%20basic-use#readme) app, but `EnvironmentStorage` is used to store the APIs refresh token in the environment. See [1password-integraton](../04%201password-integration#readme) for more on how to enhance the security of this approach.
 
 ## Usage
 

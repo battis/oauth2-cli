@@ -1,7 +1,7 @@
 {
   "name": "@examples/oauth2-cli_token-file-storage",
   "private": true,
-  "description": "Persist tokens between runs of your script to reduce the number of authorizations necessary (see [qui-cli/04 token-env-storage](../qui-cli/04%@0token-env-storage#readme) for a more secure option).",
+  "description": "Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-storage](../qui-cli/03%@0token-env-storage#readme) for a more secure option).",
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/examples/oauth2-cli/07%20token-file-storage#readme",
   "repository": {
     "type": "git",

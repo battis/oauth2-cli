@@ -16,10 +16,10 @@
   "scripts": {
     "build": "run-s build:*",
     "build:paths": "monorepo-package-paths -w --author --homepage --repository",
-    "build:compile": "lerna run build",
     "build:scripts": "tsc",
     "build:oauth2-cli-toc": "./scripts/examples-toc ./examples/oauth2-cli",
     "build:qui-cli-toc": "./scripts/examples-toc ./examples/qui-cli",
+    "build:compile": "lerna run build",
     "release": "run-s release:*",
     "release:git": "git push --follow-tags",
     "release:build": "run-s build",

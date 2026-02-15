@@ -1,21 +1,26 @@
-# 1Password secret references in the environment
+# Secure the local environment by using 1Password secret references
 
-This [script](./src/index.ts) is identical to the [qui-ci](../061%20qui-cli#readme), a single additional dependency, [@1password/sdk](https://www.npmjs.com/package/@1password/sdk) has been added. Its presence enables the [@qui-cli/env](https://www.npmjs.com/package/@qui-cli/env) (included as part of the `qui-cli` plugin) to leverage 1Password's secure vault for secret storage. Note that the secrets are stored as 1Password secret references.
-
-_Read more about 1Password secret reference in the environment in [their documentation](https://developer.1password.com/docs/) and [@qui-cli/env's documentation](https://github.com/battis/qui-cli/tree/main/packages/env#1password-integration)._
+This [app](./src/index.ts) is identical to the [configure-options](../02%20configure-options#readme) app, except [`@1password/sdk`](https://www.npmjs.com/package/@1password/sdk) is installed as a peer dependency of [`@qui-cli/env`](https://www.npmjs.com/package/@qui-cli/env), allowing 1Password secret references to be transparently accessed (and updated) in the environment.
 
 ## Usage
 
-Install package dependencies:
+Install package dependencies and compile the example:
 
 ```bash
 npm install
+npm run build
 ```
 
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
-Run the example script (including compiling it and displaying the usage information).
+Command-line usage information is available from the app with theh `-h` flag:
 
 ```bash
-npm run example
+./bin/1password-integration -h
+```
+
+...and the app can be run by invoking it directly:
+
+```bash
+./bin/1password-integration
 ```
