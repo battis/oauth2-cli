@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.5.1...oauth2-cli/0.6.0) (2026-02-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* limit TokenStorage to storing _only_ refresh_tokens
+* improve express shutdown, refactor entire package
+
+### Features
+
+* compatible with @battis/google-cloud-run-to-localhost ([3e449b1](https://github.com/battis/oauth2-cli/commit/3e449b14d546759f7e6543c86350ea83b60a80a7))
+* display authorization starting URL on command line as well as opening browser ([fb72bcf](https://github.com/battis/oauth2-cli/commit/fb72bcffafaf66453f8f8f0f8af4b27ef11827c6))
+* externalize path/port identification to gcrtl ([0f6c28b](https://github.com/battis/oauth2-cli/commit/0f6c28b31a7888eac524b28bcdc9c8eabbf57d91))
+* fallback to package templates if ejs present but no alternative template providedd ([6b05454](https://github.com/battis/oauth2-cli/commit/6b05454976b1fb4144f91ba51fc1c9331f1c0f34))
+* limit TokenStorage to storing _only_ refresh_tokens ([3de9c96](https://github.com/battis/oauth2-cli/commit/3de9c96510d15eebd51a0be7d8df278614541f95))
+
+
+### Bug Fixes
+
+* attempt to authorize and retry when encountering 401 error ([bc75fed](https://github.com/battis/oauth2-cli/commit/bc75fed052b548e41411287f7d98fa78c3f27ee5))
+* improve express shutdown, refactor entire package ([a740313](https://github.com/battis/oauth2-cli/commit/a740313c33d26f07ebab5b282607d8828cf3c3a7))
+
 ## [0.5.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.5.0...oauth2-cli/0.5.1) (2026-01-20)
 
 
