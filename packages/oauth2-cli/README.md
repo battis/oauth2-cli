@@ -99,4 +99,4 @@ class Client {
 
 ## Examples
 
-[Refer to examples for more detailed usage.](https://github.com/battis/oauth2-cli/tree/main/examples#readme)
+[Refer to examples for more detailed usage.](https://github.com/battis/oauth2-cli/tree/main/examples/oauth2-cli#readme)
