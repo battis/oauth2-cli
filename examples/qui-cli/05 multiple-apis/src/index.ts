@@ -64,7 +64,9 @@ drive.configure({
   }
 });
 
+// initialize qui-cli and the OAuth2 plugin from the environment and command line
 await Core.run();
+
 Log.info({
   repo:
     // get this repo (battis/oauth2-cli)
