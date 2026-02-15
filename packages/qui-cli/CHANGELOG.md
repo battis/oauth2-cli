@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.11...qui-cli-plugin/0.6.0) (2026-02-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* limit TokenStorage to storing _only_ refresh_tokens
+* rewritten from scratch to be more easily maintainable
+
+### Features
+
+* limit TokenStorage to storing _only_ refresh_tokens ([3de9c96](https://github.com/battis/oauth2-cli/commit/3de9c96510d15eebd51a0be7d8df278614541f95))
+* rewritten from scratch to be more easily maintainable ([0f764d3](https://github.com/battis/oauth2-cli/commit/0f764d333135ae70bd9b3c4433b7c4a2ef757979))
+
 ## [0.5.11](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.10...qui-cli-plugin/0.5.11) (2026-01-20)
 
 
