@@ -216,7 +216,7 @@ export class Client extends EventEmitter {
     if (!refresh_token || refresh_token === '') {
       return undefined;
     }
-    const response = await OpenIDClient.refreshTokenGrant(
+    const token = await OpenIDClient.refreshTokenGrant(
       await this.getConfiguration(),
       refresh_token,
       this.search ? Req.URLSearchParams.from(this.search) : undefined,
@@ -225,7 +225,7 @@ export class Client extends EventEmitter {
         headers: Req.Headers.merge(this.headers, request?.headers)
       }
     );
-    return this.save(response);
+    return await this.save(token);
   }
 
   /**
