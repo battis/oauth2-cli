@@ -237,7 +237,7 @@ export class Client extends EventEmitter {
   public async getToken({ token, inject: request }: GetTokenOptions = {}) {
     return await this.tokenLock.runExclusive(async () => {
       token = token || this.token;
-      if (!this.token?.expiresIn() || (!token && this.storage)) {
+      if (!this.token?.expiresIn() && this.storage) {
         this.token = await this.refreshTokenGrant({ inject: request });
       }
       if (!this.token) {
