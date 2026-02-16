@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.6.0...qui-cli-plugin/0.6.1) (2026-02-16)
+
+
+### Bug Fixes
+
+* fix accidental regression and re-export unregistered components from OAuth2 ([b5b62bb](https://github.com/battis/oauth2-cli/commit/b5b62bb1735f0e899bf84c83b39e61499ee8da44))
+
 ## [0.6.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.5.11...qui-cli-plugin/0.6.0) (2026-02-15)
 
 
