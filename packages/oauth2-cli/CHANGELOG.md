@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.7.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.6.0...oauth2-cli/0.7.0) (2026-02-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* make more properties of Client accessible to subclasses
+
+### Features
+
+* make more properties of Client accessible to subclasses ([74ef874](https://github.com/battis/oauth2-cli/commit/74ef874804323a9c3c496ddf7b0e24bac9e671e1))
+
 ## [0.6.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.5.1...oauth2-cli/0.6.0) (2026-02-15)
 
 
