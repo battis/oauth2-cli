@@ -25,12 +25,7 @@
     "deploy": "run-s deploy:*",
     "deploy:build": "run-s build",
     "deploy:deploy": "./scripts/deploy -v",
-    "release": "run-s release:*",
-    "release:build": "run-s build",
-    "release:version": "commit-and-tag-version",
-    "release:git": "git push --follow-tags",
-    "release:login": "pnpm login",
-    "release:publish": "pnpm publish --access public"
+    "version": "commit-and-tag-version"
   },
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",
