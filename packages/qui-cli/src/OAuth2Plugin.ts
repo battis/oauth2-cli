@@ -243,10 +243,8 @@ export class OAuth2Plugin<C extends Client = Client> {
     this.configure({ credentials });
   }
 
-  protected instantiateClient(
-    ...args: ConstructorParameters<typeof OAuth2CLI.Client>
-  ): C {
-    return new OAuth2CLI.Client(...args) as C;
+  protected instantiateClient(options: OAuth2CLI.ClientOptions): C {
+    return new OAuth2CLI.Client(options) as C;
   }
 
   public get client(): C {
