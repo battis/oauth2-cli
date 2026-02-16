@@ -62,10 +62,10 @@ class Client {
   // ...
 
   public async request(
-    url: Req.URL.ish,
+    url: requestish.URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
-    headers: Req.Headers.ish = {},
+    headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     // ...
@@ -73,7 +73,7 @@ class Client {
 }
 ```
 
-[`Req.URL.ish`](https://github.com/battis/oauth2-cli/blob/main/packages/oauth2-cli/src/Request/URL.ts#L3) and [`Req.Headers.ish`](https://github.com/battis/oauth2-cli/blob/main/packages/oauth2-cli/src/Request/Headers.ts#L1) are more forgiving types accepting not just those specific types, but reasonable facsimiles of them.
+[`requestish.URL.ish`](https://www.npmjs.com/package/requestish) are more forgiving types accepting not just those specific types, but reasonable facsimiles of them.
 
 ### `requestJSON<T>()`
 
@@ -86,10 +86,10 @@ class Client {
   public async requestJSON<
     T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
   >(
-    url: Req.URL.ish,
+    url: requestish.URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
-    headers: Req.Headers.ish = {},
+    headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     // ...

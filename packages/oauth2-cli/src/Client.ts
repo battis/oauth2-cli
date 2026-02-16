@@ -214,7 +214,7 @@ export class Client extends EventEmitter {
         : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
-        headers: Req.Headers.merge(this.headers, request?.headers)
+        headers: requestish.Headers.merge(this.headers, request?.headers)
       }
     );
     return await this.save(token);
