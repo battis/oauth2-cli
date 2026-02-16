@@ -2,10 +2,11 @@
   "name": "gcrtl",
   "version": "0.1.6",
   "description": "IAP-protected redirect to localhost running as a service on Google Cloud Run",
-  "homepage": "https://github.com/battis/google-cloud-run-to-localhost#readme",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/gcrtl#readme",
   "repository": {
-    "type": "github",
-    "url": "https://github.com/battis/google-cloud-run-to-localhost"
+    "type": "git",
+    "url": "git+https://github.com/battis/oauth2-cli.git",
+    "directory": "packages/gcrtl"
   },
   "license": "GPL-3.0",
   "author": {
