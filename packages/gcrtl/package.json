@@ -1,6 +1,6 @@
 {
   "name": "gcrtl",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "IAP-protected redirect to localhost running as a service on Google Cloud Run",
   "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/gcrtl#readme",
   "repository": {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.7](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.6...gcrtl/0.1.7) (2026-02-16)
+
+
+### Bug Fixes
+
+* relocated repo ([f50a5a8](https://github.com/battis/oauth2-cli/commit/f50a5a8630ca4b583eec890ef6c2ae5f5365e771))
+
 ## [0.1.6](https://github.com/battis/google-cloud-run-to-localhost/compare/v0.1.5...v0.1.6) (2026-02-11)
 
 
