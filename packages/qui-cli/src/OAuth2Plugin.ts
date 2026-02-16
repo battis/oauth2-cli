@@ -282,7 +282,7 @@ export class OAuth2Plugin<C extends Client = Client> {
       }
       this._client = this.instantiateClient({
         credentials: this.credentials,
-        headers: this.inject?.headers,
+        inject: this.inject,
         storage: this.storage
       });
     }
