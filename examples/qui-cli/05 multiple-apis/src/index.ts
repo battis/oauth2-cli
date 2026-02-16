@@ -1,4 +1,4 @@
-import { OAuth2Plugin } from '@oauth2-cli/qui-cli/dist/OAuth2Plugin.js';
+import { OAuth2Plugin } from '@oauth2-cli/qui-cli/dist/OAuth2.js';
 import { Core } from '@qui-cli/core';
 import { Log } from '@qui-cli/log';
 import { register } from '@qui-cli/plugin';
