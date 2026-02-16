@@ -1,0 +1,10 @@
+.*
+/app/
+/coverage/
+/dist/scripts/
+/eslint.config.mjs
+/jest.config.ts
+/scripts/
+/src/
+/tests/
+/tsconfig.json
