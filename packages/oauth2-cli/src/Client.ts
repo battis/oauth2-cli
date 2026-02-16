@@ -19,6 +19,14 @@ export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
 export type ClientOptions = {
   /** Credentials for server access */
   credentials: Credentials.Combined;
+
+  /** Optional request components to inject */
+  inject?: {
+    search?: requestish.URLSearchParams.ish;
+    headers?: requestish.Headers.ish;
+    body?: requestish.Body.ish;
+  };
+
   /**
    * Optional absolute path to EJS view templates directory, see
    * [WebServer.setViews()](./Webserver.ts)
@@ -26,21 +34,6 @@ export type ClientOptions = {
   views?: PathString;
   /** Optional {@link TokenStorage} implementation to manage tokens */
   storage?: Token.TokenStorage;
-  /**
-   * Optional search query parameters to include in all server requests (see
-   * {@link RequestAddons.search})
-   */
-  search?: requestish.URLSearchParams.ish;
-  /**
-   * Optional headers to include in all server requests (see
-   * {@link RequestAddons.headers})
-   */
-  headers?: requestish.Headers.ish;
-  /**
-   * Optional body parameters to include in applicable server requests (see
-   * {@link RequestAddons.body})
-   */
-  body?: requestish.Body.ish;
 };
 
 type RefreshOptions = {
@@ -80,34 +73,23 @@ type GetTokenOptions = {
 export class Client extends EventEmitter {
   public static readonly TokenEvent = 'token';
 
-  private credentials: Credentials.Combined;
-  private config?: OpenIDClient.Configuration;
+  protected credentials: Credentials.Combined;
+  protected config?: OpenIDClient.Configuration;
 
-  private views?: PathString;
+  protected views?: PathString;
+
+  protected inject?: Req.Injection;
 
   private token?: Token.Response;
   private tokenLock = new Mutex();
 
-  private search?: requestish.URLSearchParams.ish;
-  private headers?: requestish.Headers.ish;
-  private body?: requestish.Body.ish;
-
   private storage?: Token.TokenStorage;
 
-  public constructor({
-    credentials,
-    views,
-    search,
-    headers,
-    body,
-    storage
-  }: ClientOptions) {
+  public constructor({ credentials, views, inject, storage }: ClientOptions) {
     super();
     this.credentials = credentials;
     this.views = views;
-    this.search = search;
-    this.headers = headers;
-    this.body = body;
+    this.inject = inject;
     this.storage = storage;
   }
 
@@ -151,8 +133,10 @@ export class Client extends EventEmitter {
 
   protected async getParameters(session: Session) {
     const params =
-      requestish.URLSearchParams.merge(this.search, session.inject?.search) ||
-      new URLSearchParams();
+      requestish.URLSearchParams.merge(
+        this.inject?.search,
+        session.inject?.search
+      ) || new URLSearchParams();
     params.set(
       'redirect_uri',
       requestish.URL.toString(this.credentials.redirect_uri)
@@ -202,7 +186,9 @@ export class Client extends EventEmitter {
           pkceCodeVerifier: session.code_verifier,
           expectedState: session.state
         },
-        this.search ? requestish.URLSearchParams.from(this.search) : undefined
+        this.inject?.search
+          ? requestish.URLSearchParams.from(this.inject.search)
+          : undefined
       );
       await session.resolve(response);
     } catch (error) {
@@ -223,7 +209,9 @@ export class Client extends EventEmitter {
     const token = await OpenIDClient.refreshTokenGrant(
       await this.getConfiguration(),
       refresh_token,
-      this.search ? requestish.URLSearchParams.from(this.search) : undefined,
+      this.inject?.search
+        ? requestish.URLSearchParams.from(this.inject.search)
+        : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
         headers: Req.Headers.merge(this.headers, request?.headers)
@@ -293,11 +281,11 @@ export class Client extends EventEmitter {
         await this.getConfiguration(),
         (await this.getToken()).access_token,
         requestish.URL.from(
-          requestish.URLSearchParams.appendTo(url, this.search || {})
+          requestish.URLSearchParams.appendTo(url, this.inject?.search || {})
         ),
         method,
         body,
-        requestish.Headers.merge(this.headers, headers),
+        requestish.Headers.merge(this.inject?.headers, headers),
         dPoPOptions
       );
     try {

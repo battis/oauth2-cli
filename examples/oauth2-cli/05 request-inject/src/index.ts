@@ -22,7 +22,9 @@ const github = new Client({
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'
   },
-  headers: { 'User-Agent': 'oauth2-cli' }
+  inject: {
+    headers: { 'User-Agent': 'oauth2-cli' }
+  }
 });
 
 // get this repo (battis/oauth2-cli)
