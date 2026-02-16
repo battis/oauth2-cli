@@ -30,7 +30,8 @@
     "oauth4webapi": "^3.8.4",
     "open": "^11.0.0",
     "openid-client": "^6.8.2",
-    "ora": "^9.3.0"
+    "ora": "^9.3.0",
+    "requestish": "workspace:*"
   },
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",

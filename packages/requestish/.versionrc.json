@@ -1,0 +1,5 @@
+{
+  "path": ".",
+  "tag-prefix": "requestish/",
+  "releaseCommitMessageFormat": "chore: requestish@{{currentTag}}"
+}

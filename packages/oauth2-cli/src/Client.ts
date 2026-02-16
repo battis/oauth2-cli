@@ -3,6 +3,7 @@ import { Mutex } from 'async-mutex';
 import { Request } from 'express';
 import { EventEmitter } from 'node:events';
 import * as OpenIDClient from 'openid-client';
+import * as requestish from 'requestish';
 import * as Credentials from './Credentials.js';
 import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
@@ -29,17 +30,17 @@ export type ClientOptions = {
    * Optional search query parameters to include in all server requests (see
    * {@link RequestAddons.search})
    */
-  search?: Req.URLSearchParams.ish;
+  search?: requestish.URLSearchParams.ish;
   /**
    * Optional headers to include in all server requests (see
    * {@link RequestAddons.headers})
    */
-  headers?: Req.Headers.ish;
+  headers?: requestish.Headers.ish;
   /**
    * Optional body parameters to include in applicable server requests (see
    * {@link RequestAddons.body})
    */
-  body?: Req.Body.ish;
+  body?: requestish.Body.ish;
 };
 
 type RefreshOptions = {
@@ -87,9 +88,9 @@ export class Client extends EventEmitter {
   private token?: Token.Response;
   private tokenLock = new Mutex();
 
-  private search?: Req.URLSearchParams.ish;
-  private headers?: Req.Headers.ish;
-  private body?: Req.Body.ish;
+  private search?: requestish.URLSearchParams.ish;
+  private headers?: requestish.Headers.ish;
+  private body?: requestish.Body.ish;
 
   private storage?: Token.TokenStorage;
 
@@ -121,7 +122,7 @@ export class Client extends EventEmitter {
   public async getConfiguration() {
     if (!this.config && this.credentials.issuer) {
       this.config = await OpenIDClient.discovery(
-        Req.URL.from(this.credentials.issuer),
+        requestish.URL.from(this.credentials.issuer),
         this.credentials.client_id,
         { client_secret: this.credentials.client_secret }
       );
@@ -129,11 +130,11 @@ export class Client extends EventEmitter {
     if (!this.config && this.credentials?.authorization_endpoint) {
       this.config = new OpenIDClient.Configuration(
         {
-          issuer: `https://${Req.URL.from(this.credentials.authorization_endpoint).hostname}`,
-          authorization_endpoint: Req.URL.toString(
+          issuer: `https://${requestish.URL.from(this.credentials.authorization_endpoint).hostname}`,
+          authorization_endpoint: requestish.URL.toString(
             this.credentials.authorization_endpoint
           ),
-          token_endpoint: Req.URL.toString(
+          token_endpoint: requestish.URL.toString(
             this.credentials.token_endpoint ||
               this.credentials.authorization_endpoint
           )
@@ -150,9 +151,12 @@ export class Client extends EventEmitter {
 
   protected async getParameters(session: Session) {
     const params =
-      Req.URLSearchParams.merge(this.search, session.inject?.search) ||
+      requestish.URLSearchParams.merge(this.search, session.inject?.search) ||
       new URLSearchParams();
-    params.set('redirect_uri', Req.URL.toString(this.credentials.redirect_uri));
+    params.set(
+      'redirect_uri',
+      requestish.URL.toString(this.credentials.redirect_uri)
+    );
     params.set(
       'code_challenge',
       await OpenIDClient.calculatePKCECodeChallenge(session.code_verifier)
@@ -198,7 +202,7 @@ export class Client extends EventEmitter {
           pkceCodeVerifier: session.code_verifier,
           expectedState: session.state
         },
-        this.search ? Req.URLSearchParams.from(this.search) : undefined
+        this.search ? requestish.URLSearchParams.from(this.search) : undefined
       );
       await session.resolve(response);
     } catch (error) {
@@ -219,7 +223,7 @@ export class Client extends EventEmitter {
     const token = await OpenIDClient.refreshTokenGrant(
       await this.getConfiguration(),
       refresh_token,
-      this.search ? Req.URLSearchParams.from(this.search) : undefined,
+      this.search ? requestish.URLSearchParams.from(this.search) : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
         headers: Req.Headers.merge(this.headers, request?.headers)
@@ -269,14 +273,14 @@ export class Client extends EventEmitter {
    * @param dPoPOptions Optional
    */
   public async request(
-    url: Req.URL.ish,
+    url: requestish.URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
-    headers: Req.Headers.ish = {},
+    headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     try {
-      url = Req.URL.from(url);
+      url = requestish.URL.from(url);
     } catch (error) {
       if (this.credentials.issuer) {
         url = new URL(url, this.credentials.issuer);
@@ -288,10 +292,12 @@ export class Client extends EventEmitter {
       await OpenIDClient.fetchProtectedResource(
         await this.getConfiguration(),
         (await this.getToken()).access_token,
-        Req.URL.from(Req.URLSearchParams.appendTo(url, this.search || {})),
+        requestish.URL.from(
+          requestish.URLSearchParams.appendTo(url, this.search || {})
+        ),
         method,
         body,
-        Req.Headers.merge(this.headers, headers),
+        requestish.Headers.merge(this.headers, headers),
         dPoPOptions
       );
     try {
@@ -326,10 +332,10 @@ export class Client extends EventEmitter {
   public async requestJSON<
     T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
   >(
-    url: Req.URL.ish,
+    url: requestish.URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
-    headers: Req.Headers.ish = {},
+    headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     return await this.toJSON<T>(
@@ -338,15 +344,15 @@ export class Client extends EventEmitter {
   }
 
   public async fetch(
-    input: Req.URL.ish,
+    input: requestish.URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     return await this.request(
       input,
       init?.method,
-      await Req.Body.from(init?.body),
-      Req.Headers.from(init?.headers),
+      await requestish.Body.from(init?.body),
+      requestish.Headers.from(init?.headers),
       dPoPOptions
     );
   }
@@ -354,7 +360,7 @@ export class Client extends EventEmitter {
   public async fetchJSON<
     T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
   >(
-    input: Req.URL.ish,
+    input: requestish.URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {

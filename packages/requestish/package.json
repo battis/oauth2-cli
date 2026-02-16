@@ -1,12 +1,12 @@
 {
-  "name": "@oauth2-cli/qui-cli",
-  "version": "0.6.0",
-  "description": "@qui-cli/plugin wrapper for oauth2-cli",
-  "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/qui-cli#readme",
+  "name": "requestish",
+  "version": "0.0.0",
+  "description": "For when you just want to pass the request data around without having to worry about the structure",
+  "homepage": "https://github.com/battis/oauth2-cli/tree/main/packages/requestish#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/oauth2-cli.git",
-    "directory": "packages/qui-cli"
+    "directory": "packages/requestish"
   },
   "author": {
     "name": "Seth Battis",
@@ -22,27 +22,14 @@
     "build:compile": "tsc",
     "version": "commit-and-tag-version"
   },
-  "dependencies": {
-    "@qui-cli/colors": "^3.2.3",
-    "oauth2-cli": "workspace:*",
-    "requestish": "workspace:*"
-  },
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",
     "@battis/typescript-tricks": "^0.7.7",
-    "@qui-cli/env": "^5.1.1",
-    "@qui-cli/log": "^4.0.3",
-    "@qui-cli/plugin": "^4.1.0",
-    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/recommended": "^1.0.13",
     "commit-and-tag-version": "^12.6.1",
     "del-cli": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "openid-client": "^6.8.2",
     "typescript": "^5.9.3"
-  },
-  "peerDependencies": {
-    "@qui-cli/env-1password": ">=1",
-    "@qui-cli/log": ">=3",
-    "@qui-cli/plugin": ">=3"
   }
 }

@@ -1,5 +1,5 @@
 import { isRecord } from '@battis/typescript-tricks';
-import { FetchBody } from 'openid-client';
+import type { FetchBody } from 'openid-client';
 
 export type ish =
   | FetchBody

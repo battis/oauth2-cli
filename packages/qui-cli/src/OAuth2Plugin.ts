@@ -5,6 +5,7 @@ import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
 import * as Plugin from '@qui-cli/plugin';
 import * as OAuth2CLI from 'oauth2-cli';
+import * as requestish from 'requestish';
 import { Client } from './Client.js';
 
 type CredentialKey =
@@ -121,7 +122,7 @@ export class OAuth2Plugin<C extends Client = Client> {
     this.suppress = hydrate(proposal.suppress, this.suppress);
 
     if (this.credentials?.redirect_uri) {
-      const url = OAuth2CLI.Request.URL.from(this.credentials.redirect_uri);
+      const url = requestish.URL.from(this.credentials.redirect_uri);
       if (
         url.hostname !== 'localhost' &&
         !/^\/https?\/localhost(:\d+)?\//.test(url.pathname)

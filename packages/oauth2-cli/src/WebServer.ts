@@ -3,8 +3,8 @@ import express, { Request, Response } from 'express';
 import * as gcrtl from 'gcrtl';
 import fs from 'node:fs';
 import path from 'node:path';
+import * as requestish from 'requestish';
 import * as Errors from './Errors/index.js';
-import * as Req from './Request/index.js';
 import { Session } from './Session.js';
 
 export type WebServerOptions = {
@@ -60,7 +60,7 @@ export class WebServer implements WebServerInterface {
     this.session = session;
     this.authorization_endpoint = authorize_endpoint;
     this.views = views;
-    const url = Req.URL.from(this.session.redirect_uri);
+    const url = requestish.URL.from(this.session.redirect_uri);
     this.port = url.port;
     if (WebServer.activePorts.includes(this.port)) {
       throw new Errors.PortCollision(url.port);

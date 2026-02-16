@@ -6,6 +6,7 @@ import type {
   FetchBody,
   JsonValue
 } from 'openid-client';
+import * as requestish from 'requestish';
 
 export class Client extends OAuth2CLI.Client {
   public async getConfiguration(): Promise<Configuration> {
@@ -27,10 +28,10 @@ export class Client extends OAuth2CLI.Client {
   }
 
   public async request(
-    url: OAuth2CLI.Request.URL.ish,
+    url: requestish.URL.ish,
     method?: string,
     body?: FetchBody,
-    headers?: OAuth2CLI.Request.Headers.ish,
+    headers?: requestish.Headers.ish,
     dPoPOptions?: DPoPOptions
   ): Promise<Response> {
     Log.debug({ request: { method, url, headers, body, dPoPOptions } });
@@ -46,10 +47,10 @@ export class Client extends OAuth2CLI.Client {
   }
 
   public async requestJSON<T extends JsonValue = JsonValue>(
-    url: OAuth2CLI.Request.URL.ish,
+    url: requestish.URL.ish,
     method?: string,
     body?: FetchBody,
-    headers?: OAuth2CLI.Request.Headers.ish,
+    headers?: requestish.Headers.ish,
     dPoPOptions?: DPoPOptions
   ): Promise<T> {
     const json = await super.requestJSON<T>(
