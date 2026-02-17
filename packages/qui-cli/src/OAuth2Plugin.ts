@@ -1,4 +1,4 @@
-import { URLString } from '@battis/descriptive-types';
+import { PathString, URLString } from '@battis/descriptive-types';
 import { JSONValue } from '@battis/typescript-tricks';
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
@@ -55,6 +55,9 @@ export type Configuration = Plugin.Configuration & {
 
   /** Should a particular credential value _not_ be loaded from the environment? */
   suppress?: Partial<EnvVarSuppression>;
+
+  /** Optional absolute path to EJS view templates directory */
+  views?: PathString;
 };
 
 export class OAuth2Plugin<C extends Client = Client> {
@@ -291,7 +294,9 @@ export class OAuth2Plugin<C extends Client = Client> {
       }
       this._client = this.instantiateClient({
         credentials: this.credentials,
+        base_url: this.base_url,
         inject: this.inject,
+        views: this.views,
         storage: this.storage
       });
     }
