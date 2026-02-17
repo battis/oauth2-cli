@@ -27,6 +27,9 @@ export type ClientOptions = {
     body?: requestish.Body.ish;
   };
 
+  /** Base URL for all non-absolute requests */
+  base_url?: requestish.URL.ish;
+
   /**
    * Optional absolute path to EJS view templates directory, see
    * [WebServer.setViews()](./Webserver.ts)
@@ -76,6 +79,8 @@ export class Client extends EventEmitter {
   protected credentials: Credentials.Combined;
   protected config?: OpenIDClient.Configuration;
 
+  protected base_url?: requestish.URL.ish;
+
   protected views?: PathString;
 
   protected inject?: Req.Injection;
@@ -85,9 +90,16 @@ export class Client extends EventEmitter {
 
   private storage?: Token.TokenStorage;
 
-  public constructor({ credentials, views, inject, storage }: ClientOptions) {
+  public constructor({
+    credentials,
+    base_url,
+    views,
+    inject,
+    storage
+  }: ClientOptions) {
     super();
     this.credentials = credentials;
+    this.base_url = base_url;
     this.views = views;
     this.inject = inject;
     this.storage = storage;
@@ -274,8 +286,8 @@ export class Client extends EventEmitter {
     try {
       url = requestish.URL.from(url);
     } catch (error) {
-      if (this.credentials.issuer) {
-        url = new URL(url, this.credentials.issuer);
+      if (this.base_url || this.credentials.issuer) {
+        url = new URL(url, this.base_url || this.credentials.issuer);
       } else {
         throw error;
       }
