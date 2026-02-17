@@ -23,6 +23,7 @@ const github = new Client({
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'
   },
+  base_url: 'https://api.github.com',
   storage: new Token.FileStorage(
     // Note that an absolute path is required
     path.resolve(import.meta.dirname, '../var/token')
@@ -30,6 +31,4 @@ const github = new Client({
 });
 
 // get this repo (battis/oauth2-cli)
-console.log(
-  await github.requestJSON('https://api.github.com/repos/battis/oauth2-cli')
-);
+console.log(await github.requestJSON('/repos/battis/oauth2-cli'));

@@ -21,7 +21,8 @@ const github = new Client({
     redirect_uri,
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'
-  }
+  },
+  base_url: 'https://api.github.com'
 });
 
 // authorize the Client at the time and place of our choosing
@@ -31,6 +32,4 @@ await github.authorize();
 console.log('And then someting else happens.');
 
 // get this repo (battis/oauth2-cli)
-console.log(
-  await github.requestJSON('https://api.github.com/repos/battis/oauth2-cli')
-);
+console.log(await github.requestJSON('/repos/battis/oauth2-cli'));

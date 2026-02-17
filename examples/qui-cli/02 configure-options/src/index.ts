@@ -23,6 +23,7 @@ OAuth2.configure({
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'
   },
+  base_url: 'https://api.github.com',
 
   // change the name of command-line options (compare with examples/qui-cli/01 basic-use)
   opt: {

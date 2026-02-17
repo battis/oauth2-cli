@@ -21,10 +21,9 @@ const drive = new Client({
     client_secret,
     redirect_uri,
     scope: 'https://www.googleapis.com/auth/drive.metadata.readonly'
-  }
+  },
+  base_url: 'https://www.googleapis.com//drive/v3'
 });
 
 // list the user's files in Google Drive
-console.log(
-  await drive.requestJSON('https://www.googleapis.com/drive/v3/files')
-);
+console.log(await drive.requestJSON('/files'));

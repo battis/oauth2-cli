@@ -21,6 +21,7 @@ github.configure({
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'
   },
+  base_url: 'https://api.github.com',
   man: { heading: 'GitHub API options' },
   opt: {
     client_id: 'ghClientId',
@@ -45,6 +46,7 @@ drive.configure({
     issuer: 'https://accounts.google.com',
     scope: 'https://www.googleapis.com/auth/drive.metadata.readonly'
   },
+  base_url: 'https://www.googleapis.com/drive/v3/',
   man: { heading: 'Google Drive API options' },
   opt: {
     client_id: 'driveClientId',
@@ -70,8 +72,8 @@ await Core.run();
 Log.info({
   repo:
     // get this repo (battis/oauth2-cli)
-    await github.requestJSON('https://api.github.com/repos/battis/oauth2-cli'),
+    await github.requestJSON('/repos/battis/oauth2-cli'),
   files:
     // list the user's files in Google Drive
-    await drive.requestJSON('https://www.googleapis.com/drive/v3/files')
+    await drive.requestJSON('/files')
 });
