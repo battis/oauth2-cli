@@ -79,7 +79,7 @@ export class OAuth2Plugin<C extends Client = Client> {
     heading: 'OAuth 2.0 / Open ID Connect client options'
   };
 
-  private url: Partial<SupportUrls> | undefined = undefined;
+  private url?: Partial<SupportUrls> = undefined;
 
   private hint: Partial<Hints> = {
     redirect_uri: Colors.quotedValue(`"http://localhost:3000/redirect"`)
@@ -96,15 +96,17 @@ export class OAuth2Plugin<C extends Client = Client> {
     scope: 'SCOPE'
   };
 
-  private suppress: Partial<EnvVarSuppression> | undefined = {
+  private suppress?: Partial<EnvVarSuppression> = {
     scope: true
   };
 
-  private inject: OAuth2CLI.Injection | undefined = undefined;
+  private inject?: OAuth2CLI.Injection = undefined;
 
-  private storage?: OAuth2CLI.Token.Storage | undefined = undefined;
+  private views?: PathString = undefined;
 
-  private _client: C | undefined = undefined;
+  private storage?: OAuth2CLI.Token.Storage = undefined;
+
+  private _client?: C = undefined;
 
   public configure(proposal: Configuration = {}) {
     function hydrate<T>(p: T | Partial<T> | undefined, c: T) {
