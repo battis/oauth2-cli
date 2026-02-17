@@ -405,6 +405,77 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  examples/qui-cli/06 api-plugin/plugin-consumer:
+    dependencies:
+      '@1password/sdk':
+        specifier: ^0.3.1
+        version: 0.3.1
+      '@examples/qui-cli_api-plugin_plugin-provider':
+        specifier: workspace:*
+        version: link:../plugin-provider
+      '@qui-cli/core':
+        specifier: ^6.0.0
+        version: 6.0.0(@qui-cli/plugin@4.1.0)
+      '@qui-cli/log':
+        specifier: ^4.0.3
+        version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
+    devDependencies:
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@types/node':
+        specifier: ^24.10.13
+        version: 24.10.13
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  examples/qui-cli/06 api-plugin/plugin-provider:
+    dependencies:
+      '@oauth2-cli/qui-cli':
+        specifier: workspace:*
+        version: link:../../../../packages/qui-cli
+      '@qui-cli/colors':
+        specifier: ^3.2.3
+        version: 3.2.3
+      '@qui-cli/core':
+        specifier: ^6.0.0
+        version: 6.0.0(@qui-cli/plugin@4.1.0)
+      '@qui-cli/log':
+        specifier: ^4.0.3
+        version: 4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))
+      '@qui-cli/plugin':
+        specifier: ^4.1.0
+        version: 4.1.0
+      '@qui-cli/root':
+        specifier: ^3.1.0
+        version: 3.1.0(@qui-cli/plugin@4.1.0)
+    devDependencies:
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@types/node':
+        specifier: ^24.10.13
+        version: 24.10.13
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/gcrtl:
     devDependencies:
       '@battis/descriptive-types':

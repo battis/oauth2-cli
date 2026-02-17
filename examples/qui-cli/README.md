@@ -35,6 +35,10 @@ Secure the local environment by using 1Password secret references.
 
 Configure multiple instances of `OAuth2Plugin` to work with multiple APIs.
 
+## [06 api-plugin](./06%20api-plugin#readme)
+
+Build re-usable @qui-cli/plugins that provide pre-configured access to a specific API.
+
 <!-- end examples-toc -->
 
 ## Structuring `qui-cli` apps

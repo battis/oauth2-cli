@@ -1,14 +1,18 @@
+import { register } from '@qui-cli/plugin';
 import { OAuth2Plugin } from './OAuth2Plugin.js';
 
-export {
-  ClientOptions,
-  Credentials,
-  Injection,
-  Scope,
-  WebServer
-} from 'oauth2-cli';
-export * from './Client.js';
-export * from './OAuth2Plugin.js';
-export * as Token from './Token/index.js';
+const plugin = new OAuth2Plugin();
 
-export const OAuth2 = new OAuth2Plugin();
+// @qui-cli/plugin convenience methods
+export const configure = plugin.configure.bind(plugin);
+export const options = plugin.options.bind(plugin);
+export const init = plugin.options.bind(plugin);
+
+// oauth2-cli convenience methods
+export const client = () => plugin.client;
+export const request = plugin.request.bind(plugin);
+export const requestJSON = plugin.requestJSON.bind(plugin);
+export const fetch = plugin.fetch.bind(plugin);
+export const fetchJSON = plugin.fetchJSON.bind(plugin);
+
+await register(plugin);

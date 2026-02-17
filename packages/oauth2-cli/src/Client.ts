@@ -306,7 +306,13 @@ export class Client extends EventEmitter {
           requestish.URL.toString(url).replace(/^\/?/, '')
         );
       } else {
-        throw error;
+        throw new Error(`Invalid request URL "${url}"`, {
+          cause: {
+            base_url: this.base_url,
+            issuer: this.credentials.issuer,
+            error
+          }
+        });
       }
     }
     const request = async () =>
