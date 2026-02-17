@@ -2,6 +2,7 @@ import { PathString } from '@battis/descriptive-types';
 import { Mutex } from 'async-mutex';
 import { Request } from 'express';
 import { EventEmitter } from 'node:events';
+import path from 'node:path';
 import * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 import * as Credentials from './Credentials.js';
@@ -298,7 +299,11 @@ export class Client extends EventEmitter {
       url = requestish.URL.from(url);
     } catch (error) {
       if (this.base_url || this.credentials.issuer) {
-        url = new URL(url, this.base_url || this.credentials.issuer);
+        url = path.join(
+          // @ts-expect-error 2345 just tested to make sure one of them is defined
+          requestish.URL.toString(this.base_url || this.credentials.issuer),
+          requestish.URL.toString(url).replace(/^\/?/, '')
+        );
       } else {
         throw error;
       }
