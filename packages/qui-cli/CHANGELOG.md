@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.7.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.6.6...qui-cli-plugin/0.7.0) (2026-02-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* clarify subclass groupings and extensibility
+* simplify credentials structure
+* rename Token.TokenStorage to less redundant Token.Storage
+* simplify namespacing of Injection and Scope
+* improved clarity of errors and causes
+* remove option args for secrets
+
+### Features
+
+* add base_url for API requests (but still fall back to issuer, if not present) ([324b071](https://github.com/battis/oauth2-cli/commit/324b0718f6a86b8d29465802a5add7a21cc49192))
+* clarify subclass groupings and extensibility ([4fec372](https://github.com/battis/oauth2-cli/commit/4fec372019603c4bfada0e26d1813b3c196db536))
+* remove option args for secrets ([eaf55ea](https://github.com/battis/oauth2-cli/commit/eaf55ea7f5f1b2ee1fb3f037b9393a4be95bc19a))
+* rename Token.TokenStorage to less redundant Token.Storage ([149d65a](https://github.com/battis/oauth2-cli/commit/149d65ac218a2c230ed8bca76963e44a5a6ff441))
+* simplify credentials structure ([0e95439](https://github.com/battis/oauth2-cli/commit/0e95439a30f78268ddf7363dc4feeb0b1ff0edba))
+* simplify namespacing of Injection and Scope ([b5db750](https://github.com/battis/oauth2-cli/commit/b5db7503f557a0c2092d327742b1bdd82be0edbb))
+
+
+### Bug Fixes
+
+* improved clarity of errors and causes ([9f1ddce](https://github.com/battis/oauth2-cli/commit/9f1ddcec82c3295e39fc8857784634da072e7570))
+* make oauth2-cli peer to allow patches to propogate ([395dfb0](https://github.com/battis/oauth2-cli/commit/395dfb0b89d504dfc1ca92ac23a1ca5722045dda))
+* pass configured views (and base_url) to client ([af8b15f](https://github.com/battis/oauth2-cli/commit/af8b15f359299746cfe4e08c70b28fbd04eabe37))
+* use configured base_url, not just environment variable ([5f82f9d](https://github.com/battis/oauth2-cli/commit/5f82f9d134353bcd54c661189c0666ccc16a040e))
+
 ## [0.6.6](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.6.5...qui-cli-plugin/0.6.6) (2026-02-17)
 
 ## [0.6.5](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.6.4...qui-cli-plugin/0.6.5) (2026-02-16)
