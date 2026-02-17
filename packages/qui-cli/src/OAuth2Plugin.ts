@@ -15,7 +15,8 @@ type CredentialKey =
   | 'redirect_uri'
   | 'authorization_endpoint'
   | 'token_endpoint'
-  | 'scope';
+  | 'scope'
+  | 'base_url';
 
 type EnvironmentVars = Record<CredentialKey, string>;
 type SupportUrls = Record<CredentialKey, URLString>;
@@ -30,6 +31,9 @@ type Usage = {
 export type Configuration = Plugin.Configuration & {
   /** OAuth 2.0/OpenID Connect credential set */
   credentials?: Partial<OAuth2CLI.Credentials.Combined>;
+
+  /** Base URL for all non-absolute requests */
+  base_url?: requestish.URL.ish;
 
   /** Request components to inject into server requests */
   inject?: OAuth2CLI.Injection;
@@ -69,6 +73,8 @@ export class OAuth2Plugin<C extends Client = Client> {
 
   private credentials?: OAuth2CLI.Credentials.Combined;
 
+  private base_url?: requestish.URL.ish;
+
   private man: Usage = {
     heading: 'OAuth 2.0 / Open ID Connect client options'
   };
@@ -83,10 +89,11 @@ export class OAuth2Plugin<C extends Client = Client> {
     issuer: 'ISSUER',
     client_id: 'CLIENT_ID',
     client_secret: 'CLIENT_SECRET',
-    scope: 'SCOPE',
     redirect_uri: 'REDIRECT_URI',
     authorization_endpoint: 'AUTHORIZATION_ENDPOINT',
-    token_endpoint: 'TOKEN_ENDPOINT'
+    token_endpoint: 'TOKEN_ENDPOINT',
+    base_url: 'BASE_URL',
+    scope: 'SCOPE'
   };
 
   private suppress: Partial<EnvVarSuppression> | undefined = {
@@ -115,6 +122,7 @@ export class OAuth2Plugin<C extends Client = Client> {
     }
 
     this.credentials = hydrate(proposal.credentials, this.credentials);
+    this.base_url = Plugin.hydrate(proposal.base_url, this.base_url);
     this.storage = Plugin.hydrate(proposal.storage, this.storage);
     this.inject = hydrate(proposal.inject, this.inject);
     this.man = Plugin.hydrate(proposal.man, this.man);
@@ -171,7 +179,10 @@ export class OAuth2Plugin<C extends Client = Client> {
     const descriptions: Record<CredentialKey, string> = {
       issuer:
         `The OpenID ${Colors.keyword('issuer')} URL is set from the ` +
-        `environment variable ${Colors.varName(this.env.issuer)}, if present`,
+        `environment variable ${Colors.varName(this.env.issuer)}, if present. ` +
+        `The ${Colors.varName(this.env.issuer)} is also used as a base URL for ` +
+        `any relative URL in API requests, unless ` +
+        `${Colors.varName(this.env.base_url)} is defined.`,
       client_id:
         `The OAuth 2.0 ${Colors.keyword('client_id')} is set from the ` +
         `environment variable ${Colors.varName(this.env.client_id)}, if ` +
@@ -195,7 +206,13 @@ export class OAuth2Plugin<C extends Client = Client> {
         `The OAuth 2.0 ${Colors.keyword('token_endpoint')} is set from the ` +
         `environment variable ${Colors.varName(this.env.token_endpoint)}, if ` +
         `present and will fall back to ` +
-        `${Colors.varName(this.env.authorization_endpoint)} if not provided.`
+        `${Colors.varName(this.env.authorization_endpoint)} if not provided.`,
+      base_url:
+        `The base URL to use for API requests is set from the ` +
+        `environment variable ${Colors.varName(this.env.base_url)}, if ` +
+        `present. If ${Colors.varName(this.env.base_url)} is not defined, ` +
+        `${Colors.varName(this.env.issuer)} will be used as a base URL for ` +
+        `relative URL requests.`
     };
 
     return {
@@ -218,14 +235,19 @@ export class OAuth2Plugin<C extends Client = Client> {
 
   public async init(_: Plugin.ExpectedArguments<typeof this.options>) {
     const credentials: Configuration['credentials'] = {};
+    const base_url = await Env.get({
+      key: this.env.base_url
+    });
     for (const key of Object.keys(this.env) as CredentialKey[]) {
-      // FIXME better typing
-      // @ts-expect-error 2322
-      credentials[key] =
-        (this.credentials ? this.credentials[key] : undefined) ||
-        (await Env.get({ key: this.env[key] }));
+      if (key !== 'base_url') {
+        // FIXME better typing
+        // @ts-expect-error 2322
+        credentials[key] =
+          (this.credentials ? this.credentials[key] : undefined) ||
+          (await Env.get({ key: this.env[key] }));
+      }
     }
-    this.configure({ credentials });
+    this.configure({ credentials, base_url });
   }
 
   protected instantiateClient(options: OAuth2CLI.ClientOptions): C {
