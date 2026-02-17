@@ -57,7 +57,7 @@ export class OAuth2Plugin<C extends Client = Client> {
   [key: string]: unknown;
 
   private static names: string[] = [];
-  private static ports: Record<string, string> = {};
+  private static registeredPorts: Record<string, string> = {};
 
   public constructor(public readonly name = '@oauth2-cli/qui-cli') {
     if (OAuth2Plugin.names.includes(name)) {
@@ -150,15 +150,15 @@ export class OAuth2Plugin<C extends Client = Client> {
         );
       }
       if (
-        OAuth2Plugin.ports[url.port] &&
-        OAuth2Plugin.ports[url.port] !== this.name
+        OAuth2Plugin.registeredPorts[url.port] &&
+        OAuth2Plugin.registeredPorts[url.port] !== this.name
       ) {
         Log.warning(
           `The port ${Colors.value(
             url.port
           )} has already been registered to another instance of this plugin ` +
             `named ${Colors.value(
-              OAuth2Plugin.ports[url.port]
+              OAuth2Plugin.registeredPorts[url.port]
             )}. This will likely cause a failure if both instances of the ` +
             `plugin are listening for redirects at relatively proximate ` +
             `moments in time.`
