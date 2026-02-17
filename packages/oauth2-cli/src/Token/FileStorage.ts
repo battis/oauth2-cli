@@ -1,9 +1,9 @@
 import { Mutex } from 'async-mutex';
 import fs from 'node:fs';
 import path from 'node:path';
-import { TokenStorage } from './TokenStorage.js';
+import { Storage } from './Storage.js';
 
-export class FileStorage implements TokenStorage {
+export class FileStorage implements Storage {
   private fileLock = new Mutex();
   private readonly filePath: string;
 

@@ -1,7 +1,7 @@
 import { Env } from '@qui-cli/env';
 import { Token } from 'oauth2-cli';
 
-export class EnvironmentStorage implements Token.TokenStorage {
+export class EnvironmentStorage implements Token.Storage {
   public constructor(private tokenEnvVar = 'REFRESH_TOKEN') {}
 
   public async load(): Promise<string | undefined> {

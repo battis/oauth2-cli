@@ -36,7 +36,7 @@ export type ClientOptions = {
    */
   views?: PathString;
   /** Optional {@link TokenStorage} implementation to manage tokens */
-  storage?: Token.TokenStorage;
+  storage?: Token.Storage;
 };
 
 type RefreshOptions = {
@@ -88,7 +88,7 @@ export class Client extends EventEmitter {
   private token?: Token.Response;
   private tokenLock = new Mutex();
 
-  private storage?: Token.TokenStorage;
+  private storage?: Token.Storage;
 
   public constructor({
     credentials,

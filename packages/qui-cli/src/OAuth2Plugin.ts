@@ -35,7 +35,7 @@ export type Configuration = Plugin.Configuration & {
   inject?: OAuth2CLI.Injection;
 
   /** Refresh token storage service */
-  storage?: OAuth2CLI.Token.TokenStorage;
+  storage?: OAuth2CLI.Token.Storage;
 
   /** CLI usage section header and text */
   man?: Usage;
@@ -95,7 +95,7 @@ export class OAuth2Plugin<C extends Client = Client> {
 
   private inject: OAuth2CLI.Injection | undefined = undefined;
 
-  private storage?: OAuth2CLI.Token.TokenStorage | undefined = undefined;
+  private storage?: OAuth2CLI.Token.Storage | undefined = undefined;
 
   private _client: C | undefined = undefined;
 
