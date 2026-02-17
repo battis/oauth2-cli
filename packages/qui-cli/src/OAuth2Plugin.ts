@@ -32,7 +32,7 @@ export type Configuration = Plugin.Configuration & {
   credentials?: Partial<OAuth2CLI.Credentials.Combined>;
 
   /** Request components to inject into server requests */
-  inject?: OAuth2CLI.Request.Injection;
+  inject?: OAuth2CLI.Injection;
 
   /** Refresh token storage service */
   storage?: OAuth2CLI.Token.TokenStorage;
@@ -93,7 +93,7 @@ export class OAuth2Plugin<C extends Client = Client> {
     scope: true
   };
 
-  private inject: OAuth2CLI.Request.Injection | undefined = undefined;
+  private inject: OAuth2CLI.Injection | undefined = undefined;
 
   private storage?: OAuth2CLI.Token.TokenStorage | undefined = undefined;
 

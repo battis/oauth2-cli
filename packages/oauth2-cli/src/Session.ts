@@ -6,7 +6,7 @@ import open from 'open';
 import * as OpenIDClient from 'openid-client';
 import ora, { Ora } from 'ora';
 import { Client } from './Client.js';
-import * as Req from './Request/index.js';
+import { Injection } from './Injection.js';
 import * as Token from './Token/index.js';
 import * as WebServer from './WebServer.js';
 
@@ -15,7 +15,7 @@ export type SessionOptions = {
   /** See {@link WebServer.setViews Webserver.setViews()} */
   views?: PathString;
   /** Additional request injection for authorization code grant flow */
-  inject?: Req.Injection;
+  inject?: Injection;
 };
 
 export type Resolver = (
@@ -34,7 +34,7 @@ export class Session {
   public readonly state = OpenIDClient.randomState();
 
   /** Additional request injection for Authorization Code Grant request */
-  public readonly inject?: Req.Injection;
+  public readonly inject?: Injection;
 
   private _resolve?: Resolver;
 

@@ -17,6 +17,7 @@ export type Injection = {
    * method allows)
    */
   body?: requestish.Body.ish;
+
   /** Specific scope or scopes */
   scope?: Scope.ish;
 };

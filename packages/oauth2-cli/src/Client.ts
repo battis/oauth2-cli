@@ -5,9 +5,10 @@ import { EventEmitter } from 'node:events';
 import * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 import * as Credentials from './Credentials.js';
-import * as Req from './Request/index.js';
+import { Injection } from './Injection.js';
 import { Session, SessionOptions } from './Session.js';
 import * as Token from './Token/index.js';
+import { Scope } from './index.js';
 
 /**
  * A generic `redirect_uri` to use if the server does not require pre-registered
@@ -47,7 +48,7 @@ type RefreshOptions = {
    */
   refresh_token?: string;
   /** Additional request injection for refresh grant flow */
-  inject?: Req.Injection;
+  inject?: Injection;
 };
 
 type GetTokenOptions = {
@@ -62,7 +63,7 @@ type GetTokenOptions = {
    * Additional request injection for authorization code grant and/or refresh
    * grant flows
    */
-  inject?: Req.Injection;
+  inject?: Injection;
 };
 
 /**
@@ -82,7 +83,7 @@ export class Client extends EventEmitter {
 
   protected views?: PathString;
 
-  protected inject?: Req.Injection;
+  protected inject?: Injection;
 
   private token?: Token.Response;
   private tokenLock = new Mutex();
@@ -172,7 +173,7 @@ export class Client extends EventEmitter {
     params.set('code_challenge_method', 'S256');
     params.set('state', session.state);
     if (this.credentials.scope) {
-      params.set('scope', Req.Scope.toString(this.credentials.scope));
+      params.set('scope', Scope.toString(this.credentials.scope));
     }
     return params;
   }

@@ -1,5 +1,5 @@
 import * as requestish from 'requestish';
-import * as Req from './Request/index.js';
+import { Scope } from './index.js';
 
 export type OAuth2 = {
   client_id: string;
@@ -7,7 +7,7 @@ export type OAuth2 = {
   redirect_uri: requestish.URL.ish;
   authorization_endpoint: requestish.URL.ish;
   token_endpoint: requestish.URL.ish;
-  scope?: Req.Scope.ish;
+  scope?: Scope.ish;
 };
 
 export type OpenID = {
@@ -21,7 +21,7 @@ export type Combined = {
   client_id: string;
   client_secret: string;
   redirect_uri: requestish.URL.ish;
-  scope?: Req.Scope.ish;
+  scope?: Scope.ish;
 } & (
   | {
       issuer?: requestish.URL.ish;
