@@ -240,9 +240,11 @@ export class OAuth2Plugin<C extends Client = Client> {
 
   public async init(_: Plugin.ExpectedArguments<typeof this.options>) {
     const credentials: Configuration['credentials'] = {};
-    const base_url = await Env.get({
-      key: this.env.base_url
-    });
+    const base_url =
+      this.base_url ||
+      (await Env.get({
+        key: this.env.base_url
+      }));
     for (const key of Object.keys(this.env) as CredentialKey[]) {
       if (key !== 'base_url') {
         // FIXME better typing
