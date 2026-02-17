@@ -20,8 +20,7 @@ type CredentialKey =
 type EnvironmentVars = Record<CredentialKey, string>;
 type SupportUrls = Record<CredentialKey, URLString>;
 type Hints = Record<CredentialKey, string>;
-type OptionNames = Record<CredentialKey, string>;
-type OptionSuppression = Record<CredentialKey, boolean>;
+type EnvVarSuppression = Record<CredentialKey, boolean>;
 
 type Usage = {
   heading: string;
@@ -29,17 +28,29 @@ type Usage = {
 };
 
 export type Configuration = Plugin.Configuration & {
+  /** OAuth 2.0/OpenID Connect credential set */
   credentials?: Partial<OAuth2CLI.Credentials.Combined>;
 
+  /** Request components to inject into server requests */
   inject?: OAuth2CLI.Request.Injection;
+
+  /** Refresh token storage service */
   storage?: OAuth2CLI.Token.TokenStorage;
 
+  /** CLI usage section header and text */
   man?: Usage;
-  opt?: Partial<OptionNames>;
+
+  /** Reference URLs for particular credential values */
   url?: Partial<SupportUrls>;
+
+  /** Hint values for particular credential values */
   hint?: Partial<Hints>;
+
+  /** Actual environment variable names for each credential value */
   env?: Partial<EnvironmentVars>;
-  suppress?: Partial<OptionSuppression>;
+
+  /** Should a particular credential value _not_ be loaded from the environment? */
+  suppress?: Partial<EnvVarSuppression>;
 };
 
 export class OAuth2Plugin<C extends Client = Client> {
@@ -59,17 +70,7 @@ export class OAuth2Plugin<C extends Client = Client> {
   private credentials?: OAuth2CLI.Credentials.Combined;
 
   private man: Usage = {
-    heading: 'OAuth 2.0 client options'
-  };
-
-  private opt: OptionNames = {
-    issuer: 'issuer',
-    client_id: 'clientId',
-    client_secret: 'clientSecret',
-    scope: 'scope',
-    redirect_uri: 'redirectUri',
-    authorization_endpoint: 'authorizationEndpoint',
-    token_endpoint: 'tokenEndpoint'
+    heading: 'OAuth 2.0 / Open ID Connect client options'
   };
 
   private url: Partial<SupportUrls> | undefined = undefined;
@@ -88,7 +89,9 @@ export class OAuth2Plugin<C extends Client = Client> {
     token_endpoint: 'TOKEN_ENDPOINT'
   };
 
-  private suppress: Partial<OptionSuppression> | undefined = undefined;
+  private suppress: Partial<EnvVarSuppression> | undefined = {
+    scope: true
+  };
 
   private inject: OAuth2CLI.Request.Injection | undefined = undefined;
 
@@ -115,7 +118,6 @@ export class OAuth2Plugin<C extends Client = Client> {
     this.storage = Plugin.hydrate(proposal.storage, this.storage);
     this.inject = hydrate(proposal.inject, this.inject);
     this.man = Plugin.hydrate(proposal.man, this.man);
-    this.opt = hydrate(proposal.opt, this.opt);
     this.url = hydrate(proposal.url, this.url);
     this.hint = hydrate(proposal.hint, this.hint);
     this.env = hydrate(proposal.env, this.env);
@@ -128,7 +130,7 @@ export class OAuth2Plugin<C extends Client = Client> {
         !/^\/https?\/localhost(:\d+)?\//.test(url.pathname)
       ) {
         Log.warning(
-          `The ${Colors.optionArg(this.opt.redirect_uri)} value ${Colors.url(
+          `The ${Colors.varName(this.env.redirect_uri)} value ${Colors.url(
             this.credentials.redirect_uri
           )} may not work: it ${Colors.keyword('must')} redirect to ${Colors.url(
             'localhost'
@@ -168,75 +170,58 @@ export class OAuth2Plugin<C extends Client = Client> {
   public options(): Plugin.Options {
     const descriptions: Record<CredentialKey, string> = {
       issuer:
-        `OpenID issuer URL. Defaults to environment variable ` +
-        `${Colors.varName(this.env.issuer)}, if present.`,
+        `The OpenID ${Colors.keyword('issuer')} URL is set from the ` +
+        `environment variable ${Colors.varName(this.env.issuer)}, if present`,
       client_id:
-        `OAuth 2.0 client ID. Defaults to environment variable ` +
-        `${Colors.varName(this.env.client_id)}, if present.`,
+        `The OAuth 2.0 ${Colors.keyword('client_id')} is set from the ` +
+        `environment variable ${Colors.varName(this.env.client_id)}, if ` +
+        `present.`,
       client_secret:
-        `OAuth 2.0 client secret. Defaults to environment variable ` +
-        `${Colors.varName(this.env.client_secret)}, if present.`,
+        `The OAuth 2.0 ${Colors.keyword('client_secret')} is set from the ` +
+        `environment variable ${Colors.varName(this.env.client_secret)}, if ` +
+        `present.`,
       scope:
-        `OAuth 2.0 scope. Defaults to environment variable ` +
-        `${Colors.varName(this.env.scope)}, if present.`,
+        `The OAuth 2.0 ${Colors.keyword('scope')} is set from the environment ` +
+        `variable ${Colors.varName(this.env.scope)}, if present.`,
       redirect_uri:
-        `OAuth 2.0 redirect URI, must be to host ${Colors.url('localhost')}. ` +
-        `Defaults to environment variable ` +
-        `${Colors.varName(this.env.redirect_uri)}, if present.`,
+        `The OAuth 2.0 ${Colors.keyword('redirect_uri')}, which must at least ` +
+        `redirect to ${Colors.url('localhost')}, is set from the environment ` +
+        `variable ${Colors.varName(this.env.redirect_uri)}, if present.`,
       authorization_endpoint:
-        `OAuth 2.0 authorization endpoint. Defaults to environment variable ` +
+        `The OAuth 2.0 ${Colors.keyword('authorization_endpoint')} is set ` +
+        `from the environment variable ` +
         `${Colors.varName(this.env.authorization_endpoint)}, if present.`,
       token_endpoint:
-        `OAuth 2.0 token endpoint, will fall back to ` +
-        `${Colors.optionArg(`--${this.opt.authorization_endpoint}`)} if ` +
-        `not provided. Defaults to environment variable ` +
-        `${Colors.varName(this.env.token_endpoint)}, if present.`
+        `The OAuth 2.0 ${Colors.keyword('token_endpoint')} is set from the ` +
+        `environment variable ${Colors.varName(this.env.token_endpoint)}, if ` +
+        `present and will fall back to ` +
+        `${Colors.varName(this.env.authorization_endpoint)} if not provided.`
     };
-
-    const opt: Plugin.Options['opt'] = {};
-    for (const paramName of Object.keys(descriptions) as CredentialKey[]) {
-      if (!this.suppress || !this.suppress[paramName]) {
-        const option: {
-          description: string;
-          hint?: string;
-          secret?: boolean;
-          default?: string;
-        } = { description: descriptions[paramName] };
-        if (this.url && this.url[paramName]) {
-          option.description = `${option.description} See ${Colors.url(this.url[paramName])} for more information.`;
-        }
-        if (this.hint[paramName]) {
-          option.hint = this.hint[paramName];
-        }
-        switch (paramName) {
-          case 'client_id':
-          case 'client_secret':
-            option.secret = true;
-        }
-        const param = this.credentials
-          ? this.credentials[paramName]
-          : undefined;
-        if (typeof param === 'string') {
-          option.default = param;
-        }
-        opt[this.opt[paramName]] = option;
-      }
-    }
 
     return {
       man: [
         { level: 1, text: this.man.heading },
-        ...(this.man.text || []).map((t) => ({ text: t }))
-      ],
-      opt
+        ...(this.man.text || []).map((t) => ({ text: t })),
+        ...(Object.keys(descriptions) as CredentialKey[])
+          .filter((key) => !this.suppress || !this.suppress[key])
+          .map((key) => ({
+            text:
+              descriptions[key] +
+              (this.hint[key] ? ` (e.g. ${this.hint[key]})` : '') +
+              (this.url && this.url[key]
+                ? ` See ${Colors.url(this.url[key])} for more information.`
+                : '')
+          }))
+      ]
     };
   }
 
-  public async init({ values }: Plugin.ExpectedArguments<typeof this.options>) {
+  public async init(_: Plugin.ExpectedArguments<typeof this.options>) {
     const credentials: Configuration['credentials'] = {};
-    for (const key of Object.keys(this.opt) as CredentialKey[]) {
+    for (const key of Object.keys(this.env) as CredentialKey[]) {
+      // FIXME better typing
+      // @ts-expect-error 2322
       credentials[key] =
-        values[this.opt[key]] ||
         (this.credentials ? this.credentials[key] : undefined) ||
         (await Env.get({ key: this.env[key] }));
     }
@@ -251,31 +236,31 @@ export class OAuth2Plugin<C extends Client = Client> {
     if (!this._client) {
       if (!this.credentials?.client_id) {
         throw new Error(
-          `A ${Colors.optionArg(this.opt.client_id)} ${Colors.keyword('must')} be configured.`
+          `A ${Colors.varName(this.env.client_id)} ${Colors.keyword('must')} be configured.`
         );
       }
       if (!this.credentials?.client_secret) {
         throw new Error(
-          `A ${Colors.optionArg(this.opt.client_secret)} ${Colors.keyword('must')} be configured.`
+          `A ${Colors.varName(this.env.client_secret)} ${Colors.keyword('must')} be configured.`
         );
       }
       if (!this.credentials?.redirect_uri) {
         throw new Error(
-          `A ${Colors.optionArg(this.opt.redirect_uri)} ${Colors.keyword('must')} be configured.`
+          `A ${Colors.varName(this.env.redirect_uri)} ${Colors.keyword('must')} be configured.`
         );
       }
       if (!this.credentials?.issuer) {
         if (!this.credentials?.authorization_endpoint) {
           throw new Error(
-            `Either an ${Colors.optionArg(this.opt.issuer)} or ` +
-              `${Colors.optionArg(this.opt.authorization_endpoint)} ` +
+            `Either an ${Colors.varName(this.env.issuer)} or ` +
+              `${Colors.varName(this.env.authorization_endpoint)} ` +
               `${Colors.keyword('must')} be configured.`
           );
         }
         if (!this.credentials?.token_endpoint) {
           throw new Error(
-            `Either an ${Colors.optionArg(this.opt.issuer)} or ` +
-              `${Colors.optionArg(this.opt.token_endpoint)} ` +
+            `Either an ${Colors.varName(this.env.issuer)} or ` +
+              `${Colors.varName(this.env.token_endpoint)} ` +
               `${Colors.keyword('must')} be configured.`
           );
         }
