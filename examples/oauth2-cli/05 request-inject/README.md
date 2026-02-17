@@ -8,13 +8,6 @@ This [script](./src/index.ts) is identical to the [basic-use](../01%20basic-use#
 
 ## Usage
 
-Install package dependencies and compile the example:
-
-```bash
-npm install
-npm run build
-```
-
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
 Run the example script.

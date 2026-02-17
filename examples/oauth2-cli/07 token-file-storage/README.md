@@ -6,13 +6,6 @@ _Note that storing the token in plain text on the local file system is insecure.
 
 ## Usage
 
-Install package dependencies and compile the example:
-
-```bash
-npm install
-npm run build
-```
-
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
 Run the example script.

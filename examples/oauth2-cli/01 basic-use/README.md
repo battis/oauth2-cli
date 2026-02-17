@@ -6,13 +6,6 @@ Note that the example uses [dotenv](https://www.npmjs.com/package/dotenv) to loa
 
 ## Usage
 
-Install package dependencies and compile the example:
-
-```bash
-npm install
-npm run build
-```
-
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
 Run the example script.

@@ -4,13 +4,6 @@ This [script](./src/index.ts) is identical to the [ejs-optional](../02%20ejs-opt
 
 ## Usage
 
-Install package dependencies and compile the example:
-
-```bash
-npm install
-npm run build
-```
-
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
 Run the example script.

@@ -4,13 +4,6 @@ This [app](./src/index.ts) is identical to the [oauth2-cli basic-use](../../oaut
 
 ## Usage
 
-Install package dependencies and compile the example:
-
-```bash
-npm install
-npm run build
-```
-
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
 Command-line usage information is available from the app with theh `-h` flag:

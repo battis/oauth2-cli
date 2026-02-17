@@ -4,13 +4,6 @@ This [app](./src/index.ts) is identical to the [basic-use](../01%20basic-use#rea
 
 ## Usage
 
-Install package dependencies and compile the example:
-
-```bash
-npm install
-npm run build
-```
-
 Configure `.env` using [`.env.example`](./.env.example) for guidance.
 
 Command-line usage information is available from the app with theh `-h` flag:

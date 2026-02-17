@@ -2,6 +2,19 @@
 
 When developing a more full-fledged command-line app, refer to the [`@oauth2-cli/qui-cli` examples](../qui-cli#readme).
 
+## Working inside this monorepo
+
+These examples are packages within a larger monorepo. The monorepo is configured to use [pnpm](https://pnpm.io/) as the package manager and [lerna](https://lerna.js.org/) as the build manager. To run these examples or compile the packages from source:
+
+```bash
+git clone git@github.com:battis/oauth2-cli.git path/to/repo
+cd path/to/repo
+pnpm install
+pnpm run build
+```
+
+That is: clone the repo, set the repo as the current directory, install dependencies, and build the packages in the repo.
+
 <!-- begin examples-toc -->
 
 ## [01 basic-use](./01%20basic-use#readme)
