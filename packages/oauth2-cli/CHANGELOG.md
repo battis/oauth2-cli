@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.8.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.7.3...oauth2-cli/0.8.0) (2026-02-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* clarify subclass groupings and extensibility
+* simplify credentials structure
+* rename Token.TokenStorage to less redundant Token.Storage
+* simplify namespacing of Injection and Scope
+* improved clarity of errors and causes
+
+### Features
+
+* base_url for API requests preempts issuer, if present ([972496a](https://github.com/battis/oauth2-cli/commit/972496a663751c12dce7271b33134c8055d84191))
+* clarify subclass groupings and extensibility ([4fec372](https://github.com/battis/oauth2-cli/commit/4fec372019603c4bfada0e26d1813b3c196db536))
+* rename Token.TokenStorage to less redundant Token.Storage ([149d65a](https://github.com/battis/oauth2-cli/commit/149d65ac218a2c230ed8bca76963e44a5a6ff441))
+* simplify credentials structure ([0e95439](https://github.com/battis/oauth2-cli/commit/0e95439a30f78268ddf7363dc4feeb0b1ff0edba))
+* simplify namespacing of Injection and Scope ([b5db750](https://github.com/battis/oauth2-cli/commit/b5db7503f557a0c2092d327742b1bdd82be0edbb))
+
+
+### Bug Fixes
+
+* export Scope without accidentally registering plugin ([3816537](https://github.com/battis/oauth2-cli/commit/38165376d6581b323cbb141a4923cd5613edeb63))
+* improved clarity of errors and causes ([9f1ddce](https://github.com/battis/oauth2-cli/commit/9f1ddcec82c3295e39fc8857784634da072e7570))
+* treat base_url as true base URL ([8a4b76c](https://github.com/battis/oauth2-cli/commit/8a4b76cb48041e31c7d0a72adb0312febad3ff28))
+
 ## [0.7.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.7.2...oauth2-cli/0.7.3) (2026-02-17)
 
 
