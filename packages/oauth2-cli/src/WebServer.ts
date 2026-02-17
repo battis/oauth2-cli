@@ -4,7 +4,6 @@ import * as gcrtl from 'gcrtl';
 import fs from 'node:fs';
 import path from 'node:path';
 import * as requestish from 'requestish';
-import * as Errors from './Errors/index.js';
 import { Session } from './Session.js';
 
 export type WebServerOptions = {
@@ -63,7 +62,10 @@ export class WebServer implements WebServerInterface {
     const url = requestish.URL.from(this.session.redirect_uri);
     this.port = url.port;
     if (WebServer.activePorts.includes(this.port)) {
-      throw new Errors.PortCollision(url.port);
+      throw new Error(
+        `Another process is already running at http://localhost:${url.port}.`,
+        { cause: { activePorts: WebServer.activePorts } }
+      );
     }
     WebServer.activePorts.push(this.port);
     const app = express();

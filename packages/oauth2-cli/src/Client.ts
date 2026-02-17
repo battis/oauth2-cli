@@ -5,7 +5,6 @@ import { EventEmitter } from 'node:events';
 import * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 import * as Credentials from './Credentials.js';
-import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import { Session, SessionOptions } from './Session.js';
 import * as Token from './Token/index.js';
@@ -114,6 +113,7 @@ export class Client extends EventEmitter {
    *   OpenID discovery fail to generate a complete configuration
    */
   public async getConfiguration() {
+    let error = undefined;
     if (!this.config && this.credentials.issuer) {
       try {
         this.config = await OpenIDClient.discovery(
@@ -121,8 +121,8 @@ export class Client extends EventEmitter {
           this.credentials.client_id,
           { client_secret: this.credentials.client_secret }
         );
-      } catch (_) {
-        // ignore error
+      } catch (e) {
+        error = e;
       }
     }
     if (!this.config && this.credentials?.authorization_endpoint) {
@@ -142,7 +142,15 @@ export class Client extends EventEmitter {
       );
     }
     if (!this.config) {
-      throw new Errors.IndeterminateConfiguration();
+      throw new Error(
+        'The client configuration could not be constructed from provided credentials.',
+        {
+          cause: {
+            credentials: this.credentials,
+            'OpenID configuration result': error
+          }
+        }
+      );
     }
     return this.config;
   }
@@ -259,7 +267,9 @@ export class Client extends EventEmitter {
   protected async save(token: Token.Response) {
     this.token = token;
     if (!token.access_token) {
-      throw new Errors.MissingAccessToken();
+      throw new Error('No access_token in response.', {
+        cause: token
+      });
     }
     if (this.storage && this.token.refresh_token) {
       await this.storage.save(this.token.refresh_token);
@@ -325,7 +335,9 @@ export class Client extends EventEmitter {
     if (response.ok) {
       return (await response.json()) as T;
     } else {
-      throw new Errors.BadResponse(response);
+      throw new Error('The response could not be parsed as JSON.', {
+        cause: response
+      });
     }
   }
 

@@ -6,7 +6,6 @@ import open from 'open';
 import * as OpenIDClient from 'openid-client';
 import ora, { Ora } from 'ora';
 import { Client } from './Client.js';
-import * as Errors from './Errors/index.js';
 import * as Req from './Request/index.js';
 import * as Token from './Token/index.js';
 import * as WebServer from './WebServer.js';
@@ -78,7 +77,7 @@ export class Session {
         if (response) {
           resolve(response);
         } else {
-          reject(new Errors.MissingAccessToken());
+          reject(new Error('Authorization Code Grant response undefined.'));
         }
       };
       const url = gcrtl
