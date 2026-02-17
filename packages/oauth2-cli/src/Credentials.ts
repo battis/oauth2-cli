@@ -1,5 +1,5 @@
 import * as requestish from 'requestish';
-import { Scope } from './index.js';
+import * as Scope from './Scope.js';
 
 export type Credentials = {
   client_id: string;

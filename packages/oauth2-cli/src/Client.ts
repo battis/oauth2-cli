@@ -7,9 +7,9 @@ import * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 import { Credentials } from './Credentials.js';
 import { Injection } from './Injection.js';
+import * as Scope from './Scope.js';
 import { Session, SessionOptions } from './Session.js';
 import * as Token from './Token/index.js';
-import { Scope } from './index.js';
 
 /**
  * A generic `redirect_uri` to use if the server does not require pre-registered
