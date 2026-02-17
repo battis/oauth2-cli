@@ -30,7 +30,7 @@ type Usage = {
 
 export type Configuration = Plugin.Configuration & {
   /** OAuth 2.0/OpenID Connect credential set */
-  credentials?: Partial<OAuth2CLI.Credentials.Combined>;
+  credentials?: Partial<OAuth2CLI.Credentials>;
 
   /** Base URL for all non-absolute requests */
   base_url?: requestish.URL.ish;
@@ -71,7 +71,7 @@ export class OAuth2Plugin<C extends Client = Client> {
     }
   }
 
-  private credentials?: OAuth2CLI.Credentials.Combined;
+  private credentials?: OAuth2CLI.Credentials;
 
   private base_url?: requestish.URL.ish;
 

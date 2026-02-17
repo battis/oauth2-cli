@@ -5,7 +5,7 @@ import { EventEmitter } from 'node:events';
 import path from 'node:path';
 import * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
-import * as Credentials from './Credentials.js';
+import { Credentials } from './Credentials.js';
 import { Injection } from './Injection.js';
 import { Session, SessionOptions } from './Session.js';
 import * as Token from './Token/index.js';
@@ -19,7 +19,7 @@ export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
 
 export type ClientOptions = {
   /** Credentials for server access */
-  credentials: Credentials.Combined;
+  credentials: Credentials;
 
   /** Optional request components to inject */
   inject?: {
@@ -77,14 +77,15 @@ type GetTokenOptions = {
 export class Client extends EventEmitter {
   public static readonly TokenEvent = 'token';
 
-  protected credentials: Credentials.Combined;
-  protected config?: OpenIDClient.Configuration;
+  protected credentials: Credentials;
 
   protected base_url?: requestish.URL.ish;
 
-  protected views?: PathString;
+  protected config?: OpenIDClient.Configuration;
 
   protected inject?: Injection;
+
+  protected views?: PathString;
 
   private token?: Token.Response;
   private tokenLock = new Mutex();
@@ -300,7 +301,7 @@ export class Client extends EventEmitter {
     } catch (error) {
       if (this.base_url || this.credentials.issuer) {
         url = path.join(
-          // @ts-expect-error 2345 just tested to make sure one of them is defined
+          // @ts-expect-error 2345 TS, I _just_ tested this!
           requestish.URL.toString(this.base_url || this.credentials.issuer),
           requestish.URL.toString(url).replace(/^\/?/, '')
         );
