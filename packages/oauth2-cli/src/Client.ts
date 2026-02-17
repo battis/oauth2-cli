@@ -103,11 +103,15 @@ export class Client extends EventEmitter {
    */
   public async getConfiguration() {
     if (!this.config && this.credentials.issuer) {
-      this.config = await OpenIDClient.discovery(
-        requestish.URL.from(this.credentials.issuer),
-        this.credentials.client_id,
-        { client_secret: this.credentials.client_secret }
-      );
+      try {
+        this.config = await OpenIDClient.discovery(
+          requestish.URL.from(this.credentials.issuer),
+          this.credentials.client_id,
+          { client_secret: this.credentials.client_secret }
+        );
+      } catch (_) {
+        // ignore error
+      }
     }
     if (!this.config && this.credentials?.authorization_endpoint) {
       this.config = new OpenIDClient.Configuration(
