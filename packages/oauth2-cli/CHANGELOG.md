@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.8.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.1...oauth2-cli/0.8.2) (2026-02-18)
+
+
+### Features
+
+* isAuthorized() ([56b0436](https://github.com/battis/oauth2-cli/commit/56b0436d98b9d9f213518e806ead846321180a63))
+
+
+### Bug Fixes
+
+* block thread until interactive authorization complete ([fb9987e](https://github.com/battis/oauth2-cli/commit/fb9987e41a5a8f129955bc3e88ab17994860091b)), closes [#22](https://github.com/battis/oauth2-cli/issues/22)
+
 ## [0.8.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.0...oauth2-cli/0.8.1) (2026-02-18)
 
 
