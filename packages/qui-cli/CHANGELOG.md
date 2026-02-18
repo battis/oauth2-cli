@@ -2,29 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [0.7.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.1...qui-cli-plugin/0.7.2) (2026-02-18)
+## [0.7.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.2...qui-cli-plugin/0.7.3) (2026-02-18)
 
+Incorporate fixes from oauth2-cli@0.8.2
+
+## [0.7.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.1...qui-cli-plugin/0.7.2) (2026-02-18)
 
 ### Features
 
-* `Unregistered` namespace for convenient extension ([0889d98](https://github.com/battis/oauth2-cli/commit/0889d98c26fd50cb8bf6485db2df39ebd1fb2b39))
-
+- `Unregistered` namespace for convenient extension ([0889d98](https://github.com/battis/oauth2-cli/commit/0889d98c26fd50cb8bf6485db2df39ebd1fb2b39))
 
 ### Bug Fixes
 
-* injected usage documentation follows generated usage documentation ([b8b0640](https://github.com/battis/oauth2-cli/commit/b8b064028502e058f9a2b890bd408f8458a2db8e))
+- injected usage documentation follows generated usage documentation ([b8b0640](https://github.com/battis/oauth2-cli/commit/b8b064028502e058f9a2b890bd408f8458a2db8e))
 
 ## [0.7.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.0...qui-cli-plugin/0.7.1) (2026-02-18)
 
-
 ### Features
 
-* provide parameterized credentials with simplified typing ([5a92c67](https://github.com/battis/oauth2-cli/commit/5a92c67dbd4ab52fa4f0b02a910e788f5ae67adb))
-
+- provide parameterized credentials with simplified typing ([5a92c67](https://github.com/battis/oauth2-cli/commit/5a92c67dbd4ab52fa4f0b02a910e788f5ae67adb))
 
 ### Bug Fixes
 
-* simplify dependency hierarchy ([0a72c5d](https://github.com/battis/oauth2-cli/commit/0a72c5df3c814e63ad001a2a15fa0bf7ab72b195))
+- simplify dependency hierarchy ([0a72c5d](https://github.com/battis/oauth2-cli/commit/0a72c5df3c814e63ad001a2a15fa0bf7ab72b195))
 
 ## [0.7.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.6.6...qui-cli-plugin/0.7.0) (2026-02-17)
 
