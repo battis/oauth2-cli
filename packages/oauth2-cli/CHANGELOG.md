@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.8.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.0...oauth2-cli/0.8.1) (2026-02-18)
+
+
+### Features
+
+* provide parameterized credentials with simplified typing ([5a92c67](https://github.com/battis/oauth2-cli/commit/5a92c67dbd4ab52fa4f0b02a910e788f5ae67adb))
+
 ## [0.8.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.7.3...oauth2-cli/0.8.0) (2026-02-17)
 
 ### ⚠ BREAKING CHANGES
