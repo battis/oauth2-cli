@@ -35,6 +35,9 @@ export const DEFAULT_AUTHORIZE_ENDPOINT = '/oauth2-cli/authorize';
 export interface WebServerInterface {
   /** See {@link WebServerOptions} */
   readonly authorization_endpoint: PathString;
+
+  /** Shut down web server */
+  close(): Promise<void>;
 }
 
 /**
@@ -126,6 +129,7 @@ export class WebServer implements WebServerInterface {
     const authorization_url = await this.session.getAuthorizationUrl();
     if (!(await this.render(res, 'authorize.ejs', { authorization_url }))) {
       res.redirect(authorization_url);
+      res.end();
     }
   }
 
@@ -140,17 +144,19 @@ export class WebServer implements WebServerInterface {
       if (!(await this.render(res, 'error.ejs', { error }))) {
         res.send(error);
       }
-    } finally {
-      this.close();
     }
   }
 
-  /** Close server */
+  /** Shut down web server */
   public async close() {
     return new Promise<void>((resolve, reject) => {
-      this.server.close((err?: Error) => {
-        if (err) {
-          reject(err);
+      this.server.close((cause?: Error) => {
+        if (cause) {
+          reject(
+            new Error('Error shutting down out-of-band redirect web server', {
+              cause
+            })
+          );
         } else {
           WebServer.activePorts.splice(
             WebServer.activePorts.indexOf(this.port),

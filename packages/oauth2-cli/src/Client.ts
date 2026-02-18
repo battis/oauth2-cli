@@ -217,20 +217,28 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
 
   public async handleAuthorizationCodeRedirect(req: Request, session: Session) {
     try {
-      const response = await OpenIDClient.authorizationCodeGrant(
-        await this.getConfiguration(),
-        new URL(req.url, this.redirect_uri),
-        {
-          pkceCodeVerifier: session.code_verifier,
-          expectedState: session.state
-        },
-        this.inject?.search
-          ? requestish.URLSearchParams.from(this.inject.search)
-          : undefined
+      /**
+       * Do _NOT_ await this promise: the WebServer needs to send the
+       * authorization complete response asynchronously before this can resolve,
+       * and awaiting session.resolve() will block that response.
+       */
+      session.resolve(
+        await OpenIDClient.authorizationCodeGrant(
+          await this.getConfiguration(),
+          new URL(req.url, this.redirect_uri),
+          {
+            pkceCodeVerifier: session.code_verifier,
+            expectedState: session.state
+          },
+          this.inject?.search
+            ? requestish.URLSearchParams.from(this.inject.search)
+            : undefined
+        )
       );
-      await session.resolve(response);
-    } catch (error) {
-      await session.resolve(undefined, error as Error);
+    } catch (cause) {
+      session.reject(
+        new Error('Error making Authorization Code Grant request', { cause })
+      );
     }
   }
 

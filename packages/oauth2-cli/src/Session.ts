@@ -2,7 +2,6 @@ import { PathString } from '@battis/descriptive-types';
 import { Colors } from '@qui-cli/colors';
 import { Request } from 'express';
 import * as gcrtl from 'gcrtl';
-import open from 'open';
 import * as OpenIDClient from 'openid-client';
 import ora, { Ora } from 'ora';
 import { Client } from './Client.js';
@@ -18,9 +17,8 @@ export type SessionOptions = {
   inject?: Injection;
 };
 
-export type Resolver = (
-  response?: Token.Response,
-  error?: Error
+export type SessionResolver = (
+  response: Token.Response
 ) => void | Promise<void>;
 
 export class Session {
@@ -36,9 +34,9 @@ export class Session {
   /** Additional request injection for Authorization Code Grant request */
   public readonly inject?: Injection;
 
-  private _resolve?: Resolver;
+  private spinner: Ora;
 
-  private spinner?: Ora;
+  private _resolve?: SessionResolver;
 
   /**
    * Method that resolves or rejects the promise returned from the
@@ -51,14 +49,19 @@ export class Session {
     return this._resolve;
   }
 
+  public reject(error: Error) {
+    throw error;
+  }
+
   public constructor({ client, views, inject: request }: SessionOptions) {
+    this.spinner = ora('Awaiting interactive authorization').start();
     this.client = client;
     this.inject = request;
-    this.outOfBandRedirectServer = this.createWebServer({ views });
+    this.outOfBandRedirectServer = this.instantiateWebServer({ views });
   }
 
   /** Instantiate the web server that will listen for the out-of-band redirect */
-  public createWebServer(
+  protected instantiateWebServer(
     options: Omit<WebServer.WebServerOptions, 'session'>
   ): WebServer.WebServerInterface {
     return new WebServer.WebServer({ session: this, ...options });
@@ -66,30 +69,48 @@ export class Session {
 
   /**
    * Trigger the start of the Authorization Code Grant flow, returnig a Promise
-   * that will resolve into the eventual token
+   * that will resolve into the eventual token. This will close the out-of-band
+   * redirect server that creating the session started.
    */
-  public authorizationCodeGrant() {
-    return new Promise<Token.Response>((resolve, reject) => {
-      this._resolve = async (response, error) => {
-        if (error) {
-          reject(error);
-        }
-        if (response) {
-          resolve(response);
-        } else {
-          reject(new Error('Authorization Code Grant response undefined.'));
-        }
-      };
-      const url = gcrtl
-        .expand(
-          this.outOfBandRedirectServer.authorization_endpoint,
-          this.client.redirect_uri
-        )
-        .toString();
-      this.spinner = ora(
-        `Waiting for interactive authorization at ${Colors.url(url)}`
-      ).start();
-      open(url);
+  public async authorizationCodeGrant() {
+    return await new Promise<Token.Response>((resolve, reject) => {
+      try {
+        this._resolve = (response) => {
+          let closed = false;
+          this.spinner.text =
+            'Waiting for out-of-band redirect server to shut down';
+          this.outOfBandRedirectServer.close().then(() => {
+            closed = true;
+            this.spinner.succeed('Interactive authorization complete');
+            resolve(response);
+          });
+          setTimeout(() => {
+            if (!closed) {
+              this.spinner.text =
+                'Still waiting for out-of-band redirect server to shut down.\n' +
+                '  Your browser may be holding the connection to the server open.\n' +
+                '  Please close the "Authorization Complete" tab in your browser.\n\n' +
+                '    If you are browsing in Chrome, close the window.\n' +
+                '    If you are browsing in Opera, quit the browser.';
+            }
+          }, 10000);
+        };
+        const url = gcrtl
+          .expand(
+            this.outOfBandRedirectServer.authorization_endpoint,
+            this.client.redirect_uri
+          )
+          .toString();
+        //open(url);
+        this.spinner.text = `Please continue interactive authorization at ${Colors.url(url)} in your browser`;
+      } catch (cause) {
+        this.spinner.text =
+          'Waiting for out-of-band redirect server to shut down';
+        this.outOfBandRedirectServer.close().then(() => {
+          this.spinner.fail('Interactive authorization failed');
+          reject(new Error('Error in Authorization Code flow', { cause }));
+        });
+      }
     });
   }
 
@@ -107,7 +128,8 @@ export class Session {
    * Code Grant flow
    */
   public async handleAuthorizationCodeRedirect(req: Request) {
-    this.spinner?.succeed('Interactive authorization begun');
+    this.spinner.text =
+      'Completing access token request with provided authorization code';
     return await this.client.handleAuthorizationCodeRedirect(req, this);
   }
 }
