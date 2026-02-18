@@ -4,12 +4,12 @@ import { GitHubPlugin } from './GitHubPlugin.js';
 const plugin = new GitHubPlugin();
 
 // @qui-cli/plugin convenience methods
-export const configure = plugin.configure.bind(plugin);
+export const configure: typeof plugin.configure = plugin.configure.bind(plugin);
 export const options = plugin.options.bind(plugin);
 export const init = plugin.options.bind(plugin);
 
 // oauth2-cli convenience methods
-export const client = () => plugin.client;
+export const client: () => typeof plugin.client = () => plugin.client;
 
 /**
  * N.B. both the `typeof` typing to mollify typescript (since the parameter

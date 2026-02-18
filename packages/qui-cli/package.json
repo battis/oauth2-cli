@@ -41,7 +41,7 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@qui-cli/env-1password": ">=1",
+    "@qui-cli/env": ">=5",
     "@qui-cli/log": ">=3",
     "@qui-cli/plugin": ">=3",
     "oauth2-cli": "0.8.x"

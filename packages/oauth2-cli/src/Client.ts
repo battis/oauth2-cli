@@ -1,4 +1,5 @@
 import { PathString } from '@battis/descriptive-types';
+import { JSONValue } from '@battis/typescript-tricks';
 import { Mutex } from 'async-mutex';
 import { Request } from 'express';
 import { EventEmitter } from 'node:events';
@@ -17,9 +18,9 @@ import * as Token from './Token/index.js';
  */
 export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
 
-export type ClientOptions = {
+export type ClientOptions<C extends Credentials = Credentials> = {
   /** Credentials for server access */
-  credentials: Credentials;
+  credentials: C;
 
   /** Optional request components to inject */
   inject?: {
@@ -74,10 +75,10 @@ type GetTokenOptions = {
  *
  * Emits {@link Client.TokenEvent} whenever a new access token is received
  */
-export class Client extends EventEmitter {
+export class Client<C extends Credentials = Credentials> extends EventEmitter {
   public static readonly TokenEvent = 'token';
 
-  protected credentials: Credentials;
+  protected credentials: C;
 
   protected base_url?: requestish.URL.ish;
 
@@ -98,7 +99,7 @@ export class Client extends EventEmitter {
     views,
     inject,
     storage
-  }: ClientOptions) {
+  }: ClientOptions<C>) {
     super();
     this.credentials = credentials;
     this.base_url = base_url;
@@ -344,9 +345,9 @@ export class Client extends EventEmitter {
     }
   }
 
-  private async toJSON<T extends OpenIDClient.JsonValue>(response: Response) {
+  private async toJSON<J extends JSONValue>(response: Response) {
     if (response.ok) {
-      return (await response.json()) as T;
+      return (await response.json()) as J;
     } else {
       throw new Error('The response could not be parsed as JSON.', {
         cause: response
@@ -356,18 +357,16 @@ export class Client extends EventEmitter {
 
   /**
    * Returns the result of {@link request} as a parsed JSON object, optionally
-   * typed as `T`
+   * typed as `J`
    */
-  public async requestJSON<
-    T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
-  >(
+  public async requestJSON<J extends JSONValue = JSONValue>(
     url: requestish.URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    return await this.toJSON<T>(
+    return await this.toJSON<J>(
       await this.request(url, method, body, headers, dPoPOptions)
     );
   }
@@ -386,13 +385,11 @@ export class Client extends EventEmitter {
     );
   }
 
-  public async fetchJSON<
-    T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
-  >(
+  public async fetchJSON<J extends JSONValue = JSONValue>(
     input: requestish.URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    return await this.toJSON<T>(await this.fetch(input, init, dPoPOptions));
+    return await this.toJSON<J>(await this.fetch(input, init, dPoPOptions));
   }
 }

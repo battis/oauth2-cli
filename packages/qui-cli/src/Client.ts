@@ -1,15 +1,13 @@
+import { JSONValue } from '@battis/typescript-tricks';
 import { Log } from '@qui-cli/log';
 import * as OAuth2CLI from 'oauth2-cli';
-import type {
-  Configuration,
-  DPoPOptions,
-  FetchBody,
-  JsonValue
-} from 'openid-client';
+import type * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 
-export class Client extends OAuth2CLI.Client {
-  public async getConfiguration(): Promise<Configuration> {
+export class Client<
+  C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
+> extends OAuth2CLI.Client<C> {
+  public async getConfiguration(): Promise<OpenIDClient.Configuration> {
     const config = await super.getConfiguration();
     Log.debug('OAuth 2.0 configuration', config);
     return config;
@@ -30,9 +28,9 @@ export class Client extends OAuth2CLI.Client {
   public async request(
     url: requestish.URL.ish,
     method?: string,
-    body?: FetchBody,
+    body?: OpenIDClient.FetchBody,
     headers?: requestish.Headers.ish,
-    dPoPOptions?: DPoPOptions
+    dPoPOptions?: OpenIDClient.DPoPOptions
   ): Promise<Response> {
     Log.debug({ request: { method, url, headers, body, dPoPOptions } });
     const response = await super.request(
@@ -46,14 +44,14 @@ export class Client extends OAuth2CLI.Client {
     return response;
   }
 
-  public async requestJSON<T extends JsonValue = JsonValue>(
+  public async requestJSON<J extends JSONValue = JSONValue>(
     url: requestish.URL.ish,
     method?: string,
-    body?: FetchBody,
+    body?: OpenIDClient.FetchBody,
     headers?: requestish.Headers.ish,
-    dPoPOptions?: DPoPOptions
-  ): Promise<T> {
-    const json = await super.requestJSON<T>(
+    dPoPOptions?: OpenIDClient.DPoPOptions
+  ): Promise<J> {
+    const json = await super.requestJSON<J>(
       url,
       method,
       body,

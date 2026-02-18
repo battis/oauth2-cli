@@ -28,9 +28,11 @@ type Usage = {
   text?: string[];
 };
 
-export type Configuration = Plugin.Configuration & {
+export type Configuration<
+  C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
+> = Plugin.Configuration & {
   /** OAuth 2.0/OpenID Connect credential set */
-  credentials?: Partial<OAuth2CLI.Credentials>;
+  credentials?: Partial<C>;
 
   /** Base URL for all non-absolute requests */
   base_url?: requestish.URL.ish;
@@ -60,7 +62,10 @@ export type Configuration = Plugin.Configuration & {
   views?: PathString;
 };
 
-export class OAuth2Plugin<C extends Client = Client> {
+export class OAuth2Plugin<
+  C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials,
+  L extends Client<C> = Client<C>
+> {
   [key: string]: unknown;
 
   private static names: string[] = [];
@@ -74,7 +79,7 @@ export class OAuth2Plugin<C extends Client = Client> {
     }
   }
 
-  private credentials?: OAuth2CLI.Credentials;
+  private credentials?: C;
 
   private base_url?: requestish.URL.ish;
 
@@ -109,9 +114,9 @@ export class OAuth2Plugin<C extends Client = Client> {
 
   private storage?: OAuth2CLI.Token.Storage = undefined;
 
-  private _client?: C = undefined;
+  private _client?: L = undefined;
 
-  public configure(proposal: Configuration = {}) {
+  public configure(proposal: Configuration<C> = {}) {
     function hydrate<T>(p: T | Partial<T> | undefined, c: T) {
       if (p) {
         for (const k of Object.keys(p) as (keyof typeof p)[]) {
@@ -239,7 +244,7 @@ export class OAuth2Plugin<C extends Client = Client> {
   }
 
   public async init(_: Plugin.ExpectedArguments<typeof this.options>) {
-    const credentials: Configuration['credentials'] = {};
+    const credentials: Configuration<C>['credentials'] = {};
     const base_url =
       this.base_url ||
       (await Env.get({
@@ -257,11 +262,11 @@ export class OAuth2Plugin<C extends Client = Client> {
     this.configure({ credentials, base_url });
   }
 
-  protected instantiateClient(options: OAuth2CLI.ClientOptions): C {
-    return new OAuth2CLI.Client(options) as C;
+  protected instantiateClient(options: OAuth2CLI.ClientOptions<C>): L {
+    return new OAuth2CLI.Client<C>(options) as L;
   }
 
-  public get client(): C {
+  public get client(): L {
     if (!this._client) {
       if (!this.credentials?.client_id) {
         throw new Error(
@@ -305,22 +310,22 @@ export class OAuth2Plugin<C extends Client = Client> {
     return this._client;
   }
 
-  public request(...args: Parameters<OAuth2CLI.Client['request']>) {
+  public request(...args: Parameters<OAuth2CLI.Client<C>['request']>) {
     return this.client.request(...args);
   }
 
   public requestJSON<T extends JSONValue>(
-    ...args: Parameters<OAuth2CLI.Client['requestJSON']>
+    ...args: Parameters<OAuth2CLI.Client<C>['requestJSON']>
   ) {
     return this.client.requestJSON<T>(...args);
   }
 
-  public fetch(...args: Parameters<OAuth2CLI.Client['fetch']>) {
+  public fetch(...args: Parameters<OAuth2CLI.Client<C>['fetch']>) {
     return this.client.fetch(...args);
   }
 
   public fetchJSON<T extends JSONValue>(
-    ...args: Parameters<OAuth2CLI.Client['fetchJSON']>
+    ...args: Parameters<OAuth2CLI.Client<C>['fetchJSON']>
   ) {
     return this.client.fetchJSON<T>(...args);
   }
