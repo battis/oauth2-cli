@@ -228,7 +228,6 @@ export class OAuth2Plugin<
     return {
       man: [
         { level: 1, text: this.man.heading },
-        ...(this.man.text || []).map((t) => ({ text: t })),
         ...(Object.keys(descriptions) as CredentialKey[])
           .filter((key) => !this.suppress || !this.suppress[key])
           .map((key) => ({
@@ -238,7 +237,8 @@ export class OAuth2Plugin<
               (this.url && this.url[key]
                 ? ` See ${Colors.url(this.url[key])} for more information.`
                 : '')
-          }))
+          })),
+        ...(this.man.text || []).map((t) => ({ text: t }))
       ]
     };
   }
