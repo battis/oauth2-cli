@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.7.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.0...qui-cli-plugin/0.7.1) (2026-02-18)
+
+
+### Features
+
+* provide parameterized credentials with simplified typing ([5a92c67](https://github.com/battis/oauth2-cli/commit/5a92c67dbd4ab52fa4f0b02a910e788f5ae67adb))
+
+
+### Bug Fixes
+
+* simplify dependency hierarchy ([0a72c5d](https://github.com/battis/oauth2-cli/commit/0a72c5df3c814e63ad001a2a15fa0bf7ab72b195))
+
 ## [0.7.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.6.6...qui-cli-plugin/0.7.0) (2026-02-17)
 
 ### ⚠ BREAKING CHANGES
