@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.7.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.1...qui-cli-plugin/0.7.2) (2026-02-18)
+
+
+### Features
+
+* `Unregistered` namespace for convenient extension ([0889d98](https://github.com/battis/oauth2-cli/commit/0889d98c26fd50cb8bf6485db2df39ebd1fb2b39))
+
+
+### Bug Fixes
+
+* injected usage documentation follows generated usage documentation ([b8b0640](https://github.com/battis/oauth2-cli/commit/b8b064028502e058f9a2b890bd408f8458a2db8e))
+
 ## [0.7.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.0...qui-cli-plugin/0.7.1) (2026-02-18)
 
 
