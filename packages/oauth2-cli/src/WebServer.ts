@@ -21,6 +21,16 @@ export type WebServerOptions = {
    */
 
   authorize_endpoint?: PathString;
+
+  /**
+   * The number of milliseconds of inactivity before a socket is presumed to
+   * have timed out. This can be reduced to limit potential wait times during
+   * interactive authentication, but must still be long enough to allow time for
+   * the authorization code to be exchanged for an access token.
+   *
+   * Defaults to 1000 milliseconds
+   */
+  timeout?: number;
 };
 
 let ejs: MinimalEJS | undefined = undefined;
@@ -57,7 +67,8 @@ export class WebServer implements WebServerInterface {
   public constructor({
     session,
     views,
-    authorize_endpoint = DEFAULT_AUTHORIZE_ENDPOINT
+    authorize_endpoint = DEFAULT_AUTHORIZE_ENDPOINT,
+    timeout = 1000 // milliseconds
   }: WebServerOptions) {
     this.session = session;
     this.authorization_endpoint = authorize_endpoint;
@@ -78,6 +89,9 @@ export class WebServer implements WebServerInterface {
     );
     app.get(gcrtl.path(url), this.handleRedirect.bind(this));
     this.server = app.listen(gcrtl.port(url));
+    this.server.timeout = timeout;
+    this.server.keepAliveTimeout = 0;
+    this.server.keepAliveTimeoutBuffer = 0;
   }
 
   /**
@@ -138,7 +152,7 @@ export class WebServer implements WebServerInterface {
     try {
       await this.session.handleAuthorizationCodeRedirect(req);
       if (!(await this.render(res, 'complete.ejs'))) {
-        res.send('You may close this window.');
+        res.send('Authorization complete. You may close this window.');
       }
     } catch (error) {
       if (!(await this.render(res, 'error.ejs', { error }))) {

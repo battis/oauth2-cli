@@ -44,13 +44,13 @@ export class Session {
    */
   public get resolve() {
     if (!this._resolve) {
-      throw new Error('callback is missing');
+      throw new Error(`Session resolve method is ${this._resolve}`);
     }
     return this._resolve;
   }
 
-  public reject(error: Error) {
-    throw error;
+  public reject(cause: unknown) {
+    throw new Error('Session failed', { cause });
   }
 
   public constructor({ client, views, inject: request }: SessionOptions) {
@@ -88,12 +88,26 @@ export class Session {
             if (!closed) {
               this.spinner.text =
                 'Still waiting for out-of-band redirect server to shut down.\n' +
-                '  Your browser may be holding the connection to the server open.\n' +
-                '  Please close the "Authorization Complete" tab in your browser.\n\n' +
-                '    If you are browsing in Chrome, close the window.\n' +
-                '    If you are browsing in Opera, quit the browser.';
+                '  Your browser may be holding the connection to the server open.\n\n' +
+                '  Please close the "Authorization Complete" tab in your browser.';
+            }
+          }, 5000);
+          setTimeout(() => {
+            if (!closed) {
+              this.spinner.text =
+                'Still waiting for out-of-band redirect server to shut down.\n' +
+                '  Your browser may be holding the connection to the server open.\n\n' +
+                '  Please close the browser window.';
             }
           }, 10000);
+          setTimeout(() => {
+            if (!closed) {
+              this.spinner.text =
+                'Still waiting for out-of-band redirect server to shut down.\n' +
+                '  Your browser may be holding the connection to the server open.\n\n' +
+                '  Please quit the browser.';
+            }
+          }, 15000);
         };
         const url = gcrtl
           .expand(

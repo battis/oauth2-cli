@@ -32,9 +32,7 @@
       <div class="center container">
         <h1>Authorization Error</h1>
         <div class="alert alert-danger" role="alert">
-          <% if (typeof error === 'string') { %><%= error %><<% } else { %>
-          <pre><%= JSON.stringify(error,null,2) %></pre>
-          <% } %>
+          <pre><%= JSON.stringify(error, null, 2) %></pre>
         </div>
         <p>You may close this window.</p>
       </div>
