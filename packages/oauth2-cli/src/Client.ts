@@ -199,6 +199,16 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     });
   }
 
+  public async isAuthorized(): Promise<boolean> {
+    if (this.token?.expiresIn()) {
+      return true;
+    } else {
+      return await this.tokenLock.runExclusive(async () => {
+        return !!(await this.refreshTokenGrant());
+      });
+    }
+  }
+
   public async authorize(options: Omit<SessionOptions, 'client'> = {}) {
     const session = this.createSession(options);
     const token = await this.save(await session.authorizationCodeGrant());

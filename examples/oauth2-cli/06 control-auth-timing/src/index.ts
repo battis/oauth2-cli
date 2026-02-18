@@ -26,10 +26,12 @@ const github = new Client({
 });
 
 // authorize the Client at the time and place of our choosing
-await github.authorize();
+if (!(await github.isAuthorized())) {
+  await github.authorize();
+}
 
 // do something else
-console.log('And then someting else happens.');
+console.log('And then something else happens.');
 
 // get this repo (battis/oauth2-cli)
 console.log(await github.requestJSON('/repos/battis/oauth2-cli'));
