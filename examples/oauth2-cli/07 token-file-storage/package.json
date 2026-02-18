@@ -24,7 +24,7 @@
     "op": "source .env; op run --env-file .env --account $OP_ACCOUNT -- node dist/index.js"
   },
   "dependencies": {
-    "@inquirer/input": "^5.0.6",
+    "@inquirer/input": "^5.0.7",
     "@types/node": "^24.10.13",
     "dotenv": "^17.3.1",
     "oauth2-cli": "workspace:*"
