@@ -1,9 +1,8 @@
 /*
- * imported from the class file, avoiding the auto-registered plugin instance
- * in the default export
+ * imported from the `Unregistered` namespace file, avoiding the auto-
+ * registered plugin instance in the default export
  */
-import { OAuth2Plugin } from '@oauth2-cli/qui-cli/dist/OAuth2Plugin.js';
-import { EnvironmentStorage } from '@oauth2-cli/qui-cli/dist/Token/EnvironmentStorage.js';
+import { OAuth2Plugin, Token } from '@oauth2-cli/qui-cli/dist/Unregistered.js';
 import { Colors } from '@qui-cli/colors';
 
 export class GitHubPlugin extends OAuth2Plugin {
@@ -21,7 +20,9 @@ export class GitHubPlugin extends OAuth2Plugin {
       man: {
         heading: 'GitHub options',
         text: [
-          `The GitHub API ${Colors.keyword('refresh_token')} is stored in the environment variable ${Colors.varName('GITHUB_REFRESH_TOKEN')}, if present.`
+          `The GitHub API ${Colors.keyword('refresh_token')} is stored in the ` +
+            `environment variable ${Colors.varName('GITHUB_REFRESH_TOKEN')}, ` +
+            `if present.`
         ]
       },
       env: {
@@ -35,7 +36,7 @@ export class GitHubPlugin extends OAuth2Plugin {
         authorization_endpoint: true,
         token_endpoint: true
       },
-      storage: new EnvironmentStorage('GITHUB_REFRESH_TOKEN')
+      storage: new Token.EnvironmentStorage('GITHUB_REFRESH_TOKEN')
     });
   }
 }
