@@ -394,7 +394,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
             response: {
               status: response.status,
               statusText: response.statusText,
-              headers: Object.fromEntries(response.headers.entries()),
+              headers: Object.fromEntries(response.headers?.entries() || []),
               body: await response.text()
             }
           }
