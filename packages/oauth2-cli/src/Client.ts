@@ -82,7 +82,7 @@ type GetTokenOptions = {
 export class Client<C extends Credentials = Credentials> extends EventEmitter {
   public static readonly TokenEvent = 'token';
 
-  public readonly name?: string;
+  private _name?: string;
 
   protected credentials: C;
 
@@ -108,7 +108,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     storage
   }: ClientOptions<C>) {
     super();
-    this.name = name;
+    this._name = name;
     this.credentials = credentials;
     this.base_url = base_url;
     this.views = views;
@@ -116,9 +116,9 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     this.storage = storage;
   }
 
-  public clientName(): string {
-    if (this.name && this.name.length > 0) {
-      return this.name;
+  public get name() {
+    if (this._name && this._name.length > 0) {
+      return this._name;
     }
     return 'oauth2-cli';
   }
@@ -162,7 +162,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     }
     if (!this.config) {
       throw new Error(
-        `The ${this.clientName()} configuration could not be constructed from provided credentials.`,
+        `The ${this.name} configuration could not be constructed from provided credentials.`,
         {
           cause: {
             credentials: this.credentials,
@@ -244,7 +244,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       );
     } catch (cause) {
       throw new Error(
-        `Error making ${this.clientName()} Authorization Code Grant request`,
+        `Error making ${this.name} Authorization Code Grant request`,
         { cause }
       );
     }
@@ -297,7 +297,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   protected async save(token: Token.Response) {
     this.token = token;
     if (!token.access_token) {
-      throw new Error(`No access_token in response to ${this.clientName()}.`, {
+      throw new Error(`No access_token in response to ${this.name}.`, {
         cause: token
       });
     }
@@ -333,16 +333,13 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
           requestish.URL.toString(url).replace(/^\/?/, '')
         );
       } else {
-        throw new Error(
-          `Invalid request URL "${url}" to ${this.clientName()}`,
-          {
-            cause: {
-              base_url: this.base_url,
-              issuer: this.credentials.issuer,
-              error
-            }
+        throw new Error(`Invalid request URL "${url}" to ${this.name}`, {
+          cause: {
+            base_url: this.base_url,
+            issuer: this.credentials.issuer,
+            error
           }
-        );
+        });
       }
     }
     const request = async () =>
@@ -379,7 +376,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       return (await response.json()) as J;
     } else {
       throw new Error(
-        `The response could not be parsed as JSON by ${this.clientName()}.`,
+        `The response could not be parsed as JSON by ${this.name}.`,
         { cause: { response } }
       );
     }

@@ -88,7 +88,7 @@ export class WebServer {
   }: WebServerOptions) {
     this.client = client;
     this.spinner = ora(
-      `Awaiting interactive authorization for ${this.client.clientName()}`
+      `Awaiting interactive authorization for ${this.client.name}`
     ).start();
     this.launch_endpoint = launch_endpoint;
     this.views = views;
@@ -115,7 +115,7 @@ export class WebServer {
       this.resolveAuthorizationCodeFlow = resolve;
       this.rejectAuthorizationCodeFlow = reject;
     });
-    this.spinner.text = `Please continue interactive authorization for ${this.client.clientName()} at ${Colors.url(
+    this.spinner.text = `Please continue interactive authorization for ${this.client.name} at ${Colors.url(
       gcrtl.expand(this.launch_endpoint, this.client.redirect_uri)
     )} in your browser`;
     await response;
@@ -152,7 +152,7 @@ export class WebServer {
     template: string,
     data: Record<string, unknown> = {}
   ) {
-    const name = this.client.clientName();
+    const name = this.client.name;
     async function attemptToRender(views?: PathString) {
       if (ejs && views) {
         const viewPath = path.resolve(import.meta.dirname, views, template);
@@ -171,7 +171,7 @@ export class WebServer {
 
   /** Handles request to `/authorize` */
   protected async handleAuthorizationEndpoint(req: Request, res: Response) {
-    this.spinner.text = `Interactively authorizing ${this.client.clientName()} in browser`;
+    this.spinner.text = `Interactively authorizing ${this.client.name} in browser`;
     const authorization_url = requestish.URL.toString(
       await this.client.getAuthorizationUrl(this)
     );
@@ -183,7 +183,7 @@ export class WebServer {
 
   /** Handles request to `redirect_uri` */
   protected async handleRedirect(req: Request, res: Response) {
-    this.spinner.text = `Exchanging authorization code for ${this.client.clientName()} access token`;
+    this.spinner.text = `Exchanging authorization code for ${this.client.name} access token`;
     try {
       if (this.resolveAuthorizationCodeFlow) {
         this.resolveAuthorizationCodeFlow(
@@ -192,7 +192,7 @@ export class WebServer {
         this.spinner.text = 'Authorization complete and access token received';
         if (!(await this.render(res, 'complete.ejs'))) {
           res.send(
-            `${this.client.clientName()} authorization complete. You may close this window.`
+            `${this.client.name} authorization complete. You may close this window.`
           );
         }
       } else {
@@ -208,7 +208,7 @@ export class WebServer {
       }
       if (!(await this.render(res, 'error.ejs', { error }))) {
         res.send({
-          client: this.client.clientName(),
+          client: this.client.name,
           error
         });
       }
@@ -220,9 +220,9 @@ export class WebServer {
     return new Promise<void>((resolve, reject) => {
       this.server.close((cause?: Error) => {
         if (cause) {
-          const message = `Error shutting down ${this.client.clientName()} out-of-band redirect web server`;
+          const message = `Error shutting down ${this.client.name} out-of-band redirect web server`;
           this.spinner.fail(
-            `Error shutting down ${this.client.clientName()} out-of-band redirect web server`
+            `Error shutting down ${this.client.name} out-of-band redirect web server`
           );
           reject(
             new Error(message, {
