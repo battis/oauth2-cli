@@ -1,8 +1,6 @@
 import { JSONValue } from '@battis/typescript-tricks';
 import { Log } from '@qui-cli/log';
-import { Request } from 'express';
 import * as OAuth2CLI from 'oauth2-cli';
-import { Session } from 'oauth2-cli/dist/Session.js';
 import type * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 
