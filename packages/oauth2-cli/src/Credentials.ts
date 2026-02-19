@@ -1,20 +1,20 @@
-import * as requestish from 'requestish';
+import { URL } from 'requestish';
 import * as Scope from './Scope.js';
 
 export type Credentials = {
   client_id: string;
   client_secret: string;
-  redirect_uri: requestish.URL.ish;
+  redirect_uri: URL.ish;
   scope?: Scope.ish;
 } & (
   | {
-      issuer?: requestish.URL.ish;
-      authorization_endpoint: requestish.URL.ish;
-      token_endpoint: requestish.URL.ish;
+      issuer?: URL.ish;
+      authorization_endpoint: URL.ish;
+      token_endpoint: URL.ish;
     }
   | {
-      issuer: requestish.URL.ish;
-      authorization_endpoint?: requestish.URL.ish;
-      token_endpoint?: requestish.URL.ish;
+      issuer: URL.ish;
+      authorization_endpoint?: URL.ish;
+      token_endpoint?: URL.ish;
     }
 );

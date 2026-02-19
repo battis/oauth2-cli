@@ -1,4 +1,3 @@
-import { PathString } from '@battis/descriptive-types';
 import { JSONValue } from '@battis/typescript-tricks';
 import { Mutex } from 'async-mutex';
 import { Request } from 'express';
@@ -6,18 +5,20 @@ import * as gcrtl from 'gcrtl';
 import { EventEmitter } from 'node:events';
 import path from 'node:path';
 import * as OpenIDClient from 'openid-client';
-import * as requestish from 'requestish';
+import { Body, Headers, URL, URLSearchParams } from 'requestish';
 import { Credentials } from './Credentials.js';
 import { Injection } from './Injection.js';
 import * as Scope from './Scope.js';
 import * as Token from './Token/index.js';
-import { WebServer } from './WebServer.js';
+import * as WebServer from './WebServer.js';
 
 /**
  * A generic `redirect_uri` to use if the server does not require pre-registered
  * `redirect_uri` values
  */
 export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
+
+type RedirectOptions = Omit<WebServer.Options, 'client'>;
 
 export type ClientOptions<C extends Credentials = Credentials> = {
   /** Human-readable name for client in messages */
@@ -27,22 +28,16 @@ export type ClientOptions<C extends Credentials = Credentials> = {
   credentials: C;
 
   /** Optional request components to inject */
-  inject?: {
-    search?: requestish.URLSearchParams.ish;
-    headers?: requestish.Headers.ish;
-    body?: requestish.Body.ish;
-  };
+  inject?: Injection;
 
   /** Base URL for all non-absolute requests */
-  base_url?: requestish.URL.ish;
+  base_url?: URL.ish;
 
-  /**
-   * Optional absolute path to EJS view templates directory, see
-   * [WebServer.setViews()](./Webserver.ts)
-   */
-  views?: PathString;
   /** Optional {@link TokenStorage} implementation to manage tokens */
   storage?: Token.Storage;
+
+  /** Optional configuration web server listening for authorization code redirect */
+  options?: RedirectOptions;
 };
 
 type RefreshOptions = {
@@ -53,6 +48,7 @@ type RefreshOptions = {
    * access token and does not need to be separately managed and stored
    */
   refresh_token?: string;
+
   /** Additional request injection for refresh grant flow */
   inject?: Injection;
 };
@@ -65,6 +61,7 @@ type GetTokenOptions = {
    * separately managed and stored
    */
   token?: Token.Response;
+
   /**
    * Additional request injection for authorization code grant and/or refresh
    * grant flows
@@ -84,38 +81,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
 
   private _name?: string;
 
-  protected credentials: C;
-
-  protected base_url?: requestish.URL.ish;
-
-  protected config?: OpenIDClient.Configuration;
-
-  protected inject?: Injection;
-
-  protected views?: PathString;
-
-  private token?: Token.Response;
-  private tokenLock = new Mutex();
-
-  private storage?: Token.Storage;
-
-  public constructor({
-    name,
-    credentials,
-    base_url,
-    views,
-    inject,
-    storage
-  }: ClientOptions<C>) {
-    super();
-    this._name = name;
-    this.credentials = credentials;
-    this.base_url = base_url;
-    this.views = views;
-    this.inject = inject;
-    this.storage = storage;
-  }
-
+  /** Human-readable name for client in messages */
   public get name() {
     if (this._name && this._name.length > 0) {
       return this._name;
@@ -123,8 +89,49 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return 'oauth2-cli';
   }
 
-  public get redirect_uri() {
-    return this.credentials.redirect_uri;
+  /** Credentials for server access */
+  public credentials: C;
+
+  /** Base URL for all non-absolute requests */
+  public base_url?: URL.ish;
+
+  /**
+   * `openid-client` configuration metadata (either dervied from
+   * {@link credentials}) or requested from the well-known OpenID configuration
+   * endpoint of the `issuer`
+   */
+  protected config?: OpenIDClient.Configuration;
+
+  /** Optional request components to inject */
+  protected inject?: Injection;
+
+  /** Optional configuration options for web server listening for redirect */
+  private options?: RedirectOptions;
+
+  /** Optional {@link TokenStorage} implementation to manage tokens */
+  private storage?: Token.Storage;
+
+  /** Current response to an access token grant request, if available */
+  private token?: Token.Response;
+
+  /** Mutex preventing multiple simultaneous access token grant requests */
+  private tokenLock = new Mutex();
+
+  public constructor({
+    name,
+    credentials,
+    base_url,
+    inject,
+    storage,
+    options
+  }: ClientOptions<C>) {
+    super();
+    this._name = name;
+    this.credentials = credentials;
+    this.base_url = base_url;
+    this.options = options;
+    this.inject = inject;
+    this.storage = storage;
   }
 
   /**
@@ -132,26 +139,26 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    *   OpenID discovery fail to generate a complete configuration
    */
   public async getConfiguration() {
-    let error = undefined;
+    let discovery = undefined;
     if (!this.config && this.credentials.issuer) {
       try {
         this.config = await OpenIDClient.discovery(
-          requestish.URL.from(this.credentials.issuer),
+          URL.from(this.credentials.issuer),
           this.credentials.client_id,
           { client_secret: this.credentials.client_secret }
         );
-      } catch (e) {
-        error = e;
+      } catch (error) {
+        discovery = error;
       }
     }
     if (!this.config && this.credentials?.authorization_endpoint) {
       this.config = new OpenIDClient.Configuration(
         {
-          issuer: `https://${requestish.URL.from(this.credentials.authorization_endpoint).hostname}`,
-          authorization_endpoint: requestish.URL.toString(
+          issuer: `https://${URL.from(this.credentials.authorization_endpoint).hostname}`,
+          authorization_endpoint: URL.toString(
             this.credentials.authorization_endpoint
           ),
-          token_endpoint: requestish.URL.toString(
+          token_endpoint: URL.toString(
             this.credentials.token_endpoint ||
               this.credentials.authorization_endpoint
           )
@@ -162,11 +169,11 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     }
     if (!this.config) {
       throw new Error(
-        `The ${this.name} configuration could not be constructed from provided credentials.`,
+        `openid-client Configuration for ${this.name} could not be discovered or derived from credentials`,
         {
           cause: {
             credentials: this.credentials,
-            'OpenID configuration result': error
+            discovery
           }
         }
       );
@@ -174,30 +181,22 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return this.config;
   }
 
-  protected async getParameters(server: WebServer) {
-    const params = requestish.URLSearchParams.from(
-      this.inject?.search || new URLSearchParams()
-    );
-    params.set(
-      'redirect_uri',
-      requestish.URL.toString(this.credentials.redirect_uri)
-    );
+  public async getAuthorizationUrl(session: WebServer.Session) {
+    const params = URLSearchParams.from(this.inject?.search);
+    params.set('redirect_uri', URL.toString(this.credentials.redirect_uri));
     params.set(
       'code_challenge',
-      await OpenIDClient.calculatePKCECodeChallenge(server.code_verifier)
+      await OpenIDClient.calculatePKCECodeChallenge(session.code_verifier)
     );
     params.set('code_challenge_method', 'S256');
-    params.set('state', server.state);
+    params.set('state', session.state);
     if (this.credentials.scope) {
       params.set('scope', Scope.toString(this.credentials.scope));
     }
-    return params;
-  }
 
-  public async getAuthorizationUrl(server: WebServer) {
     return OpenIDClient.buildAuthorizationUrl(
       await this.getConfiguration(),
-      await this.getParameters(server)
+      params
     );
   }
 
@@ -211,42 +210,41 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     }
   }
 
-  public async authorize({ inject: _ }: { inject?: Injection } = {}) {
-    const server = new WebServer({
-      client: this,
-      redirect_uri: this.credentials.redirect_uri,
-      views: this.views
+  public async authorize() {
+    return await this.tokenLock.runExclusive(async () => {
+      return await this._authorize();
     });
-    const token = await this.save(await server.authorizationCodeGrant());
+  }
+
+  private async _authorize() {
+    const session = new WebServer.Session({
+      client: this,
+      ...this.options
+    });
+    const token = await this.save(await session.authorizationCodeGrant());
     return token;
   }
 
   public async handleAuthorizationCodeRedirect(
     req: Request,
-    server: WebServer
+    session: WebServer.Session
   ) {
     try {
-      /**
-       * Do _NOT_ await this promise: the WebServer needs to send the
-       * authorization complete response asynchronously before this can resolve,
-       * and awaiting session.resolve() will block that response.
-       */
       return await OpenIDClient.authorizationCodeGrant(
         await this.getConfiguration(),
-        gcrtl.expand(req.url, this.redirect_uri),
+        gcrtl.expand(req.url, this.credentials.redirect_uri),
         {
-          pkceCodeVerifier: server.code_verifier,
-          expectedState: server.state
+          pkceCodeVerifier: session.code_verifier,
+          expectedState: session.state
         },
         this.inject?.search
-          ? requestish.URLSearchParams.from(this.inject.search)
+          ? URLSearchParams.from(this.inject.search)
           : undefined
       );
     } catch (cause) {
-      throw new Error(
-        `Error making ${this.name} Authorization Code Grant request`,
-        { cause }
-      );
+      throw new Error(`${this.name} authorization code grant failed.`, {
+        cause
+      });
     }
   }
 
@@ -264,7 +262,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       await this.getConfiguration(),
       refresh_token,
       this.inject?.search
-        ? requestish.URLSearchParams.from(this.inject.search)
+        ? URLSearchParams.from(this.inject.search)
         : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
@@ -287,19 +285,27 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         this.token = await this.refreshTokenGrant({ inject: request });
       }
       if (!this.token) {
-        this.token = await this.authorize({ inject: request });
+        this.token = await this.authorize();
       }
       return this.token;
     });
   }
 
-  /** @throws MissingAccessToken If response does not include `access_token` */
-  protected async save(token: Token.Response) {
-    this.token = token;
-    if (!token.access_token) {
-      throw new Error(`No access_token in response to ${this.name}.`, {
-        cause: token
-      });
+  /**
+   * Persist `refresh_token` if Token.Storage is configured and `refresh_token`
+   * provided
+   *
+   * @throws If `response` does not include `access_token` property
+   */
+  protected async save(response: Token.Response) {
+    this.token = response;
+    if (!response.access_token) {
+      throw new Error(
+        `${this.name} token response does not contain access_token`,
+        {
+          cause: response
+        }
+      );
     }
     if (this.storage && this.token.refresh_token) {
       await this.storage.save(this.token.refresh_token);
@@ -309,6 +315,11 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }
 
   /**
+   * Request a protected resource using the client's access token.
+   *
+   * This ensures that the access token is unexpired, and interactively requests
+   * user authorization if it has not yet been provided.
+   *
    * @param url If an `issuer` has been defined, `url` accepts paths relative to
    *   the `issuer` URL as well as absolute URLs
    * @param method Optional, defaults to `GET` unless otherwise specified
@@ -317,23 +328,23 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    * @param dPoPOptions Optional
    */
   public async request(
-    url: requestish.URL.ish,
+    url: URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
-    headers: requestish.Headers.ish = {},
+    headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     try {
-      url = requestish.URL.from(url);
+      url = URL.from(url);
     } catch (error) {
       if (this.base_url || this.credentials.issuer) {
         url = path.join(
           // @ts-expect-error 2345 TS, I _just_ tested this!
-          requestish.URL.toString(this.base_url || this.credentials.issuer),
-          requestish.URL.toString(url).replace(/^\/?/, '')
+          URL.toString(this.base_url || this.credentials.issuer),
+          URL.toString(url).replace(/^\/?/, '')
         );
       } else {
-        throw new Error(`Invalid request URL "${url}" to ${this.name}`, {
+        throw new Error(`${this.name} request url invalid`, {
           cause: {
             base_url: this.base_url,
             issuer: this.credentials.issuer,
@@ -346,39 +357,37 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       await OpenIDClient.fetchProtectedResource(
         await this.getConfiguration(),
         (await this.getToken()).access_token,
-        requestish.URL.from(
-          requestish.URLSearchParams.appendTo(url, this.inject?.search || {})
-        ),
+        URL.from(URLSearchParams.appendTo(url, this.inject?.search || {})),
         method,
         body,
-        requestish.Headers.merge(this.inject?.headers, headers),
+        Headers.merge(this.inject?.headers, headers),
         dPoPOptions
       );
     try {
       return await request();
-    } catch (error) {
-      if (
-        typeof error === 'object' &&
-        error !== null &&
-        'status' in error &&
-        error.status === 401
-      ) {
+    } catch (cause) {
+      if (Error.isError(cause) && 'status' in cause && cause.status === 401) {
         await this.authorize();
         return await request();
       } else {
-        throw error;
+        throw new Error(`${this.name} request failed`, { cause });
       }
     }
   }
 
   private async toJSON<J extends JSONValue>(response: Response) {
     if (response.ok) {
-      return (await response.json()) as J;
+      try {
+        return (await response.json()) as J;
+      } catch (cause) {
+        throw new Error(`${this.name} response could not be parsed as JSON`, {
+          cause
+        });
+      }
     } else {
-      throw new Error(
-        `The response could not be parsed as JSON by ${this.name}.`,
-        { cause: { response } }
-      );
+      throw new Error(`${this.name} response status not ok`, {
+        cause: { response }
+      });
     }
   }
 
@@ -387,10 +396,10 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    * typed as `J`
    */
   public async requestJSON<J extends JSONValue = JSONValue>(
-    url: requestish.URL.ish,
+    url: URL.ish,
     method = 'GET',
     body?: OpenIDClient.FetchBody,
-    headers: requestish.Headers.ish = {},
+    headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     return await this.toJSON<J>(
@@ -399,21 +408,21 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }
 
   public async fetch(
-    input: requestish.URL.ish,
+    input: URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
     return await this.request(
       input,
       init?.method,
-      await requestish.Body.from(init?.body),
-      requestish.Headers.from(init?.headers),
+      await Body.from(init?.body),
+      Headers.from(init?.headers),
       dPoPOptions
     );
   }
 
   public async fetchJSON<J extends JSONValue = JSONValue>(
-    input: requestish.URL.ish,
+    input: URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {

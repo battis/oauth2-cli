@@ -25,7 +25,9 @@ const github = new Client({
     token_endpoint: 'https://github.com/login/oauth/access_token'
   },
   base_url: 'https://api.github.com',
-  views: path.resolve(import.meta.dirname, '../views')
+  options: {
+    views: path.resolve(import.meta.dirname, '../views')
+  }
 });
 
 // get this repo (battis/oauth2-cli)

@@ -1,4 +1,4 @@
-import { PathString, URLString } from '@battis/descriptive-types';
+import { URLString } from '@battis/descriptive-types';
 import { JSONValue } from '@battis/typescript-tricks';
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
@@ -61,8 +61,7 @@ export type Configuration<
   /** Should a particular credential value _not_ be loaded from the environment? */
   suppress?: Partial<EnvVarSuppression>;
 
-  /** Optional absolute path to EJS view templates directory */
-  views?: PathString;
+  options?: OAuth2CLI.ClientOptions['options'];
 };
 
 export class OAuth2Plugin<
@@ -119,7 +118,7 @@ export class OAuth2Plugin<
 
   private inject?: OAuth2CLI.Injection = undefined;
 
-  private views?: PathString = undefined;
+  private opts?: OAuth2CLI.ClientOptions['options'];
 
   private storage?: OAuth2CLI.Token.Storage = undefined;
 
@@ -150,6 +149,7 @@ export class OAuth2Plugin<
     this.hint = hydrate(proposal.hint, this.hint);
     this.env = hydrate(proposal.env, this.env);
     this.suppress = hydrate(proposal.suppress, this.suppress);
+    this.opt = hydrate(proposal.options, this.opt);
 
     if (this.credentials?.redirect_uri) {
       const url = requestish.URL.from(this.credentials.redirect_uri);
@@ -319,7 +319,7 @@ export class OAuth2Plugin<
         credentials: this.credentials,
         base_url: this.base_url,
         inject: this.inject,
-        views: this.views,
+        options: this.opts,
         storage: this.storage
       });
     }

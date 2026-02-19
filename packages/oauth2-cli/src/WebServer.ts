@@ -6,16 +6,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as OpenIDClient from 'openid-client';
 import ora, { Ora } from 'ora';
-import * as requestish from 'requestish';
+import { URL } from 'requestish';
 import { Client } from './Client.js';
 import { Token } from './index.js';
 
-export type WebServerOptions = {
+export type Options = {
   client: Client;
 
-  redirect_uri: requestish.URL.ish;
-
-  /** See {@link WebServer.setViews setViews()} */
+  /** See {@link Session.setViews setViews()} */
   views?: PathString;
   /**
    * Local web server launch endpoint
@@ -53,7 +51,7 @@ export const DEFAULT_LAUNCH_ENDPOINT = '/oauth2-cli/authorize';
  * Minimal HTTP server running on localhost to handle the redirect step of
  * OpenID/OAuth flows
  */
-export class WebServer {
+export class Session {
   private static activePorts: string[] = [];
 
   /** PKCE code_verifier */
@@ -81,26 +79,25 @@ export class WebServer {
 
   public constructor({
     client,
-    redirect_uri,
     views,
     launch_endpoint = DEFAULT_LAUNCH_ENDPOINT,
     timeout = 1000 // milliseconds
-  }: WebServerOptions) {
+  }: Options) {
     this.client = client;
     this.spinner = ora(
       `Awaiting interactive authorization for ${this.client.name}`
     ).start();
     this.launch_endpoint = launch_endpoint;
     this.views = views;
-    const url = requestish.URL.from(redirect_uri);
+    const url = URL.from(this.client.credentials.redirect_uri);
     this.port = url.port;
-    if (WebServer.activePorts.includes(this.port)) {
+    if (Session.activePorts.includes(this.port)) {
       throw new Error(
         `Another process is already running at http://localhost:${url.port}.`,
-        { cause: { activePorts: WebServer.activePorts } }
+        { cause: { activePorts: Session.activePorts } }
       );
     }
-    WebServer.activePorts.push(this.port);
+    Session.activePorts.push(this.port);
     const app = express();
     app.get(this.launch_endpoint, this.handleAuthorizationEndpoint.bind(this));
     app.get(gcrtl.path(url), this.handleRedirect.bind(this));
@@ -116,7 +113,7 @@ export class WebServer {
       this.rejectAuthorizationCodeFlow = reject;
     });
     this.spinner.text = `Please continue interactive authorization for ${this.client.name} at ${Colors.url(
-      gcrtl.expand(this.launch_endpoint, this.client.redirect_uri)
+      gcrtl.expand(this.launch_endpoint, this.client.credentials.redirect_uri)
     )} in your browser`;
     await response;
     this.spinner.text = 'Waiting on server shut down';
@@ -172,7 +169,7 @@ export class WebServer {
   /** Handles request to `/authorize` */
   protected async handleAuthorizationEndpoint(req: Request, res: Response) {
     this.spinner.text = `Interactively authorizing ${this.client.name} in browser`;
-    const authorization_url = requestish.URL.toString(
+    const authorization_url = URL.toString(
       await this.client.getAuthorizationUrl(this)
     );
     if (!(await this.render(res, 'authorize.ejs', { authorization_url }))) {
@@ -230,10 +227,7 @@ export class WebServer {
             })
           );
         } else {
-          WebServer.activePorts.splice(
-            WebServer.activePorts.indexOf(this.port),
-            1
-          );
+          Session.activePorts.splice(Session.activePorts.indexOf(this.port), 1);
           this.spinner.succeed('Authorization complete');
           resolve();
         }
