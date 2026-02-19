@@ -2,7 +2,7 @@ import { ish as URLish } from './URL.js';
 
 export type ish = URLSearchParams | Record<string, string>;
 
-export function from(search: ish): URLSearchParams {
+export function from(search?: ish): URLSearchParams {
   if (search instanceof URLSearchParams) {
     return search;
   }
