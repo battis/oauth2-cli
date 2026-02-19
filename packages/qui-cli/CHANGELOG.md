@@ -4,30 +4,25 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.7.10](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.9...qui-cli-plugin/0.7.10) (2026-02-19)
 
-## [0.7.9](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.8...qui-cli-plugin/0.7.9) (2026-02-19)
-
-## [0.7.8](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.7...qui-cli-plugin/0.7.8) (2026-02-19)
+Incorporates oauth2-cli@0.8.5 updates
 
 ## [0.7.7](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.6...qui-cli-plugin/0.7.7) (2026-02-19)
 
-
 ### Features
 
-* human-readable client name for clarity ([68b4287](https://github.com/battis/oauth2-cli/commit/68b42872998ec423440d07447012282528e3ee76))
+- human-readable client name for clarity ([68b4287](https://github.com/battis/oauth2-cli/commit/68b42872998ec423440d07447012282528e3ee76))
 
 ## [0.7.6](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.5...qui-cli-plugin/0.7.6) (2026-02-19)
 
-
 ### Bug Fixes
 
-* further config debugging ([95fe40f](https://github.com/battis/oauth2-cli/commit/95fe40f59669f6c498123046c6ea11f88a90fd13))
+- further config debugging ([95fe40f](https://github.com/battis/oauth2-cli/commit/95fe40f59669f6c498123046c6ea11f88a90fd13))
 
 ## [0.7.5](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.4...qui-cli-plugin/0.7.5) (2026-02-19)
 
-
 ### Bug Fixes
 
-* improved debugging output ([a0e6cea](https://github.com/battis/oauth2-cli/commit/a0e6ceaf12dadd9b2bf1753c602165f7194cbf24))
+- improved debugging output ([a0e6cea](https://github.com/battis/oauth2-cli/commit/a0e6ceaf12dadd9b2bf1753c602165f7194cbf24))
 
 ## [0.7.4](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.3...qui-cli-plugin/0.7.4) (2026-02-18)
 
