@@ -20,6 +20,7 @@
     "build": "run-s build:*",
     "build:clean": "run-s clean",
     "build:compile": "tsc",
+    "prepack": "run-s build",
     "release": "commit-and-tag-version"
   },
   "dependencies": {

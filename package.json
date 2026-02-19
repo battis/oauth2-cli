@@ -20,7 +20,6 @@
     "build:oauth2-cli-toc": "./scripts/examples-toc ./examples/oauth2-cli",
     "build:qui-cli-toc": "./scripts/examples-toc ./examples/qui-cli",
     "build:compile": "lerna run build",
-    "prepack": "run-s build",
     "prepublishOnly": "run-s prepublishOnly:*",
     "prepublishOnly:git": "git push --follow-tags",
     "prepublishOnly:login": "pnpm login"

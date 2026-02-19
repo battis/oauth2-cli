@@ -25,6 +25,7 @@
     "deploy": "run-s deploy:*",
     "deploy:build": "run-s build",
     "deploy:deploy": "./scripts/deploy -v",
+    "prepack": "run-s build",
     "release": "commit-and-tag-version"
   },
   "devDependencies": {
