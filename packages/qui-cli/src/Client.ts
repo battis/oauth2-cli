@@ -31,29 +31,6 @@ export class Client<
     return response;
   }
 
-  public async handleAuthorizationCodeRedirect(
-    request: Request,
-    session: Session
-  ): Promise<void> {
-    Log.debug(
-      `Handling ${this.clientName()} Authorization Code flow redirect`,
-      {
-        request: {
-          url: request.url,
-          method: request.method,
-          headers: request.headers,
-          body: request.body
-        },
-        session: {
-          code_verifier: session.code_verifier,
-          state: session.state,
-          inject: session.inject
-        }
-      }
-    );
-    return super.handleAuthorizationCodeRedirect(request, session);
-  }
-
   protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
     Log.debug(`Refreshing expired ${this.clientName()} access token`, {
       token
