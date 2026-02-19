@@ -39,7 +39,11 @@ export class Client<
       `Handling ${this.clientName()} Authorization Code flow redirect`,
       {
         request,
-        session
+        session: {
+          code_verifier: session.code_verifier,
+          state: session.state,
+          inject: session.inject
+        }
       }
     );
     return super.handleAuthorizationCodeRedirect(request, session);

@@ -389,16 +389,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     } else {
       throw new Error(
         `The response could not be parsed as JSON by ${this.clientName()}.`,
-        {
-          cause: {
-            response: {
-              status: response.status,
-              statusText: response.statusText,
-              headers: Object.fromEntries(response.headers?.entries() || []),
-              body: response.text ? await response.text() : response.body
-            }
-          }
-        }
+        { cause: { response } }
       );
     }
   }
