@@ -1,6 +1,8 @@
 import { JSONValue } from '@battis/typescript-tricks';
 import { Log } from '@qui-cli/log';
+import { Request } from 'express';
 import * as OAuth2CLI from 'oauth2-cli';
+import { Session } from 'oauth2-cli/dist/Session.js';
 import type * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 
@@ -9,13 +11,31 @@ export class Client<
 > extends OAuth2CLI.Client<C> {
   public async getConfiguration(): Promise<OpenIDClient.Configuration> {
     const config = await super.getConfiguration();
-    Log.debug('OAuth 2.0 configuration', config);
+    Log.debug('OAuth 2.0 configuration', {
+      config: {
+        serverMetadata: config.serverMetadata(),
+        clientMetadata: config.clientMetadata()
+      }
+    });
     return config;
   }
 
   public async authorize(): Promise<OAuth2CLI.Token.Response> {
     Log.debug('Authorizing new access token');
-    return await super.authorize();
+    const response = await super.authorize();
+    Log.debug('Authorized new access token', { response });
+    return response;
+  }
+
+  public async handleAuthorizationCodeRedirect(
+    request: Request,
+    session: Session
+  ): Promise<void> {
+    Log.debug('Handling Authorization Code flow redirect', {
+      request,
+      session
+    });
+    return super.handleAuthorizationCodeRedirect(request, session);
   }
 
   protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
