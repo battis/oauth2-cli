@@ -1,5 +1,6 @@
 .env
-.env.example
+.env.*
+!.env.example
 !**/examples/**/.env.example
 **/build/
 **/dist/

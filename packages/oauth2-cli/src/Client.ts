@@ -2,6 +2,7 @@ import { PathString } from '@battis/descriptive-types';
 import { JSONValue } from '@battis/typescript-tricks';
 import { Mutex } from 'async-mutex';
 import { Request } from 'express';
+import * as gcrtl from 'gcrtl';
 import { EventEmitter } from 'node:events';
 import path from 'node:path';
 import * as OpenIDClient from 'openid-client';
@@ -9,8 +10,8 @@ import * as requestish from 'requestish';
 import { Credentials } from './Credentials.js';
 import { Injection } from './Injection.js';
 import * as Scope from './Scope.js';
-import { Session, SessionOptions } from './Session.js';
 import * as Token from './Token/index.js';
+import { WebServer } from './WebServer.js';
 
 /**
  * A generic `redirect_uri` to use if the server does not require pre-registered
@@ -173,44 +174,31 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return this.config;
   }
 
-  protected async getParameters(session: Session) {
-    const params =
-      requestish.URLSearchParams.merge(
-        this.inject?.search,
-        session.inject?.search
-      ) || new URLSearchParams();
+  protected async getParameters(server: WebServer) {
+    const params = requestish.URLSearchParams.from(
+      this.inject?.search || new URLSearchParams()
+    );
     params.set(
       'redirect_uri',
       requestish.URL.toString(this.credentials.redirect_uri)
     );
     params.set(
       'code_challenge',
-      await OpenIDClient.calculatePKCECodeChallenge(session.code_verifier)
+      await OpenIDClient.calculatePKCECodeChallenge(server.code_verifier)
     );
     params.set('code_challenge_method', 'S256');
-    params.set('state', session.state);
+    params.set('state', server.state);
     if (this.credentials.scope) {
       params.set('scope', Scope.toString(this.credentials.scope));
     }
     return params;
   }
 
-  public async getAuthorizationUrl(session: Session) {
+  public async getAuthorizationUrl(server: WebServer) {
     return OpenIDClient.buildAuthorizationUrl(
       await this.getConfiguration(),
-      await this.getParameters(session)
+      await this.getParameters(server)
     );
-  }
-
-  public createSession({
-    views,
-    ...options
-  }: Omit<SessionOptions, 'client'>): Session {
-    return new Session({
-      client: this,
-      views: views || this.views,
-      ...options
-    });
   }
 
   public async isAuthorized(): Promise<boolean> {
@@ -223,38 +211,41 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     }
   }
 
-  public async authorize(options: Omit<SessionOptions, 'client'> = {}) {
-    const session = this.createSession(options);
-    const token = await this.save(await session.authorizationCodeGrant());
+  public async authorize({ inject: _ }: { inject?: Injection } = {}) {
+    const server = new WebServer({
+      client: this,
+      redirect_uri: this.credentials.redirect_uri,
+      views: this.views
+    });
+    const token = await this.save(await server.authorizationCodeGrant());
     return token;
   }
 
-  public async handleAuthorizationCodeRedirect(req: Request, session: Session) {
+  public async handleAuthorizationCodeRedirect(
+    req: Request,
+    server: WebServer
+  ) {
     try {
       /**
        * Do _NOT_ await this promise: the WebServer needs to send the
        * authorization complete response asynchronously before this can resolve,
        * and awaiting session.resolve() will block that response.
        */
-      session.resolve(
-        await OpenIDClient.authorizationCodeGrant(
-          await this.getConfiguration(),
-          new URL(req.url, this.redirect_uri),
-          {
-            pkceCodeVerifier: session.code_verifier,
-            expectedState: session.state
-          },
-          this.inject?.search
-            ? requestish.URLSearchParams.from(this.inject.search)
-            : undefined
-        )
+      return await OpenIDClient.authorizationCodeGrant(
+        await this.getConfiguration(),
+        gcrtl.expand(req.url, this.redirect_uri),
+        {
+          pkceCodeVerifier: server.code_verifier,
+          expectedState: server.state
+        },
+        this.inject?.search
+          ? requestish.URLSearchParams.from(this.inject.search)
+          : undefined
       );
     } catch (cause) {
-      session.reject(
-        new Error(
-          `Error making ${this.clientName()} Authorization Code Grant request`,
-          { cause }
-        )
+      throw new Error(
+        `Error making ${this.clientName()} Authorization Code Grant request`,
+        { cause }
       );
     }
   }

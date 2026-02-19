@@ -1,17 +1,24 @@
 import { PathString } from '@battis/descriptive-types';
+import { Colors } from '@qui-cli/colors';
 import express, { Request, Response } from 'express';
 import * as gcrtl from 'gcrtl';
 import fs from 'node:fs';
 import path from 'node:path';
+import * as OpenIDClient from 'openid-client';
+import ora, { Ora } from 'ora';
 import * as requestish from 'requestish';
-import { Session } from './Session.js';
+import { Client } from './Client.js';
+import { Token } from './index.js';
 
 export type WebServerOptions = {
-  session: Session;
+  client: Client;
+
+  redirect_uri: requestish.URL.ish;
+
   /** See {@link WebServer.setViews setViews()} */
   views?: PathString;
   /**
-   * Local web server authorize endpoint
+   * Local web server launch endpoint
    *
    * This is separate and distinct from the OpenID/OAuth server's authorization
    * endpoint. This endpoint is the first path that the user is directed to in
@@ -20,7 +27,7 @@ export type WebServerOptions = {
    * URL, the first step in the Authorization Code Grant flow.
    */
 
-  authorize_endpoint?: PathString;
+  launch_endpoint?: PathString;
 
   /**
    * The number of milliseconds of inactivity before a socket is presumed to
@@ -40,40 +47,52 @@ try {
   // ignore error
 }
 
-export const DEFAULT_AUTHORIZE_ENDPOINT = '/oauth2-cli/authorize';
-
-export interface WebServerInterface {
-  /** See {@link WebServerOptions} */
-  readonly authorization_endpoint: PathString;
-
-  /** Shut down web server */
-  close(): Promise<void>;
-}
+export const DEFAULT_LAUNCH_ENDPOINT = '/oauth2-cli/authorize';
 
 /**
  * Minimal HTTP server running on localhost to handle the redirect step of
  * OpenID/OAuth flows
  */
-export class WebServer implements WebServerInterface {
+export class WebServer {
   private static activePorts: string[] = [];
 
-  protected readonly session: Session;
+  /** PKCE code_verifier */
+  public readonly code_verifier = OpenIDClient.randomPKCECodeVerifier();
+
+  /** OAuth 2.0 state (if PKCE is not supported) */
+  public readonly state = OpenIDClient.randomState();
+
+  private client: Client;
+
   private views?: PathString;
   private packageViews = '../views';
+
+  private spinner: Ora;
+
   protected readonly port: string;
-  public readonly authorization_endpoint: PathString;
+
+  public readonly launch_endpoint: PathString;
+
   private server;
 
+  private resolveAuthorizationCodeFlow?: (response: Token.Response) => void =
+    undefined;
+  private rejectAuthorizationCodeFlow?: (error: Error) => void = undefined;
+
   public constructor({
-    session,
+    client,
+    redirect_uri,
     views,
-    authorize_endpoint = DEFAULT_AUTHORIZE_ENDPOINT,
+    launch_endpoint = DEFAULT_LAUNCH_ENDPOINT,
     timeout = 1000 // milliseconds
   }: WebServerOptions) {
-    this.session = session;
-    this.authorization_endpoint = authorize_endpoint;
+    this.client = client;
+    this.spinner = ora(
+      `Awaiting interactive authorization for ${this.client.clientName()}`
+    ).start();
+    this.launch_endpoint = launch_endpoint;
     this.views = views;
-    const url = requestish.URL.from(this.session.redirect_uri);
+    const url = requestish.URL.from(redirect_uri);
     this.port = url.port;
     if (WebServer.activePorts.includes(this.port)) {
       throw new Error(
@@ -83,15 +102,26 @@ export class WebServer implements WebServerInterface {
     }
     WebServer.activePorts.push(this.port);
     const app = express();
-    app.get(
-      this.authorization_endpoint,
-      this.handleAuthorizationEndpoint.bind(this)
-    );
+    app.get(this.launch_endpoint, this.handleAuthorizationEndpoint.bind(this));
     app.get(gcrtl.path(url), this.handleRedirect.bind(this));
     this.server = app.listen(gcrtl.port(url));
     this.server.timeout = timeout;
     this.server.keepAliveTimeout = 0;
     this.server.keepAliveTimeoutBuffer = 0;
+  }
+
+  public async authorizationCodeGrant() {
+    const response = new Promise<Token.Response>((resolve, reject) => {
+      this.resolveAuthorizationCodeFlow = resolve;
+      this.rejectAuthorizationCodeFlow = reject;
+    });
+    this.spinner.text = `Please continue interactive authorization for ${this.client.clientName()} at ${Colors.url(
+      gcrtl.expand(this.launch_endpoint, this.client.redirect_uri)
+    )} in your browser`;
+    await response;
+    this.spinner.text = 'Waiting on server shut down';
+    await this.close();
+    return response;
   }
 
   /**
@@ -122,7 +152,7 @@ export class WebServer implements WebServerInterface {
     template: string,
     data: Record<string, unknown> = {}
   ) {
-    const name = this.session.client.clientName();
+    const name = this.client.clientName();
     async function attemptToRender(views?: PathString) {
       if (ejs && views) {
         const viewPath = path.resolve(import.meta.dirname, views, template);
@@ -141,7 +171,10 @@ export class WebServer implements WebServerInterface {
 
   /** Handles request to `/authorize` */
   protected async handleAuthorizationEndpoint(req: Request, res: Response) {
-    const authorization_url = await this.session.getAuthorizationUrl();
+    this.spinner.text = `Interactively authorizing ${this.client.clientName()} in browser`;
+    const authorization_url = requestish.URL.toString(
+      await this.client.getAuthorizationUrl(this)
+    );
     if (!(await this.render(res, 'authorize.ejs', { authorization_url }))) {
       res.redirect(authorization_url);
       res.end();
@@ -150,17 +183,32 @@ export class WebServer implements WebServerInterface {
 
   /** Handles request to `redirect_uri` */
   protected async handleRedirect(req: Request, res: Response) {
+    this.spinner.text = `Exchanging authorization code for ${this.client.clientName()} access token`;
     try {
-      await this.session.handleAuthorizationCodeRedirect(req);
-      if (!(await this.render(res, 'complete.ejs'))) {
-        res.send(
-          `${this.session.client.clientName()} authorization complete. You may close this window.`
+      if (this.resolveAuthorizationCodeFlow) {
+        this.resolveAuthorizationCodeFlow(
+          await this.client.handleAuthorizationCodeRedirect(req, this)
+        );
+        this.spinner.text = 'Authorization complete and access token received';
+        if (!(await this.render(res, 'complete.ejs'))) {
+          res.send(
+            `${this.client.clientName()} authorization complete. You may close this window.`
+          );
+        }
+      } else {
+        throw new Error(
+          `WebServer.resolver is ${this.resolveAuthorizationCodeFlow}`
         );
       }
     } catch (error) {
+      if (this.rejectAuthorizationCodeFlow) {
+        this.rejectAuthorizationCodeFlow(
+          new Error('WebServer could not handle redirect', { cause: error })
+        );
+      }
       if (!(await this.render(res, 'error.ejs', { error }))) {
         res.send({
-          client: this.session.client.clientName(),
+          client: this.client.clientName(),
           error
         });
       }
@@ -172,19 +220,21 @@ export class WebServer implements WebServerInterface {
     return new Promise<void>((resolve, reject) => {
       this.server.close((cause?: Error) => {
         if (cause) {
+          const message = `Error shutting down ${this.client.clientName()} out-of-band redirect web server`;
+          this.spinner.fail(
+            `Error shutting down ${this.client.clientName()} out-of-band redirect web server`
+          );
           reject(
-            new Error(
-              `Error shutting down ${this.session.client.clientName()} out-of-band redirect web server`,
-              {
-                cause
-              }
-            )
+            new Error(message, {
+              cause
+            })
           );
         } else {
           WebServer.activePorts.splice(
             WebServer.activePorts.indexOf(this.port),
             1
           );
+          this.spinner.succeed('Authorization complete');
           resolve();
         }
       });
