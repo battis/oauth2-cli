@@ -20,7 +20,7 @@
     "build": "run-s build:*",
     "build:clean": "run-s clean",
     "build:compile": "tsc",
-    "version": "commit-and-tag-version"
+    "release": "commit-and-tag-version"
   },
   "devDependencies": {
     "@battis/descriptive-types": "^0.2.6",

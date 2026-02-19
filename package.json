@@ -20,11 +20,10 @@
     "build:oauth2-cli-toc": "./scripts/examples-toc ./examples/oauth2-cli",
     "build:qui-cli-toc": "./scripts/examples-toc ./examples/qui-cli",
     "build:compile": "lerna run build",
-    "release": "run-s release:*",
-    "release:git": "git push --follow-tags",
-    "release:build": "run-s build",
-    "release:login": "pnpm login",
-    "release:publish": "pnpm publish -r --access public"
+    "prepack": "run-s build",
+    "prepublishOnly": "run-s prepublishOnly:*",
+    "prepublishOnly:git": "git push --follow-tags",
+    "prepublishOnly:login": "pnpm login"
   },
   "devDependencies": {
     "@battis/eslint-config": "^2.1.0",

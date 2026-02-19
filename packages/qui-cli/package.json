@@ -20,7 +20,7 @@
     "build": "run-s build:*",
     "build:clean": "run-s clean",
     "build:compile": "tsc",
-    "version": "commit-and-tag-version"
+    "release": "commit-and-tag-version"
   },
   "dependencies": {
     "@qui-cli/colors": "^3.2.3",
