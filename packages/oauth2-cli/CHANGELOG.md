@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.8.9](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.8...oauth2-cli/0.8.9) (2026-02-19)
+
+
+### Bug Fixes
+
+* further refinement in debug logging ([568e563](https://github.com/battis/oauth2-cli/commit/568e563bc0a918cd9741951654db685488f10330))
+
 ## [0.8.8](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.7...oauth2-cli/0.8.8) (2026-02-19)
 
 ### Bug Fixes
