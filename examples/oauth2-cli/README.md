@@ -50,7 +50,3 @@ Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-st
 ## Security note
 
 While the `.env.example` file in each package demonstrates storing secrets in plain text in `.env` files (a traditional approach), the current trend is wisely to avoid storing secrets anywhere unencrypted. Using the [`@oauth2-cli/qui-cli`](https://www.npmjs.com/package/@oauth2-cli/qui-cli) plugin provides both a greater ease of use for developers and transparent integration of 1Password vaults for local development.
-
-### `op` scripts
-
-In each of the example packages, you will see a script named `op` which is what I actually use to test run the packages. It loads the `$OP_ACCOUNT` variable out of the `.env` file and then passes that to the 1Password CLI tool `op` to load the secret references stored in the `.env` file for use by the script.

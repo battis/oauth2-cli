@@ -8,7 +8,7 @@ import { Colors } from '@qui-cli/colors';
 export class GitHubPlugin extends OAuth2Plugin {
   public constructor() {
     // set the (globally unique) name of the plugin
-    super('github');
+    super('GitHub');
 
     // configure API-specific options
     this.configure({

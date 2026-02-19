@@ -30,7 +30,10 @@
   <body>
     <div class="wrapper">
       <div class="center container">
-        <h1>Authorization Error</h1>
+        <h1>
+          <%= name %>
+          Authorization Error
+        </h1>
         <div class="alert alert-danger" role="alert">
           <pre><%= JSON.stringify(error, null, 2) %></pre>
         </div>

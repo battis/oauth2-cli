@@ -22,7 +22,7 @@ export type SessionResolver = (
 ) => void | Promise<void>;
 
 export class Session {
-  private readonly client: Client;
+  public readonly client: Client;
   private readonly outOfBandRedirectServer: WebServer.WebServerInterface;
 
   /** PKCE code_verifier */
@@ -44,18 +44,22 @@ export class Session {
    */
   public get resolve() {
     if (!this._resolve) {
-      throw new Error(`Session resolve method is ${this._resolve}`);
+      throw new Error(
+        `${this.client.clientName()}'s Session resolve method is ${this._resolve}`
+      );
     }
     return this._resolve;
   }
 
   public reject(cause: unknown) {
-    throw new Error('Session failed', { cause });
+    throw new Error(`${this.client.clientName()}'s Session failed`, { cause });
   }
 
   public constructor({ client, views, inject: request }: SessionOptions) {
-    this.spinner = ora('Awaiting interactive authorization').start();
     this.client = client;
+    this.spinner = ora(
+      `${this.client.clientName()} awaiting interactive authorization`
+    ).start();
     this.inject = request;
     this.outOfBandRedirectServer = this.instantiateWebServer({ views });
   }
@@ -77,17 +81,18 @@ export class Session {
       try {
         this._resolve = (response) => {
           let closed = false;
-          this.spinner.text =
-            'Waiting for out-of-band redirect server to shut down';
+          this.spinner.text = `${this.client.clientName()} waiting for out-of-band redirect server to shut down`;
           this.outOfBandRedirectServer.close().then(() => {
             closed = true;
-            this.spinner.succeed('Interactive authorization complete');
+            this.spinner.succeed(
+              `Interactive authorization for ${this.client.clientName()} complete`
+            );
             resolve(response);
           });
           setTimeout(() => {
             if (!closed) {
               this.spinner.text =
-                'Still waiting for out-of-band redirect server to shut down.\n' +
+                `Still waiting for out-of-band redirect server for ${this.client.clientName()} to shut down.\n` +
                 '  Your browser may be holding the connection to the server open.\n\n' +
                 '  Please close the "Authorization Complete" tab in your browser.';
             }
@@ -95,7 +100,7 @@ export class Session {
           setTimeout(() => {
             if (!closed) {
               this.spinner.text =
-                'Still waiting for out-of-band redirect server to shut down.\n' +
+                `Still waiting for out-of-band redirect server for ${this.client.clientName()} to shut down.\n` +
                 '  Your browser may be holding the connection to the server open.\n\n' +
                 '  Please close the browser window.';
             }
@@ -103,7 +108,7 @@ export class Session {
           setTimeout(() => {
             if (!closed) {
               this.spinner.text =
-                'Still waiting for out-of-band redirect server to shut down.\n' +
+                `Still waiting for out-of-band redirect server for ${this.client.clientName()} to shut down.\n` +
                 '  Your browser may be holding the connection to the server open.\n\n' +
                 '  Please quit the browser.';
             }
@@ -116,13 +121,19 @@ export class Session {
           )
           .toString();
         //open(url);
-        this.spinner.text = `Please continue interactive authorization at ${Colors.url(url)} in your browser`;
+        this.spinner.text = `Please continue interactive authorization for ${this.client.clientName()} at ${Colors.url(url)} in your browser`;
       } catch (cause) {
-        this.spinner.text =
-          'Waiting for out-of-band redirect server to shut down';
+        this.spinner.text = `Waiting for out-of-band redirect server for ${this.client.clientName()} to shut down`;
         this.outOfBandRedirectServer.close().then(() => {
-          this.spinner.fail('Interactive authorization failed');
-          reject(new Error('Error in Authorization Code flow', { cause }));
+          this.spinner.fail(
+            `Interactive authorization for ${this.client.clientName()} failed`
+          );
+          reject(
+            new Error(
+              `Error in Authorization Code flow for ${this.client.clientName()}`,
+              { cause }
+            )
+          );
         });
       }
     });
@@ -142,8 +153,7 @@ export class Session {
    * Code Grant flow
    */
   public async handleAuthorizationCodeRedirect(req: Request) {
-    this.spinner.text =
-      'Completing access token request with provided authorization code';
+    this.spinner.text = `Completing access token request fro ${this.client.clientName()} with provided authorization code`;
     return await this.client.handleAuthorizationCodeRedirect(req, this);
   }
 }

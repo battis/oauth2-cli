@@ -8,6 +8,8 @@ Root.configure({ root: process.cwd() });
 
 // configure the OAuth2 plugin
 OAuth2.configure({
+  name: 'GitHub',
+
   // change the section header
   man: { heading: 'GitHub API options' },
 

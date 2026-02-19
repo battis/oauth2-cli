@@ -13,7 +13,7 @@ export class Client<
     const creating = !this.config;
     const config = await super.getConfiguration();
     if (creating) {
-      Log.debug('OAuth 2.0 configuration created', {
+      Log.debug(`${this.clientName()} OAuth 2.0 configuration created`, {
         credentials: this.credentials,
         config: {
           serverMetadata: config.serverMetadata(),
@@ -25,9 +25,9 @@ export class Client<
   }
 
   public async authorize(): Promise<OAuth2CLI.Token.Response> {
-    Log.debug('Authorizing new access token');
+    Log.debug(`Authorizing ${this.clientName()} new access token`);
     const response = await super.authorize();
-    Log.debug('Authorized new access token', { response });
+    Log.debug(`Authorized ${this.clientName()} new access token`, { response });
     return response;
   }
 
@@ -35,17 +35,24 @@ export class Client<
     request: Request,
     session: Session
   ): Promise<void> {
-    Log.debug('Handling Authorization Code flow redirect', {
-      request,
-      session
-    });
+    Log.debug(
+      `Handling ${this.clientName()} Authorization Code flow redirect`,
+      {
+        request,
+        session
+      }
+    );
     return super.handleAuthorizationCodeRedirect(request, session);
   }
 
   protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
-    Log.debug('Refreshing expired access token', { token });
+    Log.debug(`Refreshing expired ${this.clientName()} access token`, {
+      token
+    });
     const refreshed = await super.refreshTokenGrant(token);
-    Log.debug('Received refreshed access token', { token: refreshed });
+    Log.debug(`Received refreshed ${this.clientName()} access token`, {
+      token: refreshed
+    });
     return refreshed;
   }
 

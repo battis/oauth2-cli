@@ -16,6 +16,7 @@ if (!(client_id && client_secret && redirect_uri)) {
 
 // configure oauth2-cli client with credentials
 const github = new Client({
+  name: 'GitHub',
   credentials: {
     client_id,
     client_secret,

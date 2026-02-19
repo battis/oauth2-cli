@@ -20,8 +20,7 @@
     "clean": "del ./dist",
     "build": "run-s build:*",
     "build:clean": "run-s clean",
-    "build:compile": "tsc",
-    "op": "source .env; op run --env-file .env --account $OP_ACCOUNT -- node dist/index.js"
+    "build:compile": "tsc"
   },
   "dependencies": {
     "dotenv": "^17.3.1",

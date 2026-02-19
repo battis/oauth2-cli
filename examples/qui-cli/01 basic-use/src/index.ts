@@ -6,8 +6,9 @@ import { Root } from '@qui-cli/root';
 // only necessary because we're in a monorepo and qui-cli wants to be at the root of it!
 Root.configure({ root: process.cwd() });
 
-// configure GitHub endpoints
+// configure GitHub endpoints and human-readable name
 OAuth2.configure({
+  name: 'GitHub',
   credentials: {
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'

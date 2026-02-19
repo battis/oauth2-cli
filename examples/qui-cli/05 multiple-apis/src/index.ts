@@ -7,9 +7,9 @@ import { Root } from '@qui-cli/root';
 // only necessary because we're in a monorepo and qui-cli _really_ wants to be at the root of it!
 Root.configure({ root: process.cwd() });
 
-// create an OAuth2Plugin instance for each API
-const github = new OAuth2Plugin('github');
-const drive = new OAuth2Plugin('google-drive');
+// create an OAuth2Plugin instance for each API (reusing plugin name for messaging)
+const github = new OAuth2Plugin('GitHub');
+const drive = new OAuth2Plugin('Google');
 
 // register all plugin instances with qui-cli
 await register(github);

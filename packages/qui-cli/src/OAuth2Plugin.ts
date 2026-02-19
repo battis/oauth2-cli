@@ -31,6 +31,9 @@ type Usage = {
 export type Configuration<
   C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
 > = Plugin.Configuration & {
+  /** Human-readable name for client in messages. */
+  name?: string;
+
   /** OAuth 2.0/OpenID Connect credential set */
   credentials?: Partial<C>;
 
@@ -71,6 +74,12 @@ export class OAuth2Plugin<
   private static names: string[] = [];
   private static registeredPorts: Record<string, string> = {};
 
+  private overrideName?: string;
+
+  /**
+   * @param name Human-readable name for client in messages. Must also be a
+   *   unique qui-cli plugin name.
+   */
   public constructor(public readonly name = '@oauth2-cli/qui-cli') {
     if (OAuth2Plugin.names.includes(name)) {
       throw new Error(
@@ -131,6 +140,7 @@ export class OAuth2Plugin<
       return c;
     }
 
+    this.overrideName = Plugin.hydrate(proposal.name, this.overrideName);
     this.credentials = hydrate(proposal.credentials, this.credentials);
     this.base_url = Plugin.hydrate(proposal.base_url, this.base_url);
     this.storage = Plugin.hydrate(proposal.storage, this.storage);
@@ -150,9 +160,8 @@ export class OAuth2Plugin<
         Log.warning(
           `The ${Colors.varName(this.env.redirect_uri)} value ${Colors.url(
             this.credentials.redirect_uri
-          )} may not work: it ${Colors.keyword('must')} redirect to ${Colors.url(
-            'localhost'
-          )}`
+          )} for ${this.overrideName || this.name} may not work: it ` +
+            `${Colors.keyword('must')} redirect to ${Colors.url('localhost')}`
         );
       }
       if (
@@ -162,8 +171,9 @@ export class OAuth2Plugin<
         Log.warning(
           `The ${Colors.url(
             url.protocol
-          )} protocol may not work without additional configuration. The ` +
-            `server listening for the redirect is not automatically ` +
+          )} protocol may not work without additional configuration. The out-` +
+            `of-band server listening for the ` +
+            `${this.overrideName || this.name} redirect is not automatically ` +
             `provisioned with an SSL certificate`
         );
       }
@@ -177,9 +187,10 @@ export class OAuth2Plugin<
           )} has already been registered to another instance of this plugin ` +
             `named ${Colors.value(
               OAuth2Plugin.registeredPorts[url.port]
-            )}. This will likely cause a failure if both instances of the ` +
-            `plugin are listening for redirects at relatively proximate ` +
-            `moments in time.`
+            )}. This will likely cause a failure if both ` +
+            `${this.overrideName || this.name} and ` +
+            `${OAuth2Plugin.registeredPorts[url.port]} are listening for ` +
+            `redirects at relatively proximate moments in time.`
         );
       }
     }
@@ -265,22 +276,24 @@ export class OAuth2Plugin<
   protected instantiateClient(options: OAuth2CLI.ClientOptions<C>): L {
     return new OAuth2CLI.Client<C>(options) as L;
   }
-
   public get client(): L {
     if (!this._client) {
       if (!this.credentials?.client_id) {
         throw new Error(
-          `A ${Colors.varName(this.env.client_id)} ${Colors.keyword('must')} be configured.`
+          `A ${Colors.varName(this.env.client_id)} ${Colors.keyword('must')} ` +
+            `be configured for ${this.overrideName || this.name}.`
         );
       }
       if (!this.credentials?.client_secret) {
         throw new Error(
-          `A ${Colors.varName(this.env.client_secret)} ${Colors.keyword('must')} be configured.`
+          `A ${Colors.varName(this.env.client_secret)} ${Colors.keyword('must')} ` +
+            `be configured for ${this.overrideName || this.name}.`
         );
       }
       if (!this.credentials?.redirect_uri) {
         throw new Error(
-          `A ${Colors.varName(this.env.redirect_uri)} ${Colors.keyword('must')} be configured.`
+          `A ${Colors.varName(this.env.redirect_uri)} ${Colors.keyword('must')} ` +
+            `be configured for ${this.overrideName || this.name}.`
         );
       }
       if (!this.credentials?.issuer) {
@@ -288,18 +301,21 @@ export class OAuth2Plugin<
           throw new Error(
             `Either an ${Colors.varName(this.env.issuer)} or ` +
               `${Colors.varName(this.env.authorization_endpoint)} ` +
-              `${Colors.keyword('must')} be configured.`
+              `${Colors.keyword('must')} be configured for ` +
+              `${this.overrideName || this.name}.`
           );
         }
         if (!this.credentials?.token_endpoint) {
           throw new Error(
             `Either an ${Colors.varName(this.env.issuer)} or ` +
               `${Colors.varName(this.env.token_endpoint)} ` +
-              `${Colors.keyword('must')} be configured.`
+              `${Colors.keyword('must')} be configured for ` +
+              `${this.overrideName || this.name}.`
           );
         }
       }
       this._client = this.instantiateClient({
+        name: this.overrideName || this.name,
         credentials: this.credentials,
         base_url: this.base_url,
         inject: this.inject,

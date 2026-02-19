@@ -122,11 +122,12 @@ export class WebServer implements WebServerInterface {
     template: string,
     data: Record<string, unknown> = {}
   ) {
+    const name = this.session.client.clientName();
     async function attemptToRender(views?: PathString) {
       if (ejs && views) {
         const viewPath = path.resolve(import.meta.dirname, views, template);
         if (fs.existsSync(viewPath)) {
-          res.send(await ejs.renderFile(viewPath, data));
+          res.send(await ejs.renderFile(viewPath, { name, ...data }));
           return true;
         }
       }
@@ -152,11 +153,16 @@ export class WebServer implements WebServerInterface {
     try {
       await this.session.handleAuthorizationCodeRedirect(req);
       if (!(await this.render(res, 'complete.ejs'))) {
-        res.send('Authorization complete. You may close this window.');
+        res.send(
+          `${this.session.client.clientName()} authorization complete. You may close this window.`
+        );
       }
     } catch (error) {
       if (!(await this.render(res, 'error.ejs', { error }))) {
-        res.send(error);
+        res.send({
+          client: this.session.client.clientName(),
+          error
+        });
       }
     }
   }
@@ -167,9 +173,12 @@ export class WebServer implements WebServerInterface {
       this.server.close((cause?: Error) => {
         if (cause) {
           reject(
-            new Error('Error shutting down out-of-band redirect web server', {
-              cause
-            })
+            new Error(
+              `Error shutting down ${this.session.client.clientName()} out-of-band redirect web server`,
+              {
+                cause
+              }
+            )
           );
         } else {
           WebServer.activePorts.splice(
