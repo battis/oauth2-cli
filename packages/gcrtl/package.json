@@ -33,7 +33,7 @@
     "@battis/eslint-config": "^2.1.0",
     "@battis/partly-gcloudy": "^3.2.0",
     "@battis/prettier-config": "^1.7.3",
-    "@commitlint/config-conventional": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.2",
     "@qui-cli/core": "^6.0.0",
     "@qui-cli/shell": "^3.1.2",
     "@tsconfig/node24": "^24.0.4",

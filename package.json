@@ -27,8 +27,8 @@
   "devDependencies": {
     "@battis/eslint-config": "^2.1.0",
     "@battis/prettier-config": "^1.7.3",
-    "@commitlint/cli": "^20.4.1",
-    "@commitlint/config-conventional": "^20.4.1",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@commitlint/config-pnpm-scopes": "^20.4.0",
     "@qui-cli/colors": "^3.2.3",
     "@qui-cli/core": "^6.0.0",
