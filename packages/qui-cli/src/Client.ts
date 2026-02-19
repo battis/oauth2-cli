@@ -38,7 +38,12 @@ export class Client<
     Log.debug(
       `Handling ${this.clientName()} Authorization Code flow redirect`,
       {
-        request,
+        request: {
+          url: request.url,
+          method: request.method,
+          headers: request.headers,
+          body: request.body
+        },
         session: {
           code_verifier: session.code_verifier,
           state: session.state,
