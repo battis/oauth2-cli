@@ -4,9 +4,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.7.13](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.12...qui-cli-plugin/0.7.13) (2026-02-19)
 
-## [0.7.12](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.11...qui-cli-plugin/0.7.12) (2026-02-19)
-
-## [0.7.11](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.10...qui-cli-plugin/0.7.11) (2026-02-19)
+Incorporates oauth2-cli@0.8.8
 
 ## [0.7.10](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.9...qui-cli-plugin/0.7.10) (2026-02-19)
 

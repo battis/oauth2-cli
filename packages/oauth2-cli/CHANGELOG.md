@@ -4,59 +4,49 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.8.8](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.7...oauth2-cli/0.8.8) (2026-02-19)
 
-
 ### Bug Fixes
 
-* very empty responses ([fe9831d](https://github.com/battis/oauth2-cli/commit/fe9831da4f6662719132a1f540bc3ca31a103348))
+- very empty responses ([fe9831d](https://github.com/battis/oauth2-cli/commit/fe9831da4f6662719132a1f540bc3ca31a103348))
 
 ## [0.8.7](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.6...oauth2-cli/0.8.7) (2026-02-19)
 
-## [0.8.6](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.5...oauth2-cli/0.8.6) (2026-02-19)
-
-
 ### Bug Fixes
 
-* apparently some responses don't have headers ([bcc621a](https://github.com/battis/oauth2-cli/commit/bcc621a5e8b45a609c497205559dd814d91e19f1))
+- apparently some responses don't have headers ([bcc621a](https://github.com/battis/oauth2-cli/commit/bcc621a5e8b45a609c497205559dd814d91e19f1))
 
 ## [0.8.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.4...oauth2-cli/0.8.5) (2026-02-19)
 
-
 ### Bug Fixes
 
-* include error response when unparseable as JSON ([0138b14](https://github.com/battis/oauth2-cli/commit/0138b145b564be46e9dbcda0b546305375839826))
+- include error response when unparseable as JSON ([0138b14](https://github.com/battis/oauth2-cli/commit/0138b145b564be46e9dbcda0b546305375839826))
 
 ## [0.8.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.3...oauth2-cli/0.8.4) (2026-02-19)
 
-
 ### Features
 
-* human-readable client name for clarity ([68b4287](https://github.com/battis/oauth2-cli/commit/68b42872998ec423440d07447012282528e3ee76))
+- human-readable client name for clarity ([68b4287](https://github.com/battis/oauth2-cli/commit/68b42872998ec423440d07447012282528e3ee76))
 
 ## [0.8.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.2...oauth2-cli/0.8.3) (2026-02-18)
 
-
 ### Bug Fixes
 
-* continued server timeout improvements ([2e8d275](https://github.com/battis/oauth2-cli/commit/2e8d275706be411b317e2257bd97ee8f7fe4bc95))
+- continued server timeout improvements ([2e8d275](https://github.com/battis/oauth2-cli/commit/2e8d275706be411b317e2257bd97ee8f7fe4bc95))
 
 ## [0.8.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.1...oauth2-cli/0.8.2) (2026-02-18)
 
-
 ### Features
 
-* isAuthorized() ([56b0436](https://github.com/battis/oauth2-cli/commit/56b0436d98b9d9f213518e806ead846321180a63))
-
+- isAuthorized() ([56b0436](https://github.com/battis/oauth2-cli/commit/56b0436d98b9d9f213518e806ead846321180a63))
 
 ### Bug Fixes
 
-* block thread until interactive authorization complete ([fb9987e](https://github.com/battis/oauth2-cli/commit/fb9987e41a5a8f129955bc3e88ab17994860091b)), closes [#22](https://github.com/battis/oauth2-cli/issues/22)
+- block thread until interactive authorization complete ([fb9987e](https://github.com/battis/oauth2-cli/commit/fb9987e41a5a8f129955bc3e88ab17994860091b)), closes [#22](https://github.com/battis/oauth2-cli/issues/22)
 
 ## [0.8.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.0...oauth2-cli/0.8.1) (2026-02-18)
 
-
 ### Features
 
-* provide parameterized credentials with simplified typing ([5a92c67](https://github.com/battis/oauth2-cli/commit/5a92c67dbd4ab52fa4f0b02a910e788f5ae67adb))
+- provide parameterized credentials with simplified typing ([5a92c67](https://github.com/battis/oauth2-cli/commit/5a92c67dbd4ab52fa4f0b02a910e788f5ae67adb))
 
 ## [0.8.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.7.3...oauth2-cli/0.8.0) (2026-02-17)
 
