@@ -10,13 +10,17 @@ export class Client<
   C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
 > extends OAuth2CLI.Client<C> {
   public async getConfiguration(): Promise<OpenIDClient.Configuration> {
+    const creating = !this.config;
     const config = await super.getConfiguration();
-    Log.debug('OAuth 2.0 configuration', {
-      config: {
-        serverMetadata: config.serverMetadata(),
-        clientMetadata: config.clientMetadata()
-      }
-    });
+    if (creating) {
+      Log.debug('OAuth 2.0 configuration created', {
+        credentials: this.credentials,
+        config: {
+          serverMetadata: config.serverMetadata(),
+          clientMetadata: config.clientMetadata()
+        }
+      });
+    }
     return config;
   }
 
