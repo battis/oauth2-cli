@@ -112,9 +112,7 @@ export class OAuth2Plugin<
   private base_url?: URL.ish;
 
   /** Configured usage information */
-  private man: Usage = {
-    heading: 'OAuth 2.0 / Open ID Connect client options'
-  };
+  private man?: Usage = undefined;
 
   /** Configured reference URLs for credentials */
   private url?: Partial<SupportUrls> = undefined;
@@ -344,7 +342,10 @@ export class OAuth2Plugin<
 
     return {
       man: [
-        { level: 1, text: this.man.heading },
+        {
+          level: 1,
+          text: this.man?.heading || `${this.overrideName || this.name} options`
+        },
         ...(Object.keys(descriptions) as EnvironmentKey[])
           .filter((key) => !this.suppress || !this.suppress[key])
           .map((key) => ({
@@ -355,7 +356,7 @@ export class OAuth2Plugin<
                 ? ` See ${Colors.url(this.url[key])} for more information.`
                 : '')
           })),
-        ...(this.man.text || []).map((t) => ({ text: t }))
+        ...(this.man?.text || []).map((t) => ({ text: t }))
       ]
     };
   }
