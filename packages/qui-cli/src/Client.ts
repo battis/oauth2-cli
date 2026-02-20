@@ -29,6 +29,21 @@ export class Client<
     return response;
   }
 
+  public async handleAuthorizationCodeRedirect(
+    request: Request,
+    session: OAuth2CLI.Localhost.Server
+  ): Promise<OAuth2CLI.Token.Response> {
+    Log.debug(`Handling ${this.name} authorization code redirect`, { request });
+    const response = await super.handleAuthorizationCodeRedirect(
+      request,
+      session
+    );
+    Log.debug(`Received ${this.name} authorization code response`, {
+      response
+    });
+    return response;
+  }
+
   protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
     Log.debug(`Refreshing expired ${this.name} access token`, {
       token
@@ -40,6 +55,18 @@ export class Client<
     return refreshed;
   }
 
+  protected async save(
+    response: OAuth2CLI.Token.Response
+  ): Promise<OAuth2CLI.Token.Response> {
+    Log.debug(
+      `Persisting ${this.name} refresh token, if present and storage configured`,
+      {
+        response
+      }
+    );
+    return await super.save(response);
+  }
+
   public async request(
     url: requestish.URL.ish,
     method?: string,
@@ -47,7 +74,9 @@ export class Client<
     headers?: requestish.Headers.ish,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ): Promise<Response> {
-    Log.debug({ request: { method, url, headers, body, dPoPOptions } });
+    Log.debug(`Sending request to ${this.name}`, {
+      request: { method, url, headers, body, dPoPOptions }
+    });
     const response = await super.request(
       url,
       method,
@@ -55,7 +84,7 @@ export class Client<
       headers,
       dPoPOptions
     );
-    Log.debug({ response });
+    Log.debug(`Received response from ${this.name}`, { response });
     return response;
   }
 
@@ -73,7 +102,7 @@ export class Client<
       headers,
       dPoPOptions
     );
-    Log.debug({ json });
+    Log.debug(`Parsed JSON from ${this.name} response`, { json });
     return json;
   }
 }
