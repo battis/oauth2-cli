@@ -5,7 +5,7 @@ import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
 import * as Plugin from '@qui-cli/plugin';
 import * as OAuth2CLI from 'oauth2-cli';
-import * as requestish from 'requestish';
+import { URL } from 'requestish';
 import { Client } from './Client.js';
 
 type CredentialKey =
@@ -38,7 +38,7 @@ export type Configuration<
   credentials?: Partial<C>;
 
   /** Base URL for all non-absolute requests */
-  base_url?: requestish.URL.ish;
+  base_url?: URL.ish;
 
   /** Request components to inject into server requests */
   inject?: OAuth2CLI.Injection;
@@ -89,7 +89,7 @@ export class OAuth2Plugin<
 
   private credentials?: C;
 
-  private base_url?: requestish.URL.ish;
+  private base_url?: URL.ish;
 
   private man: Usage = {
     heading: 'OAuth 2.0 / Open ID Connect client options'
@@ -152,7 +152,7 @@ export class OAuth2Plugin<
     this.localhost = hydrate(proposal.localhost, this.localhost);
 
     if (this.credentials?.redirect_uri) {
-      const url = requestish.URL.from(this.credentials.redirect_uri);
+      const url = URL.from(this.credentials.redirect_uri);
       if (
         url.hostname !== 'localhost' &&
         !/^\/https?\/localhost(:\d+)?\//.test(url.pathname)

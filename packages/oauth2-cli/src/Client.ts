@@ -118,7 +118,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     }
     if (!this.config) {
       throw new Error(
-        `openid-client Configuration for ${this.name} could not be discovered or derived from credentials`,
+        `Client configuration for ${this.name} could not be discovered or derived from credentials`,
         {
           cause: {
             credentials: this.credentials,
@@ -215,7 +215,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         : undefined,
       {
         // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
-        headers: requestish.Headers.merge(this.headers, request?.headers)
+        headers: Headers.merge(this.headers, request?.headers)
       }
     );
     return await this.save(token);
