@@ -236,18 +236,22 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     if (!refresh_token || refresh_token === '') {
       return undefined;
     }
-    const token = await OpenIDClient.refreshTokenGrant(
-      await this.getConfiguration(),
-      refresh_token,
-      this.inject?.search
-        ? URLSearchParams.from(this.inject.search)
-        : undefined,
-      {
-        // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
-        headers: Headers.merge(this.headers, inject?.headers)
-      }
-    );
-    return await this.save(token);
+    try {
+      const token = await OpenIDClient.refreshTokenGrant(
+        await this.getConfiguration(),
+        refresh_token,
+        this.inject?.search
+          ? URLSearchParams.from(this.inject.search)
+          : undefined,
+        {
+          // @ts-expect-error 2322 undocumented arg pass-through to oauth4webapi
+          headers: Headers.merge(this.headers, inject?.headers)
+        }
+      );
+      return await this.save(token);
+    } catch (cause) {
+      throw new Error(`Could not refresh access to ${this.name}`, { cause });
+    }
   }
 
   /**
@@ -262,7 +266,12 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return await this.tokenLock.runExclusive(async () => {
       token = token || this.token;
       if (!this.token?.expiresIn() && this.storage) {
-        this.token = await this.refreshTokenGrant({ inject: request });
+        try {
+          this.token = await this.refreshTokenGrant({ inject: request });
+        } catch (_) {
+          // token definitely expired and refrehing it failed
+          this.token = undefined;
+        }
       }
       if (!this.token) {
         this.token = await this._authorize();
