@@ -25,7 +25,7 @@ const github = new Client({
     token_endpoint: 'https://github.com/login/oauth/access_token'
   },
   base_url: 'https://api.github.com',
-  options: {
+  localhost: {
     views: path.resolve(import.meta.dirname, '../views')
   }
 });

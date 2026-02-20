@@ -3,55 +3,28 @@ import { Colors } from '@qui-cli/colors';
 import express, { Request, Response } from 'express';
 import * as gcrtl from 'gcrtl';
 import fs from 'node:fs';
-import path from 'node:path';
 import * as OpenIDClient from 'openid-client';
 import ora, { Ora } from 'ora';
+import path from 'path';
 import { URL } from 'requestish';
-import { Client } from './Client.js';
-import { Token } from './index.js';
+import { Client } from '../Client.js';
+import * as Token from '../Token/index.js';
+import { DEFAULT_LAUNCH_ENDPOINT } from './Defaults.js';
+import { Options } from './Options.js';
 
-export type Options = {
-  client: Client;
-
-  /** See {@link Session.setViews setViews()} */
-  views?: PathString;
-  /**
-   * Local web server launch endpoint
-   *
-   * This is separate and distinct from the OpenID/OAuth server's authorization
-   * endpoint. This endpoint is the first path that the user is directed to in
-   * their browser. It can present an explanation of what is being authorized
-   * and why. By default it redirects to the OpenID/OAuth server's authorization
-   * URL, the first step in the Authorization Code Grant flow.
-   */
-
-  launch_endpoint?: PathString;
-
-  /**
-   * The number of milliseconds of inactivity before a socket is presumed to
-   * have timed out. This can be reduced to limit potential wait times during
-   * interactive authentication, but must still be long enough to allow time for
-   * the authorization code to be exchanged for an access token.
-   *
-   * Defaults to 1000 milliseconds
-   */
-  timeout?: number;
-};
-
-let ejs: MinimalEJS | undefined = undefined;
+export let ejs: MinimalEJS | undefined = undefined;
 try {
   ejs = (await import('ejs')).default;
 } catch (_) {
   // ignore error
 }
 
-export const DEFAULT_LAUNCH_ENDPOINT = '/oauth2-cli/authorize';
-
 /**
  * Minimal HTTP server running on localhost to handle the redirect step of
  * OpenID/OAuth flows
  */
-export class Session {
+
+export class Server {
   private static activePorts: string[] = [];
 
   /** PKCE code_verifier */
@@ -91,13 +64,13 @@ export class Session {
     this.views = views;
     const url = URL.from(this.client.credentials.redirect_uri);
     this.port = url.port;
-    if (Session.activePorts.includes(this.port)) {
+    if (Server.activePorts.includes(this.port)) {
       throw new Error(
         `Another process is already running at http://localhost:${url.port}.`,
-        { cause: { activePorts: Session.activePorts } }
+        { cause: { activePorts: Server.activePorts } }
       );
     }
-    Session.activePorts.push(this.port);
+    Server.activePorts.push(this.port);
     const app = express();
     app.get(this.launch_endpoint, this.handleAuthorizationEndpoint.bind(this));
     app.get(gcrtl.path(url), this.handleRedirect.bind(this));
@@ -126,9 +99,9 @@ export class Session {
    *
    * Expected templates include:
    *
-   * - `authorize.ejs` presents information prior to the authorization to the
-   *   user, and the user must follow `authorize_url` data property to
-   *   interactively initiate authorization
+   * - `launch.ejs` presents information prior to the authorization to the user,
+   *   and the user must follow `authorize_url` data property to interactively
+   *   launch authorization
    * - `complete.ejs` presented to user upon successful completion of
    *   authorization flow
    * - `error.ejs` presented to user upon receipt of an error from the server,
@@ -172,7 +145,7 @@ export class Session {
     const authorization_url = URL.toString(
       await this.client.getAuthorizationUrl(this)
     );
-    if (!(await this.render(res, 'authorize.ejs', { authorization_url }))) {
+    if (!(await this.render(res, 'launch.ejs', { authorization_url }))) {
       res.redirect(authorization_url);
       res.end();
     }
@@ -227,7 +200,7 @@ export class Session {
             })
           );
         } else {
-          Session.activePorts.splice(Session.activePorts.indexOf(this.port), 1);
+          Server.activePorts.splice(Server.activePorts.indexOf(this.port), 1);
           this.spinner.succeed('Authorization complete');
           resolve();
         }

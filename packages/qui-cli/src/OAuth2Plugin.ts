@@ -61,7 +61,7 @@ export type Configuration<
   /** Should a particular credential value _not_ be loaded from the environment? */
   suppress?: Partial<EnvVarSuppression>;
 
-  options?: OAuth2CLI.ClientOptions['options'];
+  localhost?: OAuth2CLI.Options['localhost'];
 };
 
 export class OAuth2Plugin<
@@ -118,7 +118,7 @@ export class OAuth2Plugin<
 
   private inject?: OAuth2CLI.Injection = undefined;
 
-  private opts?: OAuth2CLI.ClientOptions['options'];
+  private localhost?: OAuth2CLI.Options['localhost'];
 
   private storage?: OAuth2CLI.Token.Storage = undefined;
 
@@ -149,7 +149,7 @@ export class OAuth2Plugin<
     this.hint = hydrate(proposal.hint, this.hint);
     this.env = hydrate(proposal.env, this.env);
     this.suppress = hydrate(proposal.suppress, this.suppress);
-    this.opt = hydrate(proposal.options, this.opt);
+    this.localhost = hydrate(proposal.localhost, this.localhost);
 
     if (this.credentials?.redirect_uri) {
       const url = requestish.URL.from(this.credentials.redirect_uri);
@@ -273,7 +273,7 @@ export class OAuth2Plugin<
     this.configure({ credentials, base_url });
   }
 
-  protected instantiateClient(options: OAuth2CLI.ClientOptions<C>): L {
+  protected instantiateClient(options: OAuth2CLI.Options<C>): L {
     return new OAuth2CLI.Client<C>(options) as L;
   }
   public get client(): L {
@@ -319,7 +319,7 @@ export class OAuth2Plugin<
         credentials: this.credentials,
         base_url: this.base_url,
         inject: this.inject,
-        options: this.opts,
+        localhost: this.localhost,
         storage: this.storage
       });
     }

@@ -8,66 +8,15 @@ import * as OpenIDClient from 'openid-client';
 import { Body, Headers, URL, URLSearchParams } from 'requestish';
 import { Credentials } from './Credentials.js';
 import { Injection } from './Injection.js';
-import * as Scope from './Scope.js';
+import * as Localhost from './Localhost/index.js';
+import * as Options from './Options.js';
 import * as Token from './Token/index.js';
-import * as WebServer from './WebServer.js';
 
 /**
  * A generic `redirect_uri` to use if the server does not require pre-registered
  * `redirect_uri` values
  */
 export const DEFAULT_REDIRECT_URI = 'http://localhost:3000/oauth2-cli/redirect';
-
-type RedirectOptions = Omit<WebServer.Options, 'client'>;
-
-export type ClientOptions<C extends Credentials = Credentials> = {
-  /** Human-readable name for client in messages */
-  name?: string;
-
-  /** Credentials for server access */
-  credentials: C;
-
-  /** Optional request components to inject */
-  inject?: Injection;
-
-  /** Base URL for all non-absolute requests */
-  base_url?: URL.ish;
-
-  /** Optional {@link TokenStorage} implementation to manage tokens */
-  storage?: Token.Storage;
-
-  /** Optional configuration web server listening for authorization code redirect */
-  options?: RedirectOptions;
-};
-
-type RefreshOptions = {
-  /**
-   * Optional refresh token
-   *
-   * If using {@link TokenStorage}, the refresh token should be stored with the
-   * access token and does not need to be separately managed and stored
-   */
-  refresh_token?: string;
-
-  /** Additional request injection for refresh grant flow */
-  inject?: Injection;
-};
-
-type GetTokenOptions = {
-  /**
-   * Optional access token
-   *
-   * If using {@link TokenStorage}, the access token does not need to be
-   * separately managed and stored
-   */
-  token?: Token.Response;
-
-  /**
-   * Additional request injection for authorization code grant and/or refresh
-   * grant flows
-   */
-  inject?: Injection;
-};
 
 /**
  * Wrap {@link https://www.npmjs.com/package/openid-client openid-client} in a
@@ -106,7 +55,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   protected inject?: Injection;
 
   /** Optional configuration options for web server listening for redirect */
-  private options?: RedirectOptions;
+  private localhostOptions?: Options.LocalhostOptions;
 
   /** Optional {@link TokenStorage} implementation to manage tokens */
   private storage?: Token.Storage;
@@ -123,13 +72,13 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     base_url,
     inject,
     storage,
-    options
-  }: ClientOptions<C>) {
+    localhost
+  }: Options.Client<C>) {
     super();
     this._name = name;
     this.credentials = credentials;
     this.base_url = base_url;
-    this.options = options;
+    this.localhostOptions = localhost;
     this.inject = inject;
     this.storage = storage;
   }
@@ -181,7 +130,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return this.config;
   }
 
-  public async getAuthorizationUrl(session: WebServer.Session) {
+  public async getAuthorizationUrl(session: Localhost.Server) {
     const params = URLSearchParams.from(this.inject?.search);
     params.set('redirect_uri', URL.toString(this.credentials.redirect_uri));
     params.set(
@@ -191,7 +140,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     params.set('code_challenge_method', 'S256');
     params.set('state', session.state);
     if (this.credentials.scope) {
-      params.set('scope', Scope.toString(this.credentials.scope));
+      params.set('scope', Token.Scope.toString(this.credentials.scope));
     }
 
     return OpenIDClient.buildAuthorizationUrl(
@@ -217,9 +166,9 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }
 
   private async _authorize() {
-    const session = new WebServer.Session({
+    const session = new Localhost.Server({
       client: this,
-      ...this.options
+      ...this.localhostOptions
     });
     const token = await this.save(await session.authorizationCodeGrant());
     return token;
@@ -227,7 +176,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
 
   public async handleAuthorizationCodeRedirect(
     req: Request,
-    session: WebServer.Session
+    session: Localhost.Server
   ) {
     try {
       return await OpenIDClient.authorizationCodeGrant(
@@ -251,7 +200,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   protected async refreshTokenGrant({
     refresh_token = this.token?.refresh_token,
     inject: request
-  }: RefreshOptions = {}) {
+  }: Options.Refresh = {}) {
     if (!refresh_token && !this.token && this.storage) {
       refresh_token = await this.storage.load();
     }
@@ -278,7 +227,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    * Depending on provided and/or stored access token and refresh token values,
    * this may require interactive authorization
    */
-  public async getToken({ token, inject: request }: GetTokenOptions = {}) {
+  public async getToken({ token, inject: request }: Options.GetToken = {}) {
     return await this.tokenLock.runExclusive(async () => {
       token = token || this.token;
       if (!this.token?.expiresIn() && this.storage) {

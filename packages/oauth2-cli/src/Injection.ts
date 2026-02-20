@@ -1,5 +1,5 @@
 import { Body, Headers, URLSearchParams } from 'requestish';
-import * as Scope from './Scope.js';
+import { Scope } from './Token/index.js';
 
 export type Injection = {
   /**
