@@ -29,6 +29,7 @@
     "express": "^5.2.1",
     "gcrtl": "workspace:*",
     "oauth4webapi": "^3.8.5",
+    "open": "^11.0.0",
     "openid-client": "^6.8.2",
     "ora": "^9.3.0",
     "requestish": "workspace:*"

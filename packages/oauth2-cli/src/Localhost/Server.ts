@@ -3,6 +3,7 @@ import { Colors } from '@qui-cli/colors';
 import express, { Request, Response } from 'express';
 import * as gcrtl from 'gcrtl';
 import fs from 'node:fs';
+import open from 'open';
 import * as OpenIDClient from 'openid-client';
 import ora, { Ora } from 'ora';
 import path from 'path';
@@ -85,8 +86,12 @@ export class Server {
       this.resolveAuthorizationCodeFlow = resolve;
       this.rejectAuthorizationCodeFlow = reject;
     });
-    this.spinner.text = `Please continue interactive authorization for ${this.client.name} at ${Colors.url(
+    const url = URL.toString(
       gcrtl.expand(this.launch_endpoint, this.client.credentials.redirect_uri)
+    );
+    open(url, { wait: false });
+    this.spinner.text = `Please continue interactive authorization for ${this.client.name} at ${Colors.url(
+      url
     )} in your browser`;
     await response;
     this.spinner.text = 'Waiting on server shut down';
