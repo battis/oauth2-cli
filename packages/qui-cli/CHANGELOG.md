@@ -4,53 +4,40 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.0.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.16...qui-cli-plugin/1.0.0) (2026-02-20)
 
-
 ### ⚠ BREAKING CHANGES
 
-* dist/Unregistered.js -> extendable
-* rename WebServer -> Localhost, authorize.ejs -> launch.ejs
-* simplify access to client name by making it (only) a read-only property
+- dist/Unregistered.js -> extendable
+- rename WebServer -> Localhost, authorize.ejs -> launch.ejs
+- simplify access to client name by making it (only) a read-only property
 
 ### Features
 
-* dist/Unregistered.js -> extendable ([1734d05](https://github.com/battis/oauth2-cli/commit/1734d05845e2b5960a6636d591605973df38b696))
-* human-readable reason for authorizing access ([0cce8c2](https://github.com/battis/oauth2-cli/commit/0cce8c2e13213e92befc4f58c81e6d7f9637ea63))
-* rename WebServer -> Localhost, authorize.ejs -> launch.ejs ([09723a8](https://github.com/battis/oauth2-cli/commit/09723a81640cb8ad0e767584a81b9b56f5a617b2))
-* simplify access to client name by making it (only) a read-only property ([401c870](https://github.com/battis/oauth2-cli/commit/401c870071c0e9ffc65282e8c42270dff6e897a2))
-
+- dist/Unregistered.js -> extendable ([1734d05](https://github.com/battis/oauth2-cli/commit/1734d05845e2b5960a6636d591605973df38b696))
+- human-readable reason for authorizing access ([0cce8c2](https://github.com/battis/oauth2-cli/commit/0cce8c2e13213e92befc4f58c81e6d7f9637ea63))
+- rename WebServer -> Localhost, authorize.ejs -> launch.ejs ([09723a8](https://github.com/battis/oauth2-cli/commit/09723a81640cb8ad0e767584a81b9b56f5a617b2))
+- simplify access to client name by making it (only) a read-only property ([401c870](https://github.com/battis/oauth2-cli/commit/401c870071c0e9ffc65282e8c42270dff6e897a2))
 
 ### Bug Fixes
 
-* improve client debug logging ([f53575d](https://github.com/battis/oauth2-cli/commit/f53575d855665a868f8a803ff3fb197faff9543d))
+- improve client debug logging ([f53575d](https://github.com/battis/oauth2-cli/commit/f53575d855665a868f8a803ff3fb197faff9543d))
 
 ## [0.7.16](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.15...qui-cli-plugin/0.7.16) (2026-02-19)
 
-
 ### Bug Fixes
 
-* removing potential source of authorization failure ([15d7d89](https://github.com/battis/oauth2-cli/commit/15d7d8980337df3f66afa8398b3cccb1fc6b56b6))
+- removing potential source of authorization failure ([15d7d89](https://github.com/battis/oauth2-cli/commit/15d7d8980337df3f66afa8398b3cccb1fc6b56b6))
 
 ## [0.7.15](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.14...qui-cli-plugin/0.7.15) (2026-02-19)
 
-
 ### Bug Fixes
 
-* further debugging log refinement ([26bad46](https://github.com/battis/oauth2-cli/commit/26bad46741fc0b2075099054e7127e90a1a4a002))
+- further debugging log refinement ([26bad46](https://github.com/battis/oauth2-cli/commit/26bad46741fc0b2075099054e7127e90a1a4a002))
 
 ## [0.7.14](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.13...qui-cli-plugin/0.7.14) (2026-02-19)
 
-
 ### Bug Fixes
 
-* further refinement in debug logging ([568e563](https://github.com/battis/oauth2-cli/commit/568e563bc0a918cd9741951654db685488f10330))
-
-## [0.7.13](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.12...qui-cli-plugin/0.7.13) (2026-02-19)
-
-Incorporates oauth2-cli@0.8.8
-
-## [0.7.10](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.9...qui-cli-plugin/0.7.10) (2026-02-19)
-
-Incorporates oauth2-cli@0.8.5 updates
+- further refinement in debug logging ([568e563](https://github.com/battis/oauth2-cli/commit/568e563bc0a918cd9741951654db685488f10330))
 
 ## [0.7.7](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.6...qui-cli-plugin/0.7.7) (2026-02-19)
 
@@ -69,12 +56,6 @@ Incorporates oauth2-cli@0.8.5 updates
 ### Bug Fixes
 
 - improved debugging output ([a0e6cea](https://github.com/battis/oauth2-cli/commit/a0e6ceaf12dadd9b2bf1753c602165f7194cbf24))
-
-## [0.7.4](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.3...qui-cli-plugin/0.7.4) (2026-02-18)
-
-## [0.7.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.2...qui-cli-plugin/0.7.3) (2026-02-18)
-
-Incorporate fixes from oauth2-cli@0.8.2
 
 ## [0.7.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.1...qui-cli-plugin/0.7.2) (2026-02-18)
 
