@@ -33,7 +33,7 @@ type EnvVarSuppression = Record<EnvironmentKey, boolean>;
 
 /** Custom usage information to present to user */
 type Usage = {
-  heading: string;
+  heading?: string;
   text?: string[];
 };
 
