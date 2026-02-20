@@ -137,9 +137,7 @@ export class OAuth2Plugin<
   };
 
   /** Configured credentials to suppress in usage and init */
-  private suppress?: Partial<EnvVarSuppression> = {
-    scope: true
-  };
+  private suppress?: Partial<EnvVarSuppression> = undefined;
 
   /** Configured request components for client to inject */
   private inject?: OAuth2CLI.Injection = undefined;
