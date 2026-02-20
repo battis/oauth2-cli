@@ -17,6 +17,7 @@ await register(drive);
 
 // configure each instance
 github.configure({
+  reason: 'the @oauth2-cli/qui-cli multiple-apis example',
   credentials: {
     authorization_endpoint: 'https://github.com/login/oauth/authorize',
     token_endpoint: 'https://github.com/login/oauth/access_token'
@@ -42,6 +43,7 @@ github.configure({
 });
 
 drive.configure({
+  reason: 'the @oauth2-cli/qui-cli multiple-apis example',
   credentials: {
     issuer: 'https://accounts.google.com',
     scope: 'https://www.googleapis.com/auth/drive.metadata.readonly'

@@ -32,6 +32,9 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return 'API';
   }
 
+  /** Human-readable reason for authorization in messages */
+  private reason?: string;
+
   /** Credentials for server access */
   public credentials: C;
 
@@ -63,6 +66,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   /** @see {@link Options.Client} */
   public constructor({
     name,
+    reason,
     credentials,
     base_url,
     inject,
@@ -71,6 +75,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }: Options.Client<C>) {
     super();
     this._name = name;
+    this.reason = reason;
     this.credentials = credentials;
     this.base_url = base_url;
     this.localhostOptions = localhost;
@@ -179,6 +184,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   private async _authorize() {
     const session = new Localhost.Server({
       client: this,
+      reason: this.reason,
       ...this.localhostOptions
     });
     const token = await this.save(await session.authorizationCodeGrant());

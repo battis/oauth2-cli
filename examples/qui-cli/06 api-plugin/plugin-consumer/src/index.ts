@@ -9,6 +9,9 @@ Root.configure({ root: process.cwd() });
 // initialize qui-cli and the GitHub plugin from the environment and command line
 await Core.run();
 
+// configure a per-app reason for authorization
+GitHub.configure({ reason: 'the @oauth2-cli/qui-cli api-plugin example' });
+
 // get this repo (battis/oauth2-cli)
 Log.info({
   response: await GitHub.requestJSON('/repos/battis/oauth2-cli')

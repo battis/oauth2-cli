@@ -36,6 +36,8 @@ export class Server {
 
   private client: Client;
 
+  private reason = 'an unnamed oauth2-cli app';
+
   private views?: PathString;
   private packageViews = '../../views';
 
@@ -52,14 +54,16 @@ export class Server {
   private rejectAuthorizationCodeFlow?: (error: Error) => void = undefined;
 
   public constructor({
+    reason,
     client,
     views,
     launch_endpoint = DEFAULT_LAUNCH_ENDPOINT,
     timeout = 1000 // milliseconds
   }: Options) {
     this.client = client;
+    this.reason = reason || this.reason;
     this.spinner = ora(
-      `Awaiting interactive authorization for ${this.client.name}`
+      `Awaiting interactive authorization for ${this.client.name} access by ${this.reason}`
     ).start();
     this.launch_endpoint = launch_endpoint;
     this.views = views;
@@ -90,11 +94,11 @@ export class Server {
       gcrtl.expand(this.launch_endpoint, this.client.credentials.redirect_uri)
     );
     open(url, { wait: false });
-    this.spinner.text = `Please continue interactive authorization for ${this.client.name} at ${Colors.url(
+    this.spinner.text = `Please continue interactive authorization of ${this.client.name} for ${this.reason} at ${Colors.url(
       url
     )} in your browser`;
     await response;
-    this.spinner.text = 'Waiting for localhost redirect server to shut down';
+    this.spinner.text = `Waiting for ${this.client.name} localhost redirect server to shut down`;
     await this.close();
     return response;
   }
@@ -117,8 +121,9 @@ export class Server {
    * are found.
    *
    * All views receive a data property `name` which is the human-readable name
-   * of the Client managing the authorization code flow, which should be
-   * displayed in messages for transparency.
+   * of the Client managing the authorization code flow, and `reason` indicating
+   * the human-readable reason (i.e. name of the app) requesting authorization,
+   * which should be displayed in messages for transparency.
    *
    * @param views Should be an absolute path
    */
@@ -132,11 +137,18 @@ export class Server {
     data: Record<string, unknown> = {}
   ) {
     const name = this.client.name;
+    const reason = this.reason;
     async function attemptToRender(views?: PathString) {
       if (ejs && views) {
         const viewPath = path.resolve(import.meta.dirname, views, template);
         if (fs.existsSync(viewPath)) {
-          res.send(await ejs.renderFile(viewPath, { name, ...data }));
+          res.send(
+            await ejs.renderFile(viewPath, {
+              name,
+              reason,
+              ...data
+            })
+          );
           return true;
         }
       }
@@ -161,16 +173,16 @@ export class Server {
 
   /** Handles request to `redirect_uri` */
   protected async handleRedirect(req: Request, res: Response) {
-    this.spinner.text = `Exchanging authorization code for ${this.client.name} access token`;
+    this.spinner.text = `Exchanging authorization code for ${this.client.name} access token for ${this.reason}`;
     try {
       if (this.resolveAuthorizationCodeFlow) {
         this.resolveAuthorizationCodeFlow(
           await this.client.handleAuthorizationCodeRedirect(req, this)
         );
-        this.spinner.text = `${this.client.name} authorization complete and access token received`;
+        this.spinner.text = `${this.client.name} authorization complete and access token received for ${this.reason}`;
         if (!(await this.render(res, 'complete.ejs'))) {
           res.send(
-            `${this.client.name} authorization complete. You may close this window.`
+            `${this.client.name} authorization complete for ${this.reason}. You may close this window.`
           );
         }
       } else {
@@ -214,7 +226,9 @@ export class Server {
           );
         } else {
           Server.activePorts.splice(Server.activePorts.indexOf(this.port), 1);
-          this.spinner.succeed(`${this.client.name} authorization complete`);
+          this.spinner.succeed(
+            `${this.client.name} authorization complete for ${this.reason}`
+          );
           resolve();
         }
       });

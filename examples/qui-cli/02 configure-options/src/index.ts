@@ -8,7 +8,11 @@ Root.configure({ root: process.cwd() });
 
 // configure the OAuth2 plugin
 OAuth2.configure({
+  // give a human-readable name for the client (e.g. the name of the API)
   name: 'GitHub',
+
+  // give a human-readable reason to authorize access (e.g. the name of the app)
+  reason: 'the @oauth2-cli/qui-cli configure-options example',
 
   // change the section header
   man: { heading: 'GitHub API options' },

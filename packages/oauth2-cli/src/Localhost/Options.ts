@@ -4,6 +4,9 @@ import { Client } from '../index.js';
 export type Options = {
   client: Client;
 
+  /** Human-readable name of the app requesting API authorization */
+  reason?: string;
+
   /** See {@link Session.setViews setViews()} */
   views?: PathString;
   /**

@@ -41,8 +41,14 @@ type Usage = {
 export type Configuration<
   C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
 > = Plugin.Configuration & {
-  /** Human-readable name for client in messages. */
+  /** Human-readable name for client in messages (e.g. the name of the API) */
   name?: string;
+
+  /**
+   * Human-readable for authorizing access in messages (e.g. the name of the
+   * app)
+   */
+  reason?: string;
 
   /** OAuth 2.0/OpenID Connect credential set */
   credentials?: Partial<C>;
@@ -84,6 +90,8 @@ export class OAuth2Plugin<
   private static registeredPorts: Record<string, string> = {};
 
   private overrideName?: string;
+
+  private reason?: string;
 
   /**
    * @param name Human-readable name for client in messages. Must also be a
@@ -191,6 +199,7 @@ export class OAuth2Plugin<
       }
       this._client = this.instantiateClient({
         name: this.overrideName || this.name,
+        reason: this.reason,
         credentials: this.credentials,
         base_url: this.base_url,
         inject: this.inject,
@@ -229,6 +238,7 @@ export class OAuth2Plugin<
     }
 
     this.overrideName = Plugin.hydrate(proposal.name, this.overrideName);
+    this.reason = Plugin.hydrate(proposal.reason, this.reason);
     this.credentials = hydrate(proposal.credentials, this.credentials);
     this.base_url = Plugin.hydrate(proposal.base_url, this.base_url);
     this.storage = Plugin.hydrate(proposal.storage, this.storage);

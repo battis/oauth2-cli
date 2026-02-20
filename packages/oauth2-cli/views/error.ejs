@@ -26,6 +26,13 @@
             <h1 class="modal-title fs-5"><%= name %> Authorization Error</h1>
           </div>
           <div class="modal-body">
+            <p>
+              While authorizing access to
+              <%= name %>
+              for
+              <%= reason %>
+              an error was encountered:
+            </p>
             <div class="alert alert-danger" role="alert">
               <pre><%= JSON.stringify(error, null, 2) %></pre>
             </div>

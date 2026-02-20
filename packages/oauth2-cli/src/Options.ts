@@ -5,11 +5,17 @@ import * as Localhost from './Localhost/index.js';
 import * as Token from './Token/index.js';
 
 /** For use only within the Client implementation */
-export type LocalhostOptions = Omit<Localhost.Options, 'client'>;
+export type LocalhostOptions = Omit<Localhost.Options, 'client' | 'reason'>;
 
 export type Client<C extends Credentials = Credentials> = {
-  /** Human-readable name for client in messages */
+  /** Human-readable name for client in messages (e.g. the name of the API) */
   name?: string;
+
+  /**
+   * Human-readable reason for authorizing access in messages (e.g. the app
+   * name)
+   */
+  reason?: string;
 
   /** Credentials for server access */
   credentials: C;

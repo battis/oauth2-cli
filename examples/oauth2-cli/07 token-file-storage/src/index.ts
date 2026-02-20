@@ -17,6 +17,7 @@ if (!(client_id && client_secret && redirect_uri)) {
 // configure oauth2-cli client with credentials
 const github = new Client({
   name: 'GitHub',
+  reason: 'the oauth2-cli token-file-storage example',
   credentials: {
     client_id,
     client_secret,

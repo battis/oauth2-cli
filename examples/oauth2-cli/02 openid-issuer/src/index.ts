@@ -16,6 +16,7 @@ if (!(client_id && client_secret && redirect_uri)) {
 // configure oauth2-cli client with credentials
 const drive = new Client({
   name: 'Google',
+  reason: 'the oauth2-cli openid-issuer example',
   credentials: {
     issuer: 'https://accounts.google.com',
     client_id,
