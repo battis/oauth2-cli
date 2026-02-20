@@ -94,7 +94,7 @@ export class Server {
       url
     )} in your browser`;
     await response;
-    this.spinner.text = 'Waiting on server shut down';
+    this.spinner.text = 'Waiting for localhost redirect server to shut down';
     await this.close();
     return response;
   }
@@ -171,14 +171,14 @@ export class Server {
         }
       } else {
         throw new Error(
-          `${this.client.name} Localhost.Server.resolver is ${this.resolveAuthorizationCodeFlow}`
+          `${this.client.name} localhost redirect session resolver is ${this.resolveAuthorizationCodeFlow}`
         );
       }
     } catch (error) {
       if (this.rejectAuthorizationCodeFlow) {
         this.rejectAuthorizationCodeFlow(
           new Error(
-            `${this.client.name} Localhost.Server could not handle redirect`,
+            `${this.client.name} localhost server could not handle redirect`,
             {
               cause: error
             }
@@ -199,9 +199,9 @@ export class Server {
     return new Promise<void>((resolve, reject) => {
       this.server.close((cause?: Error) => {
         if (cause) {
-          const message = `Error shutting down ${this.client.name} Localhost.Server`;
+          const message = `Error shutting down ${this.client.name} localhost redirect server`;
           this.spinner.fail(
-            `Error shutting down ${this.client.name} Localhost.Server`
+            `Error shutting down ${this.client.name} localhost redirect server`
           );
           reject(
             new Error(message, {
