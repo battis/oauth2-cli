@@ -40,6 +40,22 @@ It is strongly recommended that you provide a human-readable `name` for the clie
 
 > ...to authorize access to `name` for `reason`, do this...
 
+## Extending `OAuth2Plugin`
+
+The default export of the package includes an instance of `OAuth2` which is self-registered within the [qui-cli](https://github.com/battis/qui-cli#readme) framework. This is convenient and normal, to facilitate rapidly agglomerating CLI apps out a a collection of plugins.
+
+But if you are creating a custom extension of the plugin to pre-configure it to connect to a particular service, you may want to avoid that self-registration by importing from the `extendable` namespace:
+
+```ts
+import { OAuth2Plugin } from '@oauth2-cli/qui-cli/extendable';
+
+export class MyService extends OAuth2Plugin {
+  // ...
+}
+```
+
+A detailed example of this strategy is found in the examples (see below): [api-plugin](https://github.com/battis/oauth2-cli/tree/main/examples/qui-cli/06%20api-plugin#readme).
+
 ## Examples
 
 Refer to [`oauth2-cli`](https://www.npmjs.com/package/oauth2-cli) for more information about configuring that tool in more nuanced ways.
