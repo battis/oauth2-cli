@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "./extendable"
+  },
+  "include": ["./src"],
+  "exclude": ["./src/index.ts", "./src/OAuth2.ts"]
+}

@@ -1,8 +1,8 @@
-/*
- * imported from the `Unregistered` namespace file, avoiding the auto-
- * registered plugin instance in the default export
+/**
+ * Imported from the `extendable` namespace, avoiding the auto- registered
+ * plugin instance in the default export
  */
-import { OAuth2Plugin, Token } from '@oauth2-cli/qui-cli/dist/Unregistered.js';
+import { OAuth2Plugin, Token } from '@oauth2-cli/qui-cli/extendable';
 import { Colors } from '@qui-cli/colors';
 
 export class GitHubPlugin extends OAuth2Plugin {
