@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.9...oauth2-cli/1.0.0) (2026-02-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename WebServer -> Localhost, authorize.ejs -> launch.ejs
+* simplify access to client name by making it (only) a read-only property
+* correctly expand gcrtl redirect_uri when requesting access token
+
+### Features
+
+* auto-launch authorization flow in browser ([140e58e](https://github.com/battis/oauth2-cli/commit/140e58ea4c7a9c8d9c53624929e944d2ced1bd2e))
+* human-readable reason for authorizing access ([0cce8c2](https://github.com/battis/oauth2-cli/commit/0cce8c2e13213e92befc4f58c81e6d7f9637ea63))
+* rename WebServer -> Localhost, authorize.ejs -> launch.ejs ([09723a8](https://github.com/battis/oauth2-cli/commit/09723a81640cb8ad0e767584a81b9b56f5a617b2))
+* simplify access to client name by making it (only) a read-only property ([401c870](https://github.com/battis/oauth2-cli/commit/401c870071c0e9ffc65282e8c42270dff6e897a2))
+
+
+### Bug Fixes
+
+* correctly expand gcrtl redirect_uri when requesting access token ([387f9d8](https://github.com/battis/oauth2-cli/commit/387f9d83b81052fd19d80f7e7ff984390a90c822)), closes [#22](https://github.com/battis/oauth2-cli/issues/22)
+* re-authorize if refresh token grant fails ([4fb42bb](https://github.com/battis/oauth2-cli/commit/4fb42bb1f1fa65b253938c051b29799cdbd058bc))
+
 ## [0.8.9](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.8...oauth2-cli/0.8.9) (2026-02-19)
 
 
