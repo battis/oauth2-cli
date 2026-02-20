@@ -4,6 +4,7 @@ import { Injection } from './Injection.js';
 import * as Localhost from './Localhost/index.js';
 import * as Token from './Token/index.js';
 
+/** For use only within the Client implementation */
 export type LocalhostOptions = Omit<Localhost.Options, 'client'>;
 
 export type Client<C extends Credentials = Credentials> = {

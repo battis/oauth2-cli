@@ -75,7 +75,7 @@ class Client {
 
 [`requestish.URL.ish`](https://www.npmjs.com/package/requestish) are more forgiving types accepting not just those specific types, but reasonable facsimiles of them.
 
-### `requestJSON<T>()`
+### `requestJSON<J>()`
 
 Given that many APIs return JSON-formatted responses, it is convenient to just get that JSON (optionally pre-typed based on what you expect to receive) rather than having to process the response yourself.
 
@@ -84,7 +84,7 @@ class Client {
   // ...
 
   public async requestJSON<
-    T extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
+    J extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
   >(
     url: requestish.URL.ish,
     method = 'GET',
@@ -96,6 +96,10 @@ class Client {
   }
 }
 ```
+
+### `fetch()` and `fetchJSON<J>()`
+
+Aliases for `request()` and `requestJSON<J>()` that use [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)-style arguments.
 
 ## Examples
 

@@ -1,6 +1,7 @@
 import { Body, Headers, URLSearchParams } from 'requestish';
 import { Scope } from './Token/index.js';
 
+/** Request components to inject when communicating with the API server */
 export type Injection = {
   /**
    * Search query parameters to include in server request (may be ovewritten by
