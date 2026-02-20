@@ -12,11 +12,11 @@ import * as Token from '../Token/index.js';
 import { DEFAULT_LAUNCH_ENDPOINT } from './Defaults.js';
 import { Options } from './Options.js';
 
-export let ejs: MinimalEJS | undefined = undefined;
+let ejs: MinimalEJS | undefined = undefined;
 try {
   ejs = (await import('ejs')).default;
 } catch (_) {
-  // ignore error
+  // ejs peer dependency not installed
 }
 
 /**
@@ -36,7 +36,7 @@ export class Server {
   private client: Client;
 
   private views?: PathString;
-  private packageViews = '../views';
+  private packageViews = '../../views';
 
   private spinner: Ora;
 
@@ -159,7 +159,7 @@ export class Server {
         this.resolveAuthorizationCodeFlow(
           await this.client.handleAuthorizationCodeRedirect(req, this)
         );
-        this.spinner.text = 'Authorization complete and access token received';
+        this.spinner.text = `${this.client.name} authorization complete and access token received`;
         if (!(await this.render(res, 'complete.ejs'))) {
           res.send(
             `${this.client.name} authorization complete. You may close this window.`
@@ -167,13 +167,18 @@ export class Server {
         }
       } else {
         throw new Error(
-          `WebServer.resolver is ${this.resolveAuthorizationCodeFlow}`
+          `${this.client.name} Localhost.Server.resolver is ${this.resolveAuthorizationCodeFlow}`
         );
       }
     } catch (error) {
       if (this.rejectAuthorizationCodeFlow) {
         this.rejectAuthorizationCodeFlow(
-          new Error('WebServer could not handle redirect', { cause: error })
+          new Error(
+            `${this.client.name} Localhost.Server could not handle redirect`,
+            {
+              cause: error
+            }
+          )
         );
       }
       if (!(await this.render(res, 'error.ejs', { error }))) {
@@ -190,9 +195,9 @@ export class Server {
     return new Promise<void>((resolve, reject) => {
       this.server.close((cause?: Error) => {
         if (cause) {
-          const message = `Error shutting down ${this.client.name} out-of-band redirect web server`;
+          const message = `Error shutting down ${this.client.name} Localhost.Server`;
           this.spinner.fail(
-            `Error shutting down ${this.client.name} out-of-band redirect web server`
+            `Error shutting down ${this.client.name} Localhost.Server`
           );
           reject(
             new Error(message, {
@@ -201,7 +206,7 @@ export class Server {
           );
         } else {
           Server.activePorts.splice(Server.activePorts.indexOf(this.port), 1);
-          this.spinner.succeed('Authorization complete');
+          this.spinner.succeed(`${this.client.name} authorization complete`);
           resolve();
         }
       });
