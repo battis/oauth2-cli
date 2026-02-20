@@ -1,6 +1,6 @@
 # oauth2-cli
 
-Acquire API access tokens via OAuth 2.0 within CLI tools
+Acquire API access tokens via OAuth 2.0 / OpenID Connect within CLI tools
 
 [![npm version](https://badge.fury.io/js/oauth2-cli.svg)](https://badge.fury.io/js/oauth2-cli)
 [![Module type: ESM](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://nodejs.org/api/esm.html)
@@ -21,11 +21,15 @@ type ExpectedResponse = {
 };
 
 const client = new Client({
-  client_id: 'm3C6dGQJPJrvgwN97mTP4pWVH9smZGrr',
-  client_secret: '2XUktyxU2KQmQAoVHxQXNaHZ4G7XqJdP',
-  redirect_uri: 'http://localhost:3000/example/redirect',
-  authorization_endpoint: 'https://example.com/oauth2/auth',
-  token_endpoint: 'https://example.com/oauth2/token',
+  name: 'Example API',
+  reason: 'an example script',
+  credentials: {
+    client_id: 'm3C6dGQJPJrvgwN97mTP4pWVH9smZGrr',
+    client_secret: '2XUktyxU2KQmQAoVHxQXNaHZ4G7XqJdP',
+    redirect_uri: 'http://localhost:3000/example/redirect',
+    authorization_endpoint: 'https://example.com/oauth2/auth',
+    token_endpoint: 'https://example.com/oauth2/token'
+  },
   storage: new FileStorage('/path/to/token/file.json');
 });
 console.log(
@@ -37,17 +41,29 @@ Broadly speaking, having provided the configuration, the client is immediately r
 
 ### Instantiate a `Client`
 
-A `Client` requires some minimal information in order to interact with an OAuth 2.0 authorized API. The OAuth 2.0 base set is a `client_id`, `client_secret`, `authorization_endpoint`, `token_endpoint`, and a `redirect_uri`. For an OpenID-authenticated API, you could provide a `client_id`, `client_secret`, `issuer`, and `redirect_uri` and the Client will query the issuer for further details regarding required connection parameters (it is built on to of [openid-client](https://www.npmjs.com/package/openid-client)).
+#### `credentials`
 
-In both cases, the token can be persisted by passing an implementation of [`Token.Storage`](https://github.com/battis/oauth2-cli/blob/main/packages/oauth2-cli/src/Token/TokenStorage.ts), such as [`FileStorage`](https://github.com/battis/oauth2-cli/blob/main/packages/oauth2-cli/src/Token/FileStorage.ts) which expects a path to a location to store a JSON file of access token data. _There are more secure ways to store your tokens, such as [@oauth2-cli/qui-cli](https://www.npmjs.com/package/@oauth2-cli/qui-cli)'s [`EnvironmentStorage`](https://github.com/battis/oauth2-cli/blob/main/packages/qui-cli/src/EnvironmentStorage.ts) which can be linked to a [1Password vault](https://github.com/battis/qui-cli/tree/main/packages/env#1password-integration)._
+A `Client` requires some minimal information in order to interact with an OAuth 2.0 authorized API. The OAuth 2.0 base `credentials` set is a `client_id`, `client_secret`, `authorization_endpoint`, `token_endpoint`, and a `redirect_uri`. For an OpenID-authenticated API, you could provide a `client_id`, `client_secret`, `issuer`, and `redirect_uri` and the Client will query the issuer for further details regarding required connection parameters (it is built on to of [openid-client](https://www.npmjs.com/package/openid-client)).
 
-#### `redirect_uri` to Localhost
+#### `name` and `reason`
+
+It is strongly recommended that you provide a human-readable `name` for the client that will be used in user messages explaining _what_ is being accessed (e.g. the name of the API or service) and a human-readable `reason` for the user to provide this access (e.g. the name of your app or script). Messages are structured in the manner:
+
+> ...to authorize access to `name` for `reason`, do this...
+
+#### `storage`
+
+The `refresh_token` can be persisted by passing an implementation of [`Token.Storage`](https://github.com/battis/oauth2-cli/blob/main/packages/oauth2-cli/src/Token/TokenStorage.ts), such as [`FileStorage`](https://github.com/battis/oauth2-cli/blob/main/packages/oauth2-cli/src/Token/FileStorage.ts) which expects a path to a location to store a JSON file of access token data. _There are more secure ways to store your tokens, such as [@oauth2-cli/qui-cli](https://www.npmjs.com/package/@oauth2-cli/qui-cli)'s [`EnvironmentStorage`](https://github.com/battis/oauth2-cli/blob/main/packages/qui-cli/src/EnvironmentStorage.ts) which can be linked to a [1Password vault](https://github.com/battis/qui-cli/tree/main/packages/env#1password-integration)._
+
+## Registering localhost redirect URLs
+
+### `redirect_uri` to Localhost
 
 Since the `redirect_uri` is receiving the authorization code in the Authorization Code token flow, the Client needs to be able to "catch" that redirect. The easy way to do this is to register a localhost address with the API (e.g. `http://localhost:3000/my/redirect/path`). When such a redirect URI is given to the client, it stands up (briefly) a local web server to receive that request at the port and path provided.
 
 Not every API accepts a `localhost` redirect (it creates the possibility of CORS exploits that could lead to XSS vulnerabilities). For these APIs, using [gcrtl](https://github.com/battis/google-cloud-run-to-localhost#readme) or a similar system will work as well. (In the specific case of `gcrtl`, `oauth2-cli` will trim the leading `/http/localhost:<port>` from provided `redirect_uri` and expect the _remainder_ of the path.)
 
-#### `http` protocol
+### `http` protocol
 
 If you would prefer an `https` connection to localhost, you have to roll your own SSL certificate.
 
@@ -74,6 +90,10 @@ class Client {
 ```
 
 [`requestish.URL.ish`](https://www.npmjs.com/package/requestish) are more forgiving types accepting not just those specific types, but reasonable facsimiles of them.
+
+#### `base_url` and `issuer` for relative paths
+
+If you would prefer to make requests to relative paths, rather than absolute paths, either configure a `base_url` or include an `issuer` in the `credentials` when instantiating the client. A `base_url` will preempt an `issuer`, if both are defined (handy for when the `issuer` is a different subdomain than the API endpoints).
 
 ### `requestJSON<J>()`
 
