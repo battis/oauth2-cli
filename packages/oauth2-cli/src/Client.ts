@@ -161,6 +161,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
 
   public async authorize() {
     return await this.tokenLock.runExclusive(async () => {
+      console.log('running authorize from external call');
       return await this._authorize();
     });
   }
@@ -234,7 +235,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         this.token = await this.refreshTokenGrant({ inject: request });
       }
       if (!this.token) {
-        this.token = await this.authorize();
+        this.token = await this._authorize();
       }
       return this.token;
     });
