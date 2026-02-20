@@ -79,8 +79,8 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }
 
   /**
-   * @throws IndeterminateConfiguration if provided credentials combined with
-   *   OpenID discovery fail to generate a complete configuration
+   * Build a client configuration either via `issuer` discovery or from provided
+   * `credentials`
    */
   public async getConfiguration() {
     let discovery = undefined;

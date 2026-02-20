@@ -8,7 +8,8 @@ import * as OAuth2CLI from 'oauth2-cli';
 import { URL } from 'requestish';
 import { Client } from './Client.js';
 
-type CredentialKey =
+/** Key for value to be read from the local environment */
+type EnvironmentKey =
   | 'issuer'
   | 'client_id'
   | 'client_secret'
@@ -18,16 +19,25 @@ type CredentialKey =
   | 'scope'
   | 'base_url';
 
-type EnvironmentVars = Record<CredentialKey, string>;
-type SupportUrls = Record<CredentialKey, URLString>;
-type Hints = Record<CredentialKey, string>;
-type EnvVarSuppression = Record<CredentialKey, boolean>;
+/** Names of environment variables */
+type EnvironmentVars = Record<EnvironmentKey, string>;
 
+/** Reference URLs for environment variables */
+type SupportUrls = Record<EnvironmentKey, URLString>;
+
+/** Hint values for environment variables */
+type Hints = Record<EnvironmentKey, string>;
+
+/** Environment variables to ignore and supporess in usage documentation */
+type EnvVarSuppression = Record<EnvironmentKey, boolean>;
+
+/** Custom usage information to present to user */
 type Usage = {
   heading: string;
   text?: string[];
 };
 
+/** Plugin configuration */
 export type Configuration<
   C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
 > = Plugin.Configuration & {
@@ -87,20 +97,26 @@ export class OAuth2Plugin<
     }
   }
 
+  /** Configured client credentials */
   private credentials?: C;
 
+  /** Configured client base_url */
   private base_url?: URL.ish;
 
+  /** Configured usage information */
   private man: Usage = {
     heading: 'OAuth 2.0 / Open ID Connect client options'
   };
 
+  /** Configured reference URLs for credentials */
   private url?: Partial<SupportUrls> = undefined;
 
+  /** Configured hint values for credentials */
   private hint: Partial<Hints> = {
     redirect_uri: Colors.quotedValue(`"http://localhost:3000/redirect"`)
   };
 
+  /** Configured environment variable names for credentials */
   private env: EnvironmentVars = {
     issuer: 'ISSUER',
     client_id: 'CLIENT_ID',
@@ -112,18 +128,91 @@ export class OAuth2Plugin<
     scope: 'SCOPE'
   };
 
+  /** Configured credentials to suppress in usage and init */
   private suppress?: Partial<EnvVarSuppression> = {
     scope: true
   };
 
+  /** Configured request components for client to inject */
   private inject?: OAuth2CLI.Injection = undefined;
 
+  /** Configured {@link OAuth2CLI.Localhost.Options} to pass to client */
   private localhost?: OAuth2CLI.Options['localhost'];
 
+  /** Configured client refresh token storage strategy */
   private storage?: OAuth2CLI.Token.Storage = undefined;
 
   private _client?: L = undefined;
 
+  /**
+   * Configured oauth2-cli client
+   *
+   * Do _not_ access until intitialization is complete -- the client will be
+   * configured upon first access based on available configuration known at that
+   * time
+   */
+  public get client(): L {
+    if (!this._client) {
+      if (!this.credentials?.client_id) {
+        throw new Error(
+          `A ${Colors.varName(this.env.client_id)} ${Colors.keyword('must')} ` +
+            `be configured for ${this.overrideName || this.name}.`
+        );
+      }
+      if (!this.credentials?.client_secret) {
+        throw new Error(
+          `A ${Colors.varName(this.env.client_secret)} ${Colors.keyword('must')} ` +
+            `be configured for ${this.overrideName || this.name}.`
+        );
+      }
+      if (!this.credentials?.redirect_uri) {
+        throw new Error(
+          `A ${Colors.varName(this.env.redirect_uri)} ${Colors.keyword('must')} ` +
+            `be configured for ${this.overrideName || this.name}.`
+        );
+      }
+      if (!this.credentials?.issuer) {
+        if (!this.credentials?.authorization_endpoint) {
+          throw new Error(
+            `Either an ${Colors.varName(this.env.issuer)} or ` +
+              `${Colors.varName(this.env.authorization_endpoint)} ` +
+              `${Colors.keyword('must')} be configured for ` +
+              `${this.overrideName || this.name}.`
+          );
+        }
+        if (!this.credentials?.token_endpoint) {
+          throw new Error(
+            `Either an ${Colors.varName(this.env.issuer)} or ` +
+              `${Colors.varName(this.env.token_endpoint)} ` +
+              `${Colors.keyword('must')} be configured for ` +
+              `${this.overrideName || this.name}.`
+          );
+        }
+      }
+      this._client = this.instantiateClient({
+        name: this.overrideName || this.name,
+        credentials: this.credentials,
+        base_url: this.base_url,
+        inject: this.inject,
+        localhost: this.localhost,
+        storage: this.storage
+      });
+    }
+    return this._client;
+  }
+
+  /**
+   * Configure plugin for use
+   *
+   * May be called repeatedly, overlaying different options as they become
+   * available
+   *
+   * Invoked automatically by
+   * {@link https://github.com/battis/qui-cli#readme qui-cli} during
+   * initialization
+   *
+   * @see {@link Configuration}
+   */
   public configure(proposal: Configuration<C> = {}) {
     function hydrate<T>(p: T | Partial<T> | undefined, c: T) {
       if (p) {
@@ -196,8 +285,17 @@ export class OAuth2Plugin<
     }
   }
 
+  /**
+   * Provide usage options to
+   * {@link https://github.com/battis/qui-cli#readme qui-cli} for display to user
+   * on command line
+   *
+   * Invoked automatically by
+   * {@link https://github.com/battis/qui-cli#readme qui-cli} during
+   * initialization
+   */
   public options(): Plugin.Options {
-    const descriptions: Record<CredentialKey, string> = {
+    const descriptions: Record<EnvironmentKey, string> = {
       issuer:
         `The OpenID ${Colors.keyword('issuer')} URL is set from the ` +
         `environment variable ${Colors.varName(this.env.issuer)}, if present. ` +
@@ -239,7 +337,7 @@ export class OAuth2Plugin<
     return {
       man: [
         { level: 1, text: this.man.heading },
-        ...(Object.keys(descriptions) as CredentialKey[])
+        ...(Object.keys(descriptions) as EnvironmentKey[])
           .filter((key) => !this.suppress || !this.suppress[key])
           .map((key) => ({
             text:
@@ -254,6 +352,13 @@ export class OAuth2Plugin<
     };
   }
 
+  /**
+   * Intialize plugin configuration from command line options and environment
+   *
+   * Invoked automatically by
+   * {@link https://github.com/battis/qui-cli#readme qui-cli} during
+   * initialization
+   */
   public async init(_: Plugin.ExpectedArguments<typeof this.options>) {
     const credentials: Configuration<C>['credentials'] = {};
     const base_url =
@@ -261,7 +366,7 @@ export class OAuth2Plugin<
       (await Env.get({
         key: this.env.base_url
       }));
-    for (const key of Object.keys(this.env) as CredentialKey[]) {
+    for (const key of Object.keys(this.env) as EnvironmentKey[]) {
       if (key !== 'base_url') {
         // FIXME better typing
         // @ts-expect-error 2322
@@ -273,73 +378,49 @@ export class OAuth2Plugin<
     this.configure({ credentials, base_url });
   }
 
+  /**
+   * Instantiate the `oauth2-cli` client
+   *
+   * Available hook for custom configurations in plugin development
+   */
   protected instantiateClient(options: OAuth2CLI.Options<C>): L {
     return new OAuth2CLI.Client<C>(options) as L;
   }
-  public get client(): L {
-    if (!this._client) {
-      if (!this.credentials?.client_id) {
-        throw new Error(
-          `A ${Colors.varName(this.env.client_id)} ${Colors.keyword('must')} ` +
-            `be configured for ${this.overrideName || this.name}.`
-        );
-      }
-      if (!this.credentials?.client_secret) {
-        throw new Error(
-          `A ${Colors.varName(this.env.client_secret)} ${Colors.keyword('must')} ` +
-            `be configured for ${this.overrideName || this.name}.`
-        );
-      }
-      if (!this.credentials?.redirect_uri) {
-        throw new Error(
-          `A ${Colors.varName(this.env.redirect_uri)} ${Colors.keyword('must')} ` +
-            `be configured for ${this.overrideName || this.name}.`
-        );
-      }
-      if (!this.credentials?.issuer) {
-        if (!this.credentials?.authorization_endpoint) {
-          throw new Error(
-            `Either an ${Colors.varName(this.env.issuer)} or ` +
-              `${Colors.varName(this.env.authorization_endpoint)} ` +
-              `${Colors.keyword('must')} be configured for ` +
-              `${this.overrideName || this.name}.`
-          );
-        }
-        if (!this.credentials?.token_endpoint) {
-          throw new Error(
-            `Either an ${Colors.varName(this.env.issuer)} or ` +
-              `${Colors.varName(this.env.token_endpoint)} ` +
-              `${Colors.keyword('must')} be configured for ` +
-              `${this.overrideName || this.name}.`
-          );
-        }
-      }
-      this._client = this.instantiateClient({
-        name: this.overrideName || this.name,
-        credentials: this.credentials,
-        base_url: this.base_url,
-        inject: this.inject,
-        localhost: this.localhost,
-        storage: this.storage
-      });
-    }
-    return this._client;
-  }
 
+  /**
+   * Convenience method
+   *
+   * @see {@link OAuth2CLI.Client.request}
+   */
   public request(...args: Parameters<OAuth2CLI.Client<C>['request']>) {
     return this.client.request(...args);
   }
 
+  /**
+   * Convenience method
+   *
+   * @see {@link OAuth2CLI.Client.requestJSON}
+   */
   public requestJSON<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client<C>['requestJSON']>
   ) {
     return this.client.requestJSON<T>(...args);
   }
 
+  /**
+   * Convenience method
+   *
+   * @see {@link OAuth2CLI.Client.fetch}
+   */
   public fetch(...args: Parameters<OAuth2CLI.Client<C>['fetch']>) {
     return this.client.fetch(...args);
   }
 
+  /**
+   * Convenience method
+   *
+   * @see {@link OAuth2CLI.Client.fetchJSON}
+   */
   public fetchJSON<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client<C>['fetchJSON']>
   ) {

@@ -1,9 +1,20 @@
 import { JSONValue } from '@battis/typescript-tricks';
 import { Log } from '@qui-cli/log';
+import { Request } from 'express';
 import * as OAuth2CLI from 'oauth2-cli';
 import type * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
 
+/**
+ * Wrap {@link https://www.npmjs.com/package/openid-client openid-client} in a
+ * class instance specific to a particular OAuth/OpenID server credential-set,
+ * abstracting away most flows into {@link getToken}
+ *
+ * Emits {@link Client.TokenEvent} whenever a new access token is received
+ *
+ * Provides optional debug logging output using
+ * {@link https://www.npmjs.com/package/@qui-cli/env @qui-cli/env}
+ */
 export class Client<
   C extends OAuth2CLI.Credentials = OAuth2CLI.Credentials
 > extends OAuth2CLI.Client<C> {
