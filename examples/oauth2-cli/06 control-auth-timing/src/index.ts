@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Client } from 'oauth2-cli';
+import ora from 'ora';
 
 // load credentials from the environment
 dotenv.config({ quiet: true });
@@ -32,7 +33,10 @@ if (!(await github.isAuthorized())) {
 }
 
 // do something else
-console.log('And then something else happens.');
+const spinner = ora('Waiting for something else to happen').start();
+setTimeout(async () => {
+  spinner.succeed('Something else happened');
 
-// get this repo (battis/oauth2-cli)
-console.log(await github.requestJSON('/repos/battis/oauth2-cli'));
+  // get this repo (battis/oauth2-cli)
+  console.log(await github.requestJSON('/repos/battis/oauth2-cli'));
+}, 10000);
