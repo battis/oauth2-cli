@@ -141,7 +141,6 @@ export class Server {
 
   /** Handles request to `/authorize` */
   protected async handleAuthorizationEndpoint(req: Request, res: Response) {
-    this.spinner.text = `Interactively authorizing ${this.client.name} in browser`;
     const authorization_url = URL.toString(
       await this.client.buildAuthorizationUrl(this)
     );
