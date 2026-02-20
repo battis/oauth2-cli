@@ -10,28 +10,31 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <style>
-      .wrapper {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: 1fr auto 1.61803fr;
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-      }
-      .center {
-        grid-row: 2;
-        grid-column: 2;
-      }
-    </style>
   </head>
   <body>
-    <div class="wrapper">
-      <div class="center container">
-        <h1>Authorize GitHub API Access</h1>
-        <p><a href="<%= authorization_url %>"">Click this link</a> to authorize this app to access the GitHub API using your credentials.</p>
+    <div
+      class="modal fade"
+      id="modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Authorize <%= name %> Access</h1>
+          </div>
+          <div class="modal-body">
+            Click Start to begin the process of authorizing this app to access
+            <%= name %> using your credentials.
+          </div>
+          <div class="modal-footer">
+            <a href="<%= authorization_url %>" class="btn btn-primary">
+              Start
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     <script
@@ -39,5 +42,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script>
+      bootstrap.Modal.getOrCreateInstance('#modal').show();
+    </script>
   </body>
 </html>

@@ -116,6 +116,10 @@ export class Server {
    * templates will be used if `ejs` is imported but no replacement templates
    * are found.
    *
+   * All views receive a data property `name` which is the human-readable name
+   * of the Client managing the authorization code flow, which should be
+   * displayed in messages for transparency.
+   *
    * @param views Should be an absolute path
    */
   public setViews(views: PathString) {

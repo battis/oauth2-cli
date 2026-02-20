@@ -10,34 +10,28 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <style>
-      .wrapper {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: 1fr auto 1.61803fr;
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-      }
-      .center {
-        grid-row: 2;
-        grid-column: 2;
-      }
-    </style>
   </head>
   <body>
-    <div class="wrapper">
-      <div class="center container">
-        <h1>
-          <%= name %>
-          Authorization Error
-        </h1>
-        <div class="alert alert-danger" role="alert">
-          <pre><%= JSON.stringify(error, null, 2) %></pre>
+    <div
+      class="modal fade"
+      id="modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5"><%= name %> Authorization Error</h1>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" role="alert">
+              <pre><%= JSON.stringify(error, null, 2) %></pre>
+            </div>
+          </div>
+          <div class="modal-footer">You may close this window.</div>
         </div>
-        <p>You may close this window.</p>
       </div>
     </div>
     <script
@@ -45,5 +39,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script>
+      bootstrap.Modal.getOrCreateInstance('#modal').show();
+    </script>
   </body>
 </html>
