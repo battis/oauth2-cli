@@ -23,7 +23,7 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@1password/sdk": "^0.3.1",
+    "@1password/sdk": "^0.4.0",
     "@examples/qui-cli_api-plugin_plugin-provider": "workspace:*",
     "@qui-cli/core": "^6.0.0",
     "@qui-cli/log": "^4.0.3",
