@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@inquirer/input": "^5.0.7",
-    "@types/node": "^24.10.13",
+    "@types/node": "^25.3.3",
     "dotenv": "^17.3.1",
     "oauth2-cli": "workspace:*"
   },
