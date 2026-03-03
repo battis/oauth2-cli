@@ -174,7 +174,6 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   /** Start interactive authorization for API access with the user */
   public async authorize() {
     return await this.tokenLock.runExclusive(async () => {
-      console.log('running authorize from external call');
       return await this._authorize();
     });
   }
