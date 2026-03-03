@@ -162,7 +162,11 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       return true;
     } else {
       return await this.tokenLock.runExclusive(async () => {
-        return !!(await this.refreshTokenGrant());
+        try {
+          return !!(await this.refreshTokenGrant());
+        } catch (_) {
+          return false;
+        }
       });
     }
   }
