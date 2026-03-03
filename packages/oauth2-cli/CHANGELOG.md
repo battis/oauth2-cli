@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.0...oauth2-cli/1.0.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* catch error in isAuthorized() if _not_ authorized ([0699e6e](https://github.com/battis/oauth2-cli/commit/0699e6e92c7498cd0544dea66f637a54f2abb828))
+
 ## [1.0.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.9...oauth2-cli/1.0.0) (2026-02-20)
 
 ### ⚠ BREAKING CHANGES
