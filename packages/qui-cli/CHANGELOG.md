@@ -4,18 +4,17 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.0.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.0.1...qui-cli-plugin/1.0.2) (2026-03-03)
 
-
 ### Bug Fixes
 
-* man.heading can be optional ([eaf199f](https://github.com/battis/oauth2-cli/commit/eaf199fd567634dfc82eee43ae33e83be7dc68b4))
+- catch error in isAuthorized() if _not_ authorized ([0699e6e](https://github.com/battis/oauth2-cli/commit/0699e6e92c7498cd0544dea66f637a54f2abb828))
+- man.heading can be optional ([eaf199f](https://github.com/battis/oauth2-cli/commit/eaf199fd567634dfc82eee43ae33e83be7dc68b4))
 
 ## [1.0.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.0.0...qui-cli-plugin/1.0.1) (2026-02-20)
 
-
 ### Bug Fixes
 
-* do not suppress scope by default ([d87d910](https://github.com/battis/oauth2-cli/commit/d87d910765c3b93fd150aad8fc417848531f1675))
-* use name in usage section heading if no heading configured ([7271d53](https://github.com/battis/oauth2-cli/commit/7271d5315bbb8f0f38864201fe45a70541c8b165))
+- do not suppress scope by default ([d87d910](https://github.com/battis/oauth2-cli/commit/d87d910765c3b93fd150aad8fc417848531f1675))
+- use name in usage section heading if no heading configured ([7271d53](https://github.com/battis/oauth2-cli/commit/7271d5315bbb8f0f38864201fe45a70541c8b165))
 
 ## [1.0.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/0.7.16...qui-cli-plugin/1.0.0) (2026-02-20)
 
