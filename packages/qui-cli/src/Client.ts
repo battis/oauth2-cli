@@ -107,7 +107,12 @@ export class Client<
       dPoPOptions
     );
     Log.debug(
-      `Received response from ${this.name}:\n${Log.syntaxColor(response)}`
+      `Received response from ${this.name}:\n${Log.syntaxColor({
+        ok: response.ok,
+        status: response.status,
+        headers: Object.fromEntries(response.headers.entries()),
+        body: response.body ? '<not yet parsed>' : null
+      })}`
     );
     return response;
   }
