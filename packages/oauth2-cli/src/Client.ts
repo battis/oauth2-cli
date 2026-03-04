@@ -328,7 +328,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   public async request(
     url: URL.ish,
     method = 'GET',
-    body?: OpenIDClient.FetchBody,
+    body?: Body.ish,
     headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
@@ -357,7 +357,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         (await this.getToken()).access_token,
         URL.from(URLSearchParams.appendTo(url, this.inject?.search || {})),
         method,
-        body,
+        await Body.from(body),
         Headers.merge(this.inject?.headers, headers),
         dPoPOptions
       );
@@ -397,7 +397,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   public async requestJSON<J extends JSONValue = JSONValue>(
     url: URL.ish,
     method = 'GET',
-    body?: OpenIDClient.FetchBody,
+    body?: Body.ish,
     headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {

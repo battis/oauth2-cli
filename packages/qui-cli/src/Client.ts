@@ -4,7 +4,7 @@ import { Log } from '@qui-cli/log';
 import { Request } from 'express';
 import * as OAuth2CLI from 'oauth2-cli';
 import type * as OpenIDClient from 'openid-client';
-import * as requestish from 'requestish';
+import { Body, Headers, URL } from 'requestish';
 
 /**
  * Wrap {@link https://www.npmjs.com/package/openid-client openid-client} in a
@@ -88,10 +88,10 @@ export class Client<
   }
 
   public async request(
-    url: requestish.URL.ish,
-    method?: string,
-    body?: OpenIDClient.FetchBody,
-    headers?: requestish.Headers.ish,
+    url: URL.ish,
+    method = 'GET',
+    body?: Body.ish,
+    headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ): Promise<Response> {
     Log.debug(
@@ -118,10 +118,10 @@ export class Client<
   }
 
   public async requestJSON<J extends JSONValue = JSONValue>(
-    url: requestish.URL.ish,
-    method?: string,
-    body?: OpenIDClient.FetchBody,
-    headers?: requestish.Headers.ish,
+    url: URL.ish,
+    method = 'GET',
+    body?: Body.ish,
+    headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ): Promise<J> {
     const json = await super.requestJSON<J>(

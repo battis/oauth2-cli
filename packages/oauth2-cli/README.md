@@ -80,7 +80,7 @@ class Client {
   public async request(
     url: requestish.URL.ish,
     method = 'GET',
-    body?: OpenIDClient.FetchBody,
+    body?: requestish.Body.ish,
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
@@ -108,7 +108,7 @@ class Client {
   >(
     url: requestish.URL.ish,
     method = 'GET',
-    body?: OpenIDClient.FetchBody,
+    body?: requestish.Body.ish,
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
