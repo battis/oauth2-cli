@@ -1,4 +1,5 @@
 import { JSONValue } from '@battis/typescript-tricks';
+import { Colors } from '@qui-cli/colors';
 import { Log } from '@qui-cli/log';
 import { Request } from 'express';
 import * as OAuth2CLI from 'oauth2-cli';
@@ -93,9 +94,11 @@ export class Client<
     headers?: requestish.Headers.ish,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ): Promise<Response> {
-    Log.debug(`Sending request to ${this.name}`, {
-      request: { method, url, headers, body, dPoPOptions }
-    });
+    Log.debug(
+      `Sending request to ${this.name}:\n${Log.syntaxColor({
+        request: { method, url, headers, body, dPoPOptions }
+      })}`
+    );
     const response = await super.request(
       url,
       method,
@@ -124,7 +127,13 @@ export class Client<
       dPoPOptions
     );
     Log.debug(
-      `Parsed JSON from ${this.name} response:\n${Log.syntaxColor({ json })}`
+      `Parsed JSON from ${this.name} response:\n${
+        typeof json === 'object' && json
+          ? Log.syntaxColor(json)
+          : typeof json === 'string'
+            ? Colors.quotedValue(`"${json}"`)
+            : Colors.value(json)
+      }`
     );
     return json;
   }
