@@ -59,14 +59,21 @@ export class Client<
     return response;
   }
 
-  protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
+  protected async refreshTokenGrant({
+    refresh_token,
+    inject
+  }: Parameters<OAuth2CLI.Client['refreshTokenGrant']>[0] = {}) {
     Log.debug(
-      `Refreshing expired ${this.name} access token:\n${Log.syntaxColor(token)}`
+      `Attempting to refresh ${this.name} access token:\n${Log.syntaxColor({ refresh_token, inject })}`
     );
-    const refreshed = await super.refreshTokenGrant(token);
-    Log.debug(
-      `Received refreshed ${this.name} access token:\n${Log.syntaxColor(refreshed || {})}`
-    );
+    const refreshed = await super.refreshTokenGrant({ refresh_token, inject });
+    if (refreshed) {
+      Log.debug(
+        `Received refreshed ${this.name} access token:\n${Log.syntaxColor(refreshed)}`
+      );
+    } else {
+      Log.debug(`${this.name} token refresh failed`);
+    }
     return refreshed;
   }
 
@@ -74,7 +81,7 @@ export class Client<
     response: OAuth2CLI.Token.Response
   ): Promise<OAuth2CLI.Token.Response> {
     Log.debug(
-      `Persisting ${this.name} refresh token, if present and storage configured:\n${Log.syntaxColor(response)}`
+      `Persisting ${this.name} refresh token (if present and storage configured):\n${Log.syntaxColor(response)}`
     );
     return await super.save(response);
   }
