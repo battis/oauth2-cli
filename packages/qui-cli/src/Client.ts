@@ -36,7 +36,9 @@ export class Client<
   public async authorize(): Promise<OAuth2CLI.Token.Response> {
     Log.debug(`Authorizing ${this.name} new access token`);
     const response = await super.authorize();
-    Log.debug(`Authorized ${this.name} new access token`, { response });
+    Log.debug(
+      `Authorized ${this.name} new access token:\n${Log.syntaxColor(response)}`
+    );
     return response;
   }
 
@@ -44,25 +46,27 @@ export class Client<
     request: Request,
     session: OAuth2CLI.Localhost.Server
   ): Promise<OAuth2CLI.Token.Response> {
-    Log.debug(`Handling ${this.name} authorization code redirect`, { request });
+    Log.debug(
+      `Handling ${this.name} authorization code redirect:\n${Log.syntaxColor(request)}`
+    );
     const response = await super.handleAuthorizationCodeRedirect(
       request,
       session
     );
-    Log.debug(`Received ${this.name} authorization code response`, {
-      response
-    });
+    Log.debug(
+      `Received ${this.name} authorization code response:\n${Log.syntaxColor(response)}`
+    );
     return response;
   }
 
   protected async refreshTokenGrant(token: OAuth2CLI.Token.Response) {
-    Log.debug(`Refreshing expired ${this.name} access token`, {
-      token
-    });
+    Log.debug(
+      `Refreshing expired ${this.name} access token:\n${Log.syntaxColor(token)}`
+    );
     const refreshed = await super.refreshTokenGrant(token);
-    Log.debug(`Received refreshed ${this.name} access token`, {
-      token: refreshed
-    });
+    Log.debug(
+      `Received refreshed ${this.name} access token:\n${Log.syntaxColor(refreshed || {})}`
+    );
     return refreshed;
   }
 
@@ -70,10 +74,7 @@ export class Client<
     response: OAuth2CLI.Token.Response
   ): Promise<OAuth2CLI.Token.Response> {
     Log.debug(
-      `Persisting ${this.name} refresh token, if present and storage configured`,
-      {
-        response
-      }
+      `Persisting ${this.name} refresh token, if present and storage configured:\n${Log.syntaxColor(response)}`
     );
     return await super.save(response);
   }
@@ -95,7 +96,9 @@ export class Client<
       headers,
       dPoPOptions
     );
-    Log.debug(`Received response from ${this.name}`, { response });
+    Log.debug(
+      `Received response from ${this.name}:\n${Log.syntaxColor(response)}`
+    );
     return response;
   }
 
@@ -113,7 +116,9 @@ export class Client<
       headers,
       dPoPOptions
     );
-    Log.debug(`Parsed JSON from ${this.name} response`, { json });
+    Log.debug(
+      `Parsed JSON from ${this.name} response:\n${Log.syntaxColor({ json })}`
+    );
     return json;
   }
 }
