@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.3...oauth2-cli/1.1.0) (2026-03-05)
+
+
+### Features
+
+* added prepareRequest hook ([3deaaaa](https://github.com/battis/oauth2-cli/commit/3deaaaa1ec8939b507953f436f0cd500f01736e8))
+* make URLSearchParams even more 'ish', accepting all JSON primitives ([b1c2a25](https://github.com/battis/oauth2-cli/commit/b1c2a25c29267c070070f7cd304bb31f854485e4))
+
 ## [1.0.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.2...oauth2-cli/1.0.3) (2026-03-04)
 
 
