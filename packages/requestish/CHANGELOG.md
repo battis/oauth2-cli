@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.4](https://github.com/battis/oauth2-cli/compare/requestish/0.1.3...requestish/0.1.4) (2026-03-05)
+
+
+### Features
+
+* make URLSearchParams even more 'ish', accepting all JSON primitives ([b1c2a25](https://github.com/battis/oauth2-cli/commit/b1c2a25c29267c070070f7cd304bb31f854485e4))
+
 ## [0.1.3](https://github.com/battis/oauth2-cli/compare/requestish/0.1.2...requestish/0.1.3) (2026-02-20)
 
 ### Bug Fixes
