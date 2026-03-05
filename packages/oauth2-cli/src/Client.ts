@@ -352,13 +352,15 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     }
     const request = async () =>
       await OpenIDClient.fetchProtectedResource(
-        await this.getConfiguration(),
-        (await this.getToken()).access_token,
-        URL.from(URLSearchParams.appendTo(url, this.inject?.search || {})),
-        method,
-        await Body.from(body),
-        Headers.merge(this.inject?.headers, headers),
-        dPoPOptions
+        ...(await this.prepareRequest(
+          await this.getConfiguration(),
+          (await this.getToken()).access_token,
+          URL.from(URLSearchParams.appendTo(url, this.inject?.search || {})),
+          method,
+          await Body.from(body),
+          Headers.merge(this.inject?.headers, headers),
+          dPoPOptions
+        ))
       );
     try {
       return await request();
@@ -370,6 +372,12 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         throw new Error(`${this.name} request failed`, { cause });
       }
     }
+  }
+
+  protected async prepareRequest(
+    ...args: Parameters<(typeof OpenIDClient)['fetchProtectedResource']>
+  ): Promise<Parameters<(typeof OpenIDClient)['fetchProtectedResource']>> {
+    return args;
   }
 
   /** Parse a fetch response as JSON, typing it as J */

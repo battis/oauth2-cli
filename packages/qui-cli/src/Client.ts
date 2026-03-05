@@ -87,6 +87,21 @@ export class Client<
     return await super.save(response);
   }
 
+  protected async prepareRequest(
+    config: OpenIDClient.Configuration,
+    accessToken: string,
+    url: URL,
+    method: string,
+    body?: OpenIDClient.FetchBody,
+    headers?: Headers | undefined,
+    options?: OpenIDClient.DPoPOptions | undefined
+  ): Promise<Parameters<(typeof OpenIDClient)['fetchProtectedResource']>> {
+    Log.debug(
+      `Prepared request to ${this.name}:\n${Log.syntaxColor({ method, url, headers: Object.fromEntries(headers?.entries() || []), body })}`
+    );
+    return [config, accessToken, url, method, body, headers, options];
+  }
+
   public async request(
     url: URL.ish,
     method = 'GET',
@@ -99,11 +114,9 @@ export class Client<
         request: {
           method,
           url,
-          headers,
-          body,
           dPoPOptions
         }
-      })}`
+      })}${body || headers ? ` injecting: ${Log.syntaxColor({ headers, body })}` : ''}`
     );
     const response = await super.request(
       url,
