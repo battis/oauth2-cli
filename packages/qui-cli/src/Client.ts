@@ -96,7 +96,13 @@ export class Client<
   ): Promise<Response> {
     Log.debug(
       `Sending request to ${this.name}:\n${Log.syntaxColor({
-        request: { method, url, headers, body, dPoPOptions }
+        request: {
+          method,
+          url,
+          headers,
+          body,
+          dPoPOptions
+        }
       })}`
     );
     const response = await super.request(

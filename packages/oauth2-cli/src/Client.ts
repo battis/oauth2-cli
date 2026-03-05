@@ -322,7 +322,6 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    *   paths relative to the `issuer` URL as well as absolute URLs
    * @param method Optional, defaults to `GET` unless otherwise specified
    * @param body Optional
-   * @param headers Optional
    * @param dPoPOptions Optional, see {@link OpenIDClient.DPoPOptions}
    */
   public async request(

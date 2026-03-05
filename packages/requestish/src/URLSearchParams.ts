@@ -1,12 +1,20 @@
+import { JSONPrimitive } from '@battis/typescript-tricks';
 import { ish as URLish } from './URL.js';
 
-export type ish = URLSearchParams | Record<string, string>;
+export type ish = URLSearchParams | Record<string, JSONPrimitive>;
 
 export function from(search?: ish): URLSearchParams {
   if (search instanceof URLSearchParams) {
     return search;
   }
-  return new URLSearchParams(search);
+  return new URLSearchParams(
+    Object.fromEntries(
+      Object.entries(search || {}).map(([key, value]) => [
+        key,
+        value?.toString() || ''
+      ])
+    )
+  );
 }
 
 export function toString(search: ish): string {
