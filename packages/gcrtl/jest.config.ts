@@ -14,5 +14,15 @@ export default {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1'
   },
-  testTimeout: 30000
+  testTimeout: 30000,
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        diagnostics: {
+          ignoreCodes: [151002]
+        }
+      }
+    ]
+  }
 } satisfies Config;
