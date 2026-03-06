@@ -26,14 +26,14 @@
   "dependencies": {
     "@1password/sdk": "^0.3.1",
     "@oauth2-cli/qui-cli": "workspace:*",
-    "@qui-cli/core": "^6.0.0",
+    "@qui-cli/core": "^6.0.3",
     "@qui-cli/env": "^5.1.1",
     "@qui-cli/log": "^4.0.3",
     "@qui-cli/root": "^3.1.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^24.10.13",
+    "@types/node": "^24.11.2",
     "del-cli": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3"
