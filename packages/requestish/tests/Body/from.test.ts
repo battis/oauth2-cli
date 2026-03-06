@@ -8,7 +8,12 @@ test('from Record<string,string>', async () => {
 
 test('from Record<string,JSONPrimitive>', async () => {
   expect(
-    await from({ foo: 'bar', argle: 'bargle', baz: 123, boop: false })
+    await from({
+      foo: 'bar',
+      argle: 'bargle',
+      baz: 123,
+      boop: false
+    })
   ).toEqual(
     new URLSearchParams({
       foo: 'bar',
