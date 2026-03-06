@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.11](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.10...gcrtl/0.1.11) (2026-03-06)
+
 ## [0.1.10](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.9...gcrtl/0.1.10) (2026-03-06)
 
 Bump to requestish@0.1.8
