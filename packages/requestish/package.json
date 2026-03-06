@@ -20,6 +20,7 @@
     "build": "run-s build:*",
     "build:clean": "run-s clean",
     "build:compile": "tsc",
+    "test": "jest",
     "prepack": "run-s build",
     "release": "commit-and-tag-version"
   },
@@ -29,10 +30,13 @@
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.13",
+    "@types/jest": "^30.0.0",
     "commit-and-tag-version": "^12.6.1",
     "del-cli": "^7.0.0",
+    "jest": "^30.2.0",
     "npm-run-all": "^4.1.5",
     "openid-client": "^6.8.2",
+    "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   }
 }
