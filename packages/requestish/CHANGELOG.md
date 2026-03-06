@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.7](https://github.com/battis/oauth2-cli/compare/requestish/0.1.6...requestish/0.1.7) (2026-03-06)
+
+
+### Bug Fixes
+
+* bump @battis/typescript-tricks to 0.7.8 ([228e155](https://github.com/battis/oauth2-cli/commit/228e1552a1ae368cc33344b487c9c08bda6ba01e))
+
 ## [0.1.6](https://github.com/battis/oauth2-cli/compare/requestish/0.1.5...requestish/0.1.6) (2026-03-06)
 
 
