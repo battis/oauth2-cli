@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.2.4](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.3...qui-cli-plugin/1.2.4) (2026-03-06)
 
+Bump to requestish@0.1.9
+
 ## [1.2.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.2...qui-cli-plugin/1.2.3) (2026-03-06)
 
 Bump to requestish@0.1.8
