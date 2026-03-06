@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.8](https://github.com/battis/oauth2-cli/compare/requestish/0.1.7...requestish/0.1.8) (2026-03-06)
+
+
+### Bug Fixes
+
+* treat undefined as a JSON primitive ('undefined') ([4d8caec](https://github.com/battis/oauth2-cli/commit/4d8caecfef3d3a5e7870e419b36a9efdde2a7d98))
+
 ## [0.1.7](https://github.com/battis/oauth2-cli/compare/requestish/0.1.6...requestish/0.1.7) (2026-03-06)
 
 
