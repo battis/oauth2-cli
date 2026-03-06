@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.9](https://github.com/battis/oauth2-cli/compare/requestish/0.1.8...requestish/0.1.9) (2026-03-06)
+
+
+### Bug Fixes
+
+* treat undefined as deleted ([e0d95e9](https://github.com/battis/oauth2-cli/commit/e0d95e9eb74fe84daa25aeb77d2a243248eae56f))
+
 ## [0.1.8](https://github.com/battis/oauth2-cli/compare/requestish/0.1.7...requestish/0.1.8) (2026-03-06)
 
 
