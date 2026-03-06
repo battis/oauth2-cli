@@ -14,7 +14,7 @@
   "scripts": {
     "build": "run-s build:*",
     "build:paths": "monorepo-package-paths -w --author --homepage --repository",
-    "build:scripts": "tsc",
+    "build:scripts": "tsc -p tsconfig.build.json",
     "build:oauth2-cli-toc": "./scripts/examples-toc ./examples/oauth2-cli",
     "build:qui-cli-toc": "./scripts/examples-toc ./examples/qui-cli",
     "build:compile": "lerna run build",
@@ -37,6 +37,7 @@
     "@tsconfig/node24": "^24.0.4",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "del-cli": "^6.0.0",
     "lerna": "^9.0.5",
     "monorepo-package-paths": "^0.4.3",
