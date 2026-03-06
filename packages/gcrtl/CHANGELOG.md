@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.8](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.7...gcrtl/0.1.8) (2026-03-06)
+
 ## [0.1.7](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.6...gcrtl/0.1.7) (2026-02-16)
 
 
