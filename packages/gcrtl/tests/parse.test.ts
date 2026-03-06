@@ -1,4 +1,3 @@
-import { hostname } from 'node:os';
 import { parse } from '../src/index.js';
 
 test('parse gcrtl url', () => {
