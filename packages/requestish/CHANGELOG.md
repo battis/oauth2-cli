@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.6](https://github.com/battis/oauth2-cli/compare/requestish/0.1.5...requestish/0.1.6) (2026-03-06)
+
+
+### Features
+
+* increased "ish"ness of URLSearchParams to include constructable params ([64c49b2](https://github.com/battis/oauth2-cli/commit/64c49b2477e86077cf199a172e037cf22a7990c1))
+
 ## [0.1.5](https://github.com/battis/oauth2-cli/compare/requestish/0.1.4...requestish/0.1.5) (2026-03-05)
 
 
