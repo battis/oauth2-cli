@@ -15,10 +15,9 @@ export function from(search?: ish): URLSearchParams {
   ) {
     return new URLSearchParams(
       Object.fromEntries(
-        Object.entries(search || {}).map(([key, value]) => [
-          key,
-          value?.toString() || ''
-        ])
+        Object.entries(search || {})
+          .filter(([_, value]) => value !== undefined)
+          .map(([key, value]) => [key, value?.toString() || ''])
       )
     );
   }
