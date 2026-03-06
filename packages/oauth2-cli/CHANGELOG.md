@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.1...oauth2-cli/1.1.2) (2026-03-06)
+
+
+### Bug Fixes
+
+* bump @battis/typescript-tricks to 0.7.8 ([228e155](https://github.com/battis/oauth2-cli/commit/228e1552a1ae368cc33344b487c9c08bda6ba01e))
+
 ## [1.1.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.0...oauth2-cli/1.1.1) (2026-03-06)
 
 Bump to requestish@01.1.6
