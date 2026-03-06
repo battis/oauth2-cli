@@ -4,16 +4,17 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.1.10](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.9...gcrtl/0.1.10) (2026-03-06)
 
-## [0.1.9](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.8...gcrtl/0.1.9) (2026-03-06)
+Bump to requestish@0.1.8
 
+## [0.1.9](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.8...gcrtl/0.1.9) (2026-03-06)
 
 ### Bug Fixes
 
-* bump @battis/typescript-tricks to 0.7.8 ([228e155](https://github.com/battis/oauth2-cli/commit/228e1552a1ae368cc33344b487c9c08bda6ba01e))
+- bump @battis/typescript-tricks to 0.7.8 ([228e155](https://github.com/battis/oauth2-cli/commit/228e1552a1ae368cc33344b487c9c08bda6ba01e))
 
 ## [0.1.8](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.7...gcrtl/0.1.8) (2026-03-06)
 
-Bump to requestish@01.1.6
+Bump to requestish@0.1.6
 
 ## [0.1.7](https://github.com/battis/oauth2-cli/compare/gcrtl/0.1.6...gcrtl/0.1.7) (2026-02-16)
 

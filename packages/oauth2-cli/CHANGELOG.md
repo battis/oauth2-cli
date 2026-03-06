@@ -4,16 +4,17 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.1.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.2...oauth2-cli/1.1.3) (2026-03-06)
 
-## [1.1.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.1...oauth2-cli/1.1.2) (2026-03-06)
+Bump to requestish@0.1.8
 
+## [1.1.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.1...oauth2-cli/1.1.2) (2026-03-06)
 
 ### Bug Fixes
 
-* bump @battis/typescript-tricks to 0.7.8 ([228e155](https://github.com/battis/oauth2-cli/commit/228e1552a1ae368cc33344b487c9c08bda6ba01e))
+- bump @battis/typescript-tricks to 0.7.8 ([228e155](https://github.com/battis/oauth2-cli/commit/228e1552a1ae368cc33344b487c9c08bda6ba01e))
 
 ## [1.1.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.0...oauth2-cli/1.1.1) (2026-03-06)
 
-Bump to requestish@01.1.6
+Bump to requestish@0.1.6
 
 ## [1.1.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.3...oauth2-cli/1.1.0) (2026-03-05)
 
