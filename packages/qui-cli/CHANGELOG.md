@@ -4,42 +4,39 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.2.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.0...qui-cli-plugin/1.2.1) (2026-03-06)
 
-## [1.2.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.1.3...qui-cli-plugin/1.2.0) (2026-03-05)
+Bump to requestish@01.1.6
 
+## [1.2.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.1.3...qui-cli-plugin/1.2.0) (2026-03-05)
 
 ### Features
 
-* added prepareRequest hook ([3deaaaa](https://github.com/battis/oauth2-cli/commit/3deaaaa1ec8939b507953f436f0cd500f01736e8))
-* make URLSearchParams even more 'ish', accepting all JSON primitives ([b1c2a25](https://github.com/battis/oauth2-cli/commit/b1c2a25c29267c070070f7cd304bb31f854485e4))
+- added prepareRequest hook ([3deaaaa](https://github.com/battis/oauth2-cli/commit/3deaaaa1ec8939b507953f436f0cd500f01736e8))
+- make URLSearchParams even more 'ish', accepting all JSON primitives ([b1c2a25](https://github.com/battis/oauth2-cli/commit/b1c2a25c29267c070070f7cd304bb31f854485e4))
 
 ## [1.1.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.1.2...qui-cli-plugin/1.1.3) (2026-03-04)
 
-
 ### Bug Fixes
 
-* allow requestish.Body.ish request bodies as intended ([f12a2ce](https://github.com/battis/oauth2-cli/commit/f12a2ceb1c517f6fd90b33c8c71da7f987af640d))
+- allow requestish.Body.ish request bodies as intended ([f12a2ce](https://github.com/battis/oauth2-cli/commit/f12a2ceb1c517f6fd90b33c8c71da7f987af640d))
 
 ## [1.1.2](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.1.1...qui-cli-plugin/1.1.2) (2026-03-04)
 
-
 ### Bug Fixes
 
-* improve JSOn debugging output ([a197307](https://github.com/battis/oauth2-cli/commit/a19730721ac53666a2c4e4e4982abf85353386e3))
-* improved response debugging output ([2c63583](https://github.com/battis/oauth2-cli/commit/2c635834e2e2a21c519b3d3bcec8ac26b1d70bbf))
+- improve JSOn debugging output ([a197307](https://github.com/battis/oauth2-cli/commit/a19730721ac53666a2c4e4e4982abf85353386e3))
+- improved response debugging output ([2c63583](https://github.com/battis/oauth2-cli/commit/2c635834e2e2a21c519b3d3bcec8ac26b1d70bbf))
 
 ## [1.1.1](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.1.0...qui-cli-plugin/1.1.1) (2026-03-04)
 
-
 ### Bug Fixes
 
-* extend Client without breaking Client ([1115a71](https://github.com/battis/oauth2-cli/commit/1115a714228294b7fd2057706504645a48f94cb8))
+- extend Client without breaking Client ([1115a71](https://github.com/battis/oauth2-cli/commit/1115a714228294b7fd2057706504645a48f94cb8))
 
 ## [1.1.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.0.3...qui-cli-plugin/1.1.0) (2026-03-04)
 
-
 ### Features
 
-* improve logging of request information ([f138d2e](https://github.com/battis/oauth2-cli/commit/f138d2ed048c87480ffb9d272024ce90943beca2))
+- improve logging of request information ([f138d2e](https://github.com/battis/oauth2-cli/commit/f138d2ed048c87480ffb9d272024ce90943beca2))
 
 ## [1.0.3](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.0.2...qui-cli-plugin/1.0.3) (2026-03-03)
 

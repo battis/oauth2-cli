@@ -4,34 +4,32 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.1.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.0...oauth2-cli/1.1.1) (2026-03-06)
 
-## [1.1.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.3...oauth2-cli/1.1.0) (2026-03-05)
+Bump to requestish@01.1.6
 
+## [1.1.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.3...oauth2-cli/1.1.0) (2026-03-05)
 
 ### Features
 
-* added prepareRequest hook ([3deaaaa](https://github.com/battis/oauth2-cli/commit/3deaaaa1ec8939b507953f436f0cd500f01736e8))
-* make URLSearchParams even more 'ish', accepting all JSON primitives ([b1c2a25](https://github.com/battis/oauth2-cli/commit/b1c2a25c29267c070070f7cd304bb31f854485e4))
+- added prepareRequest hook ([3deaaaa](https://github.com/battis/oauth2-cli/commit/3deaaaa1ec8939b507953f436f0cd500f01736e8))
+- make URLSearchParams even more 'ish', accepting all JSON primitives ([b1c2a25](https://github.com/battis/oauth2-cli/commit/b1c2a25c29267c070070f7cd304bb31f854485e4))
 
 ## [1.0.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.2...oauth2-cli/1.0.3) (2026-03-04)
 
-
 ### Bug Fixes
 
-* allow requestish.Body.ish request bodies as intended ([f12a2ce](https://github.com/battis/oauth2-cli/commit/f12a2ceb1c517f6fd90b33c8c71da7f987af640d))
+- allow requestish.Body.ish request bodies as intended ([f12a2ce](https://github.com/battis/oauth2-cli/commit/f12a2ceb1c517f6fd90b33c8c71da7f987af640d))
 
 ## [1.0.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.1...oauth2-cli/1.0.2) (2026-03-03)
 
-
 ### Bug Fixes
 
-* remove extraneous debugging output ([30e7fba](https://github.com/battis/oauth2-cli/commit/30e7fba402cba03b876b31f6cee9c612504fd98c))
+- remove extraneous debugging output ([30e7fba](https://github.com/battis/oauth2-cli/commit/30e7fba402cba03b876b31f6cee9c612504fd98c))
 
 ## [1.0.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.0.0...oauth2-cli/1.0.1) (2026-03-03)
 
-
 ### Bug Fixes
 
-* catch error in isAuthorized() if _not_ authorized ([0699e6e](https://github.com/battis/oauth2-cli/commit/0699e6e92c7498cd0544dea66f637a54f2abb828))
+- catch error in isAuthorized() if _not_ authorized ([0699e6e](https://github.com/battis/oauth2-cli/commit/0699e6e92c7498cd0544dea66f637a54f2abb828))
 
 ## [1.0.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/0.8.9...oauth2-cli/1.0.0) (2026-02-20)
 
