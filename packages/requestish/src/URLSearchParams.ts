@@ -168,7 +168,9 @@ export function appendTo(url: URLish, search: ish): URLish {
     const result = new URL(url);
     result.search = toString(search);
     return result;
+  } else if (search) {
+    return url.replace(/^([^?]+)(\?.*)?$/, `$1${toString(search)}`);
   } else {
-    return url.replace(/(.+)(\?.*)?$/, `$1${toString(search)}`);
+    return url;
   }
 }
