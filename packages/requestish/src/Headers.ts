@@ -1,5 +1,6 @@
 export type ish =
   | Headers
+  | HeadersInit
   | NonNullable<RequestInit['headers']>
   | Record<string, string>
   | [string, string][];
