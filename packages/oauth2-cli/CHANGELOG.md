@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.1.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.4...oauth2-cli/1.1.5) (2026-03-07)
 
+Bump to requestish@0.1.10
+
 ## [1.1.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.3...oauth2-cli/1.1.4) (2026-03-06)
 
 Bump to requestish@0.1.9
