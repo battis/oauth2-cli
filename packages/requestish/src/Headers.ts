@@ -22,7 +22,10 @@ export function from(headers?: ish): Headers {
     );
   } else if (isJSONEntries(headers)) {
     return new Headers(
-      headers.map(([key, value]) => [key, String.from(value)])
+      headers.map(([key, value]) => [key, String.from(value)]) as [
+        string,
+        string
+      ][]
     );
   }
   return new Headers(headers);
