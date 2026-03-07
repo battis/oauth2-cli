@@ -5,20 +5,44 @@ import { isJSONPrimitive, isString } from './isRecord.js';
 export type ish =
   | URLSearchParams
   | ConstructorParameters<typeof URLSearchParams>[0]
-  | Record<string, JSONPrimitive>;
+  | Record<string, JSONPrimitive | undefined>
+  | [string, JSONPrimitive | undefined][];
 
 export function from(search?: ish): URLSearchParams {
   if (search instanceof URLSearchParams) {
     return search;
   } else if (
-    isRecord<string, JSONPrimitive>(search, isString, isJSONPrimitive)
+    search &&
+    isRecord<string, JSONPrimitive | undefined>(
+      search,
+      isString,
+      isJSONPrimitive
+    )
   ) {
     return new URLSearchParams(
       Object.fromEntries(
-        Object.entries(search || {})
-          .filter(([_, value]) => value !== undefined)
-          .map(([key, value]) => [key, value?.toString() || ''])
+        Object.entries(search)
+          .filter(([__dirname, value]) => value !== undefined)
+          .map(([key, value]) => [
+            key,
+            typeof value === 'string'
+              ? value
+              : value?.toString() || JSON.stringify(value)
+          ])
       )
+    );
+  } else if (Array.isArray(search)) {
+    return new URLSearchParams(
+      search.map(([key, value]) => [
+        key,
+        typeof value === 'string'
+          ? value
+          : value === null
+            ? 'null'
+            : value === undefined
+              ? ''
+              : value.toString()
+      ])
     );
   }
   return new URLSearchParams(search);
