@@ -1,13 +1,28 @@
+import { JSONPrimitive } from '@battis/typescript-tricks';
+import { isJSONEntries, isJSONRecord } from './is.js';
+import * as String from './String.js';
+
 export type ish =
   | Headers
   | HeadersInit
-  | NonNullable<RequestInit['headers']>
-  | Record<string, string>
-  | [string, string][];
+  | Record<string, JSONPrimitive | undefined>
+  | [string, JSONPrimitive | undefined][];
 
 export function from(headers?: ish): Headers {
   if (headers instanceof Headers) {
     return headers;
+  } else if (isJSONRecord(headers)) {
+    return new Headers(
+      Object.fromEntries(
+        Object.entries(headers)
+          .filter(([_, value]) => value !== undefined)
+          .map(([key, value]) => [key, String.from(value)])
+      )
+    );
+  } else if (isJSONEntries(headers)) {
+    return new Headers(
+      headers.map(([key, value]) => [key, String.from(value)])
+    );
   }
   return new Headers(headers);
 }
