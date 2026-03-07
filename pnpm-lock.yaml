@@ -57,8 +57,8 @@ importers:
         specifier: ^9.0.5
         version: 9.0.5(@types/node@25.3.0)
       monorepo-package-paths:
-        specifier: ^0.4.3
-        version: 0.4.3(@types/node@25.3.0)(prettier@3.8.1)
+        specifier: ^0.4.4
+        version: 0.4.4(@types/node@25.3.0)(prettier@3.8.1)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -570,8 +570,8 @@ importers:
         specifier: ^0.2.6
         version: 0.2.6
       '@battis/typescript-tricks':
-        specifier: ^0.7.9
-        version: 0.7.9
+        specifier: ^0.8.0
+        version: 0.8.0
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -610,8 +610,8 @@ importers:
         specifier: ^0.2.6
         version: 0.2.6
       '@battis/typescript-tricks':
-        specifier: ^0.7.9
-        version: 0.7.9
+        specifier: ^0.8.0
+        version: 0.8.0
       '@qui-cli/env':
         specifier: ^5.1.1
         version: 5.1.1(@1password/sdk@0.3.1)(@qui-cli/colors@3.2.3)(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0))(@qui-cli/shell@3.1.3(@qui-cli/log@4.0.3(@qui-cli/plugin@4.1.0)(@qui-cli/root@3.1.0(@qui-cli/plugin@4.1.0)))(@qui-cli/plugin@4.1.0))
@@ -649,8 +649,8 @@ importers:
         specifier: ^0.2.6
         version: 0.2.6
       '@battis/typescript-tricks':
-        specifier: ^0.7.9
-        version: 0.7.9
+        specifier: ^0.8.0
+        version: 0.8.0
     devDependencies:
       '@tsconfig/recommended':
         specifier: ^1.0.13
@@ -924,8 +924,8 @@ packages:
       '@battis/qui-cli.plugin': ^2.4
       '@battis/qui-cli.root': 2.x
 
-  '@battis/typescript-tricks@0.7.9':
-    resolution: {integrity: sha512-TFHqdFTxJF3aI7UTDXHVkEoux+61LEhcbs+SIeYMaruWFpOkCnbjhh7xKOWo4YVVENzKrQWQPhAB8q3/t7It7w==}
+  '@battis/typescript-tricks@0.8.0':
+    resolution: {integrity: sha512-TOH3hMA6jiocvznApdsU+YG/UvPqOH7ZHx/sPrMJ40IhU7knJGj+NXl/tC7xUvQpTJ/SJ+ceGYg0l+UWlsYAxg==}
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
@@ -4475,8 +4475,8 @@ packages:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
 
-  monorepo-package-paths@0.4.3:
-    resolution: {integrity: sha512-21HC7agJeltqEX2vfYUFYxB4poAFVDZS7oiiYfjWLxOVDloWhhbH4QwZ8HXrGu8WBCoLqmvEqubqugWUzPClIw==}
+  monorepo-package-paths@0.4.4:
+    resolution: {integrity: sha512-SzF+y5yoEHTtMRaLJaBi4ccnsl6aid654ubv7X02vv8QhSs1T0WDdIb2aLxXiZJcjCBwmes1XL3nSGCxxMXjKg==}
     hasBin: true
     peerDependencies:
       prettier: ^3.0
@@ -6227,7 +6227,7 @@ snapshots:
       email-validator: 2.0.4
       is-valid-path: 0.1.1
 
-  '@battis/typescript-tricks@0.7.9': {}
+  '@battis/typescript-tricks@0.8.0': {}
 
   '@bcoe/v8-coverage@0.2.3': {}
 
@@ -10823,7 +10823,7 @@ snapshots:
 
   modify-values@1.0.1: {}
 
-  monorepo-package-paths@0.4.3(@types/node@25.3.0)(prettier@3.8.1):
+  monorepo-package-paths@0.4.4(@types/node@25.3.0)(prettier@3.8.1):
     dependencies:
       '@battis/import-package-json': 0.1.7
       '@battis/qui-cli.colors': 2.1.0(@battis/qui-cli.plugin@2.4.2)
