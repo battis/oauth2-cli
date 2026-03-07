@@ -3,6 +3,7 @@
 !.env.example
 !**/examples/**/.env.example
 **/build/
+**/coverage/
 **/dist/
 **/node_modules/
 **/var/

@@ -24,5 +24,6 @@ export default {
         }
       }
     ]
-  }
+  },
+  collectCoverage: true
 } satisfies Config;
