@@ -8,6 +8,26 @@ export type ish =
   | Record<string, JSONPrimitive | undefined>
   | [string, JSONPrimitive | undefined][];
 
+/**
+ * Construct an actual URLSearchParams object from a URLSearchParams.ish
+ *
+ * `undefined` values are removed from records:
+ *
+ * ```ts
+ * from({ a: null, b: undefined, c: '' }); // a=null&c=
+ * ```
+ *
+ * Entry arrays allow undefined values and multiple values per key:
+ *
+ * ```ts
+ * from([
+ *   ['a', 'A'],
+ *   ['a', 'B'],
+ *   ['c', undefined],
+ *   ['d', null]
+ * ]); // a=A&a=B&c=&d=null
+ * ```
+ */
 export function from(search?: ish): URLSearchParams {
   if (search instanceof URLSearchParams) {
     return search;
@@ -69,6 +89,10 @@ export function merge(a?: ish, b?: ish): URLSearchParams | undefined {
   return undefined;
 }
 
+/**
+ * If the `URLSearchParams.ish` is defined, append it to the `URL.ish` replacing
+ * any existing query string, otherwise return the `URL.ish` unmodified.
+ */
 export function appendTo(url: URLish, search: ish): URLish {
   if (url instanceof URL) {
     const result = new URL(url);
