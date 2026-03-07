@@ -5,20 +5,18 @@ test('empty', () => {
 });
 
 test('unencoded', () => {
-  expect(toString({ foo: 'bar', argle: 'bargle' })).toEqual(
-    '?foo=bar&argle=bargle'
-  );
+  expect(toString({ a: 1, b: 2 })).toEqual('?a=1&b=2');
 });
 
 test('encoded', () => {
-  expect(toString({ foo: 'argle bargle', bar: '&baz' })).toEqual(
-    '?foo=argle+bargle&bar=%26baz'
-  );
+  expect(toString({ a: '1 2 3', b: '&4' })).toEqual('?a=1+2+3&b=%264');
 });
 
 test('multiples', () => {
-  const query = new URLSearchParams();
-  query.append('foo', 'bar');
-  query.append('foo', 'baz');
-  expect(toString(query)).toEqual('?foo=bar&foo=baz');
+  expect(
+    toString([
+      ['a', 'A'],
+      ['a', 'B']
+    ])
+  ).toEqual('?a=A&a=B');
 });
