@@ -86,6 +86,7 @@ test('Entries', () => {
 });
 
 test('nullish', () => {
+  expect(from(undefined)).toEqual(new URLSearchParams());
   expect(from({ a: null, b: undefined, c: '' })).toEqual(
     new URLSearchParams({ a: 'null', c: '' })
   );
