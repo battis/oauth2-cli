@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.10](https://github.com/battis/oauth2-cli/compare/requestish/0.1.9...requestish/0.1.10) (2026-03-07)
+
+
+### Features
+
+* additional ish added to Body (entries array of JSONPrimitives) ([56fc8e0](https://github.com/battis/oauth2-cli/commit/56fc8e0b14a2f1c0af1ee1b232cf04073eb8175c))
+* additional ish added to Headers (HeadersInit) ([b29e83b](https://github.com/battis/oauth2-cli/commit/b29e83b0d9cf4b45a110b0e43e941871ac572abf))
+* allow undefined values in URLSearchParams.ish (treated as '') ([0f11898](https://github.com/battis/oauth2-cli/commit/0f1189889296d6175b7ef39f7e44e7e87ba3a8d7))
+* concatenate() headers ([da0520b](https://github.com/battis/oauth2-cli/commit/da0520befe4e76decd107dff329bd0c8e3ea5383))
+* concatenate() URLSearchParams.ish to not remove duplicates, undefined ([ed870ab](https://github.com/battis/oauth2-cli/commit/ed870abae4bc2d51ac6336095b311702b2ee6c7f))
+* merge() now accepts an unlimited number URLSearchParams.ish ([62216c0](https://github.com/battis/oauth2-cli/commit/62216c08500594a937b18d13458e8403301264cc))
+
+
+### Bug Fixes
+
+* don't modify URL.ish strings when appending undefined URLSearchParams.ish ([c7d2fda](https://github.com/battis/oauth2-cli/commit/c7d2fdabd4f6b312ae0a91f44a9d0301251210ad))
+
 ## [0.1.9](https://github.com/battis/oauth2-cli/compare/requestish/0.1.8...requestish/0.1.9) (2026-03-06)
 
 
