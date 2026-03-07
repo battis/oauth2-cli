@@ -1,12 +1,15 @@
 import { isRecord, JSONPrimitive } from '@battis/typescript-tricks';
 import type { FetchBody } from 'openid-client';
-import { from as URLSearchParamsFrom } from './URLSearchParams.js';
+import {
+  from as URLSearchParams_from,
+  ish as URLSearchParams_ish
+} from './URLSearchParams.js';
 import { isJSONPrimitive, isString } from './isRecord.js';
 
 export type ish =
   | FetchBody
   | FormData
-  | Record<string, JSONPrimitive>
+  | URLSearchParams_ish
   | RequestInit['body'];
 
 export async function from(body: ish): Promise<FetchBody | undefined> {
@@ -20,8 +23,12 @@ export async function from(body: ish): Promise<FetchBody | undefined> {
     body instanceof URLSearchParams
   ) {
     return body;
-  } else if (isRecord<string, JSONPrimitive>(body, isString, isJSONPrimitive)) {
-    return URLSearchParamsFrom(body);
+  } else if (
+    isRecord<string, JSONPrimitive | undefined>(body, isString, isJSONPrimitive)
+  ) {
+    return URLSearchParams_from(body);
+  } else if (Array.isArray(body)) {
+    return URLSearchParams_from(body);
   }
   return new Response(body).arrayBuffer();
 }
