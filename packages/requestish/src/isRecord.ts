@@ -4,9 +4,12 @@ export function isString(obj: unknown): obj is string {
   return typeof obj === 'string';
 }
 
-export function isJSONPrimitive(obj: unknown): obj is JSONPrimitive {
+export function isJSONPrimitive(
+  obj: unknown
+): obj is JSONPrimitive | undefined {
   return (
-    !obj ||
+    obj === null ||
+    obj === undefined ||
     typeof obj === 'string' ||
     typeof obj === 'number' ||
     typeof obj === 'boolean'
