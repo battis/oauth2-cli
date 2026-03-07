@@ -6,7 +6,8 @@ export type ish =
   | Headers
   | HeadersInit
   | Record<string, JSONPrimitive | undefined>
-  | [string, JSONPrimitive | undefined][];
+  | [string, JSONPrimitive | undefined][]
+  | undefined;
 
 export function from(headers?: ish): Headers {
   if (headers instanceof Headers) {
@@ -27,15 +28,34 @@ export function from(headers?: ish): Headers {
   return new Headers(headers);
 }
 
-export function merge(a?: ish, b?: ish): Headers | undefined {
-  if (a && !b) {
-    return from(a);
-  } else if (!a && b) {
-    return from(b);
-  } else if (a && b) {
-    const headers = from(a);
-    from(b).forEach((value, key) => headers.set(key, value));
-    return headers;
+export function merge(...sources: ish[]): Headers | undefined {
+  let headers: Headers | undefined = undefined;
+  for (const source of sources) {
+    if (source) {
+      if (!headers) {
+        headers = new Headers();
+      }
+      for (const [key, value] of from(source).entries()) {
+        for (const v of value.split(', ')) {
+          headers.set(key, v);
+        }
+      }
+    }
   }
-  return undefined;
+  return headers;
+}
+
+export function concatenate(...sources: ish[]): Headers | undefined {
+  let headers: Headers | undefined = undefined;
+  for (const source of sources) {
+    if (source) {
+      if (!headers) {
+        headers = new Headers();
+      }
+      for (const [key, value] of from(source).entries()) {
+        headers.append(key, value);
+      }
+    }
+  }
+  return headers;
 }
