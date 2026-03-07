@@ -122,8 +122,41 @@ export function merge(...sources: ish[]): URLSearchParams | undefined {
   }
   return search;
 }
+
+/**
+ * Concatenate `URLSearchParams.ish` together in order without overwriting
+ * previous key-value pairs
+ *
+ * `URLSearchParams.ish` are instantiated using `from()` before concatenation`:
+ *
+ * ```ts
+ * concatenate({ a: 1, b: undefined, c: 'foo' }); // a=1&c=2
+ * concatenate([
+ *   ['a', 1],
+ *   ['b', undefined],
+ *   ['c', 'foo']
+ * ]); // a=1&b=&c=foo
+ * ```
+ *
+ * Repeated keys are append to the query:
+ *
+ * ```ts
+ * concatenate({ a: 1, b: 2 }, { b: 3, c: 4 }, { c: 5, d: 6 }); // a=1&b=2&b=3&c=4&c=5&d=6
+ * ```
+ */
+export function concatenate(...sources: ish[]): URLSearchParams | undefined {
+  let search: URLSearchParams | undefined = undefined;
+  for (const source of sources) {
+    if (source) {
+      if (!search) {
+        search = new URLSearchParams();
+      }
+      for (const [key, value] of from(source).entries()) {
+        search.append(key, value);
+      }
+    }
   }
-  return undefined;
+  return search;
 }
 
 /**
