@@ -76,15 +76,52 @@ export function toString(search: ish): string {
   return '';
 }
 
-export function merge(a?: ish, b?: ish): URLSearchParams | undefined {
-  if (a && !b) {
-    return from(a);
-  } else if (!a && b) {
-    return from(b);
-  } else if (a && b) {
-    const search = from(a);
-    from(b).forEach((value, key) => search.set(key, value));
-    return search;
+/**
+ * Merge a collection of URLSearchParams.ish into a single URLSearchParams
+ * object
+ *
+ * `URLSearchParams.ish` are instantiated using `from()` before merging`:
+ *
+ * ```ts
+ * merge({ a: 1, b: undefined, c: 'foo' }); // a=1&c=foo
+ * merge([
+ *   ['a', 1],
+ *   ['b', undefined],
+ *   ['c', 'foo']
+ * ]); // a=1&b=&c=foo
+ * ```
+ *
+ * Duplicate key values overwrite each other, even in a single
+ * URLSearchParams.ish:
+ *
+ * ```ts
+ * merge([
+ *   ['a', 'A'],
+ *   ['a', 'B']
+ * ]); // a=B
+ * ```
+ *
+ * `URLSearchParams.ish` are merged in order, overwriting previous key values:
+ *
+ * ```ts
+ * merge({ a: 1, b: 2 }, { b: 3, c: 4 }, { c: 5, d: 6 }); // a=1&b=3&c=5&d=6
+ * merge({ a: 1 }, { a: undefined, b: 2, c: 3 }, { b: undefined, c: 4 }); // a=1&b=2&c=4
+ * ```
+ */
+export function merge(...sources: ish[]): URLSearchParams | undefined {
+  let search: URLSearchParams | undefined = undefined;
+  for (const source of sources) {
+    if (source) {
+      if (!search) {
+        search = new URLSearchParams();
+      }
+      for (const [key, value] of from(source).entries()) {
+        search.set(key, value);
+      }
+    }
+  }
+  return search;
+}
   }
   return undefined;
 }
