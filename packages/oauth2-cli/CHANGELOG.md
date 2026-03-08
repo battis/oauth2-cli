@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.4...oauth2-cli/1.2.5) (2026-03-08)
+
+
+### Bug Fixes
+
+* use the full power of requestish to build request URL ([ff4da89](https://github.com/battis/oauth2-cli/commit/ff4da8900e83df0d4dbd941058084523ad7ce3a6))
+
 ## [1.2.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.3...oauth2-cli/1.2.4) (2026-03-08)
 
 
