@@ -90,7 +90,7 @@ export class Client<
     options?: OpenIDClient.DPoPOptions | undefined
   ): Promise<OAuth2CLI.PreparedRequest> {
     Log.debug(
-      `Sending request to ${this.name}: ${Log.syntaxColor({ method, url, headers: Object.fromEntries(headers?.entries() || []), body })}`
+      `Sending request to ${this.name}: ${Log.syntaxColor({ method, url, headers: Object.fromEntries(headers?.entries() || []), body: `${body}` })}`
     );
     return [config, accessToken, url, method, body, headers, options];
   }
