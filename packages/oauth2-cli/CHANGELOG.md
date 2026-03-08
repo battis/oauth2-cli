@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.1...oauth2-cli/1.2.2) (2026-03-08)
+
+
+### Bug Fixes
+
+* don't lose search params when building url from base or credentials.issuer ([a328c96](https://github.com/battis/oauth2-cli/commit/a328c9693d0a39cccc7d6f38bd24065b6f633c1b))
+
 ## [1.2.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.0...oauth2-cli/1.2.1) (2026-03-08)
 
 
