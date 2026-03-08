@@ -408,7 +408,15 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       }
     } else {
       throw new Error(`${this.name} response status not ok`, {
-        cause: { response }
+        cause: {
+          response: {
+            ok: response.ok,
+            status: response.status,
+            statusText: response.statusText,
+            headers: Object.fromEntries(response.headers.entries()),
+            body: `${response.body}`
+          }
+        }
       });
     }
   }
