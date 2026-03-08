@@ -338,39 +338,19 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    try {
-      url = requestish.URL.from(url);
-    } catch (error) {
-      if (this.base_url || this.credentials.issuer) {
-        try {
-          url = new URL(url, this.base_url || this.credentials.issuer);
-        } catch (error) {
-          throw new Error(`${this.name} request url invalid`, {
-            cause: {
-              url,
-              base_url: this.base_url,
-              issuer: this.credentials.issuer,
-              error
-            }
-          });
-        }
-      } else {
-        throw new Error(`${this.name} request url invalid`, {
-          cause: {
-            url,
-            error
-          }
-        });
-      }
-    }
+    url = new URL(url, this.base_url || this.credentials.issuer);
+    url = requestish.URL.from(
+      requestish.URLSearchParams.appendTo(
+        url,
+        requestish.URLSearchParams.merge(this.inject?.search, url.searchParams)
+      )
+    );
     const request = async () =>
       await OpenIDClient.fetchProtectedResource(
         ...(await this.prepareRequest(
           await this.getConfiguration(),
           (await this.getToken()).access_token,
-          requestish.URL.from(
-            requestish.URLSearchParams.appendTo(url, this.inject?.search || {})
-          ),
+          url,
           method,
           await requestish.Body.from(body),
           requestish.Headers.merge(this.inject?.headers, headers),
