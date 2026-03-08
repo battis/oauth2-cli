@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.5...oauth2-cli/1.2.0) (2026-03-08)
+
+
+### Features
+
+* add prepareResponse hook ([c1ada04](https://github.com/battis/oauth2-cli/commit/c1ada04c20f08a5dac11414b44ea188f4aafe76d))
+
+
+### Bug Fixes
+
+* more detailed error response on JSON parse fail ([b8c414d](https://github.com/battis/oauth2-cli/commit/b8c414d650a7acfce8d2d297639fbecddd5f2382))
+
 ## [1.1.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.4...oauth2-cli/1.1.5) (2026-03-07)
 
 Bump to requestish@0.1.10
