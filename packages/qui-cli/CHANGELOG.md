@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.6](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.5...qui-cli-plugin/1.2.6) (2026-03-08)
+
+
+### Bug Fixes
+
+* improve request logging ([334b9db](https://github.com/battis/oauth2-cli/commit/334b9db7cdfd992887b8c66396b477824b729f28))
+
 ## [1.2.5](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.4...qui-cli-plugin/1.2.5) (2026-03-07)
 
 Bump to requestish@0.1.10
