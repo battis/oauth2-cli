@@ -12,6 +12,10 @@ import * as Localhost from './Localhost/index.js';
 import * as Options from './Options.js';
 import * as Token from './Token/index.js';
 
+export type PreparedRequest = Parameters<
+  (typeof OpenIDClient)['fetchProtectedResource']
+>;
+
 /**
  * Wrap {@link https://www.npmjs.com/package/openid-client openid-client} in a
  * class instance specific to a particular OAuth/OpenID server credential-set,
@@ -363,21 +367,33 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         ))
       );
     try {
-      return await request();
+      return this.prepareResponse(await request());
     } catch (cause) {
       if (Error.isError(cause) && 'status' in cause && cause.status === 401) {
         await this.authorize();
-        return await request();
+        return this.prepareResponse(await request());
       } else {
         throw new Error(`${this.name} request failed`, { cause });
       }
     }
   }
 
+  /**
+   * Available hook to manipulate a fully-prepared request before sending to the
+   * server
+   */
   protected async prepareRequest(
-    ...args: Parameters<(typeof OpenIDClient)['fetchProtectedResource']>
-  ): Promise<Parameters<(typeof OpenIDClient)['fetchProtectedResource']>> {
+    ...args: PreparedRequest
+  ): Promise<PreparedRequest> {
     return args;
+  }
+
+  /**
+   * Available hook to manipulate the complete response from the server before
+   * processing it
+   */
+  protected async prepareResponse(response: Response): Promise<Response> {
+    return response;
   }
 
   /** Parse a fetch response as JSON, typing it as J */
