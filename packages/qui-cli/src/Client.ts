@@ -1,7 +1,6 @@
 import { JSONValue } from '@battis/typescript-tricks';
 import { Colors } from '@qui-cli/colors';
 import { Log } from '@qui-cli/log';
-import { Request } from 'express';
 import * as OAuth2CLI from 'oauth2-cli';
 import type * as OpenIDClient from 'openid-client';
 import { Body, Headers, URL } from 'requestish';
@@ -34,50 +33,6 @@ export class Client<
       );
     }
     return config;
-  }
-
-  public async authorize(): Promise<OAuth2CLI.Token.Response> {
-    Log.debug(`Authorizing ${this.name} new access token`);
-    const response = await super.authorize();
-    Log.debug(
-      `Authorized ${this.name} new access token: ${Log.syntaxColor(response)}`
-    );
-    return response;
-  }
-
-  public async handleAuthorizationCodeRedirect(
-    request: Request,
-    session: OAuth2CLI.Localhost.Server
-  ): Promise<OAuth2CLI.Token.Response> {
-    Log.debug(
-      `Handling ${this.name} authorization code redirect: ${Log.syntaxColor(request)}`
-    );
-    const response = await super.handleAuthorizationCodeRedirect(
-      request,
-      session
-    );
-    Log.debug(
-      `Received ${this.name} authorization code response: ${Log.syntaxColor(response)}`
-    );
-    return response;
-  }
-
-  protected async refreshTokenGrant({
-    refresh_token,
-    inject
-  }: Parameters<OAuth2CLI.Client['refreshTokenGrant']>[0] = {}) {
-    Log.debug(
-      `Attempting to refresh ${this.name} access token: ${Log.syntaxColor({ refresh_token, inject })}`
-    );
-    const refreshed = await super.refreshTokenGrant({ refresh_token, inject });
-    if (refreshed) {
-      Log.debug(
-        `Received refreshed ${this.name} access token: ${Log.syntaxColor(refreshed)}`
-      );
-    } else {
-      Log.debug(`${this.name} token refresh failed`);
-    }
-    return refreshed;
   }
 
   protected async prepareRequest(
