@@ -4,6 +4,7 @@ import { Request } from 'express';
 import * as gcrtl from 'gcrtl';
 import { EventEmitter } from 'node:events';
 import path from 'node:path';
+import { text } from 'node:stream/consumers';
 import * as OpenIDClient from 'openid-client';
 import { Body, Headers, URL, URLSearchParams } from 'requestish';
 import { Credentials } from './Credentials.js';
@@ -414,7 +415,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
             status: response.status,
             statusText: response.statusText,
             headers: Object.fromEntries(response.headers.entries()),
-            body: `${response.body}`
+            body: response.body ? `${await text(response.body)}` : undefined
           }
         }
       });
