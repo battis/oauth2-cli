@@ -342,12 +342,22 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       url = requestish.URL.from(url);
     } catch (error) {
       if (this.base_url || this.credentials.issuer) {
-        url = new URL(url, this.base_url || this.credentials.issuer);
+        try {
+          url = new URL(url, this.base_url || this.credentials.issuer);
+        } catch (error) {
+          throw new Error(`${this.name} request url invalid`, {
+            cause: {
+              url,
+              base_url: this.base_url,
+              issuer: this.credentials.issuer,
+              error
+            }
+          });
+        }
       } else {
         throw new Error(`${this.name} request url invalid`, {
           cause: {
-            base_url: this.base_url,
-            issuer: this.credentials.issuer,
+            url,
             error
           }
         });
