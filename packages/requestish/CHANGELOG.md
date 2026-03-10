@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.12](https://github.com/battis/oauth2-cli/compare/requestish/0.1.11...requestish/0.1.12) (2026-03-10)
+
+
+### Bug Fixes
+
+* stricter type checking on Body and URLSearchParams ([a3568f1](https://github.com/battis/oauth2-cli/commit/a3568f1dcdf54f868b3660421734d58d9c364f74))
+
 ## [0.1.11](https://github.com/battis/oauth2-cli/compare/requestish/0.1.10...requestish/0.1.11) (2026-03-10)
 
 
