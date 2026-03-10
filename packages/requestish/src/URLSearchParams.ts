@@ -43,7 +43,7 @@ export function from(search?: ish): URLSearchParams {
     );
   } else if (isJSONEntries(search)) {
     return new URLSearchParams(
-      search.map(([key, value]) => [key, String.from(value)])
+      search.map(([key, value]): [string, string] => [key, String.from(value)])
     );
   }
   return new URLSearchParams(search);

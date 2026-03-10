@@ -1,9 +1,9 @@
+import { isIterable, isRecord } from '@battis/typescript-tricks';
 import type { FetchBody } from 'openid-client';
 import {
   from as URLSearchParams_from,
   ish as URLSearchParams_ish
 } from './URLSearchParams.js';
-import { isJSONEntries, isJSONRecord } from './is.js';
 
 export type ish =
   | FetchBody
@@ -22,9 +22,21 @@ export async function from(body: ish): Promise<FetchBody | undefined> {
     body instanceof URLSearchParams
   ) {
     return body;
-  } else if (isJSONRecord(body)) {
-    return URLSearchParams_from(body);
-  } else if (isJSONEntries(body)) {
+  } else if (
+    isRecord(body) ||
+    Array.isArray(body) ||
+    isIterable<[string, string]>(
+      body,
+      (elt: unknown): elt is [string, string] => {
+        return (
+          Array.isArray(elt) &&
+          elt.length == 2 &&
+          typeof elt[0] === 'string' &&
+          typeof elt[1] === 'string'
+        );
+      }
+    )
+  ) {
     return URLSearchParams_from(body);
   }
   return new Response(body).arrayBuffer();
