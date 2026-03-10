@@ -38,18 +38,9 @@ importers:
       '@qui-cli/root':
         specifier: ^3.1.1
         version: 3.1.1(@qui-cli/plugin@4.1.1(@qui-cli/colors@3.2.4))
-      '@tsconfig/node20':
-        specifier: ^20.1.9
-        version: 20.1.9
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
-      '@types/ejs':
-        specifier: ^3.1.5
-        version: 3.1.5
-      '@types/express':
-        specifier: ^5.0.6
-        version: 5.0.6
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -542,6 +533,9 @@ importers:
       '@qui-cli/colors':
         specifier: '>=3.2'
         version: 3.2.4
+      '@types/ejs':
+        specifier: '*'
+        version: 3.1.5
       async-mutex:
         specifier: ^0.5.0
         version: 0.5.0
@@ -1757,9 +1751,6 @@ packages:
         optional: true
       svelte:
         optional: true
-
-  '@tsconfig/node20@20.1.9':
-    resolution: {integrity: sha512-IjlTv1RsvnPtUcjTqtVsZExKVq+KQx4g5pCP5tI7rAs6Xesl2qFwSz/tPDBC4JajkL/MlezBu3gPUwqRHl+RIg==}
 
   '@tsconfig/node24@24.0.4':
     resolution: {integrity: sha512-2A933l5P5oCbv6qSxHs7ckKwobs8BDAe9SJ/Xr2Hy+nDlwmLE1GhFh/g/vXGRZWgxBg9nX/5piDtHR9Dkw/XuA==}
@@ -7356,8 +7347,6 @@ snapshots:
       prettier: 3.8.1
     transitivePeerDependencies:
       - supports-color
-
-  '@tsconfig/node20@20.1.9': {}
 
   '@tsconfig/node24@24.0.4': {}
 
