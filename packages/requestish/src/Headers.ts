@@ -4,7 +4,6 @@ import * as String from './String.js';
 
 export type ish =
   | Headers
-  | HeadersInit
   | Record<string, JSONPrimitive | undefined>
   | [string, JSONPrimitive | undefined][]
   | undefined;
