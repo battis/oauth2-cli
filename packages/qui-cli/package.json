@@ -28,13 +28,12 @@
     "release": "commit-and-tag-version"
   },
   "dependencies": {
-    "@qui-cli/colors": "^3.2.3",
+    "@battis/descriptive-types": "^0.2.6",
+    "@battis/typescript-tricks": "^0.8.0",
     "oauth2-cli": "workspace:*",
     "requestish": "workspace:*"
   },
   "devDependencies": {
-    "@battis/descriptive-types": "^0.2.6",
-    "@battis/typescript-tricks": "^0.8.0",
     "@tsconfig/node24": "^24.0.4",
     "commit-and-tag-version": "^12.6.1",
     "cpy-cli": "^7.0.0",
@@ -44,6 +43,7 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
+    "@qui-cli/colors": ">=3.2",
     "@qui-cli/env": ">=5",
     "@qui-cli/log": ">=3",
     "@qui-cli/plugin": ">=3"

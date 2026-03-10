@@ -25,10 +25,10 @@
   },
   "dependencies": {
     "@oauth2-cli/qui-cli": "workspace:*",
-    "@qui-cli/core": "^6.0.3",
-    "@qui-cli/env": "^5.1.1",
-    "@qui-cli/log": "^4.0.3",
-    "@qui-cli/root": "^3.1.0"
+    "@qui-cli/core": "^6.0.4",
+    "@qui-cli/env": "^5.1.2",
+    "@qui-cli/log": "^4.0.4",
+    "@qui-cli/root": "^3.1.1"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",

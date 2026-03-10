@@ -23,16 +23,19 @@
     "release:login": "pnpm login",
     "release:publish": "pnpm publish -r"
   },
+  "resolutions": {
+    "fast-xml-parser": "5.4.x||>5.5.0"
+  },
   "devDependencies": {
     "@battis/eslint-config": "^2.1.0",
     "@battis/prettier-config": "^1.7.3",
     "@commitlint/cli": "^20.4.3",
     "@commitlint/config-conventional": "^20.4.3",
     "@commitlint/config-pnpm-scopes": "^20.4.3",
-    "@qui-cli/colors": "^3.2.3",
-    "@qui-cli/core": "^6.0.3",
-    "@qui-cli/plugin": "^4.1.0",
-    "@qui-cli/root": "^3.1.0",
+    "@qui-cli/colors": "^3.2.4",
+    "@qui-cli/core": "^6.0.4",
+    "@qui-cli/plugin": "^4.1.1",
+    "@qui-cli/root": "^3.1.1",
     "@tsconfig/node20": "^20.1.9",
     "@tsconfig/node24": "^24.0.4",
     "@types/ejs": "^3.1.5",

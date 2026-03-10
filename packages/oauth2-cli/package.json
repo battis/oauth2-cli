@@ -24,7 +24,7 @@
     "release": "commit-and-tag-version"
   },
   "dependencies": {
-    "@qui-cli/colors": "^3.2.3",
+    "@battis/descriptive-types": "^0.2.6",
     "async-mutex": "^0.5.0",
     "express": "^5.2.1",
     "gcrtl": "workspace:*",
@@ -35,7 +35,6 @@
     "requestish": "workspace:*"
   },
   "devDependencies": {
-    "@battis/descriptive-types": "^0.2.6",
     "@battis/typescript-tricks": "^0.8.0",
     "@tsconfig/node24": "^24.0.4",
     "@types/express": "^5.0.6",
@@ -46,6 +45,7 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
+    "@qui-cli/colors": ">=3.2",
     "ejs": "*"
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",

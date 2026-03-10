@@ -3,7 +3,10 @@ packages:
   - examples/oauth2-cli/*
   - examples/qui-cli/*
   - '!examples/qui-cli/06 api-plugin'
-  - 'examples/qui-cli/06 api-plugin/*'
+  - examples/qui-cli/06 api-plugin/*
+
+ignoredBuiltDependencies:
+  - unrs-resolver
 
 onlyBuiltDependencies:
   - esbuild
