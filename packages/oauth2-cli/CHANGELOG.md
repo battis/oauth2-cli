@@ -4,61 +4,51 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.2.8](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.7...oauth2-cli/1.2.8) (2026-03-17)
 
-
 ### Bug Fixes
 
-* log unparseable body if unparseable as JSON ([183bcc7](https://github.com/battis/oauth2-cli/commit/183bcc750f4f2dded5bc5f4d9fbc01fb6624e651))
-
-## [1.2.7](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.6...oauth2-cli/1.2.7) (2026-03-10)
+- log unparseable body if unparseable as JSON ([183bcc7](https://github.com/battis/oauth2-cli/commit/183bcc750f4f2dded5bc5f4d9fbc01fb6624e651))
 
 ## [1.2.6](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.5...oauth2-cli/1.2.6) (2026-03-10)
 
-
 ### Bug Fixes
 
-* update dev vs peer dependencies ([f21dc01](https://github.com/battis/oauth2-cli/commit/f21dc0108fcc786fa6edd5015fa835da856a9af0))
+- update dev vs peer dependencies ([f21dc01](https://github.com/battis/oauth2-cli/commit/f21dc0108fcc786fa6edd5015fa835da856a9af0))
 
 ## [1.2.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.4...oauth2-cli/1.2.5) (2026-03-08)
 
-
 ### Bug Fixes
 
-* use the full power of requestish to build request URL ([ff4da89](https://github.com/battis/oauth2-cli/commit/ff4da8900e83df0d4dbd941058084523ad7ce3a6))
+- use the full power of requestish to build request URL ([ff4da89](https://github.com/battis/oauth2-cli/commit/ff4da8900e83df0d4dbd941058084523ad7ce3a6))
 
 ## [1.2.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.3...oauth2-cli/1.2.4) (2026-03-08)
 
-
 ### Bug Fixes
 
-* actually fix base_url completion removing search params ([2575df7](https://github.com/battis/oauth2-cli/commit/2575df7250ec1c5c0ba76ab5f7babc40b2e5a07d))
+- actually fix base_url completion removing search params ([2575df7](https://github.com/battis/oauth2-cli/commit/2575df7250ec1c5c0ba76ab5f7babc40b2e5a07d))
 
 ## [1.2.3](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.2...oauth2-cli/1.2.3) (2026-03-08)
 
 ## [1.2.2](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.1...oauth2-cli/1.2.2) (2026-03-08)
 
-
 ### Bug Fixes
 
-* don't lose search params when building url from base or credentials.issuer ([a328c96](https://github.com/battis/oauth2-cli/commit/a328c9693d0a39cccc7d6f38bd24065b6f633c1b))
+- don't lose search params when building url from base or credentials.issuer ([a328c96](https://github.com/battis/oauth2-cli/commit/a328c9693d0a39cccc7d6f38bd24065b6f633c1b))
 
 ## [1.2.1](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.0...oauth2-cli/1.2.1) (2026-03-08)
 
-
 ### Bug Fixes
 
-* still more detail on JSON error ([d9d28ce](https://github.com/battis/oauth2-cli/commit/d9d28ce8145a5c29288f28317041e8545b232a1e))
+- still more detail on JSON error ([d9d28ce](https://github.com/battis/oauth2-cli/commit/d9d28ce8145a5c29288f28317041e8545b232a1e))
 
 ## [1.2.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.5...oauth2-cli/1.2.0) (2026-03-08)
 
-
 ### Features
 
-* add prepareResponse hook ([c1ada04](https://github.com/battis/oauth2-cli/commit/c1ada04c20f08a5dac11414b44ea188f4aafe76d))
-
+- add prepareResponse hook ([c1ada04](https://github.com/battis/oauth2-cli/commit/c1ada04c20f08a5dac11414b44ea188f4aafe76d))
 
 ### Bug Fixes
 
-* more detailed error response on JSON parse fail ([b8c414d](https://github.com/battis/oauth2-cli/commit/b8c414d650a7acfce8d2d297639fbecddd5f2382))
+- more detailed error response on JSON parse fail ([b8c414d](https://github.com/battis/oauth2-cli/commit/b8c414d650a7acfce8d2d297639fbecddd5f2382))
 
 ## [1.1.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.1.4...oauth2-cli/1.1.5) (2026-03-07)
 
