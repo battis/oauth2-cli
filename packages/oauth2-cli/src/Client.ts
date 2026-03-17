@@ -390,11 +390,12 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   /** Parse a fetch response as JSON, typing it as J */
   private async toJSON<J extends JSONValue>(response: Response) {
     if (response.ok) {
+      const body = await response.text();
       try {
-        return (await response.json()) as J;
-      } catch (cause) {
+        return JSON.parse(body) as J;
+      } catch (error) {
         throw new Error(`${this.name} response could not be parsed as JSON`, {
-          cause
+          cause: { error, body }
         });
       }
     } else {
