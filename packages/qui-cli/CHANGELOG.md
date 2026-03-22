@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.15...qui-cli-plugin/2.0.0) (2026-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* detect and automate traversing paginated collections
+
+### Features
+
+* detect and automate traversing paginated collections ([28d6c6a](https://github.com/battis/oauth2-cli/commit/28d6c6ad90deb01059804d11ee692ec413a03345))
+
 ## [1.2.13](https://github.com/battis/oauth2-cli/compare/qui-cli-plugin/1.2.12...qui-cli-plugin/1.2.13) (2026-03-10)
 
 ### Bug Fixes
