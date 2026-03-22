@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.8...oauth2-cli/2.0.0) (2026-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* detect and automate traversing paginated collections
+
+### Features
+
+* detect and automate traversing paginated collections ([28d6c6a](https://github.com/battis/oauth2-cli/commit/28d6c6ad90deb01059804d11ee692ec413a03345))
+
 ## [1.2.8](https://github.com/battis/oauth2-cli/compare/oauth2-cli/1.2.7...oauth2-cli/1.2.8) (2026-03-17)
 
 ### Bug Fixes
