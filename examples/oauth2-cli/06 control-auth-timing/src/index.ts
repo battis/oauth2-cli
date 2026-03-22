@@ -39,5 +39,5 @@ setTimeout(async () => {
   spinner.succeed('Something else happened');
 
   // get this repo (battis/oauth2-cli)
-  console.log(await github.requestJSON('/repos/battis/oauth2-cli'));
+  console.log(await github.request('/repos/battis/oauth2-cli'));
 }, 10000);

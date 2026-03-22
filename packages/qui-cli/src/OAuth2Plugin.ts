@@ -401,8 +401,8 @@ export class OAuth2Plugin<
    *
    * @see {@link OAuth2CLI.Client.request}
    */
-  public request(...args: Parameters<OAuth2CLI.Client<C>['request']>) {
-    return this.client.request(...args);
+  public requestRaw(...args: Parameters<OAuth2CLI.Client<C>['requestRaw']>) {
+    return this.client.requestRaw(...args);
   }
 
   /**
@@ -410,10 +410,10 @@ export class OAuth2Plugin<
    *
    * @see {@link OAuth2CLI.Client.requestJSON}
    */
-  public requestJSON<T extends JSONValue>(
-    ...args: Parameters<OAuth2CLI.Client<C>['requestJSON']>
+  public request<T extends JSONValue>(
+    ...args: Parameters<OAuth2CLI.Client<C>['request']>
   ) {
-    return this.client.requestJSON<T>(...args);
+    return this.client.request<T>(...args);
   }
 
   /**
@@ -421,8 +421,8 @@ export class OAuth2Plugin<
    *
    * @see {@link OAuth2CLI.Client.fetch}
    */
-  public fetch(...args: Parameters<OAuth2CLI.Client<C>['fetch']>) {
-    return this.client.fetch(...args);
+  public fetchRaw(...args: Parameters<OAuth2CLI.Client<C>['fetchRaw']>) {
+    return this.client.fetchRaw(...args);
   }
 
   /**
@@ -430,9 +430,9 @@ export class OAuth2Plugin<
    *
    * @see {@link OAuth2CLI.Client.fetchJSON}
    */
-  public fetchJSON<T extends JSONValue>(
-    ...args: Parameters<OAuth2CLI.Client<C>['fetchJSON']>
+  public fetch<T extends JSONValue>(
+    ...args: Parameters<OAuth2CLI.Client<C>['fetch']>
   ) {
-    return this.client.fetchJSON<T>(...args);
+    return this.client.fetch<T>(...args);
   }
 }

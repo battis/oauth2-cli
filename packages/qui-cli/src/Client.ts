@@ -62,29 +62,35 @@ export class Client<
     return response;
   }
 
-  public async requestJSON<J extends JSONValue = JSONValue>(
+  public async request<T extends JSONValue = JSONValue>(
     url: URL.ish,
     method = 'GET',
     body?: Body.ish,
     headers: Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
-  ): Promise<J> {
-    const json = await super.requestJSON<J>(
+  ) {
+    const data = await super.request<T>(
       url,
       method,
       body,
       headers,
       dPoPOptions
     );
-    Log.debug(
-      `JSON body from ${this.name}: ${
-        typeof json === 'object' && json
-          ? Log.syntaxColor(json)
-          : typeof json === 'string'
-            ? Colors.quotedValue(`"${json}"`)
-            : Colors.value(json)
-      }`
-    );
-    return json;
+    if (data instanceof OAuth2CLI.PaginatedCollection) {
+      Log.debug(
+        `First page of data from ${this.name}: ${Log.syntaxColor(data)}`
+      );
+    } else {
+      Log.debug(
+        `JSON data from ${this.name}: ${
+          typeof data === 'object' && data
+            ? Log.syntaxColor(data)
+            : typeof data === 'string'
+              ? Colors.quotedValue(`"${data}"`)
+              : Colors.value(data)
+        }`
+      );
+    }
+    return data;
   }
 }

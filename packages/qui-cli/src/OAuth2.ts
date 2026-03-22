@@ -39,27 +39,27 @@ export const client = () => plugin.client;
  *
  * @see {@link OAuth2Plugin.request}
  */
-export const request = plugin.request.bind(plugin);
+export const requestRaw = plugin.requestRaw.bind(plugin);
 
 /**
  * Convenience method
  *
  * @see {@link OAuth2Plugin.requestJSON}
  */
-export const requestJSON = plugin.requestJSON.bind(plugin);
+export const request = plugin.request.bind(plugin);
 
 /**
  * Convenience method
  *
  * @see {@link OAuth2Plugin.fetch}
  */
-export const fetch = plugin.fetch.bind(plugin);
+export const fetchRaw = plugin.fetchRaw.bind(plugin);
 
 /**
  * Conveneince method
  *
  * @see {@link OAuth2Plugin.fetchJSON}
  */
-export const fetchJSON = plugin.fetchJSON.bind(plugin);
+export const fetch = plugin.fetch.bind(plugin);
 
 await register(plugin);

@@ -28,4 +28,4 @@ const drive = new Client({
 });
 
 // list the user's files in Google Drive
-console.log(await drive.requestJSON('/files'));
+console.log(await drive.request('/files'));

@@ -14,5 +14,5 @@ GitHub.configure({ reason: 'the @oauth2-cli/qui-cli api-plugin example' });
 
 // get this repo (battis/oauth2-cli)
 Log.info({
-  response: await GitHub.requestJSON('/repos/battis/oauth2-cli')
+  response: await GitHub.request('/repos/battis/oauth2-cli')
 });

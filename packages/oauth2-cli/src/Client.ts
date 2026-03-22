@@ -10,6 +10,7 @@ import { Credentials } from './Credentials.js';
 import { Injection } from './Injection.js';
 import * as Localhost from './Localhost/index.js';
 import * as Options from './Options.js';
+import { PaginatedCollection } from './PaginatedCollection.js';
 import * as Token from './Token/index.js';
 
 export type PreparedRequest = Parameters<
@@ -331,7 +332,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    * @param body Optional
    * @param dPoPOptions Optional, see {@link OpenIDClient.DPoPOptions}
    */
-  public async request(
+  public async requestRaw(
     url: requestish.URL.ish,
     method = 'GET',
     body?: requestish.Body.ish,
@@ -387,12 +388,47 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return response;
   }
 
-  /** Parse a fetch response as JSON, typing it as J */
-  private async toJSON<J extends JSONValue>(response: Response) {
+  /**
+   * Available hook to check for a paginated response and return an interable
+   * PaginatedCollection
+   */
+  protected checkForPagination<T extends JSONValue = JSONValue>(
+    _response: Response,
+    _data: JSONValue
+  ): PaginatedCollection<T> | undefined {
+    return undefined;
+  }
+
+  /**
+   * Process a raw response int JSON, typing it as `T` or as a
+   * `PaginatedCollection<T>`
+   *
+   * @param response Raw response
+   */
+  public async processResponse<T extends JSONValue = JSONValue>(
+    response: Response,
+    paginationCheck: false
+  ): Promise<T>;
+  public async processResponse<T extends JSONValue = JSONValue>(
+    response: Response,
+    paginationCheck?: true
+  ): Promise<T | PaginatedCollection<T>>;
+  public async processResponse<T extends JSONValue>(
+    response: Response,
+    paginationCheck = true
+  ) {
     if (response.ok) {
       const body = await response.text();
       try {
-        return JSON.parse(body) as J;
+        const data = JSON.parse(body) as JSONValue;
+        let paginatedCollection: PaginatedCollection<T> | undefined;
+        if (
+          paginationCheck &&
+          (paginatedCollection = this.checkForPagination<T>(response, data))
+        ) {
+          return paginatedCollection;
+        }
+        return data as T;
       } catch (error) {
         throw new Error(`${this.name} response could not be parsed as JSON`, {
           cause: { error, body }
@@ -414,19 +450,27 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }
 
   /**
-   * Returns the result of {@link request} as a parsed JSON object, optionally
-   * typed as `J`
+   * Returns the result of {@link requestRaw} as a parsed JSON object, optionally
+   * typed as `T`
+   *
+   * @param pagination Optional function to test conversion of response into a
+   *   `PaginatedCollection<T>`
    */
-  public async requestJSON<J extends JSONValue = JSONValue>(
+  public async request<T extends JSONValue = JSONValue>(
     url: requestish.URL.ish,
     method = 'GET',
     body?: requestish.Body.ish,
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    return await this.toJSON<J>(
-      await this.request(url, method, body, headers, dPoPOptions)
+    const response = await this.requestRaw(
+      url,
+      method,
+      body,
+      headers,
+      dPoPOptions
     );
+    return await this.processResponse<T>(response);
   }
 
   /**
@@ -439,14 +483,14 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    *   paths relative to the `issuer` URL as well as absolute URLs
    * @param init Optional
    * @param dPoPOptions Optional, see {@link OpenIDClient.DPoPOptions}
-   * @see {@link request} for which this is an alias for {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API Fetch API}-style requests
+   * @see {@link requestRaw} for which this is an alias for {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API Fetch API}-style requests
    */
-  public async fetch(
+  public async fetchRaw(
     input: requestish.URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    return await this.request(
+    return await this.requestRaw(
       input,
       init?.method,
       await requestish.Body.from(init?.body),
@@ -457,13 +501,19 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
 
   /**
    * Returns the result of {@link fetch} as a parsed JSON object, optionally
-   * typed as `J`
+   * typed as `T`
    */
-  public async fetchJSON<J extends JSONValue = JSONValue>(
+  public async fetch<T extends JSONValue = JSONValue>(
     input: requestish.URL.ish,
     init?: RequestInit,
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    return await this.toJSON<J>(await this.fetch(input, init, dPoPOptions));
+    return await this.request<T>(
+      input,
+      init?.method,
+      await requestish.Body.from(init?.body),
+      requestish.Headers.from(init?.headers),
+      dPoPOptions
+    );
   }
 }

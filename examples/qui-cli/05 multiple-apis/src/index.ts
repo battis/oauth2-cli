@@ -74,8 +74,8 @@ await Core.run();
 Log.info({
   repo:
     // get this repo (battis/oauth2-cli)
-    await github.requestJSON('/repos/battis/oauth2-cli'),
+    await github.request('/repos/battis/oauth2-cli'),
   files:
     // list the user's files in Google Drive
-    await drive.requestJSON('/files')
+    await drive.request('/files')
 });

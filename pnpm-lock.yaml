@@ -232,6 +232,37 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  examples/oauth2-cli/08 pagination:
+    dependencies:
+      '@inquirer/input':
+        specifier: ^5.0.8
+        version: 5.0.8(@types/node@24.12.0)
+      '@types/node':
+        specifier: ^24.12.0
+        version: 24.12.0
+      dotenv:
+        specifier: ^17.3.1
+        version: 17.3.1
+      oauth2-cli:
+        specifier: workspace:*
+        version: link:../../../packages/oauth2-cli
+    devDependencies:
+      '@battis/typescript-tricks':
+        specifier: ^0.8.2
+        version: 0.8.2
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      del-cli:
+        specifier: ^7.0.0
+        version: 7.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   examples/qui-cli/01 basic-use:
     dependencies:
       '@oauth2-cli/qui-cli':
@@ -921,6 +952,9 @@ packages:
 
   '@battis/typescript-tricks@0.8.1':
     resolution: {integrity: sha512-x6g0/PAOUp3kWYYgRr/Os6KBnTCJ5BwxbgUQlgdyiWLiOe0i9dWlGiW1thf34a76hsrc65OawWy83KE2d0kH5g==}
+
+  '@battis/typescript-tricks@0.8.2':
+    resolution: {integrity: sha512-0ATH6pX2LeIdwMm1+kTqT9ztVog+tm0RKSnFdfD7PbhalaOn7VIkMZGzInfJ48tKQQxYfF/413jZtcLCGhBPvQ==}
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
@@ -6217,6 +6251,8 @@ snapshots:
       is-valid-path: 0.1.1
 
   '@battis/typescript-tricks@0.8.1': {}
+
+  '@battis/typescript-tricks@0.8.2': {}
 
   '@bcoe/v8-coverage@0.2.3': {}
 

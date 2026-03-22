@@ -60,5 +60,5 @@ await Core.run();
 
 // get this repo (battis/oauth2-cli)
 Log.info({
-  response: await OAuth2.requestJSON('/repos/battis/oauth2-cli')
+  response: await OAuth2.request('/repos/battis/oauth2-cli')
 });

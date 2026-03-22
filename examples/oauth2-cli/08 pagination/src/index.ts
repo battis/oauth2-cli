@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import path from 'node:path';
-import { Client, Token } from 'oauth2-cli';
+import { Token } from 'oauth2-cli';
+import { GHClient } from './GHClient.js';
+import { GHPaginatedCollection } from './GHPaginatedCollection.js';
 
 // load credentials from the environment
 dotenv.config({ quiet: true });
@@ -15,7 +17,7 @@ if (!(client_id && client_secret && redirect_uri)) {
 }
 
 // configure oauth2-cli client with credentials
-const github = new Client({
+const github = new GHClient({
   name: 'GitHub',
   reason: 'the oauth2-cli token-file-storage example',
   credentials: {
@@ -33,4 +35,14 @@ const github = new Client({
 });
 
 // get this repo (battis/oauth2-cli)
-console.log(await github.request('/repos/battis/oauth2-cli'));
+const response = await github.request('/repos/battis/oauth2-cli/commits');
+if (response instanceof GHPaginatedCollection) {
+  for await (const commit of response) {
+    const message = commit.commit.message.split('\n').shift();
+    console.log(
+      `${commit.commit.author.date} ${commit.sha.substring(0, 7)} ${message.substring(0, 50)}${message.length > 50 ? '...' : ''} / ${commit.author.login}`
+    );
+  }
+} else {
+  throw new Error('Did not receive a paginated response.');
+}

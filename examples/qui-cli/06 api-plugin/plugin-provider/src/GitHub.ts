@@ -17,11 +17,11 @@ export const client: () => typeof plugin.client = () => plugin.client;
  * invokation to connect the method up to the specific instances of the object
  * data.
  */
+export const requestRaw: typeof plugin.requestRaw =
+  plugin.requestRaw.bind(plugin);
 export const request: typeof plugin.request = plugin.request.bind(plugin);
-export const requestJSON: typeof plugin.requestJSON =
-  plugin.requestJSON.bind(plugin);
+export const fetchRaw: typeof plugin.fetchRaw = plugin.fetchRaw.bind(plugin);
 export const fetch: typeof plugin.fetch = plugin.fetch.bind(plugin);
-export const fetchJSON: typeof plugin.fetchJSON = plugin.fetchJSON.bind(plugin);
 
 // register the plugin for immediate use
 await register(plugin);

@@ -45,6 +45,10 @@ Control when in the logic of your script the user is asked to authorize API acce
 
 Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-storage](../qui-cli/03%@0token-env-storage#readme) for a more secure option).
 
+## [08 pagination](./08%20pagination#readme)
+
+Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-storage](../qui-cli/03%@0token-env-storage#readme) for a more secure option).
+
 <!-- end examples-toc -->
 
 ## Security note

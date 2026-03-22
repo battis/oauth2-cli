@@ -69,7 +69,7 @@ If you would prefer an `https` connection to localhost, you have to roll your ow
 
 ### Request an endpoint
 
-#### `request()`
+#### `requestRaw()`
 
 As noted above, `oauth2-cli` is built on top of [openid-client](https://www.npmjs.com/package/openid-client). The `request()` method is a pass-through to the `openid-client` [fetchProtectedResource()](https://github.com/panva/openid-client/blob/b77d87c1e2f5fef6fab501de615fb83a74a0251f/docs/functions/fetchProtectedResource.md) function, with the configuration and accessToken managed by the Client.
 
@@ -77,7 +77,7 @@ As noted above, `oauth2-cli` is built on top of [openid-client](https://www.npmj
 class Client {
   // ...
 
-  public async request(
+  public async requestRaw(
     url: requestish.URL.ish,
     method = 'GET',
     body?: requestish.Body.ish,
@@ -95,7 +95,7 @@ class Client {
 
 If you would prefer to make requests to relative paths, rather than absolute paths, either configure a `base_url` or include an `issuer` in the `credentials` when instantiating the client. A `base_url` will preempt an `issuer`, if both are defined (handy for when the `issuer` is a different subdomain than the API endpoints).
 
-### `requestJSON<J>()`
+### `request<T>()`
 
 Given that many APIs return JSON-formatted responses, it is convenient to just get that JSON (optionally pre-typed based on what you expect to receive) rather than having to process the response yourself.
 
@@ -103,9 +103,7 @@ Given that many APIs return JSON-formatted responses, it is convenient to just g
 class Client {
   // ...
 
-  public async requestJSON<
-    J extends OpenIDClient.JsonValue = OpenIDClient.JsonValue
-  >(
+  public async request<T extends JSONValue = JSONValue>(
     url: requestish.URL.ish,
     method = 'GET',
     body?: requestish.Body.ish,
@@ -117,9 +115,9 @@ class Client {
 }
 ```
 
-### `fetch()` and `fetchJSON<J>()`
+### `fetchRaw()` and `fetch<T>()`
 
-Aliases for `request()` and `requestJSON<J>()` that use [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)-style arguments.
+Aliases for `requestRaw()` and `request<T>()` that use [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)-style arguments.
 
 ## Examples
 
