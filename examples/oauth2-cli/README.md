@@ -47,7 +47,7 @@ Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-st
 
 ## [08 pagination](./08%20pagination#readme)
 
-Persist `refresh_token` between runs of the script (see [qui-cli/04 token-env-storage](../qui-cli/03%@0token-env-storage#readme) for a more secure option).
+Identify and traverse paginated API responses dynamically.
 
 <!-- end examples-toc -->
 

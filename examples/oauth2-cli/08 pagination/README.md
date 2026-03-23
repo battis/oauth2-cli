@@ -1,8 +1,8 @@
-# Persist `refresh_token` between runs of the script
+# Identify and traverse paginated API responses dynamically
 
-This [script](./src/index.ts) is identical to the [ejs-optional](../02%20ejs-optional#readme) example (authorize GitHub API access and request this repo), but a `Token.FileStorage` instance is provided to the client to store the `refresh_token` in a local file between runs.
+This [script](./src/index.ts) is similar to the [basic-use](../01%20basic-use#readme) example (authorize GitHub API access and request this repo), but rather than requesting the repo information, the list of commits is requested. There are enough commits that the API paginates its response. [`GHClient`](./src/GHClient.ts) is an extension of the basic `Client` that identifies paginated responses (an array of data and a `link` header). [`GHPaginatedCollection`](./src/GHPaginatedCollection.ts) extends the base `PaginatedCollection` with a `nextPage()` method that parses the `link` header and uses the provided URL to request the next page of responses.
 
-_Note that storing the token in plain text on the local file system is insecure. Ideally, only the refresh token is stored, and it is stored encrypted. A better approach is to take advantage of the [@oauth2-cli/qui-cli](https://www.npmjs.com/package/@oauth2-cli/qui-cli) plugin's integration with 1Password, for example. However the file storage may be appropriate in certain limited use cases._
+Note that `nextPage()` uses `fetchRaw()` in order to see the accompanying response headers and _then_ invokes `processResponse()` to parse the JSON data that will be returned. This is essentially identical to the usual `fetch()` method, but is necessary to access _both_ the data _and_ the response metadata.
 
 ## Usage
 
