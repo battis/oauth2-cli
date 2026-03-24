@@ -37,28 +37,28 @@ export const client = () => plugin.client;
 /**
  * Convenience method
  *
- * @see {@link OAuth2Plugin.request}
+ * @see {@link OAuth2Plugin.requestRaw}
  */
 export const requestRaw = plugin.requestRaw.bind(plugin);
 
 /**
  * Convenience method
  *
- * @see {@link OAuth2Plugin.requestJSON}
+ * @see {@link OAuth2Plugin.request}
  */
 export const request = plugin.request.bind(plugin);
 
 /**
  * Convenience method
  *
- * @see {@link OAuth2Plugin.fetch}
+ * @see {@link OAuth2Plugin.fetchRaw}
  */
 export const fetchRaw = plugin.fetchRaw.bind(plugin);
 
 /**
  * Conveneince method
  *
- * @see {@link OAuth2Plugin.fetchJSON}
+ * @see {@link OAuth2Plugin.fetch}
  */
 export const fetch = plugin.fetch.bind(plugin);
 

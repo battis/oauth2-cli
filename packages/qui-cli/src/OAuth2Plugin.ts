@@ -399,7 +399,7 @@ export class OAuth2Plugin<
   /**
    * Convenience method
    *
-   * @see {@link OAuth2CLI.Client.request}
+   * @see {@link OAuth2CLI.Client.requestRaw}
    */
   public requestRaw(...args: Parameters<OAuth2CLI.Client<C>['requestRaw']>) {
     return this.client.requestRaw(...args);
@@ -408,7 +408,7 @@ export class OAuth2Plugin<
   /**
    * Convenience method
    *
-   * @see {@link OAuth2CLI.Client.requestJSON}
+   * @see {@link OAuth2CLI.Client.request}
    */
   public request<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client<C>['request']>
@@ -419,7 +419,7 @@ export class OAuth2Plugin<
   /**
    * Convenience method
    *
-   * @see {@link OAuth2CLI.Client.fetch}
+   * @see {@link OAuth2CLI.Client.fetchRaw}
    */
   public fetchRaw(...args: Parameters<OAuth2CLI.Client<C>['fetchRaw']>) {
     return this.client.fetchRaw(...args);
@@ -428,7 +428,7 @@ export class OAuth2Plugin<
   /**
    * Convenience method
    *
-   * @see {@link OAuth2CLI.Client.fetchJSON}
+   * @see {@link OAuth2CLI.Client.fetch}
    */
   public fetch<T extends JSONValue>(
     ...args: Parameters<OAuth2CLI.Client<C>['fetch']>

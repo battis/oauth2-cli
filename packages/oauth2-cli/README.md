@@ -33,7 +33,7 @@ const client = new Client({
   storage: new FileStorage('/path/to/token/file.json');
 });
 console.log(
-  client.fetchJSON<ExpectedResponse>('https://example.com/path/to/api/endpoint')
+  client.fetch<ExpectedResponse>('https://example.com/path/to/api/endpoint')
 );
 ```
 
