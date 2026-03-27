@@ -463,14 +463,30 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    const response = await this.requestRaw(
-      url,
-      method,
-      body,
-      headers,
-      dPoPOptions
-    );
-    return await this.processResponse<T>(response);
+    try {
+      const response = await this.requestRaw(
+        url,
+        method,
+        body,
+        headers,
+        dPoPOptions
+      );
+      return await this.processResponse<T>(response);
+    } catch (error) {
+      throw new Error(`Bad response from ${this.name}`, {
+        cause: {
+          request: {
+            method,
+            url: requestish.URL.toString(url),
+            headers: Object.fromEntries(
+              requestish.Headers.from(headers).entries()
+            ),
+            body
+          },
+          error
+        }
+      });
+    }
   }
 
   /**
