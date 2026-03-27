@@ -346,6 +346,8 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         requestish.URLSearchParams.merge(this.inject?.search, url.searchParams)
       )
     );
+    headers = requestish.Headers.merge(this.inject?.headers, headers);
+    body = await requestish.Body.from(body);
     const request = async () =>
       await OpenIDClient.fetchProtectedResource(
         ...(await this.prepareRequest(
@@ -353,19 +355,31 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
           (await this.getToken()).access_token,
           url,
           method,
-          await requestish.Body.from(body),
-          requestish.Headers.merge(this.inject?.headers, headers),
+          body as OpenIDClient.FetchBody,
+          headers,
           dPoPOptions
         ))
       );
     try {
       return this.prepareResponse(await request());
-    } catch (cause) {
-      if (Error.isError(cause) && 'status' in cause && cause.status === 401) {
+    } catch (error) {
+      if (Error.isError(error) && 'status' in error && error.status === 401) {
         await this.authorize();
         return this.prepareResponse(await request());
       } else {
-        throw new Error(`${this.name} request failed`, { cause });
+        throw new Error(`${this.name} request failed`, {
+          cause: {
+            request: {
+              method,
+              url,
+              headers: headers
+                ? Object.fromEntries(headers.entries())
+                : undefined,
+              body
+            },
+            error
+          }
+        });
       }
     }
   }
@@ -380,11 +394,28 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     return args;
   }
 
+  private async throwNotOkResponse(response: Response) {
+    throw new Error(`${this.name} response status not ok`, {
+      cause: {
+        response: {
+          ok: response.ok,
+          status: response.status,
+          statusText: response.statusText,
+          headers: Object.fromEntries(response.headers.entries()),
+          body: response.body ? `${await text(response.body)}` : undefined
+        }
+      }
+    });
+  }
+
   /**
    * Available hook to manipulate the complete response from the server before
    * processing it
    */
   protected async prepareResponse(response: Response): Promise<Response> {
+    if (!response.ok) {
+      await this.throwNotOkResponse(response);
+    }
     return response;
   }
 
@@ -435,17 +466,7 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
         });
       }
     } else {
-      throw new Error(`${this.name} response status not ok`, {
-        cause: {
-          response: {
-            ok: response.ok,
-            status: response.status,
-            statusText: response.statusText,
-            headers: Object.fromEntries(response.headers.entries()),
-            body: response.body ? `${await text(response.body)}` : undefined
-          }
-        }
-      });
+      await this.throwNotOkResponse(response);
     }
   }
 
@@ -463,30 +484,14 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    try {
-      const response = await this.requestRaw(
-        url,
-        method,
-        body,
-        headers,
-        dPoPOptions
-      );
-      return await this.processResponse<T>(response);
-    } catch (error) {
-      throw new Error(`Bad response from ${this.name}`, {
-        cause: {
-          request: {
-            method,
-            url: requestish.URL.toString(url),
-            headers: Object.fromEntries(
-              requestish.Headers.from(headers).entries()
-            ),
-            body
-          },
-          error
-        }
-      });
-    }
+    const response = await this.requestRaw(
+      url,
+      method,
+      body,
+      headers,
+      dPoPOptions
+    );
+    return await this.processResponse<T>(response);
   }
 
   /**
