@@ -491,7 +491,23 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
       headers,
       dPoPOptions
     );
-    return await this.processResponse<T>(response);
+    try {
+      return await this.processResponse<T>(response);
+    } catch (error) {
+      throw new Error(`${this.name} request resulted in bad response`, {
+        cause: {
+          request: {
+            method,
+            url,
+            headers: Object.fromEntries(
+              requestish.Headers.from(headers).entries()
+            ),
+            body: requestish.Body.from(body)
+          },
+          error
+        }
+      });
+    }
   }
 
   /**
