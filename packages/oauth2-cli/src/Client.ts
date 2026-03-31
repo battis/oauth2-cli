@@ -3,6 +3,7 @@ import { Mutex } from 'async-mutex';
 import { Request } from 'express';
 import * as gcrtl from 'gcrtl';
 import { EventEmitter } from 'node:events';
+import path from 'node:path';
 import { text } from 'node:stream/consumers';
 import * as OpenIDClient from 'openid-client';
 import * as requestish from 'requestish';
@@ -339,7 +340,29 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
     headers: requestish.Headers.ish = {},
     dPoPOptions?: OpenIDClient.DPoPOptions
   ) {
-    url = new URL(url, this.base_url || this.credentials.issuer);
+    try {
+      url = requestish.URL.from(url);
+    } catch (error) {
+      if (this.base_url || this.credentials.issuer) {
+        const base = requestish.URL.from(
+          // @ts-expect-error 2345 I _just_ tested for this!
+          this.base_url || this.credentials.issuer
+        );
+        url = new URL(
+          path.resolve(base.pathname, requestish.URL.toString(url)),
+          base
+        );
+      } else {
+        throw new Error(`Could not construct URL for request to ${this.name}`, {
+          cause: {
+            url,
+            base_url: this.base_url,
+            'credentials.issuer': this.credentials.issuer,
+            error
+          }
+        });
+      }
+    }
     url = requestish.URL.from(
       requestish.URLSearchParams.appendTo(
         url,
