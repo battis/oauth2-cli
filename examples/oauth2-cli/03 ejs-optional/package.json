@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "dotenv": "^17.3.1",
-    "ejs": "^4.0.1",
+    "ejs": "^5.0.1",
     "oauth2-cli": "workspace:*"
   },
   "devDependencies": {
