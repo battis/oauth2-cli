@@ -23,7 +23,7 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@inquirer/input": "^5.0.8",
+    "@inquirer/input": "^5.0.10",
     "@types/node": "^24.12.0",
     "dotenv": "^17.3.1",
     "oauth2-cli": "workspace:*"
