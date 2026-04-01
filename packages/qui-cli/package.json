@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@battis/descriptive-types": "^0.2.6",
-    "@battis/typescript-tricks": "^0.8.1",
+    "@battis/typescript-tricks": "^0.8.2",
     "oauth2-cli": "workspace:*",
     "requestish": "workspace:*"
   },
