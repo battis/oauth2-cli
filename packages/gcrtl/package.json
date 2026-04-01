@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@battis/eslint-config": "^2.1.0",
-    "@battis/partly-gcloudy": "^3.2.2",
+    "@battis/partly-gcloudy": "^3.3.3",
     "@battis/prettier-config": "^1.7.3",
     "@qui-cli/core": "^6.0.4",
     "@qui-cli/shell": "^3.1.4",
