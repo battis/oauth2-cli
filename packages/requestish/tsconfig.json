@@ -5,6 +5,7 @@
     "lib": ["ES2019"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "rootDir": "./src",
     "outDir": "./dist"
   },
   "include": ["./src"]
