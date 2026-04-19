@@ -26,17 +26,17 @@
   },
   "dependencies": {
     "@battis/descriptive-types": "^0.2.6",
-    "@battis/typescript-tricks": "^0.8.1"
+    "@battis/typescript-tricks": "^0.8.2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.13",
     "@types/jest": "^30.0.0",
-    "commit-and-tag-version": "^12.6.1",
+    "commit-and-tag-version": "^12.7.1",
     "del-cli": "^7.0.0",
     "jest": "^30.3.0",
     "npm-run-all": "^4.1.5",
-    "openid-client": "^6.8.2",
-    "ts-jest": "^29.4.6",
+    "openid-client": "^6.8.3",
+    "ts-jest": "^29.4.9",
     "typescript": "^5.9.3"
   }
 }

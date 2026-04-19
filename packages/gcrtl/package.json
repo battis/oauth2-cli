@@ -33,18 +33,18 @@
   },
   "devDependencies": {
     "@battis/eslint-config": "^2.1.0",
-    "@battis/partly-gcloudy": "^3.2.2",
+    "@battis/partly-gcloudy": "^3.3.3",
     "@battis/prettier-config": "^1.7.3",
     "@qui-cli/core": "^6.0.4",
     "@qui-cli/shell": "^3.1.4",
     "@tsconfig/node24": "^24.0.4",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.12.0",
-    "commit-and-tag-version": "^12.6.1",
+    "@types/node": "^24.12.2",
+    "commit-and-tag-version": "^12.7.1",
     "del-cli": "^7.0.0",
     "jest": "^30.3.0",
     "npm-run-all": "^4.1.5",
-    "ts-jest": "^29.4.6",
+    "ts-jest": "^29.4.9",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.29.1"

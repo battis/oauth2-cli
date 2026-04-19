@@ -30,16 +30,16 @@
     "gcrtl": "workspace:*",
     "oauth4webapi": "^3.8.5",
     "open": "^11.0.0",
-    "openid-client": "^6.8.2",
+    "openid-client": "^6.8.3",
     "ora": "^9.3.0",
     "requestish": "workspace:*"
   },
   "devDependencies": {
-    "@battis/typescript-tricks": "^0.8.1",
+    "@battis/typescript-tricks": "^0.8.2",
     "@tsconfig/node24": "^24.0.4",
     "@types/express": "^5.0.6",
-    "@types/node": "^24.12.0",
-    "commit-and-tag-version": "^12.6.1",
+    "@types/node": "^24.12.2",
+    "commit-and-tag-version": "^12.7.1",
     "del-cli": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3"

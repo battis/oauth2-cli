@@ -23,9 +23,9 @@
     "build:compile": "tsc"
   },
   "dependencies": {
-    "@inquirer/input": "^5.0.8",
-    "@types/node": "^24.12.0",
-    "dotenv": "^17.3.1",
+    "@inquirer/input": "^5.0.11",
+    "@types/node": "^24.12.2",
+    "dotenv": "^17.4.2",
     "oauth2-cli": "workspace:*"
   },
   "devDependencies": {
