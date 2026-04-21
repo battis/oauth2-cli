@@ -6,3 +6,10 @@ export function toString(scope: ish, separator = ' '): string {
   }
   return scope.join(separator);
 }
+
+export function toArray(scope: ish, separator = ' '): string[] {
+  if (Array.isArray(scope)) {
+    return scope;
+  }
+  return scope.split(separator);
+}
