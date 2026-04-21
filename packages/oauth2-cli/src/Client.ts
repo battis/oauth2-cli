@@ -181,9 +181,9 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
   }
 
   /** Start interactive authorization for API access with the user */
-  public async authorize() {
+  public async authorize(options?: Options.Authorize) {
     return await this.tokenLock.runExclusive(async () => {
-      return await this._authorize();
+      return await this._authorize(options);
     });
   }
 
@@ -193,10 +193,10 @@ export class Client<C extends Credentials = Credentials> extends EventEmitter {
    *
    * Should be called _only_ from within a `tokenLock.runExclusive()` callback
    */
-  private async _authorize() {
+  private async _authorize({ reason }: Options.Authorize = {}) {
     const session = new Localhost.Server({
       client: this,
-      reason: this.reason,
+      reason: reason || this.reason,
       ...this.localhostOptions
     });
     const token = await this.save(await session.authorizationCodeGrant());

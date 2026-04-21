@@ -36,6 +36,16 @@ export type Client<C extends Credentials = Credentials> = {
   localhost?: LocalhostOptions;
 };
 
+export type Authorize = {
+  /**
+   * Human-readable reason for authorizing access in messages (e.g. the app
+   * name)
+   *
+   * Overrides any provided reason
+   */
+  reason?: string;
+};
+
 export type Refresh = {
   /**
    * Optional refresh token
