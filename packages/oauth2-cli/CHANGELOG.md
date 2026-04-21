@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.6](https://github.com/battis/oauth2-cli/compare/oauth2-cli/2.0.5...oauth2-cli/2.0.6) (2026-04-21)
+
+
+### Bug Fixes
+
+* allow optional override for authorization reason ([16dfdde](https://github.com/battis/oauth2-cli/commit/16dfddef7ea429c22cce93570bba5ac6869a36b0))
+* emphasize auth reason in UI messages ([28276a6](https://github.com/battis/oauth2-cli/commit/28276a61ff357988bad654b93f46b4436a432bbf))
+
 ## [2.0.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/2.0.4...oauth2-cli/2.0.5) (2026-04-21)
 
 
