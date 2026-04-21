@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.5](https://github.com/battis/oauth2-cli/compare/oauth2-cli/2.0.4...oauth2-cli/2.0.5) (2026-04-21)
+
+
+### Bug Fixes
+
+* support Token.Scope.toArray() ([1c6cb79](https://github.com/battis/oauth2-cli/commit/1c6cb79f2d6ff0cbca172ba5ae6008705f1c3a88))
+
 ## [2.0.4](https://github.com/battis/oauth2-cli/compare/oauth2-cli/2.0.3...oauth2-cli/2.0.4) (2026-03-31)
 
 
