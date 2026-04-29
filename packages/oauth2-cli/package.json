@@ -28,10 +28,10 @@
     "async-mutex": "^0.5.0",
     "express": "^5.2.1",
     "gcrtl": "workspace:*",
-    "oauth4webapi": "^3.8.5",
+    "oauth4webapi": "^3.8.6",
     "open": "^11.0.0",
-    "openid-client": "^6.8.3",
-    "ora": "^9.3.0",
+    "openid-client": "^6.8.4",
+    "ora": "^9.4.0",
     "requestish": "workspace:*"
   },
   "devDependencies": {

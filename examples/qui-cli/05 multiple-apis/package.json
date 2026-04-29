@@ -26,7 +26,7 @@
     "@oauth2-cli/qui-cli": "workspace:*",
     "@qui-cli/core": "^6.0.4",
     "@qui-cli/log": "^4.0.4",
-    "@qui-cli/plugin": "^4.1.1",
+    "@qui-cli/plugin": "^4.1.2",
     "@qui-cli/root": "^3.1.1"
   },
   "devDependencies": {

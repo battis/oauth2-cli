@@ -25,7 +25,7 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "oauth2-cli": "workspace:*",
-    "ora": "^9.3.0"
+    "ora": "^9.4.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
