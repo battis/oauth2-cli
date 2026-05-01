@@ -30,7 +30,7 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@commitlint/config-pnpm-scopes": "^20.5.2",
     "@qui-cli/colors": "^3.2.4",
-    "@qui-cli/core": "^6.0.4",
+    "@qui-cli/core": "^7.0.0",
     "@qui-cli/plugin": "^4.1.2",
     "@qui-cli/root": "^3.1.1",
     "@tsconfig/node24": "^24.0.4",
