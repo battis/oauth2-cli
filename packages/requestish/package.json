@@ -22,16 +22,16 @@
     "build:compile": "tsc",
     "test": "jest",
     "prepack": "run-s build",
-    "release": "commit-and-tag-version"
+    "release": "commit-and-tag-version --noBumpWhenEmptyChanges"
   },
   "dependencies": {
     "@battis/descriptive-types": "^0.2.6",
-    "@battis/typescript-tricks": "^0.8.2"
+    "@battis/typescript-tricks": "^0.8.4"
   },
   "devDependencies": {
+    "@battis/workspace": "^0.0.5",
     "@tsconfig/recommended": "^1.0.13",
     "@types/jest": "^30.0.0",
-    "commit-and-tag-version": "^12.7.3",
     "del-cli": "^7.0.0",
     "jest": "^30.4.2",
     "npm-run-all": "^4.1.5",

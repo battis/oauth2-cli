@@ -1,5 +1,5 @@
 {
   "path": ".",
   "tag-prefix": "qui-cli-plugin/",
-  "releaseCommitMessageFormat": "chore: @oauth2-cli/qui-cli-plugin@{{currentTag}}"
+  "releaseCommitMessageFormat": "chore(qui-cli): @oauth2-cli/qui-cli@{{currentTag}}"
 }

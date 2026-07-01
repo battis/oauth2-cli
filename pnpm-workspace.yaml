@@ -1,15 +1,20 @@
 publicHoistPattern:
   - '*eslint*'
   - '*prettier*'
-
+  - lerna
+  - monorepo-package-paths
+  - npm-run-all
+  - '@commitlint/*'
+  - commit-and-tag-version
 allowBuilds:
   esbuild: true
   nx: true
   unrs-resolver: false
-
 packages:
   - packages/*
   - examples/oauth2-cli/*
   - examples/qui-cli/*
   - '!examples/qui-cli/06 api-plugin'
   - examples/qui-cli/06 api-plugin/*
+minimumReleaseAgeExclude:
+  - '@battis/*'

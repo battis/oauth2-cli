@@ -2,12 +2,13 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "{projectRoot}/dist"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "release": {
+      "cache": true,
+      "dependsOn": ["^release"],
+      "outputs": ["{projectRoot}/package.json", "{projectRoot}/CHANGELOG.md"]
     }
   }
 }

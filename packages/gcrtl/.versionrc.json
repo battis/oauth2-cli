@@ -1,5 +1,5 @@
 {
   "path": ".",
   "tag-prefix": "gcrtl/",
-  "releaseCommitMessageFormat": "chore: gcrtl@{{currentTag}}"
+  "releaseCommitMessageFormat": "chore(gcrtl): gcrtl@{{currentTag}}"
 }
